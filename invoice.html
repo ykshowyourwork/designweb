@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Your invoice · %name%</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap"><a class="logo" href="/">%name%<span>.</span></a><span class="muted">Invoice</span></div>
+    </header>
+    <main class="narrow" id="app" aria-busy="true"><p class="muted">Loading your invoice…</p></main>
+    <footer><div class="wrap"><span>© %year% %name%</span><a href="mailto:%email%">%email%</a></div></footer>
+    <script type="module" src="/src/invoice.js"></script>
+  </body>
+</html>

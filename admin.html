@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Invoices · %name%</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap"><a class="logo" href="/">%name%<span>.</span></a><span class="muted">Invoices</span></div>
+    </header>
+    <main class="narrow">
+      <form id="login">
+        <h1>Invoices</h1>
+        <label for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="current-password" required />
+        <button class="btn" style="margin-top: 14px">Open</button>
+        <p class="msg err" id="login-msg" role="alert"></p>
+      </form>
+
+      <div id="panel" hidden>
+        <h1>New invoice</h1>
+        <form id="create">
+          <label for="title">What it's for</label>
+          <input id="title" required placeholder="Website build" />
+          <label for="clientName">Client name</label>
+          <input id="clientName" required placeholder="Business or owner name" />
+          <label for="clientEmail">Client email</label>
+          <input id="clientEmail" type="email" required placeholder="owner@business.com" />
+          <label>Lines</label>
+          <div id="lines"></div>
+          <button type="button" class="btn ghost" id="add-line">Add a line</button>
+          <label for="deposit">Deposit now</label>
+          <select id="deposit">
+            <option value="50">50% now, 50% at launch</option>
+            <option value="100">100% now</option>
+          </select>
+          <p class="muted" id="split" style="margin-top: 10px"></p>
+          <button class="btn" id="send">Create and email the deposit</button>
+          <p class="msg" id="create-msg" role="status"></p>
+        </form>
+
+        <h2 style="margin-top: 48px">Projects</h2>
+        <div id="projects"><p class="muted">Loading…</p></div>
+      </div>
+    </main>
+    <script type="module" src="/src/admin.js"></script>
+  </body>
+</html>
