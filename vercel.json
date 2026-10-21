@@ -1,8 +1,10 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/:path*", "has": [{ "type": "host", "value": "www.desiweb.org" }], "destination": "https://desiweb.org/:path*", "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/invoice/:token", "destination": "/invoice.html" },
-    { "source": "/admin", "destination": "/admin.html" }
+    { "source": "/invoice/:token", "destination": "/invoice" }
   ],
   "headers": [
     { "source": "/invoice/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
