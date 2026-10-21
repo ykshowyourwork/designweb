@@ -44,7 +44,7 @@ Pricing: Starter $1,500 · Growth $3,500 + $300/mo (month to month) · Full Stac
 
 ## Not done yet
 
-1. **Go live:** import this repo into Vercel and set `STRIPE_SECRET_KEY`, `ADMIN_PASSWORD`, `NOTION_TOKEN`, `NOTION_LEADS_DB`. Share the Notion leads database with the Notion integration.
+1. **Live at https://desiweb.org (2026-10-21).** Vercel project `desiweb` in the yardy-know team, its own project and keys. Pushing to GitHub `main` deploys on its own. DNS at Porkbun: A @ 216.198.79.1 and 64.29.17.1, CNAME www → 75a461a63d316baa.vercel-dns-017.com (www redirects to desiweb.org). Already set in Vercel: `NOTION_LEADS_DB`, `SITE_URL`. **Still needed:** `STRIPE_SECRET_KEY`, `ADMIN_PASSWORD`, `NOTION_TOKEN`. The owner runs `bash scripts/set-secrets.sh` (hidden typing, redeploys). Until then the forms and invoices show an error. Share the Notion leads database with the DesiWeb integration (••• → Connections).
 2. **Domain email and phone:** set up an @desiweb.org email (for example hello@desiweb.org) and a business phone, then put them in `brand.json` (`email`, `phone`). The contact email is still yardyknowent@gmail.com, which is shown on invoices. Optional: a Calendly link in `callUrl` (empty = the /book-a-call form).
 2b. **Review the Terms page** (`terms/index.html`), mainly the refund policy: full deposit refund before the build starts, none after. It's a plain-English draft, not legal advice.
 3. **Stripe:** use a separate Stripe account for this business (recommended) and set its name and logo under Settings → Branding.
