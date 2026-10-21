@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /invoice/
 Disallow: /admin
+
+Sitemap: https://designweb.example/sitemap.xml

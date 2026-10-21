@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "tree-service",
+    "name": "Tree Service",
+    "plural": "tree service companies",
+    "headline": "Websites for tree service companies that get the call after the storm.",
+    "intro": "When a tree comes down, people grab their phone and search. The tree service that shows up first, with a big call button and real photos, gets the job. We build that site.",
+    "searches": ["tree removal near me", "emergency tree removal", "stump grinding [your city]", "tree trimming cost"],
+    "build": [
+      "An emergency page with a call button and \"24/7\" at the very top",
+      "A page for each service: removal, trimming, stump grinding, land clearing",
+      "A page for each town you work in, so you show up there on Google",
+      "A quote form where customers upload a photo of the tree",
+      "A before and after gallery of your jobs"
+    ]
+  },
+  {
+    "slug": "roofing",
+    "name": "Roofing",
+    "plural": "roofing contractors",
+    "headline": "Websites for roofers that turn storm searches into inspections.",
+    "intro": "A roof is a big decision, and homeowners check you out before they call. Your site has to look established, show your work and make booking an inspection easy.",
+    "searches": ["roof repair near me", "roof replacement cost", "storm damage roof inspection", "roofers in [your city]"],
+    "build": [
+      "A free inspection form that lands in your phone",
+      "Pages for repair, replacement, storm damage and insurance claims",
+      "A page for each town you work in",
+      "A project gallery and your Google reviews on the page",
+      "Financing information, if you offer it"
+    ]
+  },
+  {
+    "slug": "hvac",
+    "name": "HVAC",
+    "plural": "HVAC companies",
+    "headline": "Websites for HVAC companies that win the 'AC is out' search.",
+    "intro": "Nobody shops for an HVAC company until something breaks. When it does, they want someone fast. Your site needs to show up first and make calling you take one tap.",
+    "searches": ["AC repair near me", "furnace repair", "HVAC company [your city]", "AC not cooling"],
+    "build": [
+      "A same-day service button on every page",
+      "Pages for AC repair, heating repair, installs and maintenance plans",
+      "A page for each town you work in",
+      "Online booking for tune-ups and maintenance visits",
+      "A sign-up page for maintenance plans that bill monthly"
+    ]
+  },
+  {
+    "slug": "plumbing",
+    "name": "Plumbing",
+    "plural": "plumbers",
+    "headline": "Websites for plumbers that ring your phone, not your competitor's.",
+    "intro": "A leak can't wait, and neither will your customer. If your site is slow or hard to use on a phone, they hit the back button and call the next plumber.",
+    "searches": ["plumber near me", "emergency plumber", "water heater replacement", "drain cleaning [your city]"],
+    "build": [
+      "A click-to-call button at the top of every page",
+      "Pages for emergencies, drains, water heaters and repipes",
+      "A page for each town you work in",
+      "A quote form for bigger jobs like water heaters",
+      "Your licenses, insurance and reviews where people can see them"
+    ]
+  },
+  {
+    "slug": "salons-and-barbers",
+    "name": "Salons and Barbers",
+    "plural": "salons and barbershops",
+    "headline": "Websites for salons and barbershops that fill the chair.",
+    "intro": "Instagram shows your work, but it doesn't show up on Google. A real site puts you in front of people searching for a new barber or stylist, and sends them straight to booking.",
+    "searches": ["barbershop near me", "hair salon [your city]", "braids near me", "best fade near me"],
+    "build": [
+      "A Book Now button that goes to the booking app you already use",
+      "A page for each service with prices",
+      "Your Instagram work on the site",
+      "A page for each stylist or barber",
+      "Hours, location and parking info that Google can read"
+    ]
+  },
+  {
+    "slug": "wedding-vendors",
+    "name": "Wedding Vendors",
+    "plural": "wedding vendors",
+    "headline": "Websites for wedding vendors that book the date.",
+    "intro": "Couples compare a dozen vendors before they reach out. DJs, photographers, florists and venues need a site that shows the work, answers questions and makes it easy to check a date.",
+    "searches": ["wedding DJ near me", "wedding photographer [your city]", "wedding florist", "wedding venues near me"],
+    "build": [
+      "A check-your-date form that sends you the couple's details",
+      "Packages and starting prices",
+      "A gallery or video of real weddings",
+      "Deposits by card to lock in the date",
+      "Reviews from couples on every page"
+    ]
+  }
+]

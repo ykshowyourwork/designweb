@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- @include head -->
+    <title>Free Mockup | %name%</title>
+    <meta name="description" content="Get a free mockup of your new homepage in about two days. No commitment. Or book a 15-minute call." />
+    <link rel="canonical" href="https://%domain%/free-mockup" />
+    <meta property="og:title" content="Free Mockup | %name%" />
+    <meta property="og:description" content="Get a free mockup of your new homepage in about two days. No commitment. Or book a 15-minute call." />
+    <meta property="og:url" content="https://%domain%/free-mockup" />
+  </head>
+  <body>
+    <!-- @include header -->
+    <main>
+      <section class="page-hero">
+        <div class="wrap">
+          <div class="eyebrow">Free mockup</div>
+          <h1>See your new homepage before you pay anything.</h1>
+          <p class="lead">Tell us about your business. We design your homepage in about two days and walk you through it on a 15-minute call. No commitment.</p>
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <form class="lead" id="lead" novalidate>
+            <label for="business">Business name</label>
+            <input id="business" name="business" required autocomplete="organization" />
+            <label for="name">Your name</label>
+            <input id="name" name="name" required autocomplete="name" />
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" required autocomplete="tel" />
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" />
+            <label for="industry">Your trade</label>
+            <select id="industry" name="industry"><option value="Tree service">Tree service</option><option value="Roofing">Roofing</option><option value="HVAC">HVAC</option><option value="Plumbing">Plumbing</option><option value="Salons and barbers">Salons and barbers</option><option value="Wedding vendors">Wedding vendors</option><option value="Other">Other</option></select>
+            <label for="google">Your Google listing or Instagram (optional)</label>
+            <input id="google" name="google" type="url" placeholder="https://" />
+            <label for="website">Your current website (optional)</label>
+            <input id="website" name="website" type="url" placeholder="https://" />
+            <label for="message">Anything we should know? (optional)</label>
+            <textarea id="message" name="message"></textarea>
+            <div class="hp" aria-hidden="true"><label for="company">Leave this empty</label><input id="company" name="company" tabindex="-1" autocomplete="off" /></div>
+            <button class="btn" id="lead-send" style="margin-top: 16px">Get my free mockup</button>
+            <p class="msg" id="lead-msg" role="status"></p>
+          </form>
+          <p class="muted" style="margin-top: 24px">Rather talk first? <a href="%callHref%">Book a 15-minute call</a>.</p>
+        </div>
+      </section>
+      <script type="module" src="/src/lead.js"></script>
+    </main>
+    <!-- @include footer -->
+  </body>
+</html>

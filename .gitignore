@@ -2,3 +2,6 @@ node_modules
 dist
 .vercel
 .env*
+industries/*/
+public/sitemap.xml
+public/llms.txt

@@ -113,3 +113,22 @@ input, select { width: 100%; min-height: 46px; padding: 0 12px; border-radius: 1
 .project .meta { font-size: 14px; color: var(--muted); }
 .project .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .project .btn { min-height: 40px; padding: 0 16px; font-size: 14px; }
+
+/* Shared footer + inner pages */
+.footer-cols { display: grid; gap: 24px; grid-template-columns: 2fr 1fr 1fr; }
+.footer-cols nav { display: flex; flex-direction: column; gap: 8px; }
+.footer-cols nav a { text-decoration: none; }
+@media (max-width: 720px) { .footer-cols { grid-template-columns: 1fr 1fr; } .footer-cols > div:first-child { grid-column: 1 / -1; } }
+.page-hero { padding: 64px 0 40px; }
+.page-hero p.lead { font-size: 1.15rem; max-width: 680px; color: var(--muted); }
+.crumbs { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+.crumbs a { text-decoration: none; }
+.prose { max-width: 720px; }
+.prose ul { padding-left: 20px; }
+.prose li { margin-bottom: 8px; }
+.tiles a.card { text-decoration: none; display: block; }
+.tiles a.card:hover { border-color: var(--brand); }
+form.lead { max-width: 560px; }
+form.lead textarea { width: 100%; min-height: 110px; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--card); color: var(--fg); font: inherit; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.ok-box { border: 2px solid var(--ok); }
