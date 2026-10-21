@@ -32,6 +32,7 @@ const blocks = {
       "@type": "FAQPage",
       mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     }).replace(/</g, "\\u003c")}</script>`,
+  logo: () => fs.readFileSync(path.join(root, "brand/logo-current.svg"), "utf8"),
   contact: () => [`<a href="mailto:${brand.email}">${brand.email}</a>`, brand.phone && `<a href="tel:${brand.phone.replace(/[^\d+]/g, "")}">${brand.phone}</a>`].filter(Boolean).join("\n"),
 };
 

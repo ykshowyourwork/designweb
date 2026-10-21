@@ -33,6 +33,10 @@ Pricing: Starter $1,500 · Growth $3,500 + $300/mo (month to month) · Full Stac
 - Top leads so far: JL Absolute Tree Service, Independence MO (816) 499-9893, 411 reviews · Pines Tree Service, Spring TX (346) 668-4946, 216 · Friendswood Tree & Fence, TX (281) 282-7924, 141.
 - Tree services have the most reviews with no website in every city searched. It's the strongest niche so far.
 
+## Logo (2026-10-21)
+
+Option B: the blue "d." tile + "DesiWeb." wordmark, made from Inter 800 (free commercial license, SIL OFL). Files in `brand/`: `logo.svg` (dark text), `logo-white.svg` (for dark backgrounds), `icon.svg`, `icon-512.png`, `logo-on-white.png`, `stripe-icon.png` (square, for Stripe → Settings → Branding → Icon). The site header, footer, invoice and admin pages use `brand/logo-current.svg`; the browser-tab icon is `public/favicon.svg`. Other options are in `brand/logo-options/`. Don't use the Druk or "Demo" fonts on this Mac for anything commercial: they're trial licenses.
+
 ## What's built (this repo)
 
 - Public pages: home, how it works, what you get, services + 6 service pages, pricing, industries + 6 trade pages, examples (The Set and YK case studies + 5 sample sites), FAQ, about, book a call, free mockup, terms, privacy. Google and AI ready (Schema, sitemap, llms.txt, link preview image).

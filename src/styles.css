@@ -57,6 +57,8 @@ header.top { border-bottom: 1px solid var(--line); }
 header.top .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 64px; gap: 12px; }
 .logo { font-weight: 800; font-size: 1.15rem; text-decoration: none; letter-spacing: -0.02em; }
 .logo span { color: var(--brand); }
+.logo svg { display: block; height: 30px; width: auto; }
+footer .logo svg { height: 26px; }
 nav.links { display: flex; gap: 20px; align-items: center; }
 nav.links a { text-decoration: none; font-weight: 600; font-size: 15px; }
 nav.links > a:not(.btn) { white-space: nowrap; }
@@ -70,7 +72,8 @@ details.menu summary::-webkit-details-marker { display: none; }
   nav.links { gap: 10px; }
   nav.links > a:not(.btn) { display: none; }
   details.menu { display: block; }
-  nav.links .btn { min-height: 42px; padding: 0 16px; font-size: 15px; }
+  nav.links .btn { min-height: 42px; padding: 0 16px; font-size: 15px; white-space: nowrap; }
+  .logo svg { height: 26px; }
 }
 
 section { padding: 72px 0; border-bottom: 1px solid var(--line); }

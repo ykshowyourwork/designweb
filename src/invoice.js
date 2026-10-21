@@ -13,8 +13,8 @@ function show(html) {
 async function load() {
   try {
     const res = await fetch(`/api/invoice?token=${encodeURIComponent(token)}`);
-    const p = await res.json();
-    if (!res.ok) throw new Error(p.error || "That invoice isn't available.");
+    const p = await res.json().catch(() => ({}));
+    if (!res.ok || !p.payments) throw new Error(p.error || "That invoice isn't available. Check the link in your email, or contact us.");
 
     const total = p.items.reduce((n, i) => n + i.amount, 0) || p.payments.reduce((n, x) => n + x.amount, 0);
     const allPaid = p.payments.length && p.payments.every((x) => x.status === "paid" || x.status === "canceled");
