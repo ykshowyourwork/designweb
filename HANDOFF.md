@@ -4,7 +4,7 @@ Read this first. It covers the business, what's built, where everything lives, a
 
 ## The business
 
-Selling websites to local service businesses by cold calling. Working name **DesignWeb** (final name not picked; "DigBiz Digital" was floated). Goal: book 10 clients, then turn every step into a Notion guide an AI agent can follow.
+Selling websites to local service businesses by cold calling. Name: **DesiWeb**, domain **desiweb.org** (bought 2026-10-21). Goal: book 10 clients, then turn every step into a Notion guide an AI agent can follow.
 
 Pricing: Starter $1,500 · Growth $3,500 + $300/mo (month to month) · Full Stack from $7,500 · App Store add-on $1,000 ($500 intro for the first 3 clients) · 50% deposit, 50% at launch.
 
@@ -35,7 +35,9 @@ Pricing: Starter $1,500 · Growth $3,500 + $300/mo (month to month) · Full Stac
 
 ## What's built (this repo)
 
-- 11 public pages: home, how it works, what you get, pricing, industries + 6 trade pages, examples, FAQ, about, free mockup. Google and AI ready (Schema, sitemap, llms.txt).
+- Public pages: home, how it works, what you get, services + 6 service pages, pricing, industries + 6 trade pages, examples (The Set and YK case studies + 5 sample sites), FAQ, about, book a call, free mockup, terms, privacy. Google and AI ready (Schema, sitemap, llms.txt, link preview image).
+- Everything Relume's plan had is in the site (2026-10-21). Relume only ever had the Home page laid out; the site is now the source of truth. Next phase: the look and feel, based on https://fluid22.com/.
+- Sample sites (`/examples/<slug>`) are made-up businesses, clearly labeled, set to noindex, with 555 phone numbers. The tree service one leads with a 24/7 emergency call bar.
 - `/free-mockup` form → a new row in Notion "DesignWeb Inbound Leads" (needs `NOTION_TOKEN`).
 - `/invoice/<token>` and `/admin`: invoices in Stripe, 50% deposit emailed right away, balance sent on launch day with one button. No database.
 - Tests: `npm test` (7 passing). Checked on a phone-sized screen: all pages fit and all links work.
@@ -43,7 +45,8 @@ Pricing: Starter $1,500 · Growth $3,500 + $300/mo (month to month) · Full Stac
 ## Not done yet
 
 1. **Go live:** import this repo into Vercel and set `STRIPE_SECRET_KEY`, `ADMIN_PASSWORD`, `NOTION_TOKEN`, `NOTION_LEADS_DB`. Share the Notion leads database with the Notion integration.
-2. **Pick the name and domain**, then update `brand.json` (name, domain, email, `callUrl` booking link). The contact email is currently yardyknowent@gmail.com.
+2. **Domain email and phone:** set up an @desiweb.org email (for example hello@desiweb.org) and a business phone, then put them in `brand.json` (`email`, `phone`). The contact email is still yardyknowent@gmail.com, which is shown on invoices. Optional: a Calendly link in `callUrl` (empty = the /book-a-call form).
+2b. **Review the Terms page** (`terms/index.html`), mainly the refund policy: full deposit refund before the build starts, none after. It's a plain-English draft, not legal advice.
 3. **Stripe:** use a separate Stripe account for this business (recommended) and set its name and logo under Settings → Branding.
 4. **Relume:** review the Relume project in Chrome and compare it to this site. Also run the JL Absolute Tree Service Relume prompt to make the first example/mockup.
 5. **Decide:** whether Full Stack has a monthly fee ($750–1,500/mo was discussed; the site shows none).

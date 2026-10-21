@@ -1,0 +1,142 @@
+[
+  {
+    "slug": "summit-ridge-tree-care",
+    "industry": "tree-service",
+    "trade": "Tree service",
+    "name": "Summit Ridge Tree Care",
+    "city": "Independence, MO",
+    "phone": "(816) 555-0142",
+    "accent": "#2f6b3a",
+    "dark": false,
+    "emergency": "24/7 emergency tree removal. Tree on your house or car? Call now.",
+    "headline": "Storm took a tree down? We're on the way.",
+    "intro": "Tree removal, trimming and stump grinding across eastern Kansas City. Licensed, insured and on call 24/7.",
+    "cta": "Get a free estimate",
+    "trust": ["Licensed and insured", "Free estimates", "On call 24/7"],
+    "services": [
+      ["Emergency tree removal", "Fallen tree on your roof, car or driveway. We come day or night."],
+      ["Tree removal", "Safe removal of dead, leaning or unwanted trees, close to homes and lines."],
+      ["Tree trimming", "Shaping, thinning and clearing branches off your roof and wires."],
+      ["Stump grinding", "Stumps ground below the grass line, chips cleaned up."],
+      ["Land clearing", "Lots and fence lines cleared for building or a fresh start."]
+    ],
+    "towns": ["Independence", "Blue Springs", "Lee's Summit", "Raytown", "Grain Valley", "Sugar Creek"],
+    "reviews": [
+      ["Had an oak on our garage at 2 a.m. They were out by 6 and gone by noon.", "Sample review"],
+      ["Fair price, cleaned up better than they found it.", "Sample review"]
+    ],
+    "form": "Upload a photo of the tree"
+  },
+  {
+    "slug": "lone-star-roof-pros",
+    "industry": "roofing",
+    "trade": "Roofing",
+    "name": "Lone Star Roof Pros",
+    "city": "Spring, TX",
+    "phone": "(281) 555-0118",
+    "accent": "#b4462b",
+    "dark": false,
+    "emergency": "",
+    "headline": "Storm damage? Get a free roof inspection this week.",
+    "intro": "Roof repair, replacement and insurance claims across north Houston. We walk the roof, take photos and tell you straight.",
+    "cta": "Book a free inspection",
+    "trust": ["Free inspections", "Insurance claim help", "Financing available"],
+    "services": [
+      ["Roof repair", "Leaks, missing shingles and flashing fixed fast."],
+      ["Roof replacement", "Full tear-off and new roof, usually in one day."],
+      ["Storm damage", "Hail and wind damage found, photographed and fixed."],
+      ["Insurance claims", "We meet your adjuster and handle the paperwork."],
+      ["Gutters", "New gutters and guards to protect the roof you just paid for."]
+    ],
+    "towns": ["Spring", "The Woodlands", "Tomball", "Humble", "Kingwood", "Cypress"],
+    "reviews": [
+      ["They found hail damage two other roofers missed and dealt with my insurance for me.", "Sample review"],
+      ["New roof in one day. Crew was respectful and the yard was spotless.", "Sample review"]
+    ],
+    "form": "Tell us about your roof"
+  },
+  {
+    "slug": "coolwave-heating-and-air",
+    "industry": "hvac",
+    "trade": "HVAC",
+    "name": "Coolwave Heating & Air",
+    "city": "Mesa, AZ",
+    "phone": "(480) 555-0177",
+    "accent": "#0e7cc2",
+    "dark": false,
+    "emergency": "AC out? Same-day service. Call before noon, we're there today.",
+    "headline": "AC out? We'll have you cool tonight.",
+    "intro": "AC repair, heating and new systems across the East Valley. Upfront prices before we touch a thing.",
+    "cta": "Book same-day service",
+    "trust": ["Same-day service", "Upfront pricing", "Maintenance plans"],
+    "services": [
+      ["AC repair", "Not cooling, blowing warm or making noise. Fixed same day."],
+      ["Heating repair", "Furnaces and heat pumps back up and running."],
+      ["New AC systems", "Right-sized systems with financing options."],
+      ["Maintenance plans", "Two tune-ups a year and priority service, billed monthly."],
+      ["Indoor air quality", "Filters, purifiers and duct cleaning."]
+    ],
+    "towns": ["Mesa", "Gilbert", "Chandler", "Tempe", "Queen Creek", "Apache Junction"],
+    "reviews": [
+      ["Called at 9, tech was here by 1. House was cool by dinner.", "Sample review"],
+      ["The maintenance plan has already paid for itself.", "Sample review"]
+    ],
+    "form": "Book a time"
+  },
+  {
+    "slug": "bluepipe-plumbing",
+    "industry": "plumbing",
+    "trade": "Plumbing",
+    "name": "Bluepipe Plumbing",
+    "city": "Plano, TX",
+    "phone": "(972) 555-0163",
+    "accent": "#1d4ed8",
+    "dark": false,
+    "emergency": "24/7 emergency plumber. Burst pipe or no hot water? Call now.",
+    "headline": "Leak, clog or no hot water? We'll fix it today.",
+    "intro": "Licensed plumbers across Collin County. Emergency calls answered 24/7, with the price before the work.",
+    "cta": "Get a quote",
+    "trust": ["Licensed master plumber", "24/7 emergencies", "Price before the work"],
+    "services": [
+      ["Emergency plumbing", "Burst pipes and flooding, any hour."],
+      ["Drain cleaning", "Kitchen, bath and main line clogs cleared."],
+      ["Water heaters", "Repair and same-day replacement, tank or tankless."],
+      ["Leak detection", "Hidden leaks found without tearing up the house."],
+      ["Repipes", "Old pipes swapped out for good."]
+    ],
+    "towns": ["Plano", "Frisco", "Allen", "McKinney", "Richardson", "Murphy"],
+    "reviews": [
+      ["Water heater died Sunday night. New one in by Monday morning.", "Sample review"],
+      ["Told me the price up front and stuck to it.", "Sample review"]
+    ],
+    "form": "Tell us what's going on"
+  },
+  {
+    "slug": "fade-theory-barbershop",
+    "industry": "salons-and-barbers",
+    "trade": "Barbershop",
+    "name": "Fade Theory Barbershop",
+    "city": "Inglewood, CA",
+    "phone": "(323) 555-0190",
+    "accent": "#d4a72c",
+    "dark": true,
+    "emergency": "",
+    "headline": "Clean fades. No wait. Book your chair.",
+    "intro": "Fades, tapers, beard work and kids' cuts in Inglewood. Book online in 30 seconds and walk right in.",
+    "cta": "Book now",
+    "trust": ["Book online", "Walk-ins welcome", "Open 7 days"],
+    "services": [
+      ["Haircut", "$40 · 45 min"],
+      ["Skin fade", "$45 · 45 min"],
+      ["Beard trim and line-up", "$25 · 20 min"],
+      ["Cut and beard", "$60 · 60 min"],
+      ["Kids' cut (12 and under)", "$30 · 30 min"]
+    ],
+    "towns": ["Inglewood", "Hawthorne", "Westchester", "Ladera Heights", "Lennox", "Culver City"],
+    "reviews": [
+      ["Booked on my phone, walked in, sat right down. Best fade in the area.", "Sample review"],
+      ["My son actually looks forward to haircuts now.", "Sample review"]
+    ],
+    "form": "Pick a time"
+  }
+]

@@ -1,4 +1,5 @@
 // The client's invoice: /invoice/<token>. Paying opens Stripe's secure page.
+import brand from "../brand.json";
 import { LABEL, day, esc, money } from "./money.js";
 
 const app = document.getElementById("app");
@@ -21,7 +22,10 @@ async function load() {
     show(`
       <div class="eyebrow">Invoice</div>
       <h1>${esc(p.title)}</h1>
-      <p class="muted">For ${esc(p.clientName)}</p>
+      <div class="parties">
+        <div><span class="muted">From</span><strong>${esc(brand.name)}</strong><span>${esc(brand.domain)}</span><span>${esc(brand.email)}</span></div>
+        <div><span class="muted">Billed to</span><strong>${esc(p.clientName)}</strong></div>
+      </div>
 
       ${p.items.length ? `
         <div class="card rows" style="margin-top: 24px">
@@ -46,7 +50,11 @@ async function load() {
         </div>`).join("")}
 
       ${allPaid ? `<p class="paid" style="margin-top: 16px">All paid. Thank you.</p>` : ""}
-      <p class="note">Paid securely by card through Stripe. Questions? Reply to the invoice email.</p>
+      <div class="card trust-note">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg>
+        <p>Payments are processed by <strong>Stripe</strong>, the payment company behind millions of businesses. Your card number goes straight to Stripe; ${esc(brand.name)} never sees it. You get an emailed receipt.</p>
+      </div>
+      <p class="note">By paying, you agree to our <a href="/terms">terms</a>, including the <a href="/terms#refunds">refund policy</a>. Questions? Email <a href="mailto:${esc(brand.email)}">${esc(brand.email)}</a> or reply to the invoice email.</p>
     `);
   } catch (e) {
     show(`<h1>Invoice</h1><p class="muted">${esc(e.message || "That invoice isn't available.")}</p>`);

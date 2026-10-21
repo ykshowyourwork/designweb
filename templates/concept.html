@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Sample site: {{trade}} | %name%</title>
+    <meta name="description" content="A sample {{trade}} website by %name%. {{name}} is a made-up business." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/concept.css" />
+    <style>:root { --accent: {{accent}}; }</style>
+  </head>
+  <body class="{{theme}}">
+    <div class="demo-bar">
+      <span><strong>Sample site by %name%.</strong> {{name}} is a made-up business.</span>
+      <span class="demo-links"><a href="/examples">All examples</a><a class="demo-btn" href="/free-mockup?industry={{industry}}">Get one for your business</a></span>
+    </div>
+
+    {{emergencyBar}}
+
+    <header class="c-top">
+      <div class="c-wrap">
+        <span class="c-logo">{{name}}</span>
+        <a class="c-call" href="#" data-demo>Call {{phone}}</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="c-hero">
+        <div class="c-wrap">
+          <p class="c-eyebrow">{{trade}} · {{city}}</p>
+          <h1>{{headline}}</h1>
+          <p class="c-lead">{{intro}}</p>
+          <div class="c-ctas">
+            <a class="c-btn" href="#quote">{{cta}}</a>
+            <a class="c-btn ghost" href="#" data-demo>Call {{phone}}</a>
+          </div>
+          <ul class="c-trust">{{trust}}</ul>
+        </div>
+      </section>
+
+      <section class="c-section">
+        <div class="c-wrap">
+          <h2>Services</h2>
+          <div class="c-grid">{{services}}</div>
+        </div>
+      </section>
+
+      <section class="c-section">
+        <div class="c-wrap">
+          <h2>Where we work</h2>
+          <p class="c-muted">Serving {{city}} and nearby towns:</p>
+          <ul class="c-towns">{{towns}}</ul>
+        </div>
+      </section>
+
+      <section class="c-section">
+        <div class="c-wrap">
+          <h2>What customers say</h2>
+          <div class="c-grid">{{reviews}}</div>
+        </div>
+      </section>
+
+      <section class="c-section" id="quote">
+        <div class="c-wrap">
+          <h2>{{form}}</h2>
+          <form class="c-form" data-demo-form>
+            <input placeholder="Your name" aria-label="Your name" />
+            <input placeholder="Phone" aria-label="Phone" type="tel" />
+            <textarea placeholder="What do you need?" aria-label="What do you need?"></textarea>
+            <button class="c-btn" type="submit">{{cta}}</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="c-foot"><div class="c-wrap">{{name}} · {{city}} · {{phone}}</div></footer>
+
+    <aside class="demo-notes">
+      <div class="c-wrap">
+        <p class="demo-eyebrow">How %name% built this</p>
+        <h2>What this sample shows</h2>
+        <ul>
+          <li><strong>The main button is on the first screen.</strong> No scrolling to find how to call or get a quote.</li>
+          {{emergencyNote}}
+          <li><strong>Made for phones first.</strong> Big buttons, short lines, fast to load.</li>
+          <li><strong>One page per service and per town.</strong> On the real site, each item above gets its own page, so it can show up on Google for that search: {{pageList}}.</li>
+          <li><strong>Google and AI ready.</strong> Schema code tells Google and ChatGPT the business name, services, towns and hours.</li>
+        </ul>
+        <a class="demo-btn big" href="/free-mockup?industry={{industry}}">Get a free mockup of yours</a>
+      </div>
+    </aside>
+
+    <div class="demo-toast" role="status" hidden>This is a sample site. On your real site, this calls or texts you right away.</div>
+    <script>
+      const toast = document.querySelector(".demo-toast");
+      const show = (e) => {
+        e.preventDefault();
+        toast.hidden = false;
+        clearTimeout(show.t);
+        show.t = setTimeout(() => (toast.hidden = true), 3500);
+      };
+      document.querySelectorAll("[data-demo]").forEach((a) => a.addEventListener("click", show));
+      document.querySelector("[data-demo-form]").addEventListener("submit", show);
+    </script>
+  </body>
+</html>

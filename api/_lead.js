@@ -1,9 +1,11 @@
-// Free mockup requests from the site go straight into the Notion database
-// "DesignWeb Inbound Leads" as a new row with Status = New.
+// Free mockup and call requests from the site go straight into the Notion
+// database "DesignWeb Inbound Leads" as a new row with Status = New. Call
+// requests start their Message with "Call request" and the best time to call.
 
 import { HttpError } from "./_core.js";
 
 const INDUSTRIES = ["Tree service", "Roofing", "HVAC", "Plumbing", "Salons and barbers", "Wedding vendors", "Other"];
+const TIMES = ["Morning", "Midday", "Afternoon", "Evening", "Any time"];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const clean = (v, max = 200) => String(v ?? "").trim().slice(0, max);
 const url = (v) => {
@@ -27,6 +29,8 @@ export function parseLead(body) {
     google: url(body.google),
     website: url(body.website),
     message: clean(body.message, 1500),
+    kind: body.kind === "call" ? "call" : "mockup",
+    when: TIMES.includes(body.when) ? body.when : "Any time",
     page: clean(body.page, 200),
     // A hidden field people never see; bots fill it in.
     bot: !!clean(body.company),
@@ -51,7 +55,7 @@ export function notionPage(lead, databaseId) {
       Industry: { select: { name: lead.industry } },
       "Google listing": { url: lead.google },
       "Current website": { url: lead.website },
-      Message: text(lead.message),
+      Message: text(lead.kind === "call" ? `Call request. Best time: ${lead.when}.${lead.message ? ` ${lead.message}` : ""}` : lead.message),
       Page: text(lead.page),
     },
   };

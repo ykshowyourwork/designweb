@@ -1,8 +1,9 @@
 {
-  "name": "DesignWeb",
+  "name": "DesiWeb",
   "tagline": "Websites that bring you customers",
-  "domain": "designweb.example",
+  "domain": "desiweb.org",
   "email": "yardyknowent@gmail.com",
+  "phone": "",
   "callUrl": "",
   "city": "Los Angeles"
 }

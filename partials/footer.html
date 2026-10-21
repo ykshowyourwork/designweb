@@ -3,20 +3,30 @@
     <div>
       <a class="logo" href="/">%name%<span>.</span></a>
       <p class="muted">Built to be found and hired, not admired.</p>
-      <a href="mailto:%email%">%email%</a>
+      <div class="contact">
+        <!-- @contact -->
+      </div>
+      <p class="muted secure">Payments are processed securely by Stripe.</p>
     </div>
-    <nav aria-label="Site">
+    <nav aria-label="Company">
       <a href="/how-it-works">How it works</a>
       <a href="/what-you-get">What you get</a>
       <a href="/pricing">Pricing</a>
       <a href="/examples">Examples</a>
       <a href="/faq">FAQ</a>
       <a href="/about">About</a>
+      <a href="%callHref%">Book a call</a>
       <a href="/free-mockup">Free mockup</a>
+    </nav>
+    <nav aria-label="Services">
+      <!-- @serviceLinks -->
     </nav>
     <nav aria-label="Industries">
       <!-- @industryLinks -->
     </nav>
   </div>
-  <div class="wrap"><p class="muted" style="margin-top: 16px">© %year% %name%</p></div>
+  <div class="wrap legal">
+    <span>© %year% %name% · %domain%</span>
+    <span><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></span>
+  </div>
 </footer>

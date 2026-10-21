@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- @include head -->
+    <title>Book a 15-Minute Call | %name%</title>
+    <meta name="description" content="Book a free 15-minute call about a website for your business. No pitch, no pressure. We call you back within one business day." />
+    <link rel="canonical" href="https://%domain%/book-a-call" />
+    <meta property="og:title" content="Book a 15-Minute Call | %name%" />
+    <meta property="og:description" content="A free 15-minute call about a website for your business. No pitch, no pressure." />
+    <meta property="og:url" content="https://%domain%/book-a-call" />
+  </head>
+  <body>
+    <!-- @include header -->
+    <main>
+      <section class="page-hero">
+        <div class="wrap">
+          <div class="eyebrow">Book a call</div>
+          <h1>Fifteen minutes usually settles it.</h1>
+          <p class="lead">Tell us when to call. You talk to the person who builds your site. No pitch, no pressure.</p>
+          <ul class="promises">
+            <li>Free, 15 minutes</li>
+            <li>We call you back within one business day</li>
+            <li>Straight answers on price and timing</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <div class="wrap two-col">
+          <form class="lead" id="lead" data-kind="call" novalidate>
+            <label for="business">Business name</label>
+            <input id="business" name="business" required autocomplete="organization" />
+            <label for="name">Your name</label>
+            <input id="name" name="name" required autocomplete="name" />
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" required autocomplete="tel" />
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" />
+            <label for="industry">Your trade</label>
+            <select id="industry" name="industry"><option value="Tree service">Tree service</option><option value="Roofing">Roofing</option><option value="HVAC">HVAC</option><option value="Plumbing">Plumbing</option><option value="Salons and barbers">Salons and barbers</option><option value="Wedding vendors">Wedding vendors</option><option value="Other">Other</option></select>
+            <label for="when">Best time to call</label>
+            <select id="when" name="when"><option>Morning</option><option>Midday</option><option>Afternoon</option><option>Evening</option><option>Any time</option></select>
+            <label for="message">What do you want to talk about? (optional)</label>
+            <textarea id="message" name="message"></textarea>
+            <div class="hp" aria-hidden="true"><label for="company">Leave this empty</label><input id="company" name="company" tabindex="-1" autocomplete="off" /></div>
+            <button class="btn" id="lead-send" style="margin-top: 16px">Request my call</button>
+            <p class="msg" id="lead-msg" role="status"></p>
+          </form>
+          <div class="card">
+            <h3>On the call</h3>
+            <ul class="plain">
+              <li>What your customers search for, and whether you show up</li>
+              <li>Which plan fits, and the exact price</li>
+              <li>How long it takes and what we need from you</li>
+            </ul>
+            <p class="muted" style="margin-top: 16px">Rather see it first? <a href="/free-mockup">Get a free mockup</a> of your homepage.</p>
+            <p class="muted">Or reach us directly:</p>
+            <div class="contact"><!-- @contact --></div>
+          </div>
+        </div>
+      </section>
+      <script type="module" src="/src/lead.js"></script>
+    </main>
+    <!-- @include footer -->
+  </body>
+</html>

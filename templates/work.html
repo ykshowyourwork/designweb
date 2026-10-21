@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- @include head -->
+    <title>{{name}} Case Study | %name%</title>
+    <meta name="description" content="{{summary}}" />
+    <link rel="canonical" href="https://%domain%/examples/{{slug}}" />
+    <meta property="og:title" content="{{name}} Case Study | %name%" />
+    <meta property="og:description" content="{{summary}}" />
+    <meta property="og:url" content="https://%domain%/examples/{{slug}}" />
+    <meta property="og:image" content="https://%domain%{{image}}" />
+  </head>
+  <body>
+    <!-- @include header -->
+    <main>
+      <section class="page-hero">
+        <div class="wrap">
+          <div class="crumbs"><a href="/examples">Examples</a> / {{name}}</div>
+          <div class="eyebrow">Case study</div>
+          <h1>{{name}}</h1>
+          <p class="lead">{{summary}}</p>
+          <!-- @include hero-ctas -->
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <dl class="facts">
+            <div><dt>Industry</dt><dd>{{industry}}</dd></div>
+            <div><dt>Location</dt><dd>{{location}}</dd></div>
+            <div><dt>Launched</dt><dd>{{launched}}</dd></div>
+            <div><dt>Services</dt><dd>{{services}}</dd></div>
+          </dl>
+          <a class="shot" href="{{url}}" target="_blank" rel="noopener">
+            <img src="{{image}}" alt="The {{name}} homepage" width="1200" height="566" loading="lazy" />
+          </a>
+          <p style="margin-top: 12px"><a href="{{url}}" target="_blank" rel="noopener">Visit the live site →</a></p>
+        </div>
+      </section>
+      <section>
+        <div class="wrap prose">
+          <div class="eyebrow">The client</div>
+          <p>{{client}}</p>
+          <div class="eyebrow" style="margin-top: 28px">The challenge</div>
+          <p>{{challenge}}</p>
+          <div class="eyebrow" style="margin-top: 28px">What we built</div>
+          <ul>{{built}}</ul>
+          <div class="eyebrow" style="margin-top: 28px">Where it is now</div>
+          <p>{{result}}</p>
+        </div>
+      </section>
+      <!-- @include cta -->
+    </main>
+    <!-- @include footer -->
+  </body>
+</html>

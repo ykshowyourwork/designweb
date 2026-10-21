@@ -3,21 +3,49 @@ import fs from "node:fs";
 import path from "node:path";
 import brand from "./brand.json" with { type: "json" };
 import industries from "./content/industries.json" with { type: "json" };
+import services from "./content/services.json" with { type: "json" };
+import work from "./content/work.json" with { type: "json" };
+import concepts from "./content/concepts.json" with { type: "json" };
+import faq from "./content/faq.json" with { type: "json" };
 
 const root = import.meta.dirname;
+const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+// Lists built from the content files, dropped in wherever a page has <!-- @name -->.
+const blocks = {
+  industryLinks: () => industries.map((i) => `<a href="/industries/${i.slug}">${i.name}</a>`).join("\n"),
+  industryTiles: () => industries.map((i) => `<a class="card" href="/industries/${i.slug}"><h3>${i.name}</h3><p class="muted">${esc(i.headline)}</p></a>`).join("\n"),
+  serviceLinks: () => services.map((s) => `<a href="/services/${s.slug}">${s.name}</a>`).join("\n"),
+  serviceTiles: () => services.map((s) => `<a class="card" href="/services/${s.slug}"><h3>${s.name}</h3><p class="muted">${esc(s.headline)}</p></a>`).join("\n"),
+  workTiles: () =>
+    work
+      .map((w) => `<a class="card work" href="/examples/${w.slug}"><img src="${w.image}" alt="The ${esc(w.name)} homepage" width="1200" height="566" loading="lazy" /><div class="tag">Live client site</div><h3>${esc(w.name)}</h3><p class="muted">${esc(w.summary)}</p></a>`)
+      .join("\n"),
+  conceptTiles: () =>
+    concepts
+      .map((c) => `<a class="card concept" href="/examples/${c.slug}" style="--accent: ${c.accent}"><div class="tag">Sample site · ${esc(c.trade)}</div><h3>${esc(c.name)}</h3><p class="muted">${esc(c.headline)}</p></a>`)
+      .join("\n"),
+  faq: () => faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n"),
+  faqSchema: () =>
+    `<script type="application/ld+json">${JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    }).replace(/</g, "\\u003c")}</script>`,
+  contact: () => [`<a href="mailto:${brand.email}">${brand.email}</a>`, brand.phone && `<a href="tel:${brand.phone.replace(/[^\d+]/g, "")}">${brand.phone}</a>`].filter(Boolean).join("\n"),
+};
 
 // <!-- @include name --> pulls in partials/name.html, so the header, footer,
 // pricing and the rest are written once and shared by every page.
 const include = (html) =>
   html
     .replace(/<!-- @include (\w[\w-]*) -->/g, (m, name) => include(fs.readFileSync(path.join(root, "partials", `${name}.html`), "utf8")))
-    .replace(/<!-- @industryLinks -->/g, industries.map((i) => `<a href="/industries/${i.slug}">${i.name}</a>`).join("\n      "))
-    .replace(/<!-- @industryTiles -->/g, industries.map((i) => `<a class="card" href="/industries/${i.slug}"><h3>${i.name}</h3><p class="muted">${i.headline}</p></a>`).join("\n"));
+    .replace(/<!-- @(\w+) -->/g, (m, name) => (blocks[name] ? blocks[name]() : m));
 
 // Then the business name and contact details: %name%, %email%… from brand.json.
 const fill = (html) =>
   html.replace(/%(\w+)%/g, (m, key) => {
-    if (key === "callHref") return brand.callUrl || `mailto:${brand.email}?subject=${encodeURIComponent("Book a call")}`;
+    if (key === "callHref") return brand.callUrl || "/book-a-call";
     if (key === "year") return String(new Date().getFullYear());
     return key in brand ? String(brand[key]) : m;
   });

@@ -5,3 +5,5 @@ dist
 industries/*/
 public/sitemap.xml
 public/llms.txt
+services/*/
+examples/*/

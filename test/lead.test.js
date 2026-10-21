@@ -29,6 +29,13 @@ test("bots are dropped quietly and bad forms are refused", async () => {
   assert.equal(notionPage(parseLead({ ...good, message: "" }), "d").properties.Message.rich_text.length, 0);
 });
 
+test("a call request says so in the Message, with the best time", () => {
+  const msg = (body) => notionPage(parseLead(body), "d").properties.Message.rich_text[0].text.content;
+  assert.equal(msg({ ...good, kind: "call", when: "Evening", message: "Need a new site" }), "Call request. Best time: Evening. Need a new site");
+  assert.equal(msg({ ...good, kind: "call", when: "3am" }), "Call request. Best time: Any time.");
+  assert.equal(msg({ ...good, message: "Hi" }), "Hi");
+});
+
 test("a Notion error is not reported as success", async () => {
   const fetchImpl = async () => ({ ok: false, status: 401, text: async () => "unauthorized" });
   await assert.rejects(saveLead(good, { fetchImpl, env: { NOTION_TOKEN: "t", NOTION_LEADS_DB: "d" } }), /401/);

@@ -5,15 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Your invoice · %name%</title>
+    <meta name="description" content="Your invoice from %name%. Pay securely by card through Stripe." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="%name%" />
+    <meta property="og:title" content="Your invoice from %name%" />
+    <meta property="og:description" content="View your project and pay securely by card through Stripe." />
+    <meta property="og:image" content="https://%domain%/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/src/styles.css" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
     <header class="top">
-      <div class="wrap"><a class="logo" href="/">%name%<span>.</span></a><span class="muted">Invoice</span></div>
+      <div class="wrap">
+        <a class="logo" href="/">%name%<span>.</span></a>
+        <span class="secure-badge"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg>Secure invoice</span>
+      </div>
     </header>
     <main class="narrow" id="app" aria-busy="true"><p class="muted">Loading your invoice…</p></main>
-    <footer><div class="wrap"><span>© %year% %name%</span><a href="mailto:%email%">%email%</a></div></footer>
+    <footer>
+      <div class="wrap legal">
+        <span>© %year% %name% · %domain%</span>
+        <span><a href="mailto:%email%">%email%</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></span>
+      </div>
+    </footer>
     <script type="module" src="/src/invoice.js"></script>
   </body>
 </html>

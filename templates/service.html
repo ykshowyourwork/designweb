@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- @include head -->
+    <title>{{title}} | %name%</title>
+    <meta name="description" content="{{intro}}" />
+    <link rel="canonical" href="https://%domain%/services/{{slug}}" />
+    <meta property="og:title" content="{{title}} | %name%" />
+    <meta property="og:description" content="{{intro}}" />
+    <meta property="og:url" content="https://%domain%/services/{{slug}}" />
+    <script type="application/ld+json">{{schema}}</script>
+  </head>
+  <body>
+    <!-- @include header -->
+    <main>
+      <section class="page-hero">
+        <div class="wrap">
+          <div class="crumbs"><a href="/services">Services</a> / {{name}}</div>
+          <h1>{{headline}}</h1>
+          <p class="lead">{{intro}}</p>
+          <!-- @include hero-ctas -->
+          <p class="muted" style="margin-top: 16px"><strong>{{price}}</strong></p>
+        </div>
+      </section>
+      <section>
+        <div class="wrap prose">
+          <div class="eyebrow">What's included</div>
+          <h2>What you get with {{name}}.</h2>
+          <ul>{{includes}}</ul>
+          <p class="muted"><strong>Who it's for:</strong> {{who}}</p>
+          <p class="muted">See how it fits the rest of your site on <a href="/what-you-get">What you get</a>, or compare plans on <a href="/pricing">Pricing</a>.</p>
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <div class="eyebrow">More services</div>
+          <h2>Everything works together.</h2>
+          <div class="grid tiles">
+            <!-- @serviceTiles -->
+          </div>
+        </div>
+      </section>
+      <!-- @include steps -->
+      <!-- @include cta -->
+    </main>
+    <!-- @include footer -->
+  </body>
+</html>

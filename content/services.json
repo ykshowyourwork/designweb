@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "website-design",
+    "name": "Website Design",
+    "title": "Website Design for Local Businesses",
+    "headline": "Website design for local businesses that brings in jobs.",
+    "intro": "A fast, phone-first website built around the searches your customers make, with a call button on every page and forms that ring your phone.",
+    "price": "From $1,500. Live in about two weeks.",
+    "includes": [
+      "A homepage, a page for each service and a page for each town you work in",
+      "A call button at the top of every page",
+      "Quote and contact forms that text and email you",
+      "Fast on phones, with your logo, photos and reviews",
+      "We write the words. You check them before launch."
+    ],
+    "who": "Local service businesses with no website, or one that doesn't bring in work."
+  },
+  {
+    "slug": "local-seo",
+    "name": "Local SEO",
+    "title": "Local SEO for Service Businesses",
+    "headline": "Local SEO that puts you at the top of Google in your town.",
+    "intro": "Google ranks pages, not whole websites. We build a page for each service and each town, so you can show up for every search your customers make.",
+    "price": "Included in every site. Monthly upkeep is part of Growth.",
+    "includes": [
+      "A page for each service, like \"stump grinding\" or \"AC repair\"",
+      "A page for each town you work in",
+      "Titles, descriptions and Schema code on every page",
+      "Your Google Business Profile linked to your site",
+      "A sitemap sent to Google on launch day"
+    ],
+    "who": "Owners who want to show up for \"[your service] near me\" searches."
+  },
+  {
+    "slug": "ai-search",
+    "name": "AI Search (AEO)",
+    "title": "AI Search Optimization (AEO) for Local Businesses",
+    "headline": "Get named when people ask ChatGPT who to hire.",
+    "intro": "More people ask AI who to hire. AEO (answer engine optimization) sets up your site so ChatGPT, Perplexity and Google's AI answers can read it, trust it and name you.",
+    "price": "Included in every site.",
+    "includes": [
+      "Schema code that tells AI your name, services, area, hours and reviews",
+      "An llms.txt file that sums up your business for AI tools",
+      "Straight answers to the questions your customers ask",
+      "Pages that match how people ask questions out loud",
+      "Updates when AI search changes"
+    ],
+    "who": "Businesses that want to be the answer, not one of ten blue links."
+  },
+  {
+    "slug": "booking-and-payments",
+    "name": "Booking and Payments",
+    "title": "Online Booking and Payments for Service Businesses",
+    "headline": "Online booking and card payments, right on your site.",
+    "intro": "Customers book a time and pay a deposit without calling. Card payments run through Stripe, and receipts and reminders go out for you.",
+    "price": "Part of Growth: $3,500 + $300/mo.",
+    "includes": [
+      "Online booking that fits how you schedule",
+      "Deposits and invoices paid by card through Stripe",
+      "Receipts and payment reminders sent for you",
+      "Reminder texts and emails before each job",
+      "Hooks into the booking app you already use, if you have one"
+    ],
+    "who": "Businesses that lose jobs to phone tag or chase payments at the end of the month."
+  },
+  {
+    "slug": "google-business-profile",
+    "name": "Google Business Profile",
+    "title": "Google Business Profile Setup and Management",
+    "headline": "A Google Business Profile that shows up on the map.",
+    "intro": "Most local searches end on the map, not a website. We set up or clean up your Google Business Profile and link it to your site so the two help each other rank.",
+    "price": "Part of Growth: $3,500 + $300/mo.",
+    "includes": [
+      "Profile claimed, checked and filled in",
+      "Services, hours, service area and photos added",
+      "A link to the right page on your site",
+      "Monthly posts and photo updates",
+      "A simple way to ask happy customers for reviews"
+    ],
+    "who": "Businesses with an unclaimed, empty or out-of-date Google listing."
+  },
+  {
+    "slug": "app-store-app",
+    "name": "App Store App",
+    "title": "Your Business App in the App Store and Google Play",
+    "headline": "Your business in the App Store and Google Play.",
+    "intro": "Every site we build installs on a phone like an app. For $1,000 more, we list it in the App Store and Google Play under your business name.",
+    "price": "$1,000 add-on.",
+    "includes": [
+      "Your logo on your customers' home screens",
+      "Listed in the App Store and Google Play",
+      "Opens full screen, like any other app",
+      "Updates with your site, no extra work",
+      "Store listing text and screenshots done for you"
+    ],
+    "who": "Businesses with repeat customers, like barbershops, salons and maintenance plans."
+  }
+]

@@ -3,4 +3,4 @@ Allow: /
 Disallow: /invoice/
 Disallow: /admin
 
-Sitemap: https://designweb.example/sitemap.xml
+Sitemap: https://desiweb.org/sitemap.xml

@@ -1,0 +1,45 @@
+[
+  {
+    "slug": "the-set",
+    "name": "The Set",
+    "url": "https://theset.vip",
+    "image": "/work/the-set.jpg",
+    "summary": "A music platform where independent artists release music, sell beats and merch, and keep 80% of every sale.",
+    "industry": "Music and independent artists",
+    "location": "United States, online",
+    "launched": "2026",
+    "services": ["Website design", "Payments", "Installs like an app", "SEO and AEO"],
+    "client": "The Set is a home for independent artists. Fans stream new music, buy beats and merch, and find events, all straight from the artist.",
+    "challenge": "Independent artists needed one place to release music, sell to fans and get paid, without signing away their masters to a label.",
+    "built": [
+      "An artist store for music, beats and merch, paid by card through Stripe",
+      "A live feed of new drops and sales on the homepage",
+      "Pages for artists, beats, events, collabs and news",
+      "Plans and pricing artists can sign up for online",
+      "Installs on a phone like an app",
+      "News articles and Schema code so Google and AI can find it"
+    ],
+    "result": "Live at theset.vip and taking real card payments, with artists keeping 80% of each sale."
+  },
+  {
+    "slug": "yk-entertainment",
+    "name": "YK Entertainment",
+    "url": "https://ykentertainment.vip",
+    "image": "/work/yk-entertainment.jpg",
+    "summary": "A wedding and event vendor marketplace for Los Angeles, Orange County and San Diego.",
+    "industry": "Weddings and events",
+    "location": "Los Angeles, Orange County and San Diego",
+    "launched": "2026",
+    "services": ["Website design", "Local SEO", "Vendor listings", "Blog"],
+    "client": "YK Entertainment helps couples and planners find and book event vendors across Southern California: DJs, photographers, caterers, planners and more.",
+    "challenge": "Couples compare a dozen vendors before they reach out. They needed one place to see real work and reviews, and vendors needed to be found on Google in each part of the region.",
+    "built": [
+      "A vendor directory with profiles, ratings and reviews",
+      "Photos from real weddings and events",
+      "A page for each area served, from Downtown LA to San Diego",
+      "A blog and a forum that keep the site fresh for Google",
+      "Clear buttons to find and book a vendor on every page"
+    ],
+    "result": "Live at ykentertainment.vip, serving couples across Los Angeles, Orange County and San Diego."
+  }
+]
