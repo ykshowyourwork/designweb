@@ -57,4 +57,4 @@ Option B: the blue "d." tile + "DesiWeb." wordmark, made from Inter 800 (free co
 5. **Decide:** whether Full Stack has a monthly fee ($750–1,500/mo was discussed; the site shows none).
 6. **Call script open questions:** what company name callers give; whether "YK Entertainment brought in $2,500" means money earned through the site or paid for the build; add a real result for the proof line.
 7. **Notion step-by-step guide for AI agents:** write it after the first client goes through the full process (find lead → call → mockup → deposit → build → launch → balance).
-8. **Cleanup:** delete the unused `yk-invoice-site` branch in the-set repo on GitHub (Branches page). It never touched the live site.
+8. **Cleanup:** done 2026-10-21: the unused `yk-invoice-site` branch (pay.yardyknowent.com) was deleted from the-set repo. It never touched the live site. No YK invoice work belongs in DesiWeb.

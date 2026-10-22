@@ -24,7 +24,22 @@ ask() {
 changed=0
 echo "DesiWeb secret keys. Typing is hidden."
 ask STRIPE_SECRET_KEY "Stripe secret key (starts with sk_live_ or sk_test_)"
-ask ADMIN_PASSWORD    "Password for desiweb.org/admin (8+ characters)"
+
+read -r -p "Make a new admin password for desiweb.org/admin? (y = make one for me, n = I'll type my own, Enter = skip): " make
+if [ "$make" = "y" ]; then
+  pw="$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 20)"
+  set_secret ADMIN_PASSWORD "$pw" && changed=1
+  echo
+  echo "  Your admin password (save it in the Passwords app now, it won't be shown again):"
+  echo "  $pw"
+  echo
+  unset pw
+elif [ "$make" = "n" ]; then
+  ask ADMIN_PASSWORD "Password for desiweb.org/admin (8+ characters)"
+else
+  echo "  Skipped ADMIN_PASSWORD."
+fi
+
 ask NOTION_TOKEN      "Notion integration secret (starts with ntn_ or secret_)"
 
 if [ "$changed" = 1 ]; then
