@@ -25,7 +25,7 @@ Pricing: Starter $1,500 · Growth $3,500 + $300/mo (month to month) · Full Stac
 | Cold call list: 926 businesses, 434 with no website | Notion database "Website Cold Call List" (moved 2026-10-21 into the Notion page "designweb.org" with the call script and Relume sitemap), id `67184cda17ee4835b65d157259e2a353` |
 | Website leads inbox (the /free-mockup form writes here) | Notion database "DesignWeb Inbound Leads" (private), id `9333b0479f054dbcb1f79abf3177d868` |
 | Relume plan for this site | https://www.relume.ai/app/site/01a15e8c-35db-7504-bd4a-eabf65e4fbdd |
-| Lead audit decks (the "show them the money" pitch) | JL Absolute Tree Service: https://claude.ai/artifact/2AkV8YnTB3vwSvThs2HX5n (link also in its Notion row) |
+| Lead audit decks (the "show them the money" pitch) | JL Absolute: https://claude.ai/artifact/2AkV8YnTB3vwSvThs2HX5n · Pines Tree Service: https://claude.ai/artifact/U7dBb35KRvqjQL9q5rHPoL · Friendswood Tree & Fence: https://claude.ai/artifact/1NTaP1zmPWz8eMCns6BZ3u (links also in each Notion row). Format: Maps ranking first, plain "what these searches are worth" money slide, Starter $1,750 |
 | Lead research credits | OpenSEO, about 7,900 credits left (each business search ≈ 35 credits for up to 50 businesses) |
 
 ### Cold call list notes
