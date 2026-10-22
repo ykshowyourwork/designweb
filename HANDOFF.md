@@ -6,7 +6,7 @@ Read this first. It covers the business, what's built, where everything lives, a
 
 Selling websites to local service businesses by cold calling. Name: **DesiWeb**, domain **desiweb.org** (bought 2026-10-21). Goal: book 10 clients, then turn every step into a Notion guide an AI agent can follow.
 
-Pricing: Starter $1,500 · Growth $3,500 + $300/mo (month to month) · Full Stack from $7,500 · App Store add-on $1,000 ($500 intro for the first 3 clients) · 50% deposit, 50% at launch.
+Pricing: Starter $1,750 (raised from $1,500 on 2026-10-22) · Growth $3,500 + $300/mo (month to month) · Full Stack from $7,500 · App Store add-on $1,000 ($500 intro for the first 3 clients) · 50% deposit, 50% at launch.
 
 ## How to talk to the owner
 

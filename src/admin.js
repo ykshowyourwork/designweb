@@ -46,7 +46,7 @@ if (key) open();
 function addLine(label = "", amount = "") {
   const row = document.createElement("div");
   row.className = "line";
-  row.innerHTML = `<input placeholder="Website" aria-label="Line" value="${esc(label)}" /><input inputmode="decimal" placeholder="1500" aria-label="Amount in dollars" value="${esc(amount)}" /><button type="button" aria-label="Remove line">×</button>`;
+  row.innerHTML = `<input placeholder="Website" aria-label="Line" value="${esc(label)}" /><input inputmode="decimal" placeholder="1750" aria-label="Amount in dollars" value="${esc(amount)}" /><button type="button" aria-label="Remove line">×</button>`;
   row.querySelector("button").onclick = () => {
     row.remove();
     split();
@@ -69,7 +69,7 @@ function split() {
 }
 $("add-line").onclick = () => addLine();
 $("deposit").onchange = split;
-addLine("Website", "1500");
+addLine("Website", "1750");
 
 $("create").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -90,7 +90,7 @@ $("create").addEventListener("submit", async (e) => {
     msg.innerHTML = `Sent. Their link: <a href="${esc(r.link)}" target="_blank" rel="noopener">${esc(r.link)}</a>`;
     $("create").reset();
     $("lines").innerHTML = "";
-    addLine("Website", "1500");
+    addLine("Website", "1750");
     loadProjects();
   } catch (err) {
     msg.className = "msg err";
