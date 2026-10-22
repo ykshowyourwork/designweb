@@ -22,9 +22,10 @@ Pricing: Starter $1,500 · Growth $3,500 + $300/mo (month to month) · Full Stac
 | This site (sales site + invoices + lead form) | github.com/ykshowyourwork/designweb. Start with `README.md` |
 | Sales cheat sheet (terms, pricing, add-ons) | Claude Doc: https://claude.ai/artifact/FjYKGLsRazAapaCQtTwqmY |
 | Full call script + rebuttals + voicemail + follow-up | Claude Doc: https://claude.ai/artifact/8NCSufdp8AmfBLEg1iYAZh |
-| Cold call list: 926 businesses, 434 with no website | Notion database "Website Cold Call List" (inside the YK ENTERTAINMENT page), id `67184cda17ee4835b65d157259e2a353` |
+| Cold call list: 926 businesses, 434 with no website | Notion database "Website Cold Call List" (moved 2026-10-21 into the Notion page "designweb.org" with the call script and Relume sitemap), id `67184cda17ee4835b65d157259e2a353` |
 | Website leads inbox (the /free-mockup form writes here) | Notion database "DesignWeb Inbound Leads" (private), id `9333b0479f054dbcb1f79abf3177d868` |
 | Relume plan for this site | https://www.relume.ai/app/site/01a15e8c-35db-7504-bd4a-eabf65e4fbdd |
+| Lead audit decks (the "show them the money" pitch) | JL Absolute Tree Service: https://claude.ai/artifact/2AkV8YnTB3vwSvThs2HX5n (link also in its Notion row) |
 | Lead research credits | OpenSEO, about 7,900 credits left (each business search ≈ 35 credits for up to 50 businesses) |
 
 ### Cold call list notes
