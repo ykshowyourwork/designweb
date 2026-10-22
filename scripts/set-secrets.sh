@@ -23,7 +23,7 @@ ask() {
 
 changed=0
 echo "DesiWeb secret keys. Typing is hidden."
-ask STRIPE_SECRET_KEY "Stripe secret key (starts with sk_live_ or sk_test_)"
+ask STRIPE_SECRET_KEY "Stripe secret key (starts with rk_live_, sk_live_ or sk_test_)"
 
 read -r -p "Make a new admin password for desiweb.org/admin? (y = make one for me, n = I'll type my own, Enter = skip): " make
 if [ "$make" = "y" ]; then
