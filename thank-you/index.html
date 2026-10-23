@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- @include head -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Thank You | %name%</title>
+    <meta name="description" content="Thanks for reaching out to %name%. We'll be in touch within one business day." />
+  </head>
+  <body>
+    <!-- @include header -->
+    <main>
+      <section class="page-hero">
+        <div class="wrap">
+          <div class="eyebrow">Thank you</div>
+          <h1 id="ty-title">We'll be in touch.</h1>
+          <p class="lead" id="ty-lead">Thanks for sending your details. We'll text or call you within one business day to set up your free mockup.</p>
+          <div class="ctas" id="ty-ctas">
+            <a class="btn" href="%callHref%">Book a call now</a>
+            <a class="btn ghost" href="/examples">See our work</a>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <div class="eyebrow">What happens next</div>
+          <h2>Three short steps.</h2>
+          <ol class="steps">
+            <li><h3>We reach out</h3><p class="muted">Within one business day, by text, call or email.</p></li>
+            <li><h3>Your free mockup</h3><p class="muted">In about two days, a private link to your new homepage. Open it on your phone.</p></li>
+            <li><h3>You decide</h3><p class="muted">A 15-minute call to walk through it. Like it? Half to start. Don't? You owe nothing.</p></li>
+          </ol>
+        </div>
+      </section>
+      <section>
+        <div class="wrap prose">
+          <h2>Can't wait?</h2>
+          <p class="muted">Email <a href="mailto:%email%">%email%</a> any time. Or read the <a href="/faq">answers to common questions</a> and <a href="/pricing">our prices</a>.</p>
+        </div>
+      </section>
+    </main>
+    <!-- @include footer -->
+    <script>
+      // ?type=call comes from the book-a-call form: they already asked for a call.
+      if (new URLSearchParams(location.search).get("type") === "call") {
+        document.getElementById("ty-lead").textContent = "Thanks for asking for a call. We'll call you within one business day, at the time you picked.";
+        document.getElementById("ty-ctas").innerHTML = '<a class="btn" href="/free-mockup">Get a free mockup too</a><a class="btn ghost" href="/examples">See our work</a>';
+      }
+    </script>
+  </body>
+</html>

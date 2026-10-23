@@ -26,10 +26,7 @@ form.addEventListener("submit", async (e) => {
     const res = await fetch("/api/lead", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || "That didn't send.");
-    form.innerHTML =
-      kind === "call"
-        ? `<div class="card ok-box"><h2>Got it.</h2><p>We'll call you within one business day, at the time you picked.</p></div>`
-        : `<div class="card ok-box"><h2>Got it.</h2><p>We'll text or call you within one business day to set up your mockup call.</p></div>`;
+    location.href = kind === "call" ? "/thank-you?type=call" : "/thank-you";
   } catch (err) {
     msg.className = "msg err";
     msg.textContent = `${err.message} You can also email ${brand.email}.`;
