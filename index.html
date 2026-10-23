@@ -33,42 +33,55 @@
     <main>
       <section class="hero">
         <div class="wrap">
-          <div class="eyebrow">Websites for local businesses</div>
-          <h1>Anybody can build you a website. We build one that brings you customers.</h1>
-          <p class="lead"><strong>Built to be found and hired, not admired.</strong> 
-            Fast sites that put you at the top of Google, get ChatGPT naming you when people ask for your service, and turn visitors into booked jobs.
-            From $1,750, live in about two weeks.
-          </p>
-          <!-- @include hero-ctas -->
-          <ul class="promises">
-            <li>Live in about two weeks, start to finish</li>
-            <li>Fixed prices from $1,750, stated up front</li>
-            <li>You talk to the person building your site</li>
-          </ul>
+          <div class="hero-panel">
+            <div class="hero-copy">
+              <span class="eyebrow">Websites for local businesses</span>
+              <h1>Built to be found and <em>hired.</em></h1>
+              <p class="lead">Anybody can build you a website. We build one that brings you customers: top of Google, named by ChatGPT, and turning visitors into booked jobs. From $1,750, live in about two weeks.</p>
+              <!-- @include hero-ctas -->
+              <ul class="promises">
+                <li>Live in about two weeks</li>
+                <li>Fixed prices, stated up front</li>
+                <li>You talk to the person building it</li>
+              </ul>
+            </div>
+            <div class="hero-shots" aria-hidden="true">
+              <img src="/work/the-set.jpg" alt="" width="1200" height="566" />
+              <img src="/work/summit-ridge-tree-care.jpg" alt="" width="1200" height="750" />
+              <img src="/work/fade-theory-barbershop.jpg" alt="" width="1200" height="750" />
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- @include compare -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Website Design<i>—</i></span><span>Local SEO<i>—</i></span><span>AI Search<i>—</i></span><span>Booking<i>—</i></span><span>Payments<i>—</i></span><span>Google Profile<i>—</i></span>
+          <span>Website Design<i>—</i></span><span>Local SEO<i>—</i></span><span>AI Search<i>—</i></span><span>Booking<i>—</i></span><span>Payments<i>—</i></span><span>Google Profile<i>—</i></span>
+        </div>
+      </div>
+
+      <section id="examples">
+        <div class="wrap">
+          <div class="head">
+            <div><span class="eyebrow">Our work</span><h2>Sites that bring in the call.</h2></div>
+            <p>Two live client sites, plus sample sites that show what we'd build for your trade. <a class="accent" href="/examples">See all work</a></p>
+          </div>
+          <div class="work-grid">
+            <!-- @workTiles -->
+            <!-- @conceptTiles -->
+          </div>
+        </div>
+      </section>
 
       <!-- @include features -->
+
+      <!-- @include compare -->
 
       <!-- @include pricing -->
 
       <!-- @include steps -->
 
-      <section id="examples">
-        <div class="wrap">
-          <div class="eyebrow">Our work</div>
-          <h2>Sites we've built, and samples for your trade.</h2>
-          <div class="grid tiles">
-            <!-- @workTiles -->
-          </div>
-          <div class="grid tiles">
-            <!-- @conceptTiles -->
-          </div>
-          <p style="margin-top: 20px"><a href="/examples">See all examples →</a></p>
-        </div>
-      </section>
       <!-- @include faq -->
 
       <!-- @include cta -->

@@ -19,11 +19,11 @@ const blocks = {
   serviceTiles: () => services.map((s) => `<a class="card" href="/services/${s.slug}"><h3>${s.name}</h3><p class="muted">${esc(s.headline)}</p></a>`).join("\n"),
   workTiles: () =>
     work
-      .map((w) => `<a class="card work" href="/examples/${w.slug}"><img src="${w.image}" alt="The ${esc(w.name)} homepage" width="1200" height="566" loading="lazy" /><div class="tag">Live client site</div><h3>${esc(w.name)}</h3><p class="muted">${esc(w.summary)}</p></a>`)
+      .map((w) => `<a class="shot-card work" href="/examples/${w.slug}"><span class="shot-img"><img src="${w.image}" alt="The ${esc(w.name)} homepage" width="1200" height="566" loading="lazy" /></span><div class="shot-text"><span class="tag">Live client site</span><h3>${esc(w.name)}</h3><p>${esc(w.summary)}</p></div></a>`)
       .join("\n"),
   conceptTiles: () =>
     concepts
-      .map((c) => `<a class="card concept" href="/examples/${c.slug}" style="--accent: ${c.accent}"><div class="tag">Sample site · ${esc(c.trade)}</div><h3>${esc(c.name)}</h3><p class="muted">${esc(c.headline)}</p></a>`)
+      .map((c) => `<a class="shot-card concept" href="/examples/${c.slug}" style="--accent: ${c.accent}"><span class="shot-img"><img src="/work/${c.slug}.jpg" alt="Sample ${esc(c.trade.toLowerCase())} website" width="1200" height="750" loading="lazy" /></span><div class="shot-text"><span class="tag">Sample site · ${esc(c.trade)}</span><h3>${esc(c.name)}</h3><p>${esc(c.headline)}</p></div></a>`)
       .join("\n"),
   faq: () => faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n"),
   faqSchema: () =>

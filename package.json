@@ -12,6 +12,8 @@
     "test": "node --test"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.1.0",
+    "@fontsource/barlow-condensed": "^5.1.0",
     "stripe": "^18.5.0"
   },
   "devDependencies": {

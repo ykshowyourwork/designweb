@@ -39,6 +39,10 @@ Pricing: Starter $1,750 (raised from $1,500 on 2026-10-22) · Growth $3,500 + $3
 
 Option B: the blue "d." tile + "DesiWeb." wordmark, made from Inter 800 (free commercial license, SIL OFL). Files in `brand/`: `logo.svg` (dark text), `logo-white.svg` (for dark backgrounds), `icon.svg`, `icon-512.png`, `logo-on-white.png`, `stripe-icon.png` (square, for Stripe → Settings → Branding → Icon). The site header, footer, invoice and admin pages use `brand/logo-current.svg`; the browser-tab icon is `public/favicon.svg`. Other options are in `brand/logo-options/`. Don't use the Druk or "Demo" fonts on this Mac for anything commercial: they're trial licenses.
 
+## Look (2026-10-22)
+
+Redesign in the spirit of fluid22.com (original, not copied): dark charcoal (#1f1f1f), one accent (`--brand` #6f9bff in `src/styles.css`, change it there to recolor the whole site), big condensed headlines (Barlow Condensed, self-hosted via @fontsource), Inter body, small spaced-out caps for buttons and links, big rounded image cards for work, a floating "Get a free mockup" button (footer partial). Work grid uses screenshots in `public/work/`; sample-site screenshots were taken from `/examples/<slug>` with headless Chrome at 1440x900.
+
 ## What's built (this repo)
 
 - Public pages: home, how it works, what you get, services + 6 service pages, pricing, industries + 6 trade pages, examples (The Set and YK case studies + 5 sample sites), FAQ, about, book a call, free mockup, terms, privacy. Google and AI ready (Schema, sitemap, llms.txt, link preview image).
