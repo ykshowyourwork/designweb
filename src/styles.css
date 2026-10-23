@@ -325,6 +325,17 @@ form.lead .btn { margin-top: 24px; }
 ul.plain { padding-left: 20px; margin: 8px 0 0; }
 ul.plain li { margin-bottom: 8px; }
 
+/* Budget choice: pill buttons */
+fieldset.pills { border: 0; padding: 0; margin: 18px 0 0; }
+fieldset.pills legend { font-weight: 500; font-size: 14px; margin-bottom: 10px; padding: 0; }
+.pill-row { display: flex; flex-wrap: wrap; gap: 10px; }
+label.pill { display: inline-flex; margin: 0; cursor: pointer; font-weight: 400; }
+label.pill input { position: absolute; opacity: 0; width: 1px; height: 1px; min-height: 0; }
+label.pill span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); font-size: 15px; transition: border-color 0.15s, background 0.15s, color 0.15s; }
+label.pill:hover span { border-color: var(--muted); }
+label.pill input:checked + span { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); font-weight: 600; }
+label.pill input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
+
 /* Terms and privacy */
 .legal-text h2 { font-size: 2rem; margin-top: 44px; }
 .legal-text li { margin-bottom: 6px; }

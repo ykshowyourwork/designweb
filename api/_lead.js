@@ -5,6 +5,7 @@
 import { HttpError } from "./_core.js";
 
 const INDUSTRIES = ["Tree service", "Roofing", "HVAC", "Plumbing", "Salons and barbers", "Wedding vendors", "Other"];
+export const BUDGETS = ["Under $5k", "$5k – $15k", "$15k – $25k", "$25k – $40k", "$40k – $75k", "$75k+", "Not sure yet"];
 const TIMES = ["Morning", "Midday", "Afternoon", "Evening", "Any time"];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const clean = (v, max = 200) => String(v ?? "").trim().slice(0, max);
@@ -29,6 +30,7 @@ export function parseLead(body) {
     google: url(body.google),
     website: url(body.website),
     message: clean(body.message, 1500),
+    budget: BUDGETS.includes(body.budget) ? body.budget : null,
     kind: body.kind === "call" ? "call" : "mockup",
     when: TIMES.includes(body.when) ? body.when : "Any time",
     page: clean(body.page, 200),
@@ -53,6 +55,7 @@ export function notionPage(lead, databaseId) {
       Phone: { phone_number: lead.phone },
       Email: { email: lead.email },
       Industry: { select: { name: lead.industry } },
+      Budget: { select: lead.budget ? { name: lead.budget } : null },
       "Google listing": { url: lead.google },
       "Current website": { url: lead.website },
       Message: text(lead.kind === "call" ? `Call request. Best time: ${lead.when}.${lead.message ? ` ${lead.message}` : ""}` : lead.message),

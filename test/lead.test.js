@@ -36,6 +36,14 @@ test("a call request says so in the Message, with the best time", () => {
   assert.equal(msg({ ...good, message: "Hi" }), "Hi");
 });
 
+test("budget is saved when it is one of the ranges, left empty otherwise", () => {
+  const bud = (b) => notionPage(parseLead({ ...good, budget: b }), "d").properties.Budget.select;
+  assert.deepEqual(bud("$75k+"), { name: "$75k+" });
+  assert.deepEqual(bud("$5k – $15k"), { name: "$5k – $15k" });
+  assert.equal(bud("a million"), null);
+  assert.equal(bud(undefined), null);
+});
+
 test("a Notion error is not reported as success", async () => {
   const fetchImpl = async () => ({ ok: false, status: 401, text: async () => "unauthorized" });
   await assert.rejects(saveLead(good, { fetchImpl, env: { NOTION_TOKEN: "t", NOTION_LEADS_DB: "d" } }), /401/);
