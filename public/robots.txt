@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /invoice/
 Disallow: /admin
+Disallow: /demo/
 
 Sitemap: https://desiweb.org/sitemap.xml
