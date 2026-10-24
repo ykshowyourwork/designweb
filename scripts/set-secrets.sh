@@ -1,6 +1,6 @@
 #!/bin/bash
 # Puts DesiWeb's secret keys into Vercel without showing them on screen or saving them anywhere else.
-# Run from Terminal:  bash "/Users/jt/Desktop/YK 2.0/designweb/scripts/set-secrets.sh"
+# Run from Terminal:  bash "/Users/jt/Desktop/desiweb/website/scripts/set-secrets.sh"
 # Press Enter on any question to skip it and set it later.
 cd "$(dirname "$0")/.." || exit 1
 
