@@ -52,6 +52,25 @@ fi
 
 ask NOTION_TOKEN      "Notion integration secret (starts with ntn_ or secret_)" '^(ntn|secret)_'
 
+echo
+echo "Network (outreach list + emails). Press Enter to skip any you don't have yet."
+ask SUPABASE_URL              "Supabase Project URL (https://xxxx.supabase.co)" '^https://[a-z0-9]+\.supabase\.co/?$'
+ask SUPABASE_SERVICE_ROLE_KEY "Supabase service_role / secret key (starts with eyJ or sb_secret_)" '^(eyJ|sb_secret_)'
+ask RESEND_API_KEY            "Resend API key (starts with re_)" '^re_'
+
+read -r -p "Make a new key for the daily outreach routine? (y = make one, Enter = skip): " mk
+if [ "$mk" = "y" ]; then
+  nk="$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 40)"
+  set_secret NETWORK_API_KEY "$nk" && changed=1
+  echo
+  echo "  Routine key (paste it where the routine setup asks for NETWORK_API_KEY; it won't be shown again):"
+  echo "  $nk"
+  echo
+  unset nk
+else
+  echo "  Skipped NETWORK_API_KEY."
+fi
+
 if [ "$changed" = 1 ]; then
   echo "Redeploying so the site uses the new keys..."
   vercel deploy --prod --yes >/dev/null 2>&1 && echo "Done. desiweb.org is using the new keys." || echo "Redeploy failed. Run: vercel deploy --prod"

@@ -42,6 +42,16 @@ Vercel environment variables:
 
 In Stripe → Settings → Branding, set the business name, logo and color: that's what clients see on the invoice emails and the pay page. Stripe only emails invoices in live mode.
 
+## Network (outreach)
+
+`/admin/network` (same password as invoices) is DesiWeb's outreach list: every business, its stage (Warm, To email, To call, Sent, Follow-up due, Followed up, Replied, Yes, Pass), Claude's email drafts, and a **Send today's batch** button. Emails go out through Resend from `Jordan at DesiWeb <gethelp@desiweb.org>` with Reply-To and BCC to gethelp@, plus the mailing address and a "reply no thanks" line (CAN-SPAM). Follow-ups: 3 days after the first email, then 7 days after that, then stop.
+
+- Database: Supabase, table `network` + `network_settings`. Create them by pasting `supabase/schema.sql` into Supabase → SQL Editor → Run.
+- Env: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `NETWORK_API_KEY` (set with `scripts/set-secrets.sh`).
+- `api/network.js`: the owner page. `api/network-api.js`: the daily routine (header `x-network-key`): `GET ?stage=`, `upsert`, `update`, `due-follow-ups`, `send-batch` (only when automatic sending is on).
+- Automatic sending: off for the first week (review, then press Send), then on by itself (`network_settings.auto_send_on`). The switch on the page turns it on or off any time.
+- Website form requests land here as **Warm** once the database is connected (Notion before that).
+
 ## Run it
 
 ```

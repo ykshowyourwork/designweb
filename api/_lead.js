@@ -1,8 +1,10 @@
-// Free mockup and call requests from the site go straight into the Notion
-// database "DesignWeb Inbound Leads" as a new row with Status = New. Call
-// requests start their Message with "Call request" and the best time to call.
+// Free mockup and call requests from the site land in the Network (stage
+// "warm", desiweb.org/admin/network) once the Network database is connected.
+// Until then they go to the Notion database "DesignWeb Inbound Leads" as a new
+// row with Status = New. Call requests start with "Call request" and the best time.
 
 import { HttpError } from "./_core.js";
+import { networkReady, upsertRows } from "./_network.js";
 
 const INDUSTRIES = ["Tree service", "Roofing", "HVAC", "Plumbing", "Salons and barbers", "Wedding vendors", "Other"];
 export const BUDGETS = ["Under $5k", "$5k – $15k", "$15k – $25k", "$25k – $40k", "$40k – $75k", "$75k+", "Not sure yet"];
@@ -64,9 +66,31 @@ export function notionPage(lead, databaseId) {
   };
 }
 
+/** The same request as a Network row (stage "warm"), when the Network database is connected. */
+export function networkRow(lead) {
+  const what = lead.kind === "call" ? `Call request. Best time: ${lead.when}.` : "Free mockup request.";
+  return {
+    business: lead.business,
+    stage: "warm",
+    contact_name: lead.name,
+    email: lead.email,
+    phone: lead.phone,
+    category: lead.industry,
+    website: lead.website,
+    google_maps: lead.google,
+    budget: lead.budget,
+    heads_up: `${what}${lead.message ? ` ${lead.message}` : ""}`,
+    source: `Website form (${lead.page || (lead.kind === "call" ? "/book-a-call" : "/free-mockup")})`,
+  };
+}
+
 export async function saveLead(body, { fetchImpl = fetch, env = process.env } = {}) {
   const lead = parseLead(body);
   if (lead.bot) return { ok: true }; // Pretend it worked so the bot moves on.
+  if (networkReady(env)) {
+    await upsertRows([networkRow(lead)], { fetchImpl, env });
+    return { ok: true };
+  }
   if (!env.NOTION_TOKEN || !env.NOTION_LEADS_DB) throw new Error("NOTION_TOKEN or NOTION_LEADS_DB is not set");
   const res = await fetchImpl("https://api.notion.com/v1/pages", {
     method: "POST",

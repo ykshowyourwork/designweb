@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Network · %name%</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <style>
+      .net { padding: 32px 0 80px; }
+      .net h1 { font-size: clamp(2.6rem, 6vw, 4.5rem); margin-bottom: 6px; }
+      .net input, .net select, .net textarea { width: 100%; min-height: 44px; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--bg-2); color: var(--fg); font: inherit; font-size: 15px; }
+      .net textarea { min-height: 170px; line-height: 1.5; }
+      .net label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin: 12px 0 6px; }
+      .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 22px 0 14px; }
+      .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 18px; }
+      .chip { border: 1.5px solid var(--line); background: transparent; color: var(--fg); border-radius: 999px; padding: 7px 14px; font: 600 14px/1 var(--body); cursor: pointer; }
+      .chip.on { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
+      .b { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--line); background: transparent; color: var(--fg); font: 700 14px/1 var(--body); cursor: pointer; text-decoration: none; white-space: nowrap; }
+      .b.go { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
+      .b[disabled] { opacity: 0.5; cursor: default; }
+      .panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; }
+      .row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; }
+      .row h3 { margin: 0 0 4px; font-size: 1.15rem; }
+      .meta { font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+      .meta a { color: var(--brand); text-decoration: none; }
+      .stage { display: inline-block; border-radius: 999px; padding: 3px 10px; font: 700 12px/1.4 var(--body); border: 1px solid var(--line); }
+      .stage.hot { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+      .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+      @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } .row { grid-template-columns: 1fr; } }
+      .log { white-space: pre-wrap; font-size: 13px; color: var(--muted); margin-top: 10px; }
+      .note-line { font-size: 14px; color: var(--muted); }
+      .switch { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
+      .switch input { width: auto; min-height: 0; }
+      .toast { position: fixed; left: 16px; right: 16px; bottom: 16px; max-width: 520px; margin: 0 auto; background: #111; color: #fff; padding: 14px 18px; border-radius: 12px; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,.4); z-index: 50; }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;min-height:64px">
+        <a class="logo" href="/"><!-- @logo --></a>
+        <nav style="display:flex;gap:18px;font-size:14px"><a href="/admin">Invoices</a><a href="/admin/network" aria-current="page">Network</a></nav>
+      </div>
+    </header>
+    <main class="wrap net">
+      <form id="login" class="narrow" style="padding:0">
+        <h1>Network</h1>
+        <label for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="current-password" required />
+        <button class="b go" style="margin-top: 14px">Open</button>
+        <p class="msg err" id="login-msg" role="alert"></p>
+      </form>
+
+      <div id="panel" hidden>
+        <h1>Network</h1>
+        <p class="muted" id="summary"></p>
+
+        <div class="bar">
+          <button class="b go" id="send-batch">Send today's batch</button>
+          <label class="switch"><input type="checkbox" id="auto" /> Send automatically every morning</label>
+          <span class="note-line" id="auto-note"></span>
+        </div>
+
+        <div class="chips" id="tabs"></div>
+        <div class="bar" style="margin-top:0">
+          <input id="search" placeholder="Search name, town, phone, email…" style="max-width:420px" />
+          <button class="b" id="add-toggle">Add a business</button>
+        </div>
+
+        <form id="add" class="panel" hidden>
+          <div class="grid2">
+            <div><label>Business name</label><input name="business" required /></div>
+            <div><label>Category</label><input name="category" placeholder="Tree service" /></div>
+            <div><label>Email</label><input name="email" type="email" /></div>
+            <div><label>Phone</label><input name="phone" /></div>
+            <div><label>Town</label><input name="area" /></div>
+            <div><label>Website</label><input name="website" /></div>
+          </div>
+          <button class="b go" style="margin-top:14px">Add</button>
+        </form>
+
+        <div id="list"><p class="muted">Loading…</p></div>
+      </div>
+    </main>
+    <div class="toast" role="status" hidden></div>
+    <script type="module" src="/src/network.js"></script>
+  </body>
+</html>

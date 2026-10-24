@@ -1,13 +1,64 @@
 {
   "cleanUrls": true,
   "redirects": [
-    { "source": "/:path*", "has": [{ "type": "host", "value": "www.desiweb.org" }], "destination": "https://desiweb.org/:path*", "permanent": true }
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.desiweb.org"
+        }
+      ],
+      "destination": "https://desiweb.org/:path*",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/invoice/:token", "destination": "/invoice" }
+    {
+      "source": "/invoice/:token",
+      "destination": "/invoice"
+    },
+    {
+      "source": "/admin/network",
+      "destination": "/network"
+    }
   ],
   "headers": [
-    { "source": "/invoice/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
-    { "source": "/admin", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }
+    {
+      "source": "/invoice/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/admin",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/admin/network",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/network",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
   ]
 }
