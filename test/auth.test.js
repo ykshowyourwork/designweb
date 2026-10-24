@@ -54,3 +54,12 @@ test("the old admin password still works while switching over", async () => {
   await assert.rejects(requireOwner({ headers: { "x-admin-key": "nope" } }, { ...fakeAuth(), env }), (e) => e.status === 401);
   delete process.env.ADMIN_PASSWORD;
 });
+
+test("before Supabase is connected, the old admin password signs in so Invoices never lock", async () => {
+  process.env.ADMIN_PASSWORD = env.ADMIN_PASSWORD;
+  const none = { ADMIN_PASSWORD: env.ADMIN_PASSWORD };
+  const s = await signIn("me@x.com", "old-password-123", { fetchImpl: fakeAuth().fetchImpl, env: none });
+  await requireOwner({ headers: { authorization: `Bearer ${s.token}` } }, { env: none });
+  await assert.rejects(signIn("me@x.com", "nope-nope-nope", { env: none }), (e) => e.status === 401);
+  delete process.env.ADMIN_PASSWORD;
+});

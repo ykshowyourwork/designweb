@@ -33,6 +33,11 @@ const session = (d) => ({ token: d.access_token, refresh: d.refresh_token, expir
 export async function signIn(email, password, c) {
   c = opts(c);
   if (!email || !password) throw new HttpError(400, "Enter your email and password.");
+  // Until Supabase is connected, the old admin password signs in (any email).
+  if (!c.env.SUPABASE_URL || !c.env.SUPABASE_SERVICE_ROLE_KEY) {
+    checkAdmin({ headers: { "x-admin-key": String(password) } });
+    return { token: `pw:${password}`, refresh: null, expiresAt: null, email: String(email).trim() };
+  }
   const r = await gotrue("token?grant_type=password", { method: "POST", body: JSON.stringify({ email: String(email).trim(), password: String(password) }) }, c);
   if (!r.ok || !allowed(r.data.user?.email, c.env)) throw new HttpError(401, "Wrong email or password.");
   return session(r.data);
@@ -51,6 +56,7 @@ export async function requireOwner(req, c) {
   c = opts(c);
   const bearer = /^Bearer (.+)$/.exec(String(req.headers.authorization ?? ""))?.[1];
   if (!bearer) return checkAdmin(req);
+  if (bearer.startsWith("pw:")) return checkAdmin({ headers: { "x-admin-key": bearer.slice(3) } });
   const r = await gotrue("user", { method: "GET", headers: { authorization: `Bearer ${bearer}` } }, c);
   if (!r.ok || !r.data.email || !allowed(r.data.email, c.env)) throw new HttpError(401, "Please sign in again.");
   return r.data.email;
