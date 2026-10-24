@@ -44,6 +44,8 @@ In Stripe → Settings → Branding, set the business name, logo and color: that
 
 ## Network (outreach)
 
+Sign-in (Invoices + Network): email + password accounts in Supabase Auth (`api/_auth.js`, `api/login.js`, `src/session.js`). Make the account in Supabase → Authentication → Users, and turn off new sign-ups. Until Supabase is connected, the old ADMIN_PASSWORD works in the password box.
+
 `/admin/network` (same password as invoices) is DesiWeb's outreach list: every business, its stage (Warm, To email, To call, Sent, Follow-up due, Followed up, Replied, Yes, Pass), Claude's email drafts, and a **Send today's batch** button. Emails go out through Resend from `Jordan at DesiWeb <gethelp@desiweb.org>` with Reply-To and BCC to gethelp@, plus the mailing address and a "reply no thanks" line (CAN-SPAM). Follow-ups: 3 days after the first email, then 7 days after that, then stop.
 
 - Database: Supabase, table `network` + `network_settings`. Create them by pasting `supabase/schema.sql` into Supabase → SQL Editor → Run.
