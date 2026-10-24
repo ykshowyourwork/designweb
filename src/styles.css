@@ -362,3 +362,7 @@ label.pill input:focus-visible + span { outline: 2px solid var(--brand); outline
 .trust-note { display: flex; gap: 12px; align-items: flex-start; margin-top: 24px; font-size: 14px; }
 .trust-note svg { flex: none; color: var(--ok); margin-top: 2px; }
 .trust-note p { margin: 0; }
+
+/* Sign out on the owner pages */
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; opacity: 0.75; }
+.linkish:hover { opacity: 1; }

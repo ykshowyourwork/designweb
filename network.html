@@ -41,15 +41,17 @@
     <header class="top">
       <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;min-height:64px">
         <a class="logo" href="/"><!-- @logo --></a>
-        <nav style="display:flex;gap:18px;font-size:14px"><a href="/admin">Invoices</a><a href="/admin/network" aria-current="page">Network</a></nav>
+        <nav style="display:flex;gap:18px;font-size:14px"><a href="/admin">Invoices</a><a href="/admin/network" aria-current="page">Network</a><button id="signout" class="linkish" hidden>Sign out</button></nav>
       </div>
     </header>
     <main class="wrap net">
       <form id="login" class="narrow" style="padding:0">
         <h1>Network</h1>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required />
         <label for="pw">Password</label>
         <input id="pw" type="password" autocomplete="current-password" required />
-        <button class="b go" style="margin-top: 14px">Open</button>
+        <button class="b go" style="margin-top: 14px">Sign in</button>
         <p class="msg err" id="login-msg" role="alert"></p>
       </form>
 

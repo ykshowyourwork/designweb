@@ -1,6 +1,7 @@
 // The owner's Network page: every business DesiWeb reaches out to.
-// Same password as invoices. Talks to /api/network.
+// Same sign-in as invoices. Talks to /api/network.
 import { esc } from "./money.js";
+import { api as call, signIn } from "./session.js";
 
 const $ = (id) => document.getElementById(id);
 const STAGES = [
@@ -17,24 +18,13 @@ const STAGES = [
 const LABEL = Object.fromEntries(STAGES);
 const HOT = ["warm", "replied", "yes", "follow_up"];
 
-let key = "";
-try { key = sessionStorage.getItem("admin-key") ?? ""; } catch { /* private window */ }
 let rows = [];
 let settings = {};
 let autoSend = false;
 let tab = "lead";
 let open = null;
 
-async function api(method, body) {
-  const res = await fetch("/api/network", {
-    method,
-    headers: { "content-type": "application/json", "x-admin-key": key },
-    body: body ? JSON.stringify(body) : undefined,
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw Object.assign(new Error(data.error || "Something went wrong."), { status: res.status });
-  return data;
-}
+const api = (method, body) => call("/api/network", method, body);
 
 function toast(text) {
   const t = document.querySelector(".toast");
@@ -157,23 +147,7 @@ function replaceRow(row) {
 }
 
 // ── Sign in ──
-async function start() {
-  try {
-    await load();
-    $("login").hidden = true;
-    $("panel").hidden = false;
-    try { sessionStorage.setItem("admin-key", key); } catch { /* fine */ }
-  } catch (e) {
-    $("login").hidden = false;
-    $("login-msg").textContent = e.status === 401 ? "Wrong password." : e.message;
-  }
-}
-$("login").addEventListener("submit", (e) => {
-  e.preventDefault();
-  key = $("pw").value;
-  start();
-});
-if (key) start();
+signIn(load);
 
 // ── Clicks ──
 $("tabs").addEventListener("click", (e) => {

@@ -11,14 +11,16 @@
   </head>
   <body>
     <header class="top">
-      <div class="wrap"><a class="logo" href="/"><!-- @logo --></a><nav style="display:flex;gap:18px;font-size:14px"><a href="/admin" aria-current="page">Invoices</a><a href="/admin/network">Network</a></nav></div>
+      <div class="wrap"><a class="logo" href="/"><!-- @logo --></a><nav style="display:flex;gap:18px;font-size:14px"><a href="/admin" aria-current="page">Invoices</a><a href="/admin/network">Network</a><button id="signout" class="linkish" hidden>Sign out</button></nav></div>
     </header>
     <main class="narrow">
       <form id="login">
         <h1>Invoices</h1>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required />
         <label for="pw">Password</label>
         <input id="pw" type="password" autocomplete="current-password" required />
-        <button class="btn" style="margin-top: 14px">Open</button>
+        <button class="btn" style="margin-top: 14px">Sign in</button>
         <p class="msg err" id="login-msg" role="alert"></p>
       </form>
 

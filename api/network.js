@@ -1,17 +1,18 @@
-// The owner's Network page (desiweb.org/admin/network). Same password as invoices (x-admin-key).
+// The owner's Network page (desiweb.org/admin/network). Same sign-in as invoices (_auth.js).
 //   GET                                        → { rows, settings, autoSend }
 //   POST { action: "add", row }                → the new row
 //   POST { action: "update", id, patch }       → the updated row
 //   POST { action: "send", id, subject?, body?, force? } → the row after sending
 //   POST { action: "send-batch" }              → { sent, failed, results }
 //   POST { action: "settings", patch }         → the settings
-import { HttpError, checkAdmin, handler } from "./_core.js";
+import { HttpError, handler } from "./_core.js";
+import { requireOwner } from "./_auth.js";
 import { addRow, autoSendOn, getSettings, listRows, networkReady, sendBatch, sendOne, setSettings, updateRow } from "./_network.js";
 
 const today = () => new Date().toISOString().slice(0, 10);
 
 export default handler(async (req) => {
-  checkAdmin(req);
+  await requireOwner(req);
   if (!networkReady()) throw new HttpError(503, "The Network database isn't connected yet (SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY).");
   if (req.method === "GET") {
     const [rows, settings] = await Promise.all([listRows(), getSettings()]);

@@ -1,46 +1,12 @@
 // The owner's page: make invoices, see who paid, send the balance on launch day.
 import { LABEL, esc, money } from "./money.js";
+import { api as call, signIn } from "./session.js";
 
 const $ = (id) => document.getElementById(id);
-let key = "";
-try {
-  key = sessionStorage.getItem("admin-key") ?? "";
-} catch {
-  /* private window: ask every time */
-}
-
-async function api(method, body) {
-  const res = await fetch("/api/admin", {
-    method,
-    headers: { "content-type": "application/json", "x-admin-key": key },
-    body: body ? JSON.stringify(body) : undefined,
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw Object.assign(new Error(data.error || "Something went wrong."), { status: res.status });
-  return data;
-}
+const api = (method, body) => call("/api/admin", method, body);
 
 // ── Sign in ──
-async function open() {
-  try {
-    await loadProjects();
-    $("login").hidden = true;
-    $("panel").hidden = false;
-    try {
-      sessionStorage.setItem("admin-key", key);
-    } catch {
-      /* fine */
-    }
-  } catch (e) {
-    $("login-msg").textContent = e.status === 401 ? "Wrong password." : e.message;
-  }
-}
-$("login").addEventListener("submit", (e) => {
-  e.preventDefault();
-  key = $("pw").value;
-  open();
-});
-if (key) open();
+signIn(loadProjects);
 
 // ── New invoice ──
 function addLine(label = "", amount = "") {
