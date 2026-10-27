@@ -56,7 +56,7 @@ for (const w of work) {
 }
 
 for (const c of concepts) {
-  const pages = [...c.services.map(([name]) => name), ...c.towns.map((t) => `${c.trade} in ${t}`)];
+  const pages = c.services.map(([name]) => name);
   write("concept.html", `examples/${c.slug}`, c, {
     theme: c.dark ? "dark" : "",
     emergencyBar: c.emergency ? `<a class="c-emergency" href="#" data-demo>${esc(c.emergency)}</a>` : "",
