@@ -51,6 +51,7 @@ Sign-in (Invoices + Network): email + password accounts in Supabase Auth (`api/_
 - Database: Supabase, table `network` + `network_settings`. Create them by pasting `supabase/schema.sql` into Supabase → SQL Editor → Run.
 - Env: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `NETWORK_API_KEY` (set with `scripts/set-secrets.sh`).
 - `api/network.js`: the owner page. `api/network-api.js`: the daily routine (header `x-network-key`): `GET ?stage=`, `upsert`, `update`, `due-follow-ups`, `send-batch` (only when automatic sending is on).
+- Moving the Notion lists in (one time, safe to re-run): `bash scripts/import-notion.sh`. It copies the Website Cold Call List and DesignWeb Inbound Leads into the Network, keeping each row's call status, notes, budget and Google listing. The Notion integration "DesiWeb site" must be connected to both lists.
 - Automatic sending: off for the first week (review, then press Send), then on by itself (`network_settings.auto_send_on`). The switch on the page turns it on or off any time.
 - Website form requests land here as **Warm** once the database is connected (Notion before that).
 
