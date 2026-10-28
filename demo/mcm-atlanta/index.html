@@ -127,10 +127,15 @@ section{padding:96px 0;position:relative}
 .svc p{margin:0;color:var(--muted)}
 .svc .go{margin-top:auto;font-weight:700;color:var(--gold-2)}
 
+.more{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:22px}
+.more .eyebrow{margin:0 6px 0 0}
+.more a{padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(20,20,22,.88);text-decoration:none;font-weight:600;font-size:15px}
+.more a:hover{border-color:var(--gold)}
+
 /* Builds */
 .builds{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 @media (max-width:760px){.builds{grid-template-columns:1fr 1fr}}
-.shot{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--panel)}
+.shot{cursor:zoom-in;position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--panel)}
 .shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
 .shot:hover img{transform:scale(1.06)}
 .shot span{position:absolute;left:10px;bottom:10px;background:rgba(11,11,12,.82);padding:6px 12px;border-radius:999px;font-size:13px;font-weight:700}
@@ -140,6 +145,20 @@ section{padding:96px 0;position:relative}
 .video a.thumb img{width:100%;height:100%;object-fit:cover}
 .video a.thumb::after{content:"▶";position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;background:var(--gold);color:#1a1200;display:grid;place-items:center;font-size:28px;padding-left:6px;animation:pulse 2.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(214,169,59,.55)}50%{box-shadow:0 0 0 18px rgba(214,169,59,0)}}
+
+/* Full-screen photos */
+.lb{position:fixed;inset:0;z-index:80;background:rgba(5,5,6,.96);display:flex;align-items:center;justify-content:center;touch-action:pan-y}
+.lb[hidden]{display:none}
+.lb img{max-width:94vw;max-height:84svh;object-fit:contain;border-radius:10px;animation:zoomin .25s ease-out}
+@keyframes zoomin{from{transform:scale(.94);opacity:0}to{transform:none;opacity:1}}
+.lb .cap{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-weight:700}
+.lb .cap span{color:var(--muted);font-weight:600;margin-left:8px}
+.lb button{position:absolute;background:rgba(255,255,255,.1);border:0;color:#fff;width:52px;height:52px;border-radius:50%;font-size:24px;cursor:pointer}
+.lb button:hover{background:var(--gold);color:#1a1200}
+.lb .x{top:18px;right:18px}
+.lb .prev{left:18px;top:50%;transform:translateY(-50%)}
+.lb .next{right:18px;top:50%;transform:translateY(-50%)}
+@media (max-width:760px){.lb .prev,.lb .next{top:auto;bottom:70px;transform:none}}
 
 /* Reviews */
 .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -347,6 +366,7 @@ html.story details summary{font-size:1.1rem}
         <a class="svc" href="#book" data-pick="Hemi head gasket"><div class="row"><h3>Hemi head gasket</h3><span class="cost">$1,199</span></div><p>5.7 and 6.4 Hemi head gasket replacement.</p><span class="go">Book →</span></a>
         <a class="svc" href="#book" data-pick="Mobile service"><div class="row"><h3>Mobile service</h3><span class="cost">$50 trip</span></div><p>Can’t bring it in? Ask about a visit when you book.</p><span class="go">Ask →</span></a>
       </div>
+      <div class="more"><span class="eyebrow">Also book online</span><a href="#book" data-pick="Brakes">Brakes · $200</a><a href="#book" data-pick="Oil change">Oil change · $50</a><a href="#book" data-pick="Something else">Something else</a></div>
     </div>
   </section>
 
@@ -354,12 +374,12 @@ html.story details summary{font-size:1.1rem}
     <div class="wrap">
       <div class="section-head"><div><div class="eyebrow">Builds</div><h2>Real cars.<br>Real work.</h2></div><p class="muted">Straight out of the MCM garage.</p></div>
       <div class="builds">
-        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/c5.jpg" alt="Yellow C5 Corvette with a twin turbo setup" /><span>Twin turbo C5</span></div>
-        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/jeep.jpg" alt="Supercharged Jeep engine bay" /><span>Supercharged Jeep</span></div>
-        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/charger.jpg" alt="Dodge Charger with the engine pulled in the garage" /><span>Charger engine out</span></div>
-        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/mustang.jpg" alt="Black Mustang with a turbo under the hood" /><span>Boosted Mustang</span></div>
-        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/heads.jpg" alt="Engine with the heads off during a build" /><span>Heads off</span></div>
-        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/pink.jpg" alt="Pink Dodge Charger on jack stands" /><span>Charger in the shop</span></div>
+        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/c5.jpg" data-full="/demo/mcm-atlanta/img/c5-lg.jpg" alt="Yellow C5 Corvette with a twin turbo setup" /><span>Twin turbo C5</span></div>
+        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/jeep.jpg" data-full="/demo/mcm-atlanta/img/jeep-lg.jpg" alt="Supercharged Jeep engine bay" /><span>Supercharged Jeep</span></div>
+        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/charger.jpg" data-full="/demo/mcm-atlanta/img/charger-lg.jpg" alt="Dodge Charger with the engine pulled in the garage" /><span>Charger engine out</span></div>
+        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/mustang.jpg" data-full="/demo/mcm-atlanta/img/mustang-lg.jpg" alt="Black Mustang with a turbo under the hood" /><span>Boosted Mustang</span></div>
+        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/heads.jpg" data-full="/demo/mcm-atlanta/img/heads-lg.jpg" alt="Engine with the heads off during a build" /><span>Heads off</span></div>
+        <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/pink.jpg" data-full="/demo/mcm-atlanta/img/pink-lg.jpg" alt="Pink Dodge Charger on jack stands" /><span>Charger in the shop</span></div>
       </div>
       <div class="video">
         <a class="thumb" href="https://youtu.be/5OKRpkAt5tg" target="_blank" rel="noopener" aria-label="Watch the first MCM build video on YouTube"><img loading="lazy" src="/demo/mcm-atlanta/img/video.jpg" alt="MCM build video thumbnail" /></a>
@@ -422,7 +442,7 @@ html.story details summary{font-size:1.1rem}
         </div>
         <div class="row2">
           <label>Year, make, model<input name="car" placeholder="2019 Charger R/T" /></label>
-          <label>Service<select name="service" id="service"><option>Hemi Stage 1 cam and lifters</option><option>Hemi Stage 2 cam and lifters</option><option>Hemi Stage 3 cam, lifters, headers and stall</option><option>LT1 Stage 1 camshaft install</option><option>PCM unlock / ECU tuning</option><option>Pre-purchase inspection</option><option>Custom build</option><option>Module programming</option><option>Hemi head gasket</option><option>Mobile service</option><option>Something else</option></select></label>
+          <label>Service<select name="service" id="service"><option>Hemi Stage 1 cam and lifters</option><option>Hemi Stage 2 cam and lifters</option><option>Hemi Stage 3 cam, lifters, headers and stall</option><option>LT1 Stage 1 camshaft install</option><option>PCM unlock / ECU tuning</option><option>Pre-purchase inspection</option><option>Custom build</option><option>Module programming</option><option>Hemi head gasket</option><option>Mobile service</option><option>Brakes</option><option>Oil change</option><option>Something else</option></select></label>
         </div>
         <div class="row2">
           <label>Day you can bring it<input name="day" type="date" /></label>
@@ -464,8 +484,9 @@ html.story details summary{font-size:1.1rem}
     <h3>What this preview shows, and what we’ll confirm with you</h3>
     <ul>
       <li>Every price and photo on this page comes from your current website. The two quotes are the ones on your site now.</li>
-      <li>Each package and service gets its own page on the live site, so you show up on Google for each one. Your towns are listed here in one section.</li>
-      <li>Brakes and oil changes move to a repair page, so your homepage sells cams, tunes and builds.</li>
+      <li>Your cam packages, tuning and pre-purchase inspections each get a full page with real photos and answers, so they can rank on Google. Your towns are listed here in one section.</li>
+      <li>Brakes, oil changes and smaller jobs stay bookable right here. They get their own page later, once you have photos and reviews for that work.</li>
+      <li>Tap any build photo to see it full screen.</li>
       <li>On phones the site opens in Story mode: full-screen screens you swipe through. The button at the top switches to Classic mode.</li>
       <li>On the live site, booking takes a real card deposit and sends you a text. You choose the deposit amount.</li>
       <li>We’ll confirm with you: your address (or if you work from a home garage), hours, how long each job takes, and which towns you cover with mobile service.</li>
@@ -494,6 +515,14 @@ html.story details summary{font-size:1.1rem}
     </g>
   </svg>
 </template>
+
+<div class="lb" hidden role="dialog" aria-modal="true" aria-label="Build photo">
+  <img alt="" />
+  <button class="x" type="button" aria-label="Close">×</button>
+  <button class="prev" type="button" aria-label="Previous photo">‹</button>
+  <button class="next" type="button" aria-label="Next photo">›</button>
+  <div class="cap"></div>
+</div>
 
 <div class="toast" role="status" hidden>This is a preview. On your live site, this books the day and takes the deposit.</div>
 <script>
@@ -578,6 +607,42 @@ html.story details summary{font-size:1.1rem}
       toast.hidden = false;
       clearTimeout(window.__t);
       window.__t = setTimeout(function () { toast.hidden = true; }, 4000);
+    });
+
+    // ── Build photos open full screen: arrows, swipe, Esc ──
+    var shots = [].slice.call(document.querySelectorAll(".builds .shot"));
+    var lb = document.querySelector(".lb");
+    var lbImg = lb.querySelector("img");
+    var lbCap = lb.querySelector(".cap");
+    var at = 0;
+    function show(i) {
+      at = (i + shots.length) % shots.length;
+      var img = shots[at].querySelector("img");
+      lbImg.src = img.getAttribute("data-full") || img.src;
+      lbImg.alt = img.alt;
+      lbImg.style.animation = "none"; void lbImg.offsetWidth; lbImg.style.animation = "";
+      lbCap.innerHTML = shots[at].querySelector("span").textContent + "<span>" + (at + 1) + " / " + shots.length + "</span>";
+    }
+    function openLb(i) { show(i); lb.hidden = false; }
+    function closeLb() { lb.hidden = true; }
+    shots.forEach(function (s, i) { s.addEventListener("click", function () { openLb(i); }); });
+    lb.querySelector(".x").addEventListener("click", closeLb);
+    lb.querySelector(".prev").addEventListener("click", function (e) { e.stopPropagation(); show(at - 1); });
+    lb.querySelector(".next").addEventListener("click", function (e) { e.stopPropagation(); show(at + 1); });
+    lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
+    document.addEventListener("keydown", function (e) {
+      if (lb.hidden) return;
+      if (e.key === "Escape") closeLb();
+      if (e.key === "ArrowLeft") show(at - 1);
+      if (e.key === "ArrowRight") show(at + 1);
+    });
+    var x0 = null;
+    lb.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener("touchend", function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1));
+      x0 = null;
     });
 
     // ── Story mode ↔ Classic mode ──
