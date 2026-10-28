@@ -26,7 +26,7 @@ Pricing: Starter $1,750 (raised from $1,500 on 2026-10-22) · Growth $3,500 + $3
 | Website leads inbox (the /free-mockup form writes here) | Notion database "DesignWeb Inbound Leads" (private), id `9333b0479f054dbcb1f79abf3177d868` |
 | Relume plan for this site | https://www.relume.ai/app/site/01a15e8c-35db-7504-bd4a-eabf65e4fbdd |
 | Lead audit decks (the "show them the money" pitch) | JL Absolute: https://claude.ai/artifact/2AkV8YnTB3vwSvThs2HX5n · Pines Tree Service: https://claude.ai/artifact/U7dBb35KRvqjQL9q5rHPoL · Friendswood Tree & Fence: https://claude.ai/artifact/1NTaP1zmPWz8eMCns6BZ3u · MCM Atlanta (first warm lead, via Riley; $3,000 + 2 free months, then $300/mo): https://claude.ai/artifact/HvXR2WxJ9FdL9Cb2u9mUtq (links also in each Notion row). Format: Maps ranking first, plain "what these searches are worth" money slide, Starter $1,750 |
-| Free demo homepages (private, noindex, `/demo/<business>/`) | JL Absolute: https://desiweb.org/demo/jl-absolute-tree-service (built to beat the top 3 on Google Maps; real Google reviews; hero photo hotlinked from their Google listing, so replace with a saved copy if it ever breaks) |
+| Free demo homepages (private, noindex, `/demo/<business>/`) | JL Absolute: https://desiweb.org/demo/jl-absolute-tree-service · MCM Atlanta: https://desiweb.org/demo/mcm-atlanta (black and gold from his logo, his real package prices and Wix photos hotlinked; confirm address, hours and deposit) (built to beat the top 3 on Google Maps; real Google reviews; hero photo hotlinked from their Google listing, so replace with a saved copy if it ever breaks) |
 | Lead research credits | OpenSEO, about 7,900 credits left (each business search ≈ 35 credits for up to 50 businesses) |
 
 ### Cold call list notes
