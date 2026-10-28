@@ -143,6 +143,10 @@ section{padding:96px 0;position:relative}
 @media (max-width:820px){.video{grid-template-columns:1fr}}
 .video a.thumb{position:relative;display:block;border-radius:16px;overflow:hidden;aspect-ratio:16/9}
 .video a.thumb img{width:100%;height:100%;object-fit:cover}
+.btn-yt{background:#ff0033;color:#fff}
+.btn-yt:hover{background:#ff2a52}
+.video a.thumb.playing::after{display:none}
+.video a.thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .video a.thumb::after{content:"▶";position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;background:var(--gold);color:#1a1200;display:grid;place-items:center;font-size:28px;padding-left:6px;animation:pulse 2.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(214,169,59,.55)}50%{box-shadow:0 0 0 18px rgba(214,169,59,0)}}
 
@@ -277,7 +281,9 @@ html.story .pack,html.story .svc,html.story .rev{flex:0 0 84%;min-width:0;scroll
 html.story .shot{flex:0 0 88%;aspect-ratio:4/5;scroll-snap-align:center}
 html.story .packs .rv{transform:translateX(-56px)}
 html.story .packs .rv.in{transform:none}
-html.story .video{display:none}
+html.story .video{grid-template-columns:1fr;gap:18px;padding:14px;margin:0}
+html.story .video h3{font-size:1.5rem !important}
+html.story .video p{font-size:15px;margin:8px 0 14px}
 html.story .steps{grid-template-columns:1fr 1fr;gap:14px}
 html.story .step h3{font-size:1.15rem}
 html.story .step p{font-size:14px}
@@ -394,13 +400,18 @@ html.story details summary{font-size:1.1rem}
         <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/pink.jpg" data-full="/demo/mcm-atlanta/img/pink-lg.jpg" alt="Pink Dodge Charger on jack stands" /><span>Charger in the shop</span></div>
       </div>
       <div class="hint">Swipe · tap a photo for full screen <span>→</span></div>
-      <div class="video">
-        <a class="thumb" href="https://youtu.be/5OKRpkAt5tg" target="_blank" rel="noopener" aria-label="Watch the first MCM build video on YouTube"><img loading="lazy" src="/demo/mcm-atlanta/img/video.jpg" alt="MCM build video thumbnail" /></a>
+    </div>
+  </section>
+
+  <section id="video" style="padding-top:0">
+    <div class="wrap">
+      <div class="video" style="margin-top:0">
+        <a class="thumb" href="https://youtu.be/5OKRpkAt5tg" target="_blank" rel="noopener" data-yt="5OKRpkAt5tg" aria-label="Play the first MCM build video"><img loading="lazy" src="/demo/mcm-atlanta/img/video.jpg" alt="MCM build video thumbnail" /></a>
         <div>
           <div class="eyebrow">On YouTube</div>
           <h3 style="font-size:2rem">Boosted 300, twin turbo C5, boosted C6, boosted BMW, cammed Camaro</h3>
-          <p class="muted">Watch the builds, then book yours. New videos land here on the live site automatically.</p>
-          <a class="btn btn-ghost" href="https://www.youtube.com/@mikayle" target="_blank" rel="noopener">Subscribe on YouTube</a>
+          <p class="muted">Watch it right here, then book yours. New videos show up here on the live site automatically.</p>
+          <a class="btn btn-yt" href="https://www.youtube.com/@mikayle?sub_confirmation=1" target="_blank" rel="noopener">▶ Subscribe on YouTube</a>
         </div>
       </div>
     </div>
@@ -621,6 +632,21 @@ html.story details summary{font-size:1.1rem}
       toast.hidden = false;
       clearTimeout(window.__t);
       window.__t = setTimeout(function () { toast.hidden = true; }, 4000);
+    });
+
+    // ── YouTube plays right on the page ──
+    document.querySelectorAll("a.thumb[data-yt]").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        if (a.classList.contains("playing")) return;
+        e.preventDefault();
+        var f = document.createElement("iframe");
+        f.src = "https://www.youtube-nocookie.com/embed/" + a.getAttribute("data-yt") + "?autoplay=1&playsinline=1&rel=0";
+        f.title = "MCM Atlanta build video";
+        f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+        f.allowFullscreen = true;
+        a.classList.add("playing");
+        a.appendChild(f);
+      });
     });
 
     // ── Build photos open full screen: arrows, swipe, Esc ──

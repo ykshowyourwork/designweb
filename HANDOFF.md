@@ -43,6 +43,13 @@ Option B: the blue "d." tile + "DesiWeb." wordmark, made from Inter 800 (free co
 
 Redesign in the spirit of fluid22.com (original, not copied): dark charcoal (#1f1f1f), one accent (`--brand` #6f9bff in `src/styles.css`, change it there to recolor the whole site), big condensed headlines (Barlow Condensed, self-hosted via @fontsource), Inter body, small spaced-out caps for buttons and links, big rounded image cards for work, a floating "Get a free mockup" button (footer partial). Work grid uses screenshots in `public/work/`; sample-site screenshots were taken from `/examples/<slug>` with headless Chrome at 1440x900.
 
+## Site rules for every client (2026-10-27)
+
+- **Full pages only for the client's niche, money services**, each with real content (photos, prices, FAQs) so Google doesn't see thin pages. Example: MCM Atlanta gets pages for cam packages, tuning and pre-purchase inspections.
+- **Smaller jobs (brakes, oil changes) stay bookable on the site with no page of their own**, until the client has photos and reviews for that work.
+- **One "Areas We Serve" section, no page per town.** A town gets its own page only when the client really works there a lot and has local proof. Copy-paste town pages are "doorway pages" in Google's spam policy, and Maps ranking comes from the address, Google profile and reviews.
+- **Demos:** phones (and windows under 768px) open in Story mode, wide screens in Classic mode. Save the client's photos into `public/demo/<slug>/img/` so nothing loads from their old site.
+
 ## What's built (this repo)
 
 - Public pages: home, how it works, what you get, services + 6 service pages, pricing, industries + 6 trade pages, examples (The Set and YK case studies + 5 sample sites), FAQ, about, book a call, free mockup, terms, privacy. Google and AI ready (Schema, sitemap, llms.txt, link preview image).
