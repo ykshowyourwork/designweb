@@ -19,7 +19,7 @@ const blocks = {
   serviceTiles: () => services.map((s) => `<a class="card" href="/services/${s.slug}"><h3>${s.name}</h3><p class="muted">${esc(s.headline)}</p></a>`).join("\n"),
   workTiles: () =>
     work
-      .map((w) => `<a class="shot-card work" href="/examples/${w.slug}"><span class="shot-img"><img src="${w.image}" alt="The ${esc(w.name)} homepage" width="1200" height="566" loading="lazy" /></span><div class="shot-text"><span class="tag">Live client site</span><h3>${esc(w.name)}</h3><p>${esc(w.summary)}</p></div></a>`)
+      .map((w) => `<a class="shot-card work" href="/examples/${w.slug}"><span class="shot-img"><img src="${w.image}" alt="The ${esc(w.name)} homepage" width="1200" height="566" loading="lazy" /></span><div class="shot-text"><span class="tag">${esc(w.status ?? "Live client site")}</span><h3>${esc(w.name)}</h3><p>${esc(w.summary)}</p></div></a>`)
       .join("\n"),
   conceptTiles: () =>
     concepts

@@ -41,6 +41,7 @@ for (const ind of industries) {
     }),
     searches: ind.searches.map((q) => `<div class="card"><strong>"${esc(q)}"</strong></div>`).join(""),
     build: list(ind.build),
+    example: ind.example ? `<p class="muted">See one we’re building now: <a href="/examples/${esc(ind.example)}">${esc(work.find((w) => w.slug === ind.example)?.name ?? ind.example)}</a>.</p>` : "",
   });
 }
 
@@ -52,7 +53,7 @@ for (const s of services) {
 }
 
 for (const w of work) {
-  write("work.html", `examples/${w.slug}`, { ...w, services: w.services.join(", ") }, { built: list(w.built) });
+  write("work.html", `examples/${w.slug}`, { ...w, services: w.services.join(", "), visit: w.status ? "See the preview →" : "Visit the live site →" }, { built: list(w.built) });
 }
 
 for (const c of concepts) {

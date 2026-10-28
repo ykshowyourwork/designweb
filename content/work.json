@@ -1,5 +1,32 @@
 [
   {
+    "slug": "mcm-atlanta",
+    "name": "MCM Atlanta",
+    "status": "In progress",
+    "url": "/demo/mcm-atlanta",
+    "image": "/work/mcm-atlanta.jpg",
+    "summary": "A performance shop in Sandy Springs, GA: Hemi and LT1 cam packages, tuning and custom builds, with every price posted and booking online.",
+    "industry": "Auto repair and performance",
+    "location": "Sandy Springs, GA",
+    "launched": "In progress",
+    "services": [
+      "Website design",
+      "Online booking",
+      "Google Maps setup",
+      "SEO and AEO"
+    ],
+    "client": "Mikayle’s Customs & Mechanics builds and tunes performance cars, from Hemi cam packages to twin turbo Corvettes.",
+    "challenge": "Google couldn’t find the shop. There was no Google Maps listing, and searching the shop’s name showed a designer bag store instead.",
+    "built": [
+      "Every cam package priced up front, with booking and a deposit online",
+      "Full pages for the cam, tuning and inspection work people search for",
+      "A builds gallery of real cars that opens full screen, plus the shop’s YouTube",
+      "Story mode on phones: full-screen screens you swipe through",
+      "An Areas We Serve section for Sandy Springs and north Atlanta"
+    ],
+    "result": "In progress. Tap the preview to see the site as it’s being built."
+  },
+  {
     "slug": "the-set",
     "name": "The Set",
     "url": "https://theset.vip",
@@ -8,7 +35,12 @@
     "industry": "Music and independent artists",
     "location": "United States, online",
     "launched": "2026",
-    "services": ["Website design", "Payments", "Installs like an app", "SEO and AEO"],
+    "services": [
+      "Website design",
+      "Payments",
+      "Installs like an app",
+      "SEO and AEO"
+    ],
     "client": "The Set is a home for independent artists. Fans stream new music, buy beats and merch, and find events, all straight from the artist.",
     "challenge": "Independent artists needed one place to release music, sell to fans and get paid, without signing away their masters to a label.",
     "built": [
@@ -30,7 +62,12 @@
     "industry": "Weddings and events",
     "location": "Los Angeles, Orange County and San Diego",
     "launched": "2026",
-    "services": ["Website design", "Local SEO", "Vendor listings", "Blog"],
+    "services": [
+      "Website design",
+      "Local SEO",
+      "Vendor listings",
+      "Blog"
+    ],
     "client": "YK Entertainment helps couples and planners find and book event vendors across Southern California: DJs, photographers, caterers, planners and more.",
     "challenge": "Couples compare a dozen vendors before they reach out. They needed one place to see real work and reviews, and vendors needed to be found on Google in each part of the region.",
     "built": [

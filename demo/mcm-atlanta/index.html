@@ -195,10 +195,17 @@ form.q input,form.q select,form.q textarea{width:100%;min-height:52px;padding:12
 form.q textarea{min-height:100px}
 form.q input:focus,form.q select:focus,form.q textarea:focus{outline:none;border-color:var(--gold)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row2 > *{min-width:0}
+form.q input[type=date]{-webkit-appearance:none;appearance:none;min-width:0;max-width:100%;display:block;text-align:left}
+form.q input[type=date]::-webkit-date-and-time-value{text-align:left}
 @media (max-width:520px){.row2{grid-template-columns:1fr}}
 .dep{display:flex;justify-content:space-between;align-items:center;background:rgba(214,169,59,.1);border:1px solid rgba(214,169,59,.4);border-radius:12px;padding:12px 16px;font-weight:600}
 .dep b{color:var(--gold-2)}
 .story-only{display:none}
+.hint{display:none;margin-top:12px;color:var(--gold-2);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.hint span{display:inline-block;animation:nudge-x 1.4s ease-in-out infinite}
+@keyframes nudge-x{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}
+html.story .hint{display:block}
 
 /* FAQ */
 details{border-bottom:1px solid var(--line);padding:22px 0}
@@ -249,6 +256,7 @@ html.story .preview,html.story .band,html.story footer{display:none}
 html.story header.top{position:fixed;left:0;right:0;background:linear-gradient(180deg,rgba(11,11,12,.92),rgba(11,11,12,0));border-bottom:0;backdrop-filter:none}
 html.story main{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;overscroll-behavior:contain;scroll-behavior:auto;-webkit-overflow-scrolling:touch}
 html.story main > section,html.story main > .notes{min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:92px 0 104px}
+html.story main > section > .wrap{width:100%}
 html.story .section-head{margin-bottom:22px}
 html.story .section-head p{font-size:15px}
 html.story h2{font-size:clamp(2.2rem,11vw,3.2rem)}
@@ -258,12 +266,14 @@ html.story .hero .wrap{padding-top:0;padding-bottom:0}
 html.story .hero h1{font-size:clamp(3rem,15vw,4.4rem);margin:16px 0 14px}
 html.story .hero .lead{font-size:1.02rem;margin-bottom:22px}
 html.story .badges{display:none}
+@media (max-width:767px){.brand b,.brand small{white-space:nowrap}.brand b{font-size:17px}.brand img{width:42px;height:42px}.mode{padding:8px 12px}}
+@media (max-width:420px){.brand .loc{display:none}}
 html.story .swipe{display:block;margin-top:22px;text-align:center;color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 /* Rows you swipe sideways */
 html.story .packs,html.story .services,html.story .builds,html.story .reviews{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -20px;padding:4px 20px 8px;scrollbar-width:none}
 html.story .packs::-webkit-scrollbar,html.story .services::-webkit-scrollbar,html.story .builds::-webkit-scrollbar,html.story .reviews::-webkit-scrollbar{display:none}
-html.story .pack,html.story .svc,html.story .rev{flex:0 0 82%;scroll-snap-align:center}
+html.story .pack,html.story .svc,html.story .rev{flex:0 0 84%;min-width:0;scroll-snap-align:center}
 html.story .shot{flex:0 0 88%;aspect-ratio:4/5;scroll-snap-align:center}
 html.story .packs .rv{transform:translateX(-56px)}
 html.story .packs .rv.in{transform:none}
@@ -280,7 +290,7 @@ html.story details{padding:14px 0}
 html.story details summary{font-size:1.1rem}
 
 @media (prefers-reduced-motion:reduce){
-  .hero .photo,.video a.thumb::after,.swipe{animation:none}
+  .hero .photo,.video a.thumb::after,.swipe,.hint span{animation:none}
   .track{animation:none;flex-wrap:wrap;width:auto}
   .rv{opacity:1;transform:none;transition:none}
   .tires .reveal{stroke-dashoffset:0;transition:none}
@@ -295,7 +305,7 @@ html.story details summary{font-size:1.1rem}
   <div class="wrap">
     <a class="brand" href="#top" aria-label="MCM Atlanta home">
       <img src="/demo/mcm-atlanta/img/logo.jpg" alt="MCM Atlanta logo" width="48" height="48" />
-      <span><b>Mikayle’s Customs</b><small>&amp; Mechanics · Sandy Springs, GA</small></span>
+      <span><b>Mikayle’s Customs</b><small>&amp; Mechanics<span class="loc"> · Sandy Springs, GA</span></small></span>
     </a>
     <nav class="links" aria-label="Main">
       <a href="#packages">Cam packages</a>
@@ -348,6 +358,7 @@ html.story details summary{font-size:1.1rem}
         <div class="pack"><span class="tag">Hemi · all in</span><h3>Stage 3</h3><div class="price">$11,111</div><ul><li>Cam, lifters, headers</li><li>Torque converter (stall)</li></ul><a class="btn btn-ghost" href="#book" data-pick="Hemi Stage 3 cam, lifters, headers and stall">Book Stage 3</a></div>
         <div class="pack"><span class="tag">2015–24 Chevy LT1</span><h3>LT1 Stage 1</h3><div class="price">$4,300</div><ul><li>Camshaft install</li><li>Camaro SS and Corvette</li></ul><a class="btn btn-ghost" href="#book" data-pick="LT1 Stage 1 camshaft install">Book LT1</a></div>
       </div>
+      <div class="hint">Swipe for more stages <span>→</span></div>
     </div>
   </section>
 
@@ -366,6 +377,7 @@ html.story details summary{font-size:1.1rem}
         <a class="svc" href="#book" data-pick="Hemi head gasket"><div class="row"><h3>Hemi head gasket</h3><span class="cost">$1,199</span></div><p>5.7 and 6.4 Hemi head gasket replacement.</p><span class="go">Book →</span></a>
         <a class="svc" href="#book" data-pick="Mobile service"><div class="row"><h3>Mobile service</h3><span class="cost">$50 trip</span></div><p>Can’t bring it in? Ask about a visit when you book.</p><span class="go">Ask →</span></a>
       </div>
+      <div class="hint">Swipe for more <span>→</span></div>
       <div class="more"><span class="eyebrow">Also book online</span><a href="#book" data-pick="Brakes">Brakes · $200</a><a href="#book" data-pick="Oil change">Oil change · $50</a><a href="#book" data-pick="Something else">Something else</a></div>
     </div>
   </section>
@@ -381,6 +393,7 @@ html.story details summary{font-size:1.1rem}
         <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/heads.jpg" data-full="/demo/mcm-atlanta/img/heads-lg.jpg" alt="Engine with the heads off during a build" /><span>Heads off</span></div>
         <div class="shot"><img loading="lazy" src="/demo/mcm-atlanta/img/pink.jpg" data-full="/demo/mcm-atlanta/img/pink-lg.jpg" alt="Pink Dodge Charger on jack stands" /><span>Charger in the shop</span></div>
       </div>
+      <div class="hint">Swipe · tap a photo for full screen <span>→</span></div>
       <div class="video">
         <a class="thumb" href="https://youtu.be/5OKRpkAt5tg" target="_blank" rel="noopener" aria-label="Watch the first MCM build video on YouTube"><img loading="lazy" src="/demo/mcm-atlanta/img/video.jpg" alt="MCM build video thumbnail" /></a>
         <div>
@@ -401,6 +414,7 @@ html.story details summary{font-size:1.1rem}
         <div class="rev"><span class="stars">★★★★★</span><p>“Extremely happy with the work done.”</p><cite>Sarah L.</cite></div>
         <div class="rev empty"><p>Your Google reviews show here once your Google Maps listing is live.</p></div>
       </div>
+      <div class="hint">Swipe <span>→</span></div>
     </div>
   </section>
 
@@ -676,6 +690,11 @@ html.story details summary{font-size:1.1rem}
       onScroll();
     }
     modeBtn.addEventListener("click", function () { setMode(!isStory(), true); });
+    var narrow = window.matchMedia("(max-width: 767px)");
+    narrow.addEventListener("change", function () {
+      try { localStorage.removeItem("mcm-mode"); } catch (e) {}
+      setMode(narrow.matches, false);
+    });
     setMode(isStory(), false);
   })();
 </script>
