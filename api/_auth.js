@@ -73,19 +73,41 @@ export async function requireOwner(req, c) {
   return r.data.email;
 }
 
-/** "Forgot password?": emails a link to set a new password. Says the same thing whether or not the email exists. */
+/** "Forgot password?": we make a one-time code with Supabase and email our own link through Resend.
+ *  The link only opens the page. The code is used when the owner presses Save, so inbox
+ *  link-scanners can't use it up first. Says the same thing whether or not the email exists. */
 export async function sendReset(email, c) {
   c = opts(c);
-  if (!allowed(email, c.env)) return { ok: true };
-  await gotrue(`recover?redirect_to=${encodeURIComponent(`${site()}/admin/reset`)}`, { method: "POST", body: JSON.stringify({ email: String(email).trim() }) }, c);
+  const to = String(email ?? "").trim().toLowerCase();
+  if (!allowed(to, c.env)) return { ok: true };
+  const r = await gotrue("admin/generate_link", { method: "POST", body: JSON.stringify({ type: "recovery", email: to }) }, c);
+  const hash = r.data.hashed_token ?? r.data.properties?.hashed_token;
+  if (!r.ok || !hash) return { ok: true };
+  const link = `${site()}/admin/reset?code=${encodeURIComponent(hash)}`;
+  const key = c.env.RESEND_API_KEY;
+  if (!key) throw new HttpError(503, "Email isn't connected yet (RESEND_API_KEY).");
+  const res = await c.fetchImpl("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: `DesiWeb <${brand.email}>`,
+      to: [to],
+      subject: "Set your DesiWeb password",
+      text: `Tap this link to set your password for the DesiWeb dashboard:\n\n${link}\n\nIt works once, for about an hour. Didn't ask for this? Ignore this email.`,
+    }),
+  });
+  if (!res.ok) throw new HttpError(502, "The reset email didn't send. Try again in a minute.");
   return { ok: true };
 }
 
-/** The link from that email lands on /admin/reset with a one-time token; this saves the new password and signs in. */
-export async function setPassword(token, password, c) {
+/** The page from that email sends the code and the new password; we save it and sign in. */
+export async function setPassword(code, password, c) {
   c = opts(c);
   if (String(password ?? "").length < 8) throw new HttpError(400, "Use at least 8 characters.");
-  const r = await gotrue("user", { method: "PUT", headers: { authorization: `Bearer ${token}` }, body: JSON.stringify({ password: String(password) }) }, c);
-  if (!r.ok || !allowed(r.data.email, c.env)) throw new HttpError(401, "That link expired. Ask for a new one.");
-  return signIn(r.data.email, password, c);
+  const v = await gotrue("verify", { method: "POST", body: JSON.stringify({ type: "recovery", token_hash: String(code ?? "") }) }, c);
+  if (!v.ok || !v.data.access_token) throw new HttpError(401, "That link was already used or is over an hour old. Ask for a new one from the sign-in page.");
+  const r = await gotrue("user", { method: "PUT", headers: { authorization: `Bearer ${v.data.access_token}` }, body: JSON.stringify({ password: String(password) }) }, c);
+  const email = r.data.email ?? v.data.user?.email;
+  if (!r.ok || !allowed(email, c.env)) throw new HttpError(401, "That password didn't save. Ask for a new link.");
+  return signIn(email, password, c);
 }

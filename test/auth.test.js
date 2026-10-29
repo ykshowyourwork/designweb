@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { refresh, requireOwner, signIn } from "../api/_auth.js";
+import { refresh, requireOwner, sendReset, setPassword, signIn } from "../api/_auth.js";
 
 const env = { SUPABASE_URL: "https://db.test", SUPABASE_SERVICE_ROLE_KEY: "svc", ADMIN_PASSWORD: "old-password-123" };
 
@@ -69,4 +69,30 @@ test("owner email + admin password signs in even when Supabase is connected; oth
   const s = await signIn("gethelp@desiweb.org", "old-password-123", { ...a, env });
   assert.equal(s.token, "pw:old-password-123");
   await assert.rejects(signIn("someone@else.com", "old-password-123", { ...a, env }), (e) => e.status === 401);
+});
+
+test("reset: the email link carries a one-time code that is only used when the owner saves", async () => {
+  const calls = [];
+  const sent = [];
+  const fetchImpl = async (url, init) => {
+    const u = new URL(url);
+    const body = init.body ? JSON.parse(init.body) : {};
+    calls.push(u.pathname);
+    const reply = (status, data) => ({ ok: status < 300, status, json: async () => data });
+    if (u.host === "api.resend.com") { sent.push(body); return reply(200, { id: "e1" }); }
+    if (u.pathname.endsWith("/admin/generate_link")) return reply(200, { properties: { hashed_token: "HASH1" } });
+    if (u.pathname.endsWith("/verify")) return body.token_hash === "HASH1" ? reply(200, { access_token: "rec", user: { email: "gethelp@desiweb.org" } }) : reply(403, {});
+    if (u.pathname.endsWith("/user")) return reply(200, { email: "gethelp@desiweb.org" });
+    if (u.searchParams.get("grant_type") === "password") return reply(200, { access_token: "tok", refresh_token: "r", expires_at: 1, user: { email: "gethelp@desiweb.org" } });
+    throw new Error(`unexpected ${url}`);
+  };
+  const e = { ...env, RESEND_API_KEY: "re_x" };
+  await sendReset("gethelp@desiweb.org", { fetchImpl, env: e });
+  assert.match(sent[0].text, /\/admin\/reset\?code=HASH1/);
+  assert.ok(!calls.some((p) => p.endsWith("/verify")), "sending the email must not use the code");
+  const s = await setPassword("HASH1", "new-password-1", { fetchImpl, env: e });
+  assert.equal(s.token, "tok");
+  await assert.rejects(setPassword("OLD", "new-password-1", { fetchImpl, env: e }), (x) => x.status === 401);
+  await sendReset("someone@else.com", { fetchImpl, env: e });
+  assert.equal(sent.length, 1, "no email for non-owner addresses");
 });
