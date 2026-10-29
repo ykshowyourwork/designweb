@@ -7,7 +7,7 @@ const $ = (id) => document.getElementById(id);
 const STAGES = [
   ["warm", "Warm (from the website)"],
   ["lead", "To email"],
-  ["call", "To call (no email)"],
+  ["call", "To call or text"],
   ["messaged", "Sent"],
   ["follow_up", "Follow-up due"],
   ["followed_up", "Followed up"],
@@ -21,7 +21,7 @@ const HOT = ["warm", "replied", "yes", "follow_up"];
 let rows = [];
 let settings = {};
 let autoSend = false;
-let tab = "lead";
+let tab = "today";
 let open = null;
 
 const api = (method, body) => call("/api/network", method, body);
@@ -35,6 +35,13 @@ function toast(text) {
 }
 
 const hasEmail = (r) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email ?? "");
+const todayIso = () => new Date().toLocaleDateString("en-CA");
+const OPEN = ["lead", "call", "warm", "follow_up"];
+// Today's list: what the morning routine lined up, plus anything due, minus who was already reached today.
+const onToday = (r) => OPEN.includes(r.stage) && ((r.queue_on && r.queue_on <= todayIso()) || (r.stage === "follow_up") || r.stage === "warm");
+const doneToday = (r) => r.last_contact_at && new Date(r.last_contact_at).toLocaleDateString("en-CA") === todayIso();
+const digits = (p) => String(p ?? "").replace(/[^\d+]/g, "");
+const igUrl = (u) => (/^https?:/i.test(u) ? u : `https://instagram.com/${String(u).replace(/^@/, "")}`);
 function batchCounts() {
   const fresh = rows.filter((r) => ["lead", "warm"].includes(r.stage) && hasEmail(r) && r.email_draft && r.email_subject).length;
   const follow = rows.filter((r) => r.stage === "follow_up" && hasEmail(r) && r.followup_draft && r.followup_subject).length;
@@ -44,7 +51,9 @@ function batchCounts() {
 function render() {
   const counts = Object.fromEntries(STAGES.map(([s]) => [s, 0]));
   rows.forEach((r) => (counts[r.stage] = (counts[r.stage] ?? 0) + 1));
+  const todayCount = rows.filter(onToday).length;
   $("tabs").innerHTML =
+    `<button class="chip ${tab === "today" ? "on" : ""}" data-tab="today">Today ${todayCount}</button>` +
     STAGES.map(([s, l]) => `<button class="chip ${tab === s ? "on" : ""}" data-tab="${s}">${l} ${counts[s]}</button>`).join("") +
     `<button class="chip ${tab === "all" ? "on" : ""}" data-tab="all">Everyone ${rows.length}</button>`;
 
@@ -57,11 +66,11 @@ function render() {
     : settings.auto_send_on
       ? `Review week: turns on by itself ${settings.auto_send_on}.`
       : "";
-  $("summary").textContent = `${rows.length} businesses · ${counts.messaged + counts.follow_up + counts.followed_up + counts.replied + counts.yes + counts.pass} contacted · ${counts.replied + counts.yes} replied · batch size ${settings.batch_size ?? 10} a day`;
+  $("summary").textContent = `Today: ${todayCount} to reach · ${rows.filter(doneToday).length} done · ${rows.length} businesses · ${counts.messaged + counts.follow_up + counts.followed_up + counts.replied + counts.yes + counts.pass} contacted · ${counts.replied + counts.yes} replied · batch size ${settings.batch_size ?? 10} a day`;
 
   const q = $("search").value.trim().toLowerCase();
   const shown = rows
-    .filter((r) => tab === "all" || r.stage === tab)
+    .filter((r) => tab === "all" || (tab === "today" ? onToday(r) : r.stage === tab))
     .filter((r) => !q || [r.business, r.area, r.phone, r.email, r.category, r.contact_name].join(" ").toLowerCase().includes(q))
     .sort((a, b) => (b.reviews ?? 0) - (a.reviews ?? 0));
 
@@ -93,13 +102,41 @@ function card(r) {
         <div class="meta" style="margin-top:4px">${links.join("")}</div>
         ${r.heads_up ? `<p class="note-line" style="margin:8px 0 0">${esc(r.heads_up)}</p>` : ""}
         ${!isOpen && draft ? `<p class="note-line" style="margin:8px 0 0"><b>${esc(subj ?? "")}</b> — ${esc(draft.slice(0, 140))}…</p>` : ""}
+        ${r.opener && OPEN.includes(r.stage) ? `<p class="note-line" style="margin:8px 0 0"><b>If you call, say:</b> ${esc(r.opener)}</p>` : ""}
       </div>
       <div class="acts" style="margin:0">
         <button class="b" data-act="open">${isOpen ? "Close" : "Open"}</button>
       </div>
     </div>
+    ${reach(r, follow, subj, draft)}
     ${isOpen ? editor(r, follow, subj, draft) : ""}
   </div>`;
+}
+
+// Every way to reach them, best first: email from the site, text, call, Instagram, their contact form.
+function reach(r, follow, subj, draft) {
+  const tel = digits(r.phone);
+  const textBody = r.text_draft || "";
+  const form = r.contact_url || r.website;
+  const ways = [
+    hasEmail(r) && draft && subj && OPEN.includes(r.stage) && `<button class="b go" data-act="quick-send">${follow ? "Send follow-up" : "Send email"}</button>`,
+    hasEmail(r) && draft && `<a class="b" href="mailto:${esc(r.email)}?subject=${encodeURIComponent(subj ?? "")}&body=${encodeURIComponent(draft)}">Open in my email</a>`,
+    tel && `<a class="b" href="sms:${esc(tel)}${textBody ? `&body=${encodeURIComponent(textBody)}` : ""}">Text</a>`,
+    tel && `<a class="b" href="tel:${esc(tel)}">Call</a>`,
+    r.instagram && `<a class="b" href="${esc(igUrl(r.instagram))}" target="_blank" rel="noopener">Instagram</a>`,
+    r.dm_draft && `<button class="b" data-act="copy" data-text="dm_draft">Copy DM</button>`,
+    form && `<a class="b" href="${esc(form)}" target="_blank" rel="noopener">${r.contact_url ? "Contact form" : "Their website"}</a>`,
+    form && draft && `<button class="b" data-act="copy" data-text="${follow ? "followup_draft" : "email_draft"}">Copy message</button>`,
+  ].filter(Boolean);
+  const done = OPEN.includes(r.stage)
+    ? `<div class="acts done"><span class="note-line">Done:</span>
+        ${tel ? `<button class="b" data-act="mark" data-ch="text">Texted</button><button class="b" data-act="mark" data-ch="talked">Talked</button><button class="b" data-act="mark" data-ch="no_answer">No answer</button><button class="b" data-act="mark" data-ch="voicemail">Voicemail</button>` : ""}
+        ${r.instagram ? `<button class="b" data-act="mark" data-ch="dm">DM sent</button>` : ""}
+        ${form ? `<button class="b" data-act="mark" data-ch="form">Form sent</button>` : ""}
+        ${hasEmail(r) ? `<button class="b" data-act="mark" data-ch="email">Emailed myself</button>` : ""}
+      </div>`
+    : "";
+  return ways.length ? `<div class="acts">${ways.join("")}</div>${done}` : done;
 }
 
 function editor(r, follow, subj, draft) {
@@ -109,7 +146,15 @@ function editor(r, follow, subj, draft) {
       <div><label>Email</label><input data-f="email" value="${esc(r.email ?? "")}" /></div>
       <div><label>Contact name</label><input data-f="contact_name" value="${esc(r.contact_name ?? "")}" /></div>
       <div><label>Follow up on</label><input data-f="follow_up_on" type="date" value="${esc(r.follow_up_on ?? "")}" /></div>
+      <div><label>Phone</label><input data-f="phone" value="${esc(r.phone ?? "")}" /></div>
+      <div><label>Instagram</label><input data-f="instagram" value="${esc(r.instagram ?? "")}" placeholder="@handle" /></div>
+      <div><label>Contact form link</label><input data-f="contact_url" value="${esc(r.contact_url ?? "")}" /></div>
+      <div><label>Website</label><input data-f="website" value="${esc(r.website ?? "")}" /></div>
     </div>
+    <label>Text message</label>
+    <textarea data-f="text_draft" style="min-height:70px">${esc(r.text_draft ?? "")}</textarea>
+    <label>Instagram DM</label>
+    <textarea data-f="dm_draft" style="min-height:70px">${esc(r.dm_draft ?? "")}</textarea>
     <label>${follow ? "Follow-up subject" : "Subject"}</label>
     <input data-f="${follow ? "followup_subject" : "email_subject"}" value="${esc(subj ?? "")}" />
     <label>${follow ? "Follow-up email" : "Email"} <span style="font-weight:400">(your sign-off and DesiWeb's address are added at the bottom)</span></label>
@@ -209,11 +254,26 @@ $("list").addEventListener("click", async (e) => {
     render();
     return;
   }
+  if (act === "copy") {
+    const row = rows.find((r) => r.id === id);
+    navigator.clipboard?.writeText(row[b.dataset.text] ?? "").then(() => toast("Copied. Paste it in."), () => toast("Couldn't copy."));
+    return;
+  }
   b.disabled = true;
   try {
     if (act === "save") {
       replaceRow(await api("POST", { action: "update", id, patch: readEdits(el) }));
       toast("Saved.");
+    } else if (act === "mark") {
+      const row = await api("POST", { action: "mark", id, channel: b.dataset.ch });
+      replaceRow(row);
+      toast(`${row.business}: ${b.textContent.toLowerCase()}. ${OPEN.includes(row.stage) ? "Still on your list." : "Moved to Sent."}`);
+    } else if (act === "quick-send") {
+      const row = rows.find((r) => r.id === id);
+      const follow = row.stage === "follow_up";
+      if (!confirm(`Send to ${row.email} now from gethelp@desiweb.org?\n\n${follow ? row.followup_subject : row.email_subject}`)) return;
+      replaceRow(await api("POST", { action: "send", id }));
+      toast(`Sent to ${row.email}.`);
     } else if (act === "stage") {
       replaceRow(await api("POST", { action: "update", id, patch: { stage: b.dataset.stage } }));
       toast(`Marked ${LABEL[b.dataset.stage]}.`);

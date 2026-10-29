@@ -23,7 +23,7 @@ const WRITABLE = [
   "business", "stage", "category", "contact_name", "email", "phone", "website", "google_maps", "google_cid", "area",
   "rating", "reviews", "no_website", "unclaimed_google", "package", "budget", "opener", "why_fit", "heads_up",
   "email_subject", "email_draft", "followup_subject", "followup_draft", "deck_url", "demo_url", "notes", "source",
-  "tags", "follow_up_on", "notion_page_id",
+  "tags", "follow_up_on", "notion_page_id", "instagram", "contact_url", "text_draft", "dm_draft", "queue_on",
 ];
 
 const dayString = (d) => d.toISOString().slice(0, 10);
@@ -215,6 +215,36 @@ export async function sendOne(id, { subject, body, force = false } = {}, o) {
   } else {
     Object.assign(patch, { stage: "messaged", sent_on: c.today, follow_up_on: addDays(c.today, 3), email_subject: subj, email_draft: text });
     patch.log = stamp(row, `Email sent to ${to}: "${subj}"`, c.today);
+  }
+  const rows = await db(c, "PATCH", `network?id=eq.${row.id}`, patch, "return=representation");
+  return rows[0];
+}
+
+const CHANNELS = {
+  text: "Texted",
+  dm: "Instagram DM sent",
+  form: "Contact form sent",
+  email: "Emailed from my own inbox",
+  talked: "Called: talked to them",
+  no_answer: "Called: no answer",
+  voicemail: "Called: left a voicemail",
+};
+
+/** Jordan reached out by hand (text, call, DM, form). Reaching them counts like an email: Sent, follow up in 3 days.
+ *  A call nobody picked up is only logged, and the business stays on today's list. */
+export async function markContact(id, channel, o) {
+  const c = ctx(o);
+  if (!CHANNELS[channel]) throw new HttpError(400, "Unknown way of reaching out.");
+  const row = await getRow(id, c);
+  const patch = { last_contact_at: new Date().toISOString(), log: stamp(row, CHANNELS[channel], c.today) };
+  if (!["no_answer", "voicemail"].includes(channel)) {
+    if (row.stage === "follow_up") {
+      patch.followups = (row.followups ?? 0) + 1;
+      if (patch.followups < 2) Object.assign(patch, { stage: "messaged", follow_up_on: addDays(c.today, 7) });
+      else Object.assign(patch, { stage: "followed_up", follow_up_on: null });
+    } else if (["lead", "call", "warm"].includes(row.stage)) {
+      Object.assign(patch, { stage: "messaged", sent_on: c.today, follow_up_on: addDays(c.today, 3) });
+    }
   }
   const rows = await db(c, "PATCH", `network?id=eq.${row.id}`, patch, "return=representation");
   return rows[0];

@@ -29,6 +29,10 @@
       .stage { display: inline-block; border-radius: 999px; padding: 3px 10px; font: 700 12px/1.4 var(--body); border: 1px solid var(--line); }
       .stage.hot { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
       .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .acts.done { margin-top: 8px; align-items: center; }
+      .acts.done .b { min-height: 34px; padding: 0 12px; font-size: 13px; }
+      a.b { color: var(--fg); }
+      a.b.go, .b.go { color: var(--brand-ink); }
       .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
       @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } .row { grid-template-columns: 1fr; } }
       .log { white-space: pre-wrap; font-size: 13px; color: var(--muted); margin-top: 10px; }

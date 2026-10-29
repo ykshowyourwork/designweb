@@ -52,6 +52,11 @@ create table if not exists public.network (
   last_contact_at  timestamptz,
   log              text,
   notion_page_id   text unique,
+  instagram        text,
+  contact_url      text,
+  text_draft       text,
+  dm_draft         text,
+  queue_on         date,   -- the day the routine put this business on Jordan's list
   created_at       timestamptz not null default now(),
   updated_at       timestamptz not null default now()
 );

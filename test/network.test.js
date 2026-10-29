@@ -148,3 +148,16 @@ test("website form requests land in the Network as Warm when the database is con
   assert.match(row.heads_up, /Call request. Best time: Morning/);
   assert.equal(w.sent.length, 0);
 });
+
+test("texts, DMs and contact forms count as reaching out; an unanswered call is only logged", async () => {
+  const w = fakeWorld([lead(1, { stage: "call", email: null }), lead(2, { stage: "call", email: null })]);
+  const { markContact } = await import("../api/_network.js");
+  let row = await markContact(id(1), "text", { ...w, env, today: "2026-10-29" });
+  assert.equal(row.stage, "messaged");
+  assert.equal(row.follow_up_on, "2026-11-01");
+  assert.match(row.log, /Texted/);
+  row = await markContact(id(2), "no_answer", { ...w, env, today: "2026-10-29" });
+  assert.equal(row.stage, "call");
+  assert.match(row.log, /no answer/);
+  await assert.rejects(markContact(id(2), "pigeon", { ...w, env }), /Unknown way/);
+});
