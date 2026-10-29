@@ -31,10 +31,10 @@
         <h1>Dashboard</h1>
 
         <div class="stats">
-          <div class="card stat"><span>Paid so far</span><b id="s-paid">–</b></div>
-          <div class="card stat"><span>Waiting on clients</span><b id="s-due">–</b></div>
-          <div class="card stat"><span>Due at launch</span><b id="s-launch">–</b></div>
-          <div class="card stat"><span>Projects</span><b id="s-projects">–</b></div>
+          <a class="card stat" href="/admin/invoices"><span>Paid so far</span><b id="s-paid">–</b></a>
+          <a class="card stat" href="/admin/invoices"><span>Waiting on clients</span><b id="s-due">–</b></a>
+          <a class="card stat" href="/admin/invoices"><span>Due at launch</span><b id="s-launch">–</b></a>
+          <a class="card stat" href="/admin/invoices"><span>Projects</span><b id="s-projects">–</b></a>
         </div>
 
         <div class="dash-grid">
@@ -45,9 +45,9 @@
           <section class="card">
             <div class="row-head"><h2>Quick actions</h2></div>
             <div class="quick">
-              <a class="btn" href="/admin/invoices">New invoice</a>
-              <a class="btn ghost" href="/admin/network">Send today’s emails</a>
-              <a class="btn ghost" href="/" target="_blank" rel="noopener">View desiweb.org</a>
+              <a class="tile" href="/admin/network?tab=today"><b>Today’s list</b><span>Reach today’s businesses</span></a>
+              <a class="tile" href="/admin/invoices"><b>New invoice</b><span>Bill a client</span></a>
+              <a class="tile" href="/" target="_blank" rel="noopener"><b>View desiweb.org</b><span>Your live site</span></a>
             </div>
           </section>
           <section class="card">

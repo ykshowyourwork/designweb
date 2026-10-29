@@ -388,5 +388,13 @@ label.pill input:focus-visible + span { outline: 2px solid var(--brand); outline
 .line-item a { color: var(--fg); }
 .line-item small { color: var(--muted); }
 .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-.pills span { border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 14px; }
+.pills a { border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--fg); text-decoration: none; }
+.pills a:hover { border-color: var(--brand); }
+a.stat, a.line-item { color: var(--fg); text-decoration: none; transition: border-color .15s, background .15s; }
+a.stat:hover { border-color: var(--brand); }
+a.line-item:hover { background: rgba(255,255,255,.03); }
+.quick .tile { flex: 1 1 140px; display: block; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; color: var(--fg); text-decoration: none; }
+.quick .tile:hover { border-color: var(--brand); }
+.quick .tile b { display: block; font-size: 15px; }
+.quick .tile span { font-size: 13px; color: var(--muted); }
 .pills b { color: var(--brand); }

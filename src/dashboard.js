@@ -11,6 +11,8 @@ const DEMOS = [
 ];
 
 const NET_STAGES = [
+  ["today", "Today"],
+  ["call", "To call or text"],
   ["lead", "To email"],
   ["messaged", "Sent"],
   ["follow_up", "Follow-up due"],
@@ -20,7 +22,7 @@ const NET_STAGES = [
 ];
 
 $("today").textContent = new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
-$("demos").innerHTML = DEMOS.map((d) => `<div class="line-item"><a href="${d.url}" target="_blank" rel="noopener">${esc(d.name)}</a><small>${esc(d.note)}</small></div>`).join("");
+$("demos").innerHTML = DEMOS.map((d) => `<a class="line-item" href="${d.url}" target="_blank" rel="noopener"><span>${esc(d.name)}</span><small>${esc(d.note)}</small></a>`).join("");
 
 async function money_() {
   const { projects } = await api("/api/admin", "GET");
@@ -32,7 +34,7 @@ async function money_() {
   $("recent").innerHTML = projects.length
     ? projects
         .slice(0, 5)
-        .map((p) => `<div class="line-item"><span><a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a><br><small>${esc(p.clientName)}</small></span><small>${p.payments.map((x) => `${LABEL[x.part] ?? "Payment"}: ${x.status}`).join(" · ")}</small></div>`)
+        .map((p) => `<a class="line-item" href="${esc(p.link)}" target="_blank" rel="noopener"><span>${esc(p.title)}<br><small>${esc(p.clientName)}</small></span><small>${p.payments.map((x) => `${LABEL[x.part] ?? "Payment"}: ${x.status}`).join(" · ")}</small></a>`)
         .join("")
     : `<p class="muted">No invoices yet. <a href="/admin/invoices">Make the first one →</a></p>`;
 }
@@ -40,9 +42,14 @@ async function money_() {
 async function outreach() {
   try {
     const { rows, autoSend } = await api("/api/network", "GET");
-    const count = (st) => rows.filter((r) => r.stage === st).length;
+    const today = new Date().toLocaleDateString("en-CA");
+    const open = ["lead", "call", "warm", "follow_up"];
+    const count = (st) =>
+      st === "today"
+        ? rows.filter((r) => open.includes(r.stage) && ((r.queue_on && r.queue_on <= today) || r.stage === "follow_up" || r.stage === "warm")).length
+        : rows.filter((r) => r.stage === st).length;
     $("net").innerHTML =
-      `<div class="pills">${NET_STAGES.map(([st, l]) => `<span>${l} <b>${count(st)}</b></span>`).join("")}</div>` +
+      `<div class="pills">${NET_STAGES.map(([st, l]) => `<a href="/admin/network?tab=${st}">${l} <b>${count(st)}</b></a>`).join("")}</div>` +
       `<p class="muted" style="margin-top:12px">${rows.length} businesses · emails ${autoSend ? "send automatically each morning" : "wait for you to press Send"}.</p>`;
   } catch (e) {
     if (e.status === 401) throw e;

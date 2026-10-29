@@ -21,7 +21,7 @@ const HOT = ["warm", "replied", "yes", "follow_up"];
 let rows = [];
 let settings = {};
 let autoSend = false;
-let tab = "today";
+let tab = new URLSearchParams(location.search).get("tab") || "today";
 let open = null;
 
 const api = (method, body) => call("/api/network", method, body);
