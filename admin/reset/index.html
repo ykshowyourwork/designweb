@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Set your password · %name%</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap"><a class="logo" href="/"><!-- @logo --></a></div>
+    </header>
+    <main class="narrow">
+      <form id="set">
+        <h1>Set your password</h1>
+        <label for="pw">New password</label>
+        <input id="pw" type="password" autocomplete="new-password" minlength="8" required />
+        <label for="pw2">Type it again</label>
+        <input id="pw2" type="password" autocomplete="new-password" minlength="8" required />
+        <button class="btn" style="margin-top: 14px">Save and sign in</button>
+        <p class="msg err" id="msg" role="alert"></p>
+      </form>
+    </main>
+    <script type="module" src="/src/reset.js"></script>
+  </body>
+</html>

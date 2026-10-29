@@ -9,7 +9,7 @@ try {
 } catch {
   /* private window: sign in each visit */
 }
-const save = (v) => {
+export const save = (v) => {
   s = v;
   try {
     v ? localStorage.setItem(KEY, JSON.stringify(v)) : localStorage.removeItem(KEY);
@@ -18,7 +18,7 @@ const save = (v) => {
   }
 };
 
-async function post(body) {
+export async function post(body) {
   const res = await fetch("/api/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw Object.assign(new Error(data.error || "Something went wrong."), { status: res.status });
@@ -93,6 +93,16 @@ export function signIn(onReady) {
       $("pw").value = "";
       html.classList.add("signed");
       show();
+    } catch (err) {
+      $("login-msg").textContent = err.message;
+    }
+  });
+  $("forgot")?.addEventListener("click", async () => {
+    const email = $("email").value.trim();
+    if (!email) return ($("login-msg").textContent = "Type your email first, then tap this again.");
+    try {
+      await post({ reset: email });
+      $("login-msg").textContent = `If ${email} is an owner email, a link to set your password is on its way. Check that inbox.`;
     } catch (err) {
       $("login-msg").textContent = err.message;
     }

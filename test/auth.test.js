@@ -58,8 +58,15 @@ test("the old admin password still works while switching over", async () => {
 test("before Supabase is connected, the old admin password signs in so Invoices never lock", async () => {
   process.env.ADMIN_PASSWORD = env.ADMIN_PASSWORD;
   const none = { ADMIN_PASSWORD: env.ADMIN_PASSWORD };
-  const s = await signIn("me@x.com", "old-password-123", { fetchImpl: fakeAuth().fetchImpl, env: none });
+  const s = await signIn("gethelp@desiweb.org", "old-password-123", { fetchImpl: fakeAuth().fetchImpl, env: none });
   await requireOwner({ headers: { authorization: `Bearer ${s.token}` } }, { env: none });
-  await assert.rejects(signIn("me@x.com", "nope-nope-nope", { env: none }), (e) => e.status === 401);
+  await assert.rejects(signIn("gethelp@desiweb.org", "nope-nope-nope", { env: none }), (e) => e.status === 401);
   delete process.env.ADMIN_PASSWORD;
+});
+
+test("owner email + admin password signs in even when Supabase is connected; other emails don't", async () => {
+  const a = fakeAuth();
+  const s = await signIn("gethelp@desiweb.org", "old-password-123", { ...a, env });
+  assert.equal(s.token, "pw:old-password-123");
+  await assert.rejects(signIn("someone@else.com", "old-password-123", { ...a, env }), (e) => e.status === 401);
 });
