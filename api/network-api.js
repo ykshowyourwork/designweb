@@ -2,6 +2,7 @@
 //   GET ?stage=lead,follow_up                  → { rows, settings, autoSend }
 //   POST { action: "upsert", rows: [...] }     → { added, updated }   (new finds, drafts, follow-up drafts)
 //   POST { action: "update", id, patch }       → the updated row
+//   POST { action: "update-many", updates: [{ id, patch }] } → { updated, errors }   (up to 200 at a time)
 //   POST { action: "due-follow-ups" }          → { due }   (sent rows whose follow-up day came → stage follow_up)
 //   POST { action: "send-batch" }              → { sent, failed, results } — only when automatic sending is on
 import { timingSafeEqual } from "node:crypto";
@@ -31,6 +32,20 @@ export default handler(async (req) => {
   const b = req.body ?? {};
   if (b.action === "upsert") return upsertRows(b.rows);
   if (b.action === "update") return updateRow(b.id, b.patch ?? {});
+  if (b.action === "update-many") {
+    const list = Array.isArray(b.updates) ? b.updates.slice(0, 200) : [];
+    const errors = [];
+    let updated = 0;
+    for (const u of list) {
+      try {
+        await updateRow(u.id, u.patch ?? {});
+        updated += 1;
+      } catch (e) {
+        errors.push({ id: u.id, error: e.message });
+      }
+    }
+    return { updated, errors };
+  }
   if (b.action === "due-follow-ups") return markDueFollowUps();
   if (b.action === "send-batch") {
     const settings = await getSettings();
