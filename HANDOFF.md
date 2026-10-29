@@ -51,6 +51,14 @@ Redesign in the spirit of fluid22.com (original, not copied): dark charcoal (#1f
 - **One "Areas We Serve" section, no page per town.** A town gets its own page only when the client really works there a lot and has local proof. Copy-paste town pages are "doorway pages" in Google's spam policy, and Maps ranking comes from the address, Google profile and reviews.
 - **Demos:** phones (and windows under 768px) open in Story mode, wide screens in Classic mode. Save the client's photos into `public/demo/<slug>/img/` so nothing loads from their old site.
 
+
+## Outreach (2026-10-29)
+
+- **Network** (https://desiweb.org/admin/network): 923 businesses from the Notion cold call list (imported 2026-10-29 with the Supabase CLI, `supabase db query --linked --project-ref ugylbemtlemmvltbitmb`). Supabase project `desiweb` (ref ugylbemtlemmvltbitmb).
+- **Today tab**: the routine's 100 for the day. Each card: Send email (site sends it from gethelp@), Open in my email, Text (with draft), Call (with the opener to say), Instagram + Copy DM, Contact form + Copy message, and Done buttons (Texted, Talked, No answer, Voicemail, DM sent, Form sent) that log it and set the follow-up.
+- **Daily routine** trig_01EK9kGRsdq9S4ibc6q4vh8s, cron 0 14 * * * (7am PDT): follow-ups, picks 100 (most reviews first), finds emails / Instagram / contact forms on their sites, researches the top 10 with OpenSEO (cap 1,500 credits a run), drafts email + text + DM. Needs NETWORK_API_KEY pasted into its prompt (placeholder PASTE_NETWORK_API_KEY_HERE).
+- Where the businesses came from: OpenSEO local business search (Google Maps data): name, phone, website, rating, reviews, Google id. No emails or Instagram, so the routine finds those.
+
 ## What's built (this repo)
 
 - Public pages: home, how it works, what you get, services + 6 service pages, pricing, industries + 6 trade pages, examples (The Set and YK case studies + 5 sample sites), FAQ, about, book a call, free mockup, terms, privacy. Google and AI ready (Schema, sitemap, llms.txt, link preview image).
