@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Dashboard · %name%</title>
+    <script>try{if(localStorage.getItem("desiweb-session"))document.documentElement.classList.add("signed")}catch(e){}</script>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap"><a class="logo" href="/"><!-- @logo --></a><nav class="admin-nav"><a href="/admin" aria-current="page">Dashboard</a><a href="/admin/invoices">Invoices</a><a href="/admin/network">Network</a><button id="signout" class="linkish" hidden>Sign out</button></nav></div>
+    </header>
+    <main class="wrap dash">
+      <form id="login" class="narrow" style="padding-left:0;padding-right:0">
+        <h1>DesiWeb</h1>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required />
+        <label for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="current-password" required />
+        <button class="btn" style="margin-top: 14px">Sign in</button>
+        <p class="msg err" id="login-msg" role="alert"></p>
+      </form>
+
+      <div id="panel" hidden>
+        <p class="muted" id="today"></p>
+        <h1>Dashboard</h1>
+
+        <div class="stats">
+          <div class="card stat"><span>Paid so far</span><b id="s-paid">–</b></div>
+          <div class="card stat"><span>Waiting on clients</span><b id="s-due">–</b></div>
+          <div class="card stat"><span>Due at launch</span><b id="s-launch">–</b></div>
+          <div class="card stat"><span>Projects</span><b id="s-projects">–</b></div>
+        </div>
+
+        <div class="dash-grid">
+          <section class="card">
+            <div class="row-head"><h2>Outreach</h2><a href="/admin/network">Open Network →</a></div>
+            <div id="net"><p class="muted">Loading…</p></div>
+          </section>
+          <section class="card">
+            <div class="row-head"><h2>Quick actions</h2></div>
+            <div class="quick">
+              <a class="btn" href="/admin/invoices">New invoice</a>
+              <a class="btn ghost" href="/admin/network">Send today’s emails</a>
+              <a class="btn ghost" href="/" target="_blank" rel="noopener">View desiweb.org</a>
+            </div>
+          </section>
+          <section class="card">
+            <div class="row-head"><h2>Client sites in progress</h2></div>
+            <div id="demos"></div>
+          </section>
+          <section class="card">
+            <div class="row-head"><h2>Latest projects</h2><a href="/admin/invoices">All invoices →</a></div>
+            <div id="recent"><p class="muted">Loading…</p></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/dashboard.js"></script>
+  </body>
+</html>

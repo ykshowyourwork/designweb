@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Invoices · %name%</title>
+    <script>try{if(localStorage.getItem("desiweb-session"))document.documentElement.classList.add("signed")}catch(e){}</script>
     <link rel="stylesheet" href="/src/styles.css" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
     <header class="top">
-      <div class="wrap"><a class="logo" href="/"><!-- @logo --></a><nav style="display:flex;gap:18px;font-size:14px"><a href="/admin" aria-current="page">Invoices</a><a href="/admin/network">Network</a><button id="signout" class="linkish" hidden>Sign out</button></nav></div>
+      <div class="wrap"><a class="logo" href="/"><!-- @logo --></a><nav class="admin-nav"><a href="/admin">Dashboard</a><a href="/admin/invoices" aria-current="page">Invoices</a><a href="/admin/network">Network</a><button id="signout" class="linkish" hidden>Sign out</button></nav></div>
     </header>
     <main class="narrow">
       <form id="login">

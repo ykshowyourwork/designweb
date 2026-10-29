@@ -54,18 +54,35 @@ export async function api(url, method, body) {
   return data;
 }
 
-/** Wires the #login form. onReady loads the page; it runs right away if already signed in. */
+/** Wires the #login form. onReady loads the page; it runs right away if already signed in.
+ *  Only a sign-in problem (401) brings the form back. Anything else stays signed in and shows on the page. */
 export function signIn(onReady) {
+  const html = document.documentElement;
+  const note = (text) => {
+    let p = $("panel-msg");
+    if (!p) {
+      p = Object.assign(document.createElement("p"), { id: "panel-msg", className: "msg err", role: "alert" });
+      $("panel").prepend(p);
+    }
+    p.textContent = text;
+    p.hidden = !text;
+  };
+  const askToSignIn = (text) => {
+    html.classList.remove("signed");
+    $("login").hidden = false;
+    $("panel").hidden = true;
+    $("login-msg").textContent = text;
+  };
   const show = async () => {
+    $("login").hidden = true;
+    $("panel").hidden = false;
+    $("signout")?.removeAttribute("hidden");
     try {
       await onReady();
-      $("login").hidden = true;
-      $("panel").hidden = false;
-      $("signout")?.removeAttribute("hidden");
+      note("");
     } catch (e) {
-      $("login").hidden = false;
-      $("panel").hidden = true;
-      $("login-msg").textContent = e.status === 401 ? "Please sign in." : e.message;
+      if (e.status === 401) askToSignIn("Please sign in.");
+      else note(e.message);
     }
   };
   $("login").addEventListener("submit", async (e) => {
@@ -74,6 +91,7 @@ export function signIn(onReady) {
     try {
       save(await post({ email: $("email").value, password: $("pw").value }));
       $("pw").value = "";
+      html.classList.add("signed");
       show();
     } catch (err) {
       $("login-msg").textContent = err.message;
@@ -84,4 +102,5 @@ export function signIn(onReady) {
     location.reload();
   });
   if (s) show();
+  else askToSignIn("");
 }

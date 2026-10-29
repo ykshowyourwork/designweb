@@ -366,3 +366,27 @@ label.pill input:focus-visible + span { outline: 2px solid var(--brand); outline
 /* Sign out on the owner pages */
 .linkish { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; opacity: 0.75; }
 .linkish:hover { opacity: 1; }
+
+/* Owner pages: one sign-in, no flash, a dashboard */
+.signed #login { display: none; }
+.admin-nav { display: flex; gap: 18px; align-items: center; font-size: 14px; }
+.admin-nav a[aria-current="page"] { color: var(--brand); }
+.dash { padding: 40px 20px 96px; }
+.dash h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); margin-bottom: 24px; }
+.stats { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.stat { padding: 20px 22px; }
+.stat span { display: block; font-size: 13px; color: var(--muted); font-weight: 600; }
+.stat b { display: block; font-size: clamp(1.8rem, 4vw, 2.4rem); margin-top: 6px; }
+.dash-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: 14px; }
+.dash-grid .card { padding: 22px 24px; }
+.row-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.row-head h2 { font-size: 1.4rem; margin: 0; }
+.row-head a { font-size: 14px; color: var(--brand); text-decoration: none; }
+.quick { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.line-item { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.line-item:first-child { border-top: 0; }
+.line-item a { color: var(--fg); }
+.line-item small { color: var(--muted); }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pills span { border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 14px; }
+.pills b { color: var(--brand); }

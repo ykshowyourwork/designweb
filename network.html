@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Network · %name%</title>
+    <script>try{if(localStorage.getItem("desiweb-session"))document.documentElement.classList.add("signed")}catch(e){}</script>
     <link rel="stylesheet" href="/src/styles.css" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <style>
@@ -41,7 +42,7 @@
     <header class="top">
       <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;min-height:64px">
         <a class="logo" href="/"><!-- @logo --></a>
-        <nav style="display:flex;gap:18px;font-size:14px"><a href="/admin">Invoices</a><a href="/admin/network" aria-current="page">Network</a><button id="signout" class="linkish" hidden>Sign out</button></nav>
+        <nav class="admin-nav"><a href="/admin">Dashboard</a><a href="/admin/invoices">Invoices</a><a href="/admin/network" aria-current="page">Network</a><button id="signout" class="linkish" hidden>Sign out</button></nav>
       </div>
     </header>
     <main class="wrap net">
