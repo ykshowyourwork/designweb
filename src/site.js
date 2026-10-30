@@ -34,7 +34,7 @@ function render(d) {
 
   // Header
   $("brand-name").textContent = d.business;
-  $("brand-sub").textContent = [s.trade, town].filter(Boolean).join(" · ");
+  $("brand-sub").textContent = [s.trade && s.trade[0].toUpperCase() + s.trade.slice(1), town].filter(Boolean).join(" · ");
   $("mark").innerHTML = s.logo ? `<img src="${esc(s.logo)}" alt="" />` : esc(d.business.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).map((w) => w[0]).join("").slice(0, 3).toUpperCase());
   ["nav-cta", "hero-cta", "book-btn", "form-cta", "dock-book"].forEach((id) => ($(id).textContent = id === "dock-book" ? cta.split(" ")[0] : cta));
   $("sheet-title").textContent = cta;
@@ -45,7 +45,7 @@ function render(d) {
   $("plx").style.backgroundImage = hero ? `url("${hero}")` : "none";
   $("hero-pill").textContent = d.rating ? `★ ${Number(d.rating).toFixed(1)} · ${Number(d.reviews || 0).toLocaleString()} Google reviews` : (s.trade || "");
   $("hero-title").innerHTML = esc(s.headline || `${s.trade || "Done right"} in`) + ` <em>${esc(s.headline_town || town.split(",")[0])}.</em>`;
-  $("hero-lead").textContent = s.lead || `${d.business} in ${town}. ${s.services?.length ? "Every service and price, right here." : ""} ${cta} in a few taps.`;
+  $("hero-lead").textContent = s.lead || `${d.business} in ${town}. ${s.services?.some((x) => x.price) ? "Every service and price, right here. " : s.services?.length ? "Every service, right here. " : ""}${cta} in a few taps.`;
   if (tel) {
     for (const id of ["hero-call", "book-call"]) { $(id).href = `tel:${tel}`; $(id).textContent = `Call ${d.phone}`; }
     $("dock-call").href = `tel:${tel}`;
