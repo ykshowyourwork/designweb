@@ -20,30 +20,24 @@
           <!-- @include hero-ctas -->
         </div>
       </section>
-      <section>
+      <section class="ex-gallery">
         <div class="wrap">
-          <div class="head">
-            <div><span class="eyebrow">Client work</span><h2>Sites we’ve built.</h2></div>
-            <p>Real businesses, live or being built right now. Tap one to see what we built and why.</p>
+          <div class="ex-search">
+            <input type="search" id="ex-q" placeholder="Search your trade or city: roofer, barber, Atlanta…" aria-label="Search examples" autocomplete="off" />
+            <div class="ex-chips" id="ex-chips"><button type="button" data-ind="" aria-pressed="true">All</button>
+<!-- @industryChips -->
+            </div>
           </div>
-          <div class="work-grid">
-            <!-- @workTiles -->
+          <p class="muted ex-count" id="ex-count" aria-live="polite"></p>
+          <div class="ex-grid" id="ex-grid">
+<!-- @exampleTiles -->
           </div>
-        </div>
-      </section>
-      <section>
-        <div class="wrap">
-          <div class="head">
-            <div><span class="eyebrow">Sample sites</span><h2>What we'd build for your trade.</h2></div>
-            <p>Made-up businesses, built to show how a site for each trade should work: the call button on the first screen, emergency calls up top, one page per service and an Areas We Serve section.</p>
-          </div>
-          <div class="work-grid">
-            <!-- @conceptTiles -->
-          </div>
+          <p class="ex-none" id="ex-none" hidden>No example for that yet. The best example is your own: <a href="/free-mockup">get a free mockup</a> of your homepage.</p>
         </div>
       </section>
       <!-- @include cta -->
     </main>
     <!-- @include footer -->
+    <script type="module" src="/src/examples.js"></script>
   </body>
 </html>

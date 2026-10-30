@@ -13,15 +13,29 @@
   <body>
     <!-- @include header -->
     <main>
-      <section class="page-hero">
+      <section class="hero">
         <div class="wrap">
-          <div class="crumbs"><a href="/industries">Industries</a> / {{name}}</div>
-          <h1>{{headline}}</h1>
-          <p class="lead">{{intro}}</p>
-          <div class="ctas">
-            <a class="btn" href="/free-mockup?industry={{slug}}">Get a free mockup</a>
-            <a class="btn ghost" href="%callHref%">Book a call</a>
+          <div class="hero-panel">
+            <div class="hero-copy">
+              <div class="crumbs"><a href="/industries">Industries</a> / {{name}}</div>
+              <h1>{{headline}}</h1>
+              <p class="lead">{{intro}}</p>
+              <div class="ctas">
+                <a class="btn" href="/free-mockup?industry={{slug}}">Get a free mockup</a>
+                <a class="btn ghost" href="%callHref%">Book a call</a>
+              </div>
+            </div>
+            <div class="hero-shots">{{shots}}</div>
           </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <div class="head">
+            <div><span class="eyebrow">Examples</span><h2>Sites for {{plural}}.</h2></div>
+            <p>Tap one to see it. <a href="/examples">See every example</a>.</p>
+          </div>
+          <div class="work-grid">{{examples}}</div>
         </div>
       </section>
       <section>
@@ -36,8 +50,6 @@
           <div class="eyebrow">What we build for {{plural}}</div>
           <h2>Made for how your customers hire.</h2>
           <ul>{{build}}</ul>
-          {{example}}
-          <p class="muted">See it in action: <a href="/examples">our work and sample sites</a>.</p>
           <p class="muted">Plus everything every %name% site gets: top of Google, named by AI, leads to your phone, payments, and it installs like an app. <a href="/what-you-get">See it all</a>.</p>
         </div>
       </section>

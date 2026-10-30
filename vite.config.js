@@ -25,6 +25,19 @@ const blocks = {
     concepts
       .map((c) => `<a class="shot-card concept" href="/examples/${c.slug}" style="--accent: ${c.accent}"><span class="shot-img"><img src="/work/${c.slug}.jpg" alt="Sample ${esc(c.trade.toLowerCase())} website" width="1200" height="750" loading="lazy" /></span><div class="shot-text"><span class="tag">Sample site · ${esc(c.trade)}</span><h3>${esc(c.name)}</h3><p>${esc(c.headline)}</p></div></a>`)
       .join("\n"),
+  // The examples gallery: client sites and sample sites in one grid, each with the words the search box matches.
+  exampleTiles: () =>
+    [
+      ...work.map((w) => ({ href: `/examples/${w.slug}`, image: w.image, name: w.name, tag: w.status ?? "Live client site", text: w.summary, inds: w.industries ?? [], words: [w.industry, w.location, ...(w.services ?? [])] })),
+      ...concepts.map((c) => ({ href: `/examples/${c.slug}`, image: `/work/${c.slug}.jpg`, name: c.name, tag: `Sample site · ${c.trade}`, text: c.headline, inds: [c.industry], words: [c.trade, c.city, c.intro], accent: c.accent })),
+    ]
+      .map((e) => {
+        const names = e.inds.map((s) => industries.find((i) => i.slug === s)).filter(Boolean).flatMap((i) => [i.name, i.plural, ...(i.searches ?? [])]);
+        const search = [e.name, e.tag, e.text, ...e.words, ...names].join(" ").toLowerCase();
+        return `<a class="shot-card" href="${e.href}" data-ind="${e.inds.join(" ")}" data-search="${esc(search)}"${e.accent ? ` style="--accent: ${e.accent}"` : ""}><span class="shot-img"><img src="${e.image}" alt="${esc(e.name)} website" width="1200" height="750" loading="lazy" /></span><div class="shot-text"><span class="tag">${esc(e.tag)}</span><h3>${esc(e.name)}</h3><p>${esc(e.text)}</p></div></a>`;
+      })
+      .join("\n"),
+  industryChips: () => industries.map((i) => `<button type="button" data-ind="${i.slug}">${esc(i.name)}</button>`).join("\n"),
   faq: () => faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n"),
   faqSchema: () =>
     `<script type="application/ld+json">${JSON.stringify({

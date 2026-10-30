@@ -28,6 +28,14 @@ function write(templateName, dir, values, raw = {}) {
   fs.writeFileSync(path.join(root, dir, "index.html"), html);
 }
 
+// Every example for one industry: client sites first, then sample sites.
+function examplesFor(slug) {
+  return [
+    ...work.filter((w) => w.industries?.includes(slug)).map((w) => ({ href: `/examples/${w.slug}`, image: w.image, name: w.name, tag: w.status ?? "Live client site", text: w.summary })),
+    ...concepts.filter((c) => c.industry === slug).map((c) => ({ href: `/examples/${c.slug}`, image: `/work/${c.slug}.jpg`, name: c.name, tag: `Sample site · ${c.trade}`, text: c.headline, accent: c.accent })),
+  ];
+}
+
 for (const ind of industries) {
   write("industry.html", `industries/${ind.slug}`, ind, {
     schema: json({
@@ -41,7 +49,13 @@ for (const ind of industries) {
     }),
     searches: ind.searches.map((q) => `<div class="card"><strong>"${esc(q)}"</strong></div>`).join(""),
     build: list(ind.build),
-    example: ind.example ? `<p class="muted">See one we’re building now: <a href="/examples/${esc(ind.example)}">${esc(work.find((w) => w.slug === ind.example)?.name ?? ind.example)}</a>.</p>` : "",
+    shots: examplesFor(ind.slug)
+      .slice(0, 3)
+      .map((e) => `<a href="${e.href}" aria-label="See the ${esc(e.name)} example"><img src="${e.image}" alt="" width="1200" height="750" /></a>`)
+      .join(""),
+    examples: examplesFor(ind.slug)
+      .map((e) => `<a class="shot-card" href="${e.href}"${e.accent ? ` style="--accent: ${e.accent}"` : ""}><span class="shot-img"><img src="${e.image}" alt="${esc(e.name)} website" width="1200" height="750" loading="lazy" /></span><div class="shot-text"><span class="tag">${esc(e.tag)}</span><h3>${esc(e.name)}</h3><p>${esc(e.text)}</p></div></a>`)
+      .join(""),
   });
 }
 

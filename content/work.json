@@ -24,7 +24,10 @@
       "Story mode on phones: full-screen screens you swipe through",
       "An Areas We Serve section for Sandy Springs and north Atlanta"
     ],
-    "result": "In progress. Tap the preview to see the site as it’s being built."
+    "result": "In progress. Tap the preview to see the site as it’s being built.",
+    "industries": [
+      "auto-repair-and-performance"
+    ]
   },
   {
     "slug": "the-set",
@@ -51,7 +54,8 @@
       "Installs on a phone like an app",
       "News articles and Schema code so Google and AI can find it"
     ],
-    "result": "Live at theset.vip and taking real card payments, with artists keeping 80% of each sale."
+    "result": "Live at theset.vip and taking real card payments, with artists keeping 80% of each sale.",
+    "industries": []
   },
   {
     "slug": "yk-entertainment",
@@ -77,6 +81,9 @@
       "A blog and a forum that keep the site fresh for Google",
       "Clear buttons to find and book a vendor on every page"
     ],
-    "result": "Live at ykentertainment.vip, serving couples across Los Angeles, Orange County and San Diego."
+    "result": "Live at ykentertainment.vip, serving couples across Los Angeles, Orange County and San Diego.",
+    "industries": [
+      "wedding-vendors"
+    ]
   }
 ]
