@@ -398,3 +398,6 @@ a.line-item:hover { background: rgba(255,255,255,.03); }
 .quick .tile b { display: block; font-size: 15px; }
 .quick .tile span { font-size: 13px; color: var(--muted); }
 .pills b { color: var(--brand); }
+.quick .tile.run { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); text-align: left; font: inherit; cursor: pointer; }
+.quick .tile.run span { color: var(--brand-ink); opacity: .85; }
+.quick .tile.run[disabled] { opacity: .7; cursor: default; }

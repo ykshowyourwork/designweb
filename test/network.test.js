@@ -161,3 +161,23 @@ test("texts, DMs and contact forms count as reaching out; an unanswered call is 
   assert.match(row.log, /no answer/);
   await assert.rejects(markContact(id(2), "pigeon", { ...w, env }), /Unknown way/);
 });
+
+test("Run today wakes the routine once, then waits 15 minutes before it can run again", async () => {
+  const { runToday } = await import("../api/_network.js");
+  const fired = [];
+  let settings = { auto_send: false, batch_size: 10, last_run_at: null };
+  const fetchImpl = async (url, init = {}) => {
+    const ok = (data) => ({ ok: true, status: 200, text: async () => JSON.stringify(data), json: async () => data });
+    if (url.includes("/routines/")) { fired.push(JSON.parse(init.body)); return ok({}); }
+    if (init.method === "PATCH") { settings = { ...settings, ...JSON.parse(init.body) }; return ok([settings]); }
+    return ok([settings]);
+  };
+  const e = { ...env, ROUTINE_FIRE_TOKEN: "tok_" + "x".repeat(30) };
+  const now = Date.parse("2026-10-29T18:00:00Z");
+  await runToday({ fetchImpl, env: e, now });
+  assert.equal(fired.length, 1);
+  await assert.rejects(runToday({ fetchImpl, env: e, now: now + 5 * 60000 }), /Already running/);
+  await runToday({ fetchImpl, env: e, now: now + 16 * 60000 });
+  assert.equal(fired.length, 2);
+  await assert.rejects(runToday({ fetchImpl, env }), /run-now token/);
+});

@@ -21,6 +21,14 @@
     {
       "source": "/admin/network",
       "destination": "/network"
+    },
+    {
+      "source": "/site/:slug",
+      "destination": "/site"
+    },
+    {
+      "source": "/proposal/:slug",
+      "destination": "/proposal"
     }
   ],
   "headers": [
@@ -62,6 +70,42 @@
     },
     {
       "source": "/admin/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/site/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/proposal/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/site",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/proposal",
       "headers": [
         {
           "key": "X-Robots-Tag",

@@ -23,7 +23,7 @@ const WRITABLE = [
   "business", "stage", "category", "contact_name", "email", "phone", "website", "google_maps", "google_cid", "area",
   "rating", "reviews", "no_website", "unclaimed_google", "package", "budget", "opener", "why_fit", "heads_up",
   "email_subject", "email_draft", "followup_subject", "followup_draft", "deck_url", "demo_url", "notes", "source",
-  "tags", "follow_up_on", "notion_page_id", "instagram", "contact_url", "text_draft", "dm_draft", "queue_on",
+  "tags", "follow_up_on", "notion_page_id", "instagram", "contact_url", "text_draft", "dm_draft", "queue_on", "slug", "site",
 ];
 
 const dayString = (d) => d.toISOString().slice(0, 10);
@@ -49,6 +49,8 @@ export function cleanPatch(p = {}) {
     if (!EMAIL.test(out.email)) throw new HttpError(400, `That email doesn't look right: ${out.email}`);
   }
   if ("business" in out && !out.business) throw new HttpError(400, "Add the business name.");
+  if (out.slug && !/^[a-z0-9-]{3,60}$/.test(out.slug)) throw new HttpError(400, "Slugs are lowercase letters, numbers and dashes.");
+  if ("site" in out && out.site !== null && (typeof out.site !== "object" || Array.isArray(out.site))) throw new HttpError(400, "site must be an object.");
   if (out.tags && !Array.isArray(out.tags)) out.tags = String(out.tags).split(",").map((t) => t.trim()).filter(Boolean);
   return out;
 }
@@ -283,4 +285,39 @@ export async function sendBatch(o) {
     }
   }
   return { sent: results.filter((r) => r.ok).length, failed: results.filter((r) => !r.ok).length, results };
+}
+
+/** What a demo site (/site/<slug>) or proposal deck (/proposal/<slug>) shows. Public facts only. */
+export async function getSite(slug, o) {
+  if (!/^[a-z0-9-]{3,60}$/.test(String(slug ?? ""))) throw new HttpError(404, "Not found.");
+  const rows = await db(ctx(o), "GET", `network?slug=eq.${slug}&select=slug,business,category,area,phone,website,google_maps,instagram,rating,reviews,no_website,unclaimed_google,site`);
+  if (!rows?.length || !rows[0].site) throw new HttpError(404, "Not found.");
+  return rows[0];
+}
+
+// The daily routine on claude.ai. "Run today" wakes it with its own run-now token (ROUTINE_FIRE_TOKEN),
+// so it runs on Jordan's Claude plan like the 7am run, not on a separate API bill.
+export const ROUTINE_ID = "trig_01EK9kGRsdq9S4ibc6q4vh8s";
+const RUN_GAP_MS = 15 * 60 * 1000;
+
+/** Wakes the routine now. At most once every 15 minutes, so a double tap doesn't start two runs. */
+export async function runToday(o) {
+  const c = ctx(o);
+  const token = c.env.ROUTINE_FIRE_TOKEN;
+  if (!token) throw new HttpError(503, "Add the routine's run-now token first (ROUTINE_FIRE_TOKEN).");
+  const s = await getSettings(c);
+  const last = s.last_run_at ? new Date(s.last_run_at).getTime() : 0;
+  const now = o?.now ?? Date.now();
+  if (now - last < RUN_GAP_MS) {
+    const mins = Math.ceil((RUN_GAP_MS - (now - last)) / 60000);
+    throw new HttpError(429, `Already running. Try again in ${mins} minute${mins === 1 ? "" : "s"}.`);
+  }
+  const res = await c.fetchImpl(`https://api.anthropic.com/v1/claude_code/routines/${ROUTINE_ID}/fire`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "anthropic-beta": "experimental-cc-routine-2026-04-01", "anthropic-version": "2023-06-01", "content-type": "application/json" },
+    body: JSON.stringify({ text: "Run now: Jordan pressed Run today on the dashboard." }),
+  });
+  if (!res.ok) throw new HttpError(502, `The routine didn't start (${res.status}). Check the run-now token.`);
+  await db(c, "PATCH", "network_settings?id=eq.1", { last_run_at: new Date(now).toISOString() }, "return=minimal");
+  return { started: true, at: new Date(now).toISOString() };
 }

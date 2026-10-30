@@ -5,10 +5,11 @@
 //   POST { action: "send", id, subject?, body?, force? } → the row after sending
 //   POST { action: "send-batch" }              → { sent, failed, results }
 //   POST { action: "mark", id, channel }       → the row after a text, call, DM or contact form
+//   POST { action: "run-today" }               → wakes the daily routine now
 //   POST { action: "settings", patch }         → the settings
 import { HttpError, handler } from "./_core.js";
 import { requireOwner } from "./_auth.js";
-import { addRow, autoSendOn, getSettings, listRows, markContact, networkReady, sendBatch, sendOne, setSettings, updateRow } from "./_network.js";
+import { addRow, autoSendOn, getSettings, listRows, markContact, networkReady, runToday, sendBatch, sendOne, setSettings, updateRow } from "./_network.js";
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -26,6 +27,7 @@ export default handler(async (req) => {
   if (b.action === "send") return sendOne(b.id, { subject: b.subject, body: b.body, force: b.force === true });
   if (b.action === "send-batch") return sendBatch();
   if (b.action === "mark") return markContact(b.id, b.channel);
+  if (b.action === "run-today") return runToday();
   if (b.action === "settings") return setSettings(b.patch ?? {});
   throw new HttpError(400, "Unknown action.");
 });

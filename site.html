@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Your new website · DesiWeb preview</title>
+<meta name="theme-color" content="#0b0b0c" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&display=swap" />
+<script>
+  // Phones (and windows under 768px) open in Story mode, wider screens in Classic mode.
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem("site-mode"); } catch (e) {}
+    var story = saved ? saved === "story" : window.matchMedia("(max-width: 767px)").matches;
+    if (story) document.documentElement.classList.add("story");
+  })();
+</script>
+<link rel="stylesheet" href="/src/site.css" />
+</head>
+<body>
+<div class="preview"><span><b>Private preview</b> of your new website, built by DesiWeb. Not live yet.</span><a href="https://desiweb.org">desiweb.org</a></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark" id="mark"></span><span><b id="brand-name"></b><small id="brand-sub"></small></span></a>
+    <nav class="links" aria-label="Main">
+      <a href="#services">Services</a><a href="#work">Our work</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a>
+      <a class="btn btn-accent btn-sm" href="#book" id="nav-cta">Book now</a>
+      <button class="mode" type="button" id="mode">Classic mode</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="photo" id="hero-photo" role="img"></div>
+    <div class="wrap">
+      <span class="pill" id="hero-pill"></span>
+      <h1 id="hero-title"></h1>
+      <p class="lead" id="hero-lead"></p>
+      <div class="ctas"><a class="btn btn-accent" href="#book" id="hero-cta">Book now</a><a class="btn btn-ghost" id="hero-call"></a></div>
+      <div class="badges" id="badges"></div>
+      <div class="swipe">Swipe up ↑</div>
+    </div>
+  </section>
+
+  <div class="band" id="band" aria-label="Quick facts"><div class="wrap" id="band-in"></div></div>
+
+  <section id="services" class="plx-sec">
+    <div class="plx" id="plx" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">Services</div><h2 id="svc-title">What we do.</h2></div><p class="muted" id="svc-note"></p></div>
+      <div class="cards" id="svc"></div>
+      <div class="hint">Swipe for more <span>→</span></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">Our work</div><h2>Real jobs.<br>Real results.</h2></div><p class="muted" id="work-note"></p></div>
+      <div class="gallery" id="gallery"></div>
+      <div class="hint">Swipe · tap a photo for full screen <span>→</span></div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">Reviews</div><h2 id="rev-title"></h2></div></div>
+      <div class="cards" id="rev"></div>
+      <div class="chips" id="topics"></div>
+      <div class="hint">Swipe <span>→</span></div>
+    </div>
+  </section>
+
+  <section id="how" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">How it works</div><h2>Simple. Fast. Done right.</h2></div></div>
+      <div class="steps" id="steps"></div>
+    </div>
+  </section>
+
+  <section id="areas">
+    <div class="wrap"><div class="section-head"><div><div class="eyebrow">Areas we serve</div><h2 id="areas-title"></h2></div></div></div>
+    <div class="marquee"><div class="track" id="areas-1"></div></div>
+    <div class="marquee rev-dir" aria-hidden="true"><div class="track" id="areas-2"></div></div>
+  </section>
+
+  <section class="book-sec" id="book">
+    <div class="wrap book">
+      <div>
+        <div class="eyebrow" id="book-eyebrow">Book</div>
+        <h2 id="book-title"></h2>
+        <p class="muted" id="book-lead" style="margin-top:18px"></p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:22px">
+          <button class="btn btn-accent story-only" type="button" data-sheet id="book-btn">Book now</button>
+          <a class="btn btn-ghost" id="book-call"></a>
+        </div>
+      </div>
+      <form class="q" data-demo>
+        <div class="row2"><label>Your name<input name="name" autocomplete="name" /></label><label>Phone<input name="phone" type="tel" autocomplete="tel" /></label></div>
+        <div class="row2"><label>Service<select name="service" id="service"></select></label><label>Day that works<input name="day" type="date" /></label></div>
+        <label>Anything else?<textarea name="msg" placeholder="Tell us what you need"></textarea></label>
+        <button class="btn btn-accent" type="submit" id="form-cta">Send request</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Questions</div><h2>Straight answers.</h2></div></div><div id="faq-list"></div></div></section>
+</main>
+
+<footer><div class="wrap"><div class="big" id="foot-big"></div><div class="cols" id="foot-cols"></div></div></footer>
+
+<aside class="notes" id="notes"><div class="wrap"><p class="eyebrow" style="color:#1f5eff">From DesiWeb</p><h3>Built to beat who's ahead of you on Google</h3><ul id="notes-list"></ul></div></aside>
+
+<nav class="dock" aria-label="Quick contact"><a class="b" href="#book" data-sheet id="dock-book">Book</a><a class="c" id="dock-call">Call</a><a class="t" id="dock-text">Text</a></nav>
+
+<div class="sheet" hidden><div class="sheet-card" role="dialog" aria-modal="true" aria-label="Book"><div class="grab"><b id="sheet-title">Book</b><button class="x" type="button" aria-label="Close">×</button></div></div></div>
+<div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo"><img alt="" /><button class="x" type="button" aria-label="Close">×</button><button class="prev" type="button" aria-label="Previous photo">‹</button><button class="next" type="button" aria-label="Next photo">›</button><div class="cap"></div></div>
+<div class="toast" role="status" hidden>This is a preview. On your live site, this request goes straight to your phone.</div>
+<div class="loading" id="loading">Loading your preview…</div>
+<script type="module" src="/src/site.js"></script>
+</body>
+</html>

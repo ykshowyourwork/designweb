@@ -57,6 +57,8 @@ create table if not exists public.network (
   text_draft       text,
   dm_draft         text,
   queue_on         date,   -- the day the routine put this business on Jordan's list
+  slug             text unique,  -- desiweb.org/site/<slug> and /proposal/<slug>
+  site             jsonb,        -- everything the demo site and proposal deck are built from
   created_at       timestamptz not null default now(),
   updated_at       timestamptz not null default now()
 );
@@ -81,6 +83,7 @@ create table if not exists public.network_settings (
   auto_send    boolean not null default false,
   auto_send_on date,
   batch_size   integer not null default 10 check (batch_size between 1 and 50),
+  last_run_at  timestamptz,   -- last time Run today woke the routine
   updated_at   timestamptz not null default now()
 );
 insert into public.network_settings (id, auto_send, auto_send_on, batch_size)

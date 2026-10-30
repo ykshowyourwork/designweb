@@ -58,3 +58,18 @@ async function outreach() {
 }
 
 signIn(() => Promise.all([money_(), outreach()]));
+
+// Run today: wakes the daily routine now instead of waiting for 7am.
+$("run-today").addEventListener("click", async () => {
+  const b = $("run-today");
+  if (!confirm("Start today's run now? It lines up 100 businesses and builds 10 decks and demo sites. It takes a while; you'll get a phone notification when it's done.")) return;
+  b.disabled = true;
+  $("run-note").textContent = "Starting…";
+  try {
+    await api("/api/network", "POST", { action: "run-today" });
+    $("run-note").textContent = "Running. You'll get a notification when it's done.";
+  } catch (e) {
+    $("run-note").textContent = e.message;
+    b.disabled = false;
+  }
+});

@@ -170,7 +170,7 @@ export function checkAdmin(req) {
 export function handler(fn) {
   return async (req, res) => {
     try {
-      res.status(200).json(await fn(req));
+      res.status(200).json(await fn(req, res));
     } catch (e) {
       const status = e instanceof HttpError ? e.status : 500;
       if (status === 500) console.error(e);

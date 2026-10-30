@@ -58,6 +58,10 @@ ask SUPABASE_URL              "Supabase Project URL (https://xxxx.supabase.co)" 
 ask SUPABASE_SERVICE_ROLE_KEY "Supabase service_role / secret key (starts with eyJ or sb_secret_)" '^(eyJ|sb_secret_)'
 ask RESEND_API_KEY            "Resend API key (starts with re_)" '^re_'
 
+echo
+echo "Run today button: open https://claude.ai/code/routines, pick \"DesiWeb: today's 100 businesses\", make a run-now token, and paste it here."
+ask ROUTINE_FIRE_TOKEN "Routine run-now token" '^.{20,}$'
+
 read -r -p "Make a new key for the daily outreach routine? (y = make one, Enter = skip): " mk
 if [ "$mk" = "y" ]; then
   nk="$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 40)"
