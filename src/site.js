@@ -37,7 +37,7 @@ function render(d) {
   $("brand-name").textContent = d.business;
   $("brand-sub").textContent = [s.trade && s.trade[0].toUpperCase() + s.trade.slice(1), town].filter(Boolean).join(" · ");
   $("mark").innerHTML = s.logo ? `<img src="${esc(s.logo)}" alt="" />` : esc(d.business.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).map((w) => w[0]).join("").slice(0, 3).toUpperCase());
-  ["nav-cta", "hero-cta", "book-btn", "form-cta", "dock-book"].forEach((id) => ($(id).textContent = id === "dock-book" ? short : cta));
+  ["nav-cta", "hero-cta", "book-btn", "form-cta", "dock-book", "stage-cta"].forEach((id) => ($(id).textContent = id === "dock-book" ? short : cta));
   $("sheet-title").textContent = cta;
 
   // Hero
@@ -72,11 +72,10 @@ function render(d) {
     : `<div class="card"><p>Your services and prices go here.</p></div>`;
   $("service").innerHTML = svcs.map((x) => `<option>${esc(x.name)}</option>`).join("") + "<option>Something else</option>";
 
-  // Gallery
+  // Gallery: right under the top, full screen, one photo at a time (like the YKE gallery).
   const photos = (s.photos || []).filter(Boolean);
-  $("work-note").textContent = photos.length ? `From ${d.business}.` : "";
-  $("gallery").innerHTML = (photos.length ? photos : [null, null, null]).slice(0, 9).map((p, i) =>
-    p ? `<button class="shot rv" type="button" data-i="${i}"><img loading="lazy" src="${esc(p)}" alt="${esc(d.business)} photo ${i + 1}" /></button>` : `<div class="shot empty">Your best job photo here</div>`).join("");
+  if (!photos.length && hero) photos.push(hero);
+  if (!photos.length) $("work").remove();
 
   // Reviews
   $("rev-title").textContent = d.reviews ? `${Number(d.reviews).toLocaleString()} reviews. ${Number(d.rating).toFixed(1)} stars.` : "What customers say.";
@@ -141,7 +140,6 @@ function wire(photos) {
   const lbImg = lb.querySelector("img");
   let at = 0;
   const show = (i) => { at = (i + photos.length) % photos.length; lbImg.src = photos[at]; lb.querySelector(".cap").textContent = `${at + 1} / ${photos.length}`; };
-  $("gallery").addEventListener("click", (e) => { const b = e.target.closest(".shot[data-i]"); if (b) { show(+b.dataset.i); lb.hidden = false; } });
   lb.querySelector(".x").onclick = () => (lb.hidden = true);
   lb.querySelector(".prev").onclick = () => show(at - 1);
   lb.querySelector(".next").onclick = () => show(at + 1);
@@ -150,6 +148,57 @@ function wire(photos) {
   let x0 = null;
   lb.addEventListener("touchstart", (e) => (x0 = e.touches[0].clientX), { passive: true });
   lb.addEventListener("touchend", (e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1)); x0 = null; });
+
+  // The gallery: slides on by itself every 5 seconds while it's on screen; tap the sides to move, the middle for full screen.
+  const stage = $("stage");
+  if (stage && photos.length) {
+    const frame = $("frame");
+    const n = photos.length;
+    const [slL, slR] = stage.querySelectorAll(".sl img");
+    const bars = $("bars");
+    bars.innerHTML = n > 1 ? photos.map(() => "<i><b></b></i>").join("") : "";
+    const alt = document.querySelector("#brand-name").textContent;
+    let i = 0, timer = 0, seen = false;
+    const arm = () => {
+      clearTimeout(timer);
+      const on = n > 1 && seen && lb.hidden && !document.hidden;
+      [...bars.children].forEach((b, k) => { b.className = k < i ? "done" : ""; });
+      const bar = bars.children[i];
+      if (bar) { void bar.offsetWidth; bar.className = on ? "on" : ""; }
+      if (on) timer = setTimeout(() => go(1), 5000);
+    };
+    const paint = (dir) => {
+      const layer = document.createElement("div");
+      layer.className = "layer" + (dir && !still ? (dir > 0 ? " in-r" : " in-l") : "");
+      layer.innerHTML = `<img class="fill" alt="" src="${photos[i]}" /><img class="fit" alt="${alt.replace(/"/g, "&quot;")} photo ${i + 1}" src="${photos[i]}" />`;
+      const old = [...frame.children];
+      frame.appendChild(layer);
+      if (layer.classList.length > 1) layer.addEventListener("animationend", () => old.forEach((o) => o.remove()), { once: true });
+      else old.forEach((o) => o.remove());
+      slL.src = photos[(i - 1 + n) % n];
+      slR.src = photos[(i + 1) % n];
+      $("stage-count").textContent = n > 1 ? `See it in action · ${i + 1} of ${n}` : "See it in action";
+      new Image().src = photos[(i + 1) % n];
+      arm();
+    };
+    const go = (d) => { i = (i + d + n) % n; paint(d); };
+    stage.querySelector(".prev").onclick = () => go(-1);
+    stage.querySelector(".next").onclick = () => go(1);
+    stage.querySelector(".mid").onclick = () => { show(i); lb.hidden = false; arm(); };
+    if (n < 2) stage.querySelectorAll(".prev,.next,.sl").forEach((el) => el.remove());
+    new MutationObserver(arm).observe(lb, { attributes: true, attributeFilter: ["hidden"] });
+    document.addEventListener("visibilitychange", arm);
+    new IntersectionObserver(([e]) => { seen = e.intersectionRatio > 0.5; arm(); }, { threshold: [0, 0.5, 1] }).observe(stage);
+    let sx = null, sy = 0;
+    stage.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    stage.addEventListener("touchend", (e) => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (n > 1 && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+      sx = null;
+    });
+    paint(0);
+  }
 
   const modeBtn = $("mode");
   const notes = $("notes");
