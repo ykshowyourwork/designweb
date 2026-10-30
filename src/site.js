@@ -8,12 +8,12 @@ const slug = location.pathname.split("/").filter(Boolean).pop();
 
 // How each kind of business books, and what to say. Quote trades get "Get a free quote"; appointment trades get "Book".
 const TRADES = [
-  { match: /tree|roof|plumb|rooter|electric|hvac|fence|landscap|concrete|paint|clean|maid|pest|pool|moving|handyman|contractor/i, cta: "Get a free quote", accent: "#ff7a1a", steps: [["Call or send a photo", "Tell us what's going on. Photos help us price it."], ["Free estimate", "A fair price, often the same day."], ["We do the work", "Careful, insured and on time."], ["We clean up", "We leave it better than we found it."]] },
-  { match: /nail|salon|barber|spa|lash|brow|wax|hair|beauty/i, cta: "Book now", accent: "#e8a0bf", steps: [["Pick your service", "Every price is posted."], ["Pick a time", "Book online in a few taps."], ["Get a reminder", "A text the day before."], ["Walk in, relax", "We take it from there."]] },
-  { match: /auto|smog|tire|brake|mechanic|detail|body shop|car/i, cta: "Book a service", accent: "#d6a93b", steps: [["Pick a service", "Prices posted up front."], ["Pick a day", "Book online in a minute."], ["We do the work", "The work you booked, at the price you saw."], ["Drive away", "Pay at pickup."]] },
-  { match: /wedding|photo|video|dj|venue|banquet|event|florist|flower/i, cta: "Check your date", accent: "#c9a46a", steps: [["Check your date", "See if we're free on your day."], ["Talk it through", "A quick call about what you want."], ["Lock it in", "A deposit holds your date."], ["Enjoy the day", "We handle the rest."]] },
+  { match: /tree|roof|plumb|rooter|electric|hvac|fence|landscap|concrete|paint|clean|maid|pest|pool|moving|handyman|contractor/i, cta: "Get a free quote", short: "Free quote", accent: "#ff7a1a", steps: [["Call or send a photo", "Tell us what's going on. Photos help us price it."], ["Free estimate", "A fair price, often the same day."], ["We do the work", "Careful, insured and on time."], ["We clean up", "We leave it better than we found it."]] },
+  { match: /nail|salon|barber|spa|lash|brow|wax|hair|beauty/i, cta: "Book now", short: "Book", accent: "#e8a0bf", steps: [["Pick your service", "Every price is posted."], ["Pick a time", "Book online in a few taps."], ["Get a reminder", "A text the day before."], ["Walk in, relax", "We take it from there."]] },
+  { match: /auto|smog|tire|brake|mechanic|detail|body shop|car/i, cta: "Book a service", short: "Book", accent: "#d6a93b", steps: [["Pick a service", "Prices posted up front."], ["Pick a day", "Book online in a minute."], ["We do the work", "The work you booked, at the price you saw."], ["Drive away", "Pay at pickup."]] },
+  { match: /wedding|photo|video|dj|venue|banquet|event|florist|flower/i, cta: "Check your date", short: "Check date", accent: "#c9a46a", steps: [["Check your date", "See if we're free on your day."], ["Talk it through", "A quick call about what you want."], ["Lock it in", "A deposit holds your date."], ["Enjoy the day", "We handle the rest."]] },
 ];
-const DEFAULT = { cta: "Get in touch", accent: "#4f86ff", steps: [["Reach out", "Call, text or send a request."], ["We reply fast", "Usually the same day."], ["We get it done", "Right the first time."], ["You're happy", "Or we make it right."]] };
+const DEFAULT = { cta: "Get in touch", short: "Contact", accent: "#4f86ff", steps: [["Reach out", "Call, text or send a request."], ["We reply fast", "Usually the same day."], ["We get it done", "Right the first time."], ["You're happy", "Or we make it right."]] };
 
 function toast(t) {
   const el = document.querySelector(".toast");
@@ -27,6 +27,7 @@ function render(d) {
   const s = d.site || {};
   const trade = TRADES.find((t) => t.match.test(`${s.trade} ${d.category} ${d.business}`)) || DEFAULT;
   const cta = s.cta || trade.cta;
+  const short = s.cta_short || (s.cta ? s.cta.split(" ").slice(0, 2).join(" ") : trade.short);
   const tel = String(d.phone || "").replace(/[^\d+]/g, "");
   const town = s.town || d.area || "";
   document.title = `${d.business} · ${s.trade ? s.trade[0].toUpperCase() + s.trade.slice(1) : "Preview"} in ${town}`;
@@ -36,7 +37,7 @@ function render(d) {
   $("brand-name").textContent = d.business;
   $("brand-sub").textContent = [s.trade && s.trade[0].toUpperCase() + s.trade.slice(1), town].filter(Boolean).join(" · ");
   $("mark").innerHTML = s.logo ? `<img src="${esc(s.logo)}" alt="" />` : esc(d.business.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).map((w) => w[0]).join("").slice(0, 3).toUpperCase());
-  ["nav-cta", "hero-cta", "book-btn", "form-cta", "dock-book"].forEach((id) => ($(id).textContent = id === "dock-book" ? cta.split(" ")[0] : cta));
+  ["nav-cta", "hero-cta", "book-btn", "form-cta", "dock-book"].forEach((id) => ($(id).textContent = id === "dock-book" ? short : cta));
   $("sheet-title").textContent = cta;
 
   // Hero
@@ -58,7 +59,7 @@ function render(d) {
     d.rating && [`${Number(d.rating).toFixed(1)}★`, "on Google"],
     d.reviews && [Number(d.reviews).toLocaleString(), "reviews"],
     s.hours_short && [s.hours_short, "open"],
-    [cta.split(" ")[0], "online, any time"],
+    [short, "online, any time"],
   ].filter(Boolean);
   $("band-in").innerHTML = band.slice(0, 4).map(([b, t]) => `<div><b>${esc(b)}</b><span>${esc(t)}</span></div>`).join("");
 
