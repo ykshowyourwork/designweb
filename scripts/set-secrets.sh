@@ -75,6 +75,13 @@ else
   echo "  Skipped NETWORK_API_KEY."
 fi
 
+read -r -p "Lock the 9am email timer so only Vercel can start it? (y = make a hidden key, Enter = skip): " ck
+if [ "$ck" = "y" ]; then
+  set_secret CRON_SECRET "$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 40)" && changed=1
+else
+  echo "  Skipped CRON_SECRET."
+fi
+
 if [ "$changed" = 1 ]; then
   echo "Redeploying so the site uses the new keys..."
   vercel deploy --prod --yes >/dev/null 2>&1 && echo "Done. desiweb.org is using the new keys." || echo "Redeploy failed. Run: vercel deploy --prod"
