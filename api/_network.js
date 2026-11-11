@@ -34,6 +34,9 @@ const addDays = (iso, n) => {
 };
 const ctx = (o = {}) => ({ fetchImpl: o.fetchImpl ?? fetch, env: o.env ?? process.env, today: o.today ?? dayString(new Date()) });
 
+/** Jordan texts from his own phone, so drafts don't carry a "Reply STOP" line. */
+export const noStop = (t) => String(t).replace(/\s*Reply STOP to opt out\.?/gi, "").trim() || null;
+
 /** Keeps only known fields, trims text, and checks stage and email. */
 export function cleanPatch(p = {}) {
   const out = {};
@@ -41,6 +44,7 @@ export function cleanPatch(p = {}) {
     if (!(k in p)) continue;
     let v = p[k];
     if (typeof v === "string") v = v.trim().slice(0, k.endsWith("draft") ? 5000 : 500) || null;
+    if (k === "text_draft" && v) v = noStop(v);
     out[k] = v;
   }
   if ("stage" in out && !STAGES.includes(out.stage)) throw new HttpError(400, "Unknown stage.");

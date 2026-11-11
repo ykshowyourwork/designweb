@@ -191,3 +191,7 @@ test("the 9am timer sends at most the day's batch, counting emails already sent 
   assert.equal(again.sent, 0);
   assert.equal(w.sent.length, 1);
 });
+
+test("text drafts lose the Reply STOP line", () => {
+  assert.equal(cleanPatch({ text_draft: "Hi, it's Jordan. Want a free homepage? Reply STOP to opt out." }).text_draft, "Hi, it's Jordan. Want a free homepage?");
+});

@@ -4,6 +4,9 @@ import { esc } from "./money.js";
 import { api as call, signIn } from "./session.js";
 
 const $ = (id) => document.getElementById(id);
+// Same as the server's noStop: Jordan texts from his own phone, so no "Reply STOP" line.
+const noStop = (t) => String(t ?? "").replace(/\s*Reply STOP to opt out\.?/gi, "").trim();
+
 const STAGES = [
   ["warm", "Warm (from the website)"],
   ["lead", "To email"],
@@ -116,7 +119,7 @@ function card(r) {
 // Every way to reach them, best first: email from the site, text, call, Instagram, their contact form.
 function reach(r, follow, subj, draft) {
   const tel = digits(r.phone);
-  const textBody = r.text_draft || "";
+  const textBody = noStop(r.text_draft);
   const form = r.contact_url || r.website;
   const ways = [
     hasEmail(r) && draft && subj && OPEN.includes(r.stage) && `<button class="b go" data-act="quick-send">${follow ? "Send follow-up" : "Send email"}</button>`,
@@ -152,7 +155,7 @@ function editor(r, follow, subj, draft) {
       <div><label>Website</label><input data-f="website" value="${esc(r.website ?? "")}" /></div>
     </div>
     <label>Text message</label>
-    <textarea data-f="text_draft" style="min-height:70px">${esc(r.text_draft ?? "")}</textarea>
+    <textarea data-f="text_draft" style="min-height:70px">${esc(noStop(r.text_draft))}</textarea>
     <label>Instagram DM</label>
     <textarea data-f="dm_draft" style="min-height:70px">${esc(r.dm_draft ?? "")}</textarea>
     <label>${follow ? "Follow-up subject" : "Subject"}</label>
