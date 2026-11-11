@@ -31,7 +31,7 @@ function write(templateName, dir, values, raw = {}) {
 // Every example for one industry: client sites first, then sample sites.
 function examplesFor(slug) {
   return [
-    ...work.filter((w) => w.industries?.includes(slug)).map((w) => ({ href: `/examples/${w.slug}`, image: w.image, name: w.name, tag: w.status ?? "Live client site", text: w.summary })),
+    ...[...work].sort((a, b) => (b.added || "").localeCompare(a.added || "")).filter((w) => w.industries?.includes(slug)).map((w) => ({ href: `/examples/${w.slug}`, image: w.image, name: w.name, tag: w.status ?? "Live client site", text: w.summary })),
     ...concepts.filter((c) => c.industry === slug).map((c) => ({ href: `/examples/${c.slug}`, image: `/work/${c.slug}.jpg`, name: c.name, tag: `Sample site · ${c.trade}`, text: c.headline, accent: c.accent })),
   ];
 }

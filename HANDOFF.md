@@ -79,3 +79,10 @@ Redesign in the spirit of fluid22.com (original, not copied): dark charcoal (#1f
 6. **Call script open questions:** what company name callers give; whether "YK Entertainment brought in $2,500" means money earned through the site or paid for the build; add a real result for the proof line.
 7. **Notion step-by-step guide for AI agents:** write it after the first client goes through the full process (find lead → call → mockup → deposit → build → launch → balance).
 8. **Cleanup:** done 2026-10-21: the unused `yk-invoice-site` branch (pay.yardyknowent.com) was deleted from the-set repo. It never touched the live site. No YK invoice work belongs in DesiWeb.
+
+## Adding a demo to the public site (2026-11-11)
+When Jordan likes a custom demo, run `node scripts/add-example.mjs <slug>` (add `--industry <slug>` if the trade isn't matched).
+It screenshots the live demo for its tile (public/work/<slug>.jpg) and puts it at the top of content/work.json with today's date.
+The next build puts it first on /examples, first on its industry page (hero shots + examples row), in the homepage hero,
+and gives it its own /examples/<slug> page. If the trade has no industry page yet, add one to content/industries.json first.
+Read the new entry's words, then build, commit and push.

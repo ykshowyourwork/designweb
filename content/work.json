@@ -1,5 +1,63 @@
 [
   {
+    "slug": "las-chinampas",
+    "name": "Las Chinampas",
+    "status": "Free mockup",
+    "url": "/demo/las-chinampas",
+    "image": "/work/las-chinampas.jpg",
+    "summary": "A free homepage we built for Las Chinampas, a Mexican restaurant in Whittier, CA, from its real photos and reviews.",
+    "industry": "Restaurants",
+    "location": "Whittier, CA",
+    "launched": "Free mockup",
+    "services": [
+      "Website design",
+      "Story mode on phones",
+      "Google Maps setup"
+    ],
+    "client": "Las Chinampas is a Mexican restaurant in Whittier, CA with 888 Google reviews at 4.5 stars.",
+    "challenge": "Customers love it on Google, but it had no website of its own. It already showed up #2 for \"mexican restaurant\" on Google Maps, with nowhere to send those people.",
+    "built": [
+      "Its real photos in a full-screen gallery that slides on its own",
+      "Story mode on phones: full-screen screens you swipe through",
+      "Call, directions and the main action on every screen",
+      "A look built from its own sign and colors, with \"antojitos estilo DF\" up front"
+    ],
+    "result": "A free mockup we built to show the owner what's possible. Tap the preview to see it.",
+    "industries": [
+      "restaurants"
+    ],
+    "added": "2026-11-11"
+  },
+  {
+    "slug": "mole-del-rey",
+    "name": "Mole Del Rey",
+    "status": "Free mockup",
+    "url": "/demo/mole-del-rey",
+    "image": "/work/mole-del-rey.jpg",
+    "summary": "A free homepage we built for Mole Del Rey, a Mexican restaurant in Bell, CA, from its real photos and reviews.",
+    "industry": "Restaurants",
+    "location": "Bell, CA",
+    "launched": "Free mockup",
+    "services": [
+      "Website design",
+      "Story mode on phones",
+      "Google Maps setup"
+    ],
+    "client": "Mole Del Rey is a Mexican restaurant in Bell, CA with 860 Google reviews at 4.5 stars.",
+    "challenge": "Customers love it on Google, but it had no website of its own. It already showed up #1 for \"mexican restaurant\" on Google Maps, with nowhere to send those people.",
+    "built": [
+      "Its real photos in a full-screen gallery that slides on its own",
+      "Story mode on phones: full-screen screens you swipe through",
+      "Call, directions and the main action on every screen",
+      "A look built from its own sign and colors, with \"Breakfast all day\" up front"
+    ],
+    "result": "A free mockup we built to show the owner what's possible. Tap the preview to see it.",
+    "industries": [
+      "restaurants"
+    ],
+    "added": "2026-11-11"
+  },
+  {
     "slug": "mcm-atlanta",
     "name": "MCM Atlanta",
     "status": "In progress",
