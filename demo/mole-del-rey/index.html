@@ -107,6 +107,7 @@ nav.links a:hover{color:var(--red)}
 .stage-head h2{color:var(--gold);text-shadow:0 2px 20px rgba(0,0,0,.5)}
 .stage-head span{display:block;margin-top:8px;font:700 12px/1.3 var(--body);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85)}
 .stage .tap{position:absolute;z-index:3;top:18%;bottom:22%;background:none;border:0;padding:0}
+.stage .tap:focus:not(:focus-visible){outline:none}
 .stage .prev{left:0;width:18%;cursor:w-resize}.stage .next{right:0;width:18%;cursor:e-resize}.stage .mid{left:18%;right:18%;cursor:zoom-in}
 .stage .cap{position:absolute;z-index:4;left:calc(4% + 28px);bottom:calc(2.5% + 28px);color:#fff;font:400 clamp(1.4rem,2.6vw,2.1rem)/1.1 var(--display);text-shadow:0 2px 16px rgba(0,0,0,.6);pointer-events:none}
 @media (max-width:767px){.stage .frame{inset:2% 7%}.stage .sl{width:5.5%}.stage-head,.stage .cap{left:calc(7% + 18px)}}
@@ -502,8 +503,10 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
   var still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Real photos from the Google listing and its reviews, with what's on the plate.
-  var shots = [["enmoladas", "Enmoladas"], ["chilaquiles", "Chilaquiles"], ["flight", "A taste of four moles"], ["huevos", "Eggs in mole"], ["negro", "Chicken in dark mole"], ["sopes", "Sopes"], ["desayuno", "Breakfast with café de olla"], ["agua", "Agua fresca"], ["inside", "The dining room"], ["front", "6242 Maywood Ave"]];
+  var shots = [["enmoladas", "Enmoladas"], ["chilaquiles", "Chilaquiles"], ["flight", "A taste of four moles", 1], ["huevos", "Eggs in mole"], ["negro", "Chicken in dark mole"], ["sopes", "Sopes"], ["desayuno", "Breakfast with café de olla"], ["agua", "Agua fresca"], ["inside", "The dining room"], ["front", "6242 Maywood Ave"]];
   var photos = shots.map(function (s) { return img(s[0]); });
+  // Overhead shots (flag 1) have a turned copy, used when the frame is wider than tall.
+  var pic = function (k, wide) { var s = shots[k]; return img(s[0] + (s[2] && wide ? "-wide" : "")); };
 
   // The menu: only dishes named in reviews or on the Google listing. No prices until the real menu is in.
   var menu = [
@@ -548,7 +551,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
 
   // Full-screen viewer.
   var lb = document.querySelector(".lb"), lbImg = lb.querySelector("img"), at = 0;
-  var show = function (i) { at = (i + photos.length) % photos.length; lbImg.src = photos[at]; lbImg.alt = shots[at][1]; lb.querySelector(".c").textContent = shots[at][1] + " · " + (at + 1) + " / " + photos.length; };
+  var show = function (i) { at = (i + photos.length) % photos.length; lbImg.src = pic(at, innerWidth > innerHeight); lbImg.alt = shots[at][1]; lb.querySelector(".c").textContent = shots[at][1] + " · " + (at + 1) + " / " + photos.length; };
   lb.querySelector(".x").onclick = function () { lb.hidden = true; };
   lb.querySelector(".p").onclick = function () { show(at - 1); };
   lb.querySelector(".n").onclick = function () { show(at + 1); };
@@ -566,15 +569,16 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
   var paint = function (dir) {
     var layer = document.createElement("div");
     layer.className = "layer" + (dir && !still ? (dir > 0 ? " in-r" : " in-l") : "");
-    layer.innerHTML = '<img class="fill" alt="" src="' + photos[i] + '" /><img class="fit" alt="' + shots[i][1] + ' at Mole Del Rey" src="' + photos[i] + '" />';
+    var w = frame.clientWidth > frame.clientHeight;
+    layer.innerHTML = '<img class="fill" alt="" src="' + pic(i, w) + '" /><img class="fit" alt="' + shots[i][1] + ' at Mole Del Rey" src="' + pic(i, w) + '" />';
     var old = [].slice.call(frame.children);
     frame.appendChild(layer);
     if (layer.classList.length > 1) layer.addEventListener("animationend", function () { old.forEach(function (o) { o.remove(); }); }, { once: true });
     else old.forEach(function (o) { o.remove(); });
-    sl[0].src = photos[(i - 1 + n) % n]; sl[1].src = photos[(i + 1) % n];
+    sl[0].src = pic((i - 1 + n) % n, w); sl[1].src = pic((i + 1) % n, w);
     $("stage-count").textContent = "From our kitchen · " + (i + 1) + " of " + n;
     $("stage-cap").textContent = shots[i][1];
-    new Image().src = photos[(i + 1) % n];
+    new Image().src = pic((i + 1) % n, w);
     arm();
   };
   var go = function (k) { i = (i + k + n) % n; paint(k); };
