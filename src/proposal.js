@@ -28,11 +28,19 @@ function slides(d) {
   out.push(`<section class="slide"><p class="eyebrow">Where you stand</p><h2>${esc(s.finding || "Customers love you. Google doesn't show it yet.")}</h2>
     <div class="cards">${status.map(([h, p]) => `<div class="card"><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join("")}</div>${foot(`Source: Google Maps and your Google listing, ${month}.`)}</section>`);
 
-  out.push(`<section class="slide"><p class="eyebrow">Your new site</p><h2>It's already built. Take a look.</h2>
-    <a class="link" href="/site/${esc(d.slug)}" target="_blank" rel="noopener">desiweb.org/site/${esc(d.slug)}</a>
-    <div class="cards"><div class="card"><h3>${esc(s.cta || "Book")} in a tap</h3><p>Your services up front, with a button on every screen.</p></div>
-    <div class="card"><h3>Your real work</h3><p>Your photos and reviews, full screen.</p></div>
-    <div class="card"><h3>Story mode</h3><p>On phones it opens full screen. People swipe through like a story.</p></div></div>${foot("Private preview. Not on Google until you say go.")}</section>`);
+  // The new-site slide links the custom demo when one is built; otherwise it offers to build one.
+  const demo = d.demo_url && d.demo_url.replace(/^https?:\/\/(www\.)?desiweb\.org/, "");
+  out.push(demo
+    ? `<section class="slide"><p class="eyebrow">Your new site</p><h2>It's already built. Take a look.</h2>
+    <a class="link" href="${esc(demo)}" target="_blank" rel="noopener">desiweb.org${esc(demo)}</a>
+    <div class="cards"><div class="card"><h3>${esc(s.cta || "Book")} in a tap</h3><p>Your best work up front, with a button on every screen.</p></div>
+    <div class="card"><h3>Your real photos</h3><p>Your photos and reviews, full screen.</p></div>
+    <div class="card"><h3>Story mode</h3><p>On phones it opens full screen. People swipe through like a story.</p></div></div>${foot("Private preview. Not on Google until you say go.")}</section>`
+    : `<section class="slide"><p class="eyebrow">Your new site</p><h2>See it before you pay anything.</h2>
+    <p class="big">Say the word and we build your homepage for free, with your real photos, your menu or services, and a button to call or book on every screen.</p>
+    <div class="cards"><div class="card"><h3>Free</h3><p>Your homepage, built from your Google listing and photos.</p></div>
+    <div class="card"><h3>A few days</h3><p>We send you a private link to look at on your phone.</p></div>
+    <div class="card"><h3>No catch</h3><p>Like it, we finish the site. Don't, you owe nothing.</p></div></div></section>`);
 
   const top = s.maps?.top || [];
   if (top.length) {

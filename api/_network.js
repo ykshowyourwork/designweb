@@ -290,7 +290,7 @@ export async function sendBatch(o) {
 /** What a demo site (/site/<slug>) or proposal deck (/proposal/<slug>) shows. Public facts only. */
 export async function getSite(slug, o) {
   if (!/^[a-z0-9-]{3,60}$/.test(String(slug ?? ""))) throw new HttpError(404, "Not found.");
-  const rows = await db(ctx(o), "GET", `network?slug=eq.${slug}&select=slug,business,category,area,phone,website,google_maps,instagram,rating,reviews,no_website,unclaimed_google,site`);
+  const rows = await db(ctx(o), "GET", `network?slug=eq.${slug}&select=slug,business,category,area,phone,website,google_maps,instagram,rating,reviews,no_website,unclaimed_google,site,demo_url`);
   if (!rows?.length || !rows[0].site) throw new HttpError(404, "Not found.");
   return rows[0];
 }
