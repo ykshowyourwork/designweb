@@ -42,7 +42,7 @@ Option B: the blue "d." tile + "DesiWeb." wordmark, made from Inter 800 (free co
 
 ## Look (2026-10-22)
 
-Redesign in the spirit of fluid22.com (original, not copied): dark charcoal (#1f1f1f), one accent (`--brand` #6f9bff in `src/styles.css`, change it there to recolor the whole site), big condensed headlines (Barlow Condensed, self-hosted via @fontsource), Inter body, small spaced-out caps for buttons and links, big rounded image cards for work, a floating "Get a free mockup" button (footer partial). Work grid uses screenshots in `public/work/`; sample-site screenshots were taken from `/examples/<slug>` with headless Chrome at 1440x900.
+Redesign in the spirit of fluid22.com (original, not copied): warm charcoal (#17130f) with a glossy burnt-orange accent (since 2026-11-11: `--brand` #ff7a35, `--gloss`, `--amber`, `--teal` in `src/styles.css`; change them there to recolor the whole site; logo tile and icons match), big condensed headlines (Barlow Condensed, self-hosted via @fontsource), Inter body, small spaced-out caps for buttons and links, big rounded image cards for work, a floating "Get a free mockup" button (footer partial). Work grid uses screenshots in `public/work/`; sample-site screenshots were taken from `/examples/<slug>` with headless Chrome at 1440x900.
 
 ## Site rules for every client (2026-10-27)
 
