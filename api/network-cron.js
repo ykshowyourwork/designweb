@@ -9,6 +9,7 @@ import { autoSendOn, getSettings, networkReady, sendBatch } from "./_network.js"
 const today = () => new Date().toISOString().slice(0, 10);
 
 export default handler(async (req) => {
+  if (req.method !== "GET") throw new HttpError(405, "Not allowed.");
   const secret = process.env.CRON_SECRET;
   if (secret && req.headers.authorization !== `Bearer ${secret}`) throw new HttpError(401, "Wrong key.");
   if (!networkReady()) throw new HttpError(503, "The Network database isn't connected yet.");
