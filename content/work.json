@@ -1,5 +1,40 @@
 [
   {
+    "slug": "don-zarape-restaurant-2",
+    "name": "Don Zarape",
+    "status": "Free mockup",
+    "url": "/demo/don-zarape-restaurant-2",
+    "image": "/work/don-zarape-restaurant-2.jpg",
+    "summary": "A free homepage we built for Don Zarape, a Mexican restaurant in North Hollywood, CA, from its real photos and reviews.",
+    "industry": "Restaurants",
+    "location": "North Hollywood, CA",
+    "launched": "Free mockup",
+    "services": [
+      "Website design",
+      "Story mode on phones",
+      "Google Maps setup"
+    ],
+    "client": "Don Zarape is a Mexican restaurant in North Hollywood, CA with 474 Google reviews at 4.2 stars.",
+    "challenge": "Customers love it on Google, but it had no website of its own. It already showed up #2 for \"mexican restaurant\" on Google Maps, with nowhere to send those people.",
+    "built": [
+      "Its real photos in a full-screen gallery that slides on its own",
+      "Story mode on phones: full-screen screens you swipe through",
+      "Call, directions and the main action on every screen",
+      "A look built from its own sign and colors, with \"Family Restaurant\" up front"
+    ],
+    "result": "A free mockup we built to show the owner what's possible. Tap the preview to see it.",
+    "industries": [
+      "restaurants"
+    ],
+    "mark": {
+      "text": "Don Zarape",
+      "font": "Alfa Slab One",
+      "weight": 700
+    },
+    "cover": "/demo/don-zarape-restaurant-2/img/plate.jpg",
+    "added": "2026-11-11"
+  },
+  {
     "slug": "las-chinampas",
     "name": "Las Chinampas",
     "status": "Free mockup",

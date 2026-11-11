@@ -92,7 +92,6 @@ fs.writeFileSync(
   JSON.stringify({
     examples: [
       ...[...work].sort((a, b) => (b.added || "").localeCompare(a.added || "")).map((w) => ({ slug: w.slug, name: w.name, tag: w.status ?? "Live client site", image: w.cover || w.image })),
-      ...concepts.map((c) => ({ slug: c.slug, name: c.name, tag: `Sample site · ${c.trade}`, image: `/work/${c.slug}.jpg` })),
     ],
     industries: industries.map((i) => ({ slug: i.slug, name: i.name })),
   }),
