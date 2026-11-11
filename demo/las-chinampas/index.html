@@ -100,18 +100,18 @@ nav.links a:hover{color:var(--terra)}
 .stage .sl img{width:100%;height:100%;object-fit:cover}
 .stage .sl.l{left:0;border-radius:0 18px 18px 0}.stage .sl.l img{object-position:right}
 .stage .sl.r{right:0;border-radius:18px 0 0 18px}.stage .sl.r img{object-position:left}
-.stage .bars{position:absolute;z-index:4;left:calc(4% + 18px);right:calc(4% + 18px);top:calc(2.5% + 12px);display:flex;gap:5px;pointer-events:none}
-.stage .bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.28);overflow:hidden}
-.stage .bars b{display:block;height:100%;width:0;background:#fff}
-.stage .bars i.done b{width:100%}.stage .bars i.on b{animation:bar 5s linear forwards}
-@keyframes bar{to{width:100%}}
+
+
+
+
+
 .stage-head{position:absolute;z-index:4;left:calc(4% + 28px);top:calc(2.5% + 34px);pointer-events:none;color:#fff}
 .stage-head h2{color:var(--gold);text-shadow:0 2px 20px rgba(0,0,0,.5)}
 .stage-head span{display:block;margin-top:8px;font:700 12px/1.3 var(--body);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85)}
 .stage .tap{position:absolute;z-index:3;top:18%;bottom:22%;background:none;border:0;padding:0}
 .stage .prev{left:0;width:18%;cursor:w-resize}.stage .next{right:0;width:18%;cursor:e-resize}.stage .mid{left:18%;right:18%;cursor:zoom-in}
 .stage .cap{position:absolute;z-index:4;left:calc(4% + 28px);bottom:calc(2.5% + 28px);color:#fff;font:700 clamp(1.3rem,2.6vw,2rem)/1.1 var(--display);text-shadow:0 2px 16px rgba(0,0,0,.6);pointer-events:none}
-@media (max-width:767px){.stage .frame{inset:2% 7%}.stage .sl{width:5.5%}.stage .bars{left:calc(7% + 14px);right:calc(7% + 14px)}.stage-head,.stage .cap{left:calc(7% + 18px)}}
+@media (max-width:767px){.stage .frame{inset:2% 7%}.stage .sl{width:5.5%}.stage-head,.stage .cap{left:calc(7% + 18px)}}
 
 /* Sections */
 section{padding:clamp(72px,9vw,128px) 0;scroll-margin-top:72px}
@@ -201,7 +201,7 @@ footer a{color:var(--cream)}
 /* Reveal motion */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
 .rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.track{animation:none}.stage .bars i.on b{animation:none;width:100%}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.track{animation:none}}
 
 /* Full-screen photo viewer */
 .lb{position:fixed;inset:0;z-index:80;background:rgba(10,6,4,.96);display:grid;place-items:center}
@@ -239,7 +239,7 @@ html.story main>section.stage-sec{padding:0;display:block}
 html.story .stage{height:100svh;min-height:0}
 html.story .stage .frame{top:76px;bottom:100px}
 html.story .stage .sl{top:calc(76px + 7%);bottom:calc(100px + 7%)}
-html.story .stage .bars{top:88px}
+html.story 
 html.story .stage-head{top:108px}
 html.story .stage .cap{bottom:122px}
 html.story .head{margin-bottom:18px}
@@ -355,7 +355,6 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
       <div class="sl l" aria-hidden="true"><img alt="" /></div>
       <div class="sl r" aria-hidden="true"><img alt="" /></div>
       <div class="frame" id="frame"></div>
-      <div class="bars" id="bars" aria-hidden="true"></div>
       <div class="stage-head"><h2>La comida</h2><span id="stage-count">From our kitchen</span></div>
       <div class="cap" id="stage-cap"></div>
       <button class="tap prev" type="button" aria-label="Previous photo"></button>
@@ -511,13 +510,10 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
 
   // The gallery: slides on by itself every 5 seconds while it's on screen; tap the sides to move, the middle for full screen.
   var stage = $("stage"), frame = $("frame"), n = photos.length, i = 0, timer = 0, seen = false;
-  var sl = stage.querySelectorAll(".sl img"), bars = $("bars");
-  bars.innerHTML = photos.map(function () { return "<i><b></b></i>"; }).join("");
+  var sl = stage.querySelectorAll(".sl img");
   var arm = function () {
     clearTimeout(timer);
     var on = seen && lb.hidden && !document.hidden;
-    [].forEach.call(bars.children, function (b, k) { b.className = k < i ? "done" : ""; });
-    var bar = bars.children[i]; void bar.offsetWidth; bar.className = on ? "on" : "";
     if (on) timer = setTimeout(function () { go(1); }, 5000);
   };
   var paint = function (dir) {

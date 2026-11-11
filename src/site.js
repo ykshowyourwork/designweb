@@ -155,16 +155,11 @@ function wire(photos) {
     const frame = $("frame");
     const n = photos.length;
     const [slL, slR] = stage.querySelectorAll(".sl img");
-    const bars = $("bars");
-    bars.innerHTML = n > 1 ? photos.map(() => "<i><b></b></i>").join("") : "";
     const alt = document.querySelector("#brand-name").textContent;
     let i = 0, timer = 0, seen = false;
     const arm = () => {
       clearTimeout(timer);
       const on = n > 1 && seen && lb.hidden && !document.hidden;
-      [...bars.children].forEach((b, k) => { b.className = k < i ? "done" : ""; });
-      const bar = bars.children[i];
-      if (bar) { void bar.offsetWidth; bar.className = on ? "on" : ""; }
       if (on) timer = setTimeout(() => go(1), 5000);
     };
     const paint = (dir) => {
