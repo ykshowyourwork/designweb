@@ -16,7 +16,7 @@ const UUID = /^[0-9a-f-]{36}$/i;
 export const SENDER = "Jordan at DesiWeb";
 export const FROM_ADDRESS = "gethelp@desiweb.org";
 export const FOOTER =
-  "\n\n--\nDesiWeb · desiweb.org\n7300 W Sunset Blvd, Ste L #801, Los Angeles, CA 90046\nNot interested? Reply \"no thanks\" and we won't email you again.";
+  "\n\n--\nDesiWeb · desiweb.org\n7300 W Sunset Blvd, Ste L #801, Los Angeles, CA 90046";
 
 // Fields the owner page and the routine may write. Everything else is the server's.
 const WRITABLE = [
