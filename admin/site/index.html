@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Site · %name%</title>
+    <script>try{if(localStorage.getItem("desiweb-session"))document.documentElement.classList.add("signed")}catch(e){}</script>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap"><a class="logo" href="/"><!-- @logo --></a><nav class="admin-nav"><a href="/admin">Dashboard</a><a href="/admin/invoices">Invoices</a><a href="/admin/site" aria-current="page">Site</a><a href="/admin/network">Network</a><button id="signout" class="linkish" hidden>Sign out</button></nav></div>
+    </header>
+    <main class="wrap dash">
+      <form id="login" class="narrow" style="padding-left:0;padding-right:0">
+        <h1>DesiWeb</h1>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required />
+        <label for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="current-password" required />
+        <button class="btn" style="margin-top: 14px">Sign in</button>
+        <p class="msg err" id="login-msg" role="alert"></p>
+        <p style="margin-top:10px"><button type="button" class="linkish" id="forgot">Forgot password? Email me a link</button></p>
+      </form>
+
+      <div id="panel" hidden>
+        <h1>Site</h1>
+        <p class="muted">Drag cards into the order you want, or use the arrows. The eye hides a card. Changes show on desiweb.org within a minute of saving.</p>
+
+        <section class="arrange">
+          <div class="row-head"><h2>New demos</h2></div>
+          <p class="muted">Custom demo sites that aren't on desiweb.org yet. "Add to site" puts one at the top of Examples, its industry page and the homepage. The publish task on your Mac picks it up within the hour, and writes the industry page if it's new.</p>
+          <div id="demos" class="demo-list"></div>
+        </section>
+
+        <section class="arrange">
+          <div class="row-head"><h2>Examples</h2><a href="/examples" target="_blank" rel="noopener">See the page</a></div>
+          <p class="muted">The order on Examples, the homepage, the logo wall and each industry page.</p>
+          <ol id="examples" class="sortable"></ol>
+        </section>
+
+        <section class="arrange">
+          <div class="row-head"><h2>Industries</h2><a href="/industries" target="_blank" rel="noopener">See the page</a></div>
+          <ol id="industries" class="sortable"></ol>
+        </section>
+
+        <div class="save-bar"><span class="muted" id="save-note"></span><button class="btn" id="save" type="button" disabled>Save order</button></div>
+      </div>
+    </main>
+    <script type="module" src="/src/site-admin.js"></script>
+  </body>
+</html>

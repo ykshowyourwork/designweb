@@ -330,3 +330,47 @@ export async function runToday(o) {
   await db(c, "PATCH", "network_settings?id=eq.1", { last_run_at: new Date(now).toISOString() }, "return=minimal");
   return { started: true, at: new Date(now).toISOString() };
 }
+
+// ── Site layout: the order of cards on the public site, set from /admin/site ──
+const LAYOUT_KEYS = ["examples", "industries"];
+const SLUG = /^[a-z0-9-]{2,60}$/;
+
+/** { examples: [{slug, hidden}], industries: [{slug, hidden}], queue: [slug] } */
+export async function getLayout(o) {
+  const rows = await db(ctx(o), "GET", "site_layout?select=key,items");
+  const out = { examples: [], industries: [], queue: [] };
+  for (const r of rows || []) if (r.key in out && Array.isArray(r.items)) out[r.key] = r.items;
+  return out;
+}
+
+const cleanList = (list) => {
+  if (!Array.isArray(list) || list.length > 300) throw new HttpError(400, "That list doesn't look right.");
+  const seen = new Set();
+  return list
+    .map((x) => ({ slug: String(x?.slug ?? ""), hidden: x?.hidden === true }))
+    .filter((x) => SLUG.test(x.slug) && !seen.has(x.slug) && seen.add(x.slug));
+};
+
+async function putLayout(key, items, o) {
+  await db(ctx(o), "POST", "site_layout?on_conflict=key", { key, items, updated_at: new Date().toISOString() }, "resolution=merge-duplicates,return=minimal");
+}
+
+/** Saves the order (and hidden cards) for examples and/or industries. */
+export async function saveLayout(body, o) {
+  for (const k of LAYOUT_KEYS) if (k in (body ?? {})) await putLayout(k, cleanList(body[k]), o);
+  return getLayout(o);
+}
+
+/** "Add to site": queues a built demo for the publish task on Jordan's Mac (or takes it back off). */
+export async function queueExample(slug, on, o) {
+  if (!SLUG.test(String(slug ?? ""))) throw new HttpError(400, "Pick a demo.");
+  const { queue } = await getLayout(o);
+  const next = on ? [...new Set([...queue, slug])] : queue.filter((s) => s !== slug);
+  await putLayout("queue", next, o);
+  return getLayout(o);
+}
+
+/** Every business with a custom demo site (demo/<slug>), for the admin's "Add to site" list. */
+export async function listDemos(o) {
+  return db(ctx(o), "GET", "network?demo_url=like.*%2Fdemo%2F*&select=slug,business,area,demo_url,deck_url&order=updated_at.desc");
+}

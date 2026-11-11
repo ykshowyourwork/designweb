@@ -1,7 +1,7 @@
 // The examples gallery: narrows as you type (every word has to match) or tap a trade.
 const q = document.getElementById("ex-q");
 const chips = document.getElementById("ex-chips");
-const cards = [...document.querySelectorAll("#ex-grid .shot-card")];
+const cards = () => [...document.querySelectorAll("#ex-grid .shot-card")];
 const count = document.getElementById("ex-count");
 const none = document.getElementById("ex-none");
 let ind = new URLSearchParams(location.search).get("industry") || "";
@@ -10,7 +10,7 @@ q.value = new URLSearchParams(location.search).get("q") || "";
 function update() {
   const words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
   let shown = 0;
-  for (const c of cards) {
+  for (const c of cards()) {
     const hit = (!ind || c.dataset.ind.split(" ").includes(ind)) && words.every((w) => c.dataset.search.includes(w));
     c.hidden = !hit;
     if (hit) shown++;
@@ -34,3 +34,4 @@ chips.addEventListener("click", (e) => {
   update();
 });
 update();
+document.addEventListener("layout:ready", update);

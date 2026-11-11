@@ -90,3 +90,10 @@ insert into public.network_settings (id, auto_send, auto_send_on, batch_size)
 values (1, false, current_date + 7, 10)
 on conflict (id) do nothing;
 alter table public.network_settings enable row level security;
+
+-- The order of cards on the public site, set from /admin/site. Read through /api/site-layout only (RLS on, no policies).
+--   examples / industries: [{ "slug": "...", "hidden": false }, ...] in display order (slugs not listed show first, newest on top)
+--   queue: demo slugs Jordan clicked "Add to site" on, waiting for the publish task on his Mac
+create table if not exists site_layout (key text primary key, items jsonb not null default '[]'::jsonb, updated_at timestamptz not null default now());
+alter table site_layout enable row level security;
+insert into site_layout (key) values ('examples'), ('industries'), ('queue') on conflict do nothing;

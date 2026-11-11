@@ -33,8 +33,8 @@ const workPic = (w) =>
 
 // Lists built from the content files, dropped in wherever a page has <!-- @name -->.
 const blocks = {
-  industryLinks: () => industries.map((i) => `<a href="/industries/${i.slug}">${i.name}</a>`).join("\n"),
-  industryTiles: () => industries.map((i) => `<a class="card" href="/industries/${i.slug}"><h3>${i.name}</h3><p class="muted">${esc(i.headline)}</p></a>`).join("\n"),
+  industryLinks: () => industries.map((i) => `<a href="/industries/${i.slug}" data-slug="${i.slug}">${i.name}</a>`).join("\n"),
+  industryTiles: () => industries.map((i) => `<a class="card" href="/industries/${i.slug}" data-slug="${i.slug}"><h3>${i.name}</h3><p class="muted">${esc(i.headline)}</p></a>`).join("\n"),
   serviceLinks: () => services.map((s) => `<a href="/services/${s.slug}">${s.name}</a>`).join("\n"),
   serviceTiles: () => services.map((s) => `<a class="card" href="/services/${s.slug}"><h3>${s.name}</h3><p class="muted">${esc(s.headline)}</p></a>`).join("\n"),
   workTiles: () =>
@@ -61,9 +61,9 @@ const blocks = {
   heroShots: () =>
     [...newestFirst(work).filter((w) => w.added).slice(0, 2), work.find((w) => w.slug === "the-set")]
       .filter(Boolean)
-      .concat(concepts.map((c) => ({ image: `/work/${c.slug}.jpg` })))
+      .concat(concepts.map((c) => ({ slug: c.slug, image: `/work/${c.slug}.jpg` })))
       .slice(0, 3)
-      .map((w) => `<img src="${w.image}" alt="" width="1200" height="750" />`)
+      .map((w) => `<img src="${w.image}" alt="" width="1200" height="750"${w.slug ? ` data-slug="${w.slug}"` : ""} />`)
       .join("\n"),
   logoWall: () => {
     const marks = newestFirst(work).filter((w) => w.mark).map((w) => `<a href="/examples/${w.slug}" data-slug="${w.slug}">${markHtml(w.mark, "logo-mark")}</a>`);

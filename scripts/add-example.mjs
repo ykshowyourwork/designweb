@@ -2,6 +2,7 @@
 //   node scripts/add-example.mjs <slug> [--industry <industry-slug>]
 // 1. Screenshots the live demo (https://desiweb.org/demo/<slug>/) for its tile → public/work/<slug>.jpg
 // 2. Adds or refreshes its entry at the top of content/work.json from the saved research (real facts only),
+//    with its wordmark (theme font) and cover photo for the logo wall and photo cards,
 //    with today's date, so it shows first on /examples, on the homepage and on its industry page.
 // The next build makes its /examples/<slug> page. Read the new entry's words before pushing.
 import fs from "node:fs";
@@ -72,6 +73,9 @@ const entry = {
   ],
   result: "A free mockup we built to show the owner what's possible. Tap the preview to see it.",
   industries: [industry],
+  // For the logo wall and the photo card: its name in its own font, and its best photo.
+  ...(s.theme?.display ? { mark: { text: d.business, font: s.theme.display, weight: 700 } } : {}),
+  ...(s.theme?.photos?.cover ? { cover: s.theme.photos.cover } : {}),
   added: new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" }),
 };
 
