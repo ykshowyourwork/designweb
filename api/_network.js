@@ -270,11 +270,16 @@ export function pickBatch(rows, batchSize) {
   return { fresh, followUps };
 }
 
-/** Sends today's batch. One failure doesn't stop the rest; each result is reported. */
+/** Sends today's batch. One failure doesn't stop the rest; each result is reported.
+ *  o.daily (the 9am timer): new emails are capped at the batch size for the whole day,
+ *  counting any already sent today, so a second run never sends more. */
 export async function sendBatch(o) {
   const c = ctx(o);
   const settings = await getSettings(c);
-  const { fresh, followUps } = pickBatch(await listRows(c), settings.batch_size ?? 10);
+  const rows = await listRows(c);
+  let size = settings.batch_size ?? 10;
+  if (o?.daily) size = Math.max(0, size - rows.filter((r) => r.sent_on === c.today).length);
+  const { fresh, followUps } = pickBatch(rows, size);
   const results = [];
   for (const r of [...fresh, ...followUps]) {
     try {

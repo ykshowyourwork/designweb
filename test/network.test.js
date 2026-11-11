@@ -181,3 +181,13 @@ test("Run today wakes the routine once, then waits 15 minutes before it can run 
   assert.equal(fired.length, 2);
   await assert.rejects(runToday({ fetchImpl, env }), /run-now token/);
 });
+
+test("the 9am timer sends at most the day's batch, counting emails already sent today", async () => {
+  const rows = [lead(1), lead(2), lead(3), lead(4, { stage: "messaged", sent_on: "2026-11-11" })];
+  const w = fakeWorld(rows, { auto_send: true, batch_size: 2 });
+  const first = await sendBatch({ ...w, env, today: "2026-11-11", daily: true });
+  assert.equal(first.sent, 1);
+  const again = await sendBatch({ ...w, env, today: "2026-11-11", daily: true });
+  assert.equal(again.sent, 0);
+  assert.equal(w.sent.length, 1);
+});

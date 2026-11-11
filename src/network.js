@@ -62,7 +62,7 @@ function render() {
   $("send-batch").disabled = !(fresh + follow);
   $("auto").checked = Boolean(settings.auto_send) || autoSend;
   $("auto-note").textContent = autoSend
-    ? "On: the morning routine sends the batch for you."
+    ? "On: the site sends the batch for you at 9am."
     : settings.auto_send_on
       ? `Review week: turns on by itself ${settings.auto_send_on}.`
       : "";
