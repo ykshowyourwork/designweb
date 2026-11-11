@@ -71,7 +71,7 @@ function slides(d) {
   }
 
   out.push(`<section class="slide light"><p class="eyebrow">What you get</p><h2>Built to put you on the map.</h2><div class="cards">
-    ${[["New website", "Fast on phones. Full pages for your best work, plus the areas you serve."], [`${s.cta || "Booking"} + deposits`, "Customers pick a time and pay a deposit."], ["Google Maps", "Your listing set up right, plus a link that makes reviews easy."], ["20 listings", "Apple Maps, Bing, Yelp and more, all showing the same info."], ["Every month", "New Google posts and articles, hosting and upkeep."]]
+    ${[["New website", "Fast on phones. Full pages for your best work, plus the areas you serve."], [s.cta || "Booking", "One tap to call, order or book, on every screen of the site."], ["Google Maps", "Your listing set up right, plus a link that makes reviews easy."], ["20 listings", "Apple Maps, Bing, Yelp and more, all showing the same info."], ["Every month", "New Google posts and articles, hosting and upkeep."]]
       .map(([h, p]) => `<div class="card"><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join("")}</div>${foot("You own the website and everything we make. Live in about 2 weeks.")}</section>`);
 
   const price = s.price || { growth: "$3,500", monthly: "$300/mo", starter: "$1,750" };
