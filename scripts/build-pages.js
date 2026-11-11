@@ -2,7 +2,7 @@
 //   content/industries.json → industries/<slug>/index.html (templates/industry.html)
 //   content/services.json   → services/<slug>/index.html   (templates/service.html)
 //   content/work.json       → examples/<slug>/index.html   (templates/work.html, real client sites)
-//   content/concepts.json   → examples/<slug>/index.html   (templates/concept.html, sample sites)
+//   content/concepts.json   → examples/<slug>/index.html   (concepts/<slug>/index.html if hand-built, else templates/concept.html)
 //   every page              → public/sitemap.xml and public/llms.txt
 // To add a page of one of these kinds, add it to its content file. Nothing else changes.
 import fs from "node:fs";
@@ -71,6 +71,13 @@ for (const w of work) {
 }
 
 for (const c of concepts) {
+  // A hand-built sample (concepts/<slug>/index.html, with story mode) replaces the generic template.
+  const custom = path.join(root, "concepts", c.slug, "index.html");
+  if (fs.existsSync(custom)) {
+    fs.mkdirSync(path.join(root, "examples", c.slug), { recursive: true });
+    fs.copyFileSync(custom, path.join(root, "examples", c.slug, "index.html"));
+    continue;
+  }
   const pages = c.services.map(([name]) => name);
   write("concept.html", `examples/${c.slug}`, c, {
     theme: c.dark ? "dark" : "",

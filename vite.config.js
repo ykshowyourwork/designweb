@@ -99,7 +99,7 @@ const fill = (html) =>
 // Every index.html in the project is a page, plus the invoice and admin pages.
 function pages(dir = root, found = {}) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (["node_modules", "dist", "partials", "templates", "public", ".git", ".vercel"].includes(e.name)) continue;
+    if (["node_modules", "dist", "partials", "templates", "concepts", "public", ".git", ".vercel"].includes(e.name)) continue;
     const p = path.join(dir, e.name);
     if (e.isDirectory()) pages(p, found);
     else if (e.name.endsWith(".html")) found[path.relative(root, p).replace(/\.html$/, "").replace(/[\\/]/g, "_")] = p;
