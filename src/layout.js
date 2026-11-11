@@ -21,7 +21,7 @@ const arrangeLogos = (track, list) => {
   const one = [...holder.children];
   if (!one.length) return;
   const times = Math.max(2, Math.ceil(10 / one.length));
-  track.replaceChildren(...Array.from({ length: times * 2 }, (_, i) => one[i % one.length].cloneNode(true)));
+  track.replaceChildren(...Array.from({ length: one.length * times * 2 }, (_, i) => one[i % one.length].cloneNode(true)));
 };
 
 (async () => {
