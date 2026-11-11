@@ -211,6 +211,10 @@ ul.promises li::before { content: ""; width: 10px; height: 10px; border-radius: 
 .work-grid { display: grid; gap: 48px 28px; grid-template-columns: repeat(6, 1fr); }
 .work-grid > * { grid-column: span 2; }
 .work-grid > :nth-child(5n + 1), .work-grid > :nth-child(5n + 2) { grid-column: span 3; }
+/* A card left alone on the last row runs full width instead of leaving a gap */
+.work-grid > :nth-child(5n + 1):last-child { grid-column: 1 / -1; }
+.work-grid > :nth-child(5n + 4):last-child { grid-column: span 4; }
+.work-grid > :nth-child(5n + 1):last-child .shot-img { aspect-ratio: 21 / 9; }
 @media (max-width: 900px) { .work-grid { grid-template-columns: 1fr; } .work-grid > * { grid-column: auto !important; } }
 .shot-card { display: block; text-decoration: none; }
 .shot-card .shot-img {
