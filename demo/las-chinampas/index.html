@@ -272,6 +272,41 @@ html.story .map{display:none}
 html.story .card{padding:22px}
 html.story .story-only{display:inline-flex}
 .story-only{display:none}
+/* Story screens with a photo behind them */
+html.story #reviews,html.story #story,html.story #catering,html.story #visit{color:#fff;justify-content:flex-end;background-size:cover;background-position:center}
+html.story #reviews{background-image:linear-gradient(180deg,rgba(28,14,8,.6) 0%,rgba(28,14,8,.15) 28%,rgba(28,14,8,.94) 64%),url("/demo/las-chinampas/img/tacos.jpg")}
+html.story #story{background-image:linear-gradient(180deg,rgba(18,40,28,.55) 0%,rgba(18,40,28,.1) 30%,rgba(18,40,28,.95) 62%),url("/demo/las-chinampas/img/sign.jpg")}
+html.story #catering{background-image:linear-gradient(180deg,rgba(28,14,8,.55) 0%,rgba(28,14,8,.1) 30%,rgba(28,14,8,.95) 62%),url("/demo/las-chinampas/img/carnitas.jpg")}
+html.story #visit{background-image:linear-gradient(180deg,rgba(28,14,8,.6) 0%,rgba(28,14,8,.2) 24%,rgba(28,14,8,.95) 52%),url("/demo/las-chinampas/img/front.jpg")}
+html.story #reviews .kicker,html.story #catering .kicker,html.story #visit .kicker{color:var(--gold)}
+html.story .score b{color:var(--gold)}
+html.story .score span{color:#f6e9d6}
+html.story .rev{background:rgba(255,250,242,.12);border:1px solid rgba(255,250,242,.2);backdrop-filter:blur(10px);color:#fff;padding:20px}
+html.story .rev p{font-size:1.15rem;margin:8px 0 10px}
+html.story .rev cite{color:#e8dccb}
+html.story .story-photos{display:none}
+html.story #catering .lead{color:#f6e9d6 !important;font-size:1rem}
+html.story #catering .story-only{width:100%;background:var(--terra);color:#fff}
+html.story #visit .head{margin-bottom:12px}
+html.story #visit .card{background:rgba(255,250,242,.12);border:1px solid rgba(255,250,242,.2);backdrop-filter:blur(12px);color:#fff}
+html.story #visit .card h3{font-size:1.6rem}
+html.story #visit .card a{color:#fff}
+html.story .hours{margin:4px 0 6px}
+html.story .hours td{border-color:rgba(255,255,255,.2)}
+html.story .hours tr.today td{color:var(--gold)}
+html.story .hours:not(.all) tr:not(.today){display:none}
+.more-hours{background:none;border:0;color:var(--gold);font:700 14px var(--body);padding:4px 0 14px;cursor:pointer}
+html.story #visit .ctas{display:none}
+html.story #visit .btn-line{color:#fff;border-color:rgba(255,255,255,.6)}
+/* Menu: tighter top, every card its own photo or a bold color card */
+html.story #menu .head p{display:none}
+html.story #menu h2{font-size:2.1rem}
+html.story .dish.nophoto .ph{display:grid;place-items:center;aspect-ratio:4/3;background:var(--terra);color:var(--cream);padding:18px;text-align:center}
+html.story .dish.nophoto:nth-child(even) .ph{background:var(--green)}
+html.story .dish.nophoto .ph b{font:900 2rem/1 var(--display)}
+html.story .menu-note{margin-top:12px}
+/* Hero: the bottom bar already has Call and Directions */
+html.story .hero .ctas{display:none}
 html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));gap:8px;padding:8px;border-radius:999px;background:rgba(28,14,8,.82);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12)}
 .dock a{flex:1;min-height:50px;border-radius:999px;display:grid;place-items:center;text-decoration:none;font-weight:700;font-size:15px;color:#fff;background:rgba(255,255,255,.1)}
 .dock a.main{background:var(--terra)}
@@ -392,6 +427,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
           <h3>Whittier</h3>
           <p class="addr">8025 Pioneer Blvd, Whittier, CA 90606<br /><a href="tel:+15626920110">(562) 692-0110</a></p>
           <table class="hours" id="hours"></table>
+          <button class="more-hours story-only" type="button" id="more-hours">See all hours</button>
           <div class="ctas"><a class="btn btn-terra" href="tel:+15626920110">Call to order</a><a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&destination=Las+Chinampas+8025+Pioneer+Blvd+Whittier+CA" target="_blank" rel="noopener">Directions</a></div>
         </div>
         <div class="map rv"><iframe title="Map to Las Chinampas" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Las%20Chinampas%2C%208025%20Pioneer%20Blvd%2C%20Whittier%2C%20CA&z=15&output=embed"></iframe></div>
@@ -426,15 +462,15 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
   // The menu: only dishes people name in reviews or on the Google listing. No prices until the real menu is in.
   var menu = [
     ["Antojitos", "carnitas", [["Pambazos", "Bread dipped in red chile sauce, griddled and stuffed.", 1], ["Gorditas", "Thick masa cakes, split and filled. Try them with carnitas.", 1], ["Huaraches", "Long sandal-shaped masa, topped and griddled.", 1], ["Tlacoyos", "Stuffed oval masa, a Mexico City classic.", 1], ["Tostadas de pata", "Crisp tostadas topped the traditional way.", 0]]],
-    ["Desayuno", "chilaquiles", [["Chilaquiles", "The most talked-about dish in our reviews.", 1], ["Breakfast plates", "Eggs, rice and beans, made to order.", 0]]],
-    ["Platos", "bistec", [["Bistec con nopales", "Steak with cactus, rice and beans.", 0], ["Costillas en salsa", "Ribs in salsa, a regular's favorite.", 1], ["Milanesa", "Breaded steak, fried golden.", 0], ["Carnitas", "Slow-cooked pork with salad and beans.", 0]]],
-    ["Tacos y más", "tacos", [["Tacos", "On tortillas made by hand.", 0], ["Carne asada burrito", "“A good size and super tasty,” says one review.", 1], ["Nachos", "A regular’s pick, right from the reviews.", 0]]],
+    ["Desayuno", "chilaquiles", [["Chilaquiles", "The most talked-about dish in our reviews.", 1, "chilaquiles"], ["Breakfast plates", "Eggs, rice and beans, made to order.", 0, "desayuno"]]],
+    ["Platos", "bistec", [["Bistec con nopales", "Steak with cactus, rice and beans.", 0, "bistec"], ["Costillas en salsa", "Ribs in salsa, a regular's favorite.", 1, "costillas"], ["Milanesa", "Breaded steak, fried golden.", 0], ["Carnitas", "Slow-cooked pork with salad and beans.", 0, "carnitas"]]],
+    ["Tacos y más", "tacos", [["Tacos", "On tortillas made by hand.", 0, "tacos"], ["Carne asada burrito", "“A good size and super tasty,” says one review.", 1], ["Nachos", "A regular’s pick, right from the reviews.", 0]]],
     ["Caldos y bebidas", "desayuno", [["Menudo", "The weekend classic.", 0], ["Rompope", "Mexican eggnog-style drink.", 0]]]
   ];
   $("tabs").innerHTML = menu.map(function (m, i) { return '<button type="button" role="tab" aria-selected="' + (i === 0) + '" data-i="' + i + '">' + m[0] + "</button>"; }).join("");
   $("panels").innerHTML = menu.map(function (m, i) {
     return '<div class="menu-panel" role="tabpanel"' + (i ? " hidden" : "") + '><div class="dishes">' + m[2].map(function (d) {
-      return '<div class="dish"><span class="ph" style="background-image:url(' + img(m[1]) + ')"></span><div class="tx"><h3>' + d[0] + (d[2] ? '<span class="fav">Fan favorite</span>' : "") + "</h3><p>" + d[1] + "</p></div></div>";
+      return '<div class="dish' + (d[3] ? "" : " nophoto") + '">' + (d[3] ? '<span class="ph" style="background-image:url(' + img(d[3] + "-sm") + ')"></span>' : '<span class="ph"><b>' + d[0] + "</b></span>") + '<div class="tx"><h3>' + d[0] + (d[2] ? '<span class="fav">Fan favorite</span>' : "") + "</h3><p>" + d[1] + "</p></div></div>";
     }).join("") + '</div><div class="menu-photo"><img src="' + img(m[1]) + '" alt="' + m[0] + '" loading="lazy" /><span class="tag">' + m[0] + "</span></div></div>";
   }).join("");
   $("tabs").addEventListener("click", function (e) {
@@ -450,6 +486,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
   var d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
   var fmt = function (x) { return (x > 12 ? x - 12 : x) + (x >= 12 ? "pm" : "am"); };
   $("hours").innerHTML = [2, 3, 4, 5, 6, 0, 1].map(function (i) { return '<tr class="' + (i === d ? "today" : "") + '"><td>' + days[i] + "</td><td>" + (hrs[i] ? fmt(hrs[i][0]) + " – " + fmt(hrs[i][1]) : "Closed") + "</td></tr>"; }).join("");
+  $("more-hours").onclick = function () { var all = $("hours").classList.toggle("all"); this.textContent = all ? "Just today" : "See all hours"; };
   var t = hrs[d], open = t && h >= t[0] && h < t[1];
   if (!open) $("open-pill").classList.add("closed");
   var next = function () { for (var k = 0; k < 7; k++) { var j = (d + k) % 7, x = hrs[j]; if (x && (k > 0 || h < x[0])) return (k === 0 ? "today " : k === 1 ? "tomorrow " : days[j] + " ") + fmt(x[0]); } };
