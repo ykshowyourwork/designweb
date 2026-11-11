@@ -26,7 +26,13 @@
     "industries": [
       "restaurants"
     ],
-    "added": "2026-11-11"
+    "added": "2026-11-11",
+    "mark": {
+      "text": "Las Chinampas",
+      "font": "Fraunces",
+      "weight": 800
+    },
+    "cover": "/demo/las-chinampas/img/chilaquiles.jpg"
   },
   {
     "slug": "mole-del-rey",
@@ -55,7 +61,13 @@
     "industries": [
       "restaurants"
     ],
-    "added": "2026-11-11"
+    "added": "2026-11-11",
+    "mark": {
+      "text": "Mole Del Rey",
+      "font": "DM Serif Display",
+      "weight": 400
+    },
+    "cover": "/demo/mole-del-rey/img/flight-wide.jpg"
   },
   {
     "slug": "mcm-atlanta",
@@ -85,7 +97,13 @@
     "result": "In progress. Tap the preview to see the site as it’s being built.",
     "industries": [
       "auto-repair-and-performance"
-    ]
+    ],
+    "mark": {
+      "text": "MCM ATLANTA",
+      "font": "Archivo Black",
+      "weight": 400
+    },
+    "cover": "/demo/mcm-atlanta/img/hero.jpg"
   },
   {
     "slug": "the-set",
@@ -113,7 +131,12 @@
       "News articles and Schema code so Google and AI can find it"
     ],
     "result": "Live at theset.vip and taking real card payments, with artists keeping 80% of each sale.",
-    "industries": []
+    "industries": [],
+    "mark": {
+      "text": "THE SET",
+      "font": "Bebas Neue",
+      "weight": 400
+    }
   },
   {
     "slug": "yk-entertainment",
@@ -142,6 +165,11 @@
     "result": "Live at ykentertainment.vip, serving couples across Los Angeles, Orange County and San Diego.",
     "industries": [
       "wedding-vendors"
-    ]
+    ],
+    "mark": {
+      "text": "YK Entertainment",
+      "font": "Playfair Display",
+      "weight": 700
+    }
   }
 ]

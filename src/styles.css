@@ -13,9 +13,9 @@
   --fg: #f2f2f2;
   --muted: #a9a9a6;
   --line: #363636;
-  --brand: #6f9bff;
-  --brand-ink: #0b1430;
-  --brand-deep: #1f5eff;
+  --brand: #4ee38a;
+  --brand-ink: #04210f;
+  --brand-deep: #1fbf63;
   --ok: #4cd28a;
   --radius: 18px;
   --wrap: 1280px;
@@ -136,8 +136,8 @@ section + section { padding-top: 0; }
   min-height: min(820px, 88vh); display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: end; gap: 24px;
   padding: clamp(28px, 5vw, 72px);
   background:
-    radial-gradient(70% 90% at 85% 15%, rgba(31, 94, 255, 0.45), transparent 60%),
-    radial-gradient(60% 60% at 10% 100%, rgba(111, 155, 255, 0.16), transparent 60%),
+    radial-gradient(70% 90% at 85% 15%, rgba(38, 190, 105, 0.45), transparent 60%),
+    radial-gradient(60% 60% at 10% 100%, rgba(78, 227, 138, 0.16), transparent 60%),
     #151515;
 }
 .hero-panel::before {
@@ -238,7 +238,7 @@ ul.promises li::before { content: ""; width: 10px; height: 10px; border-radius: 
 .compare ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
 .compare li { display: flex; gap: 12px; }
 .compare li::before { content: "–"; color: var(--muted); flex: none; }
-.compare .yes { background: #151d33; border-color: rgba(111, 155, 255, 0.5); }
+.compare .yes { background: #151d33; border-color: rgba(78, 227, 138, 0.5); }
 .compare .yes li::before { content: ""; width: 10px; height: 10px; margin-top: 9px; border-radius: 3px; background: var(--brand); }
 .compare h3 { font-family: var(--display); font-size: 2rem; font-weight: 600; line-height: 1; }
 
@@ -246,7 +246,7 @@ ul.promises li::before { content: ""; width: 10px; height: 10px; border-radius: 
 .price { font-family: var(--display); font-size: clamp(3rem, 5vw, 4.2rem); font-weight: 600; line-height: 1; margin: 10px 0 14px; }
 .price small { font-family: var(--body); font-size: 1rem; font-weight: 500; color: var(--muted); }
 .plan h3 { font-family: var(--display); font-size: 1.9rem; font-weight: 500; margin: 0; }
-.plan.featured { background: #151d33; border-color: var(--brand); }
+.plan.featured { background: #13221a; border-color: var(--brand); }
 .plan ul { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; }
 .plan li { display: flex; gap: 12px; }
 .plan li::before { content: ""; width: 9px; height: 9px; margin-top: 9px; border-radius: 3px; background: var(--brand); flex: none; }
@@ -274,7 +274,7 @@ details.menu summary::after { content: ""; }
 .cta { text-align: left; }
 .cta-panel {
   border-radius: 28px; padding: clamp(36px, 6vw, 88px);
-  background: radial-gradient(80% 120% at 100% 0%, rgba(31, 94, 255, 0.5), transparent 60%), #151515;
+  background: radial-gradient(80% 120% at 100% 0%, rgba(38, 190, 105, 0.5), transparent 60%), #151515;
 }
 .cta-panel h2 { max-width: 14ch; }
 .cta-panel p { max-width: 620px; }
@@ -304,7 +304,7 @@ footer .legal { display: flex; flex-wrap: wrap; justify-content: space-between; 
 .prose li { margin-bottom: 10px; }
 .prose a, .legal-text a, .page-hero a:not(.btn), details a { color: var(--brand); }
 .tiles + .tiles { margin-top: 22px; }
-.weighing { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 36px; background: #151d33; border-color: rgba(111, 155, 255, 0.5); }
+.weighing { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 36px; background: #151d33; border-color: rgba(78, 227, 138, 0.5); }
 .weighing h3 { font-family: var(--display); font-size: 2rem; font-weight: 600; margin-bottom: 4px; }
 
 /* Case study */
@@ -426,3 +426,21 @@ a.line-item:hover { background: rgba(255,255,255,.03); }
 .ex-grid .shot-img { aspect-ratio: 16 / 10; }
 .ex-none { font-size: 1.15rem; margin-top: 10px; }
 .ex-none a { color: var(--brand); }
+
+/* "Good company to be in": every brand we've built for, in its own lettering, drifting across */
+.clients { padding: clamp(56px, 7vw, 96px) 0 clamp(40px, 5vw, 72px); text-align: center; }
+.clients h2 { font-family: var(--display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 600; line-height: 1; margin-bottom: 14px; }
+.clients p { color: var(--muted); max-width: 620px; margin: 0 auto 40px; }
+.logo-wall { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.logo-track { display: flex; align-items: center; gap: clamp(48px, 7vw, 110px); width: max-content; animation: logos 40s linear infinite; }
+.logo-wall:hover .logo-track { animation-play-state: paused; }
+.logo-track a { text-decoration: none; flex: none; }
+.logo-mark { display: block; font-size: clamp(1.8rem, 3.2vw, 2.8rem); line-height: 1; color: #7d7d7a; white-space: nowrap; transition: color .2s; }
+.logo-track a:hover .logo-mark { color: var(--fg); }
+@keyframes logos { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .logo-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; } }
+
+/* Photo-led case study cards: the business's own photo with its name on top */
+.shot-img.cover { position: relative; display: block; }
+.shot-img.cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.05) 30%, rgba(0,0,0,.6)); pointer-events: none; }
+.shot-img.cover .mark { position: absolute; z-index: 1; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; color: #fff; font-size: clamp(1.8rem, 3.4vw, 3.2rem); line-height: 1; text-shadow: 0 4px 30px rgba(0,0,0,.6); padding: 0 16px; }

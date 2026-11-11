@@ -31,8 +31,8 @@ function write(templateName, dir, values, raw = {}) {
 // Every example for one industry: client sites first, then sample sites.
 function examplesFor(slug) {
   return [
-    ...[...work].sort((a, b) => (b.added || "").localeCompare(a.added || "")).filter((w) => w.industries?.includes(slug)).map((w) => ({ href: `/examples/${w.slug}`, image: w.image, name: w.name, tag: w.status ?? "Live client site", text: w.summary })),
-    ...concepts.filter((c) => c.industry === slug).map((c) => ({ href: `/examples/${c.slug}`, image: `/work/${c.slug}.jpg`, name: c.name, tag: `Sample site · ${c.trade}`, text: c.headline, accent: c.accent })),
+    ...[...work].sort((a, b) => (b.added || "").localeCompare(a.added || "")).filter((w) => w.industries?.includes(slug)).map((w) => ({ slug: w.slug, w, href: `/examples/${w.slug}`, image: w.cover || w.image, name: w.name, tag: w.status ?? "Live client site", text: w.summary })),
+    ...concepts.filter((c) => c.industry === slug).map((c) => ({ slug: c.slug, href: `/examples/${c.slug}`, image: `/work/${c.slug}.jpg`, name: c.name, tag: `Sample site · ${c.trade}`, text: c.headline, accent: c.accent })),
   ];
 }
 
@@ -51,10 +51,10 @@ for (const ind of industries) {
     build: list(ind.build),
     shots: examplesFor(ind.slug)
       .slice(0, 3)
-      .map((e) => `<a href="${e.href}" aria-label="See the ${esc(e.name)} example"><img src="${e.image}" alt="" width="1200" height="750" /></a>`)
+      .map((e) => `<a href="${e.href}" data-slug="${e.slug}" aria-label="See the ${esc(e.name)} example"><img src="${e.image}" alt="" width="1200" height="750" /></a>`)
       .join(""),
     examples: examplesFor(ind.slug)
-      .map((e) => `<a class="shot-card" href="${e.href}"${e.accent ? ` style="--accent: ${e.accent}"` : ""}><span class="shot-img"><img src="${e.image}" alt="${esc(e.name)} website" width="1200" height="750" loading="lazy" /></span><div class="shot-text"><span class="tag">${esc(e.tag)}</span><h3>${esc(e.name)}</h3><p>${esc(e.text)}</p></div></a>`)
+      .map((e) => `<a class="shot-card" href="${e.href}" data-slug="${e.slug}"${e.accent ? ` style="--accent: ${e.accent}"` : ""}><span class="shot-img${e.w?.cover ? " cover" : ""}"><img src="${e.image}" alt="${esc(e.name)} website" width="1200" height="750" loading="lazy" />${e.w?.cover && e.w.mark ? `<b class="mark" style="font-family:'${e.w.mark.font}',serif;font-weight:${e.w.mark.weight || 400}">${esc(e.w.mark.text)}</b>` : ""}</span><div class="shot-text"><span class="tag">${esc(e.tag)}</span><h3>${esc(e.name)}</h3><p>${esc(e.text)}</p></div></a>`)
       .join(""),
   });
 }
