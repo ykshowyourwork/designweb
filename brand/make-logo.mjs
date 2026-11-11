@@ -6,7 +6,7 @@ import opentype from "./deps/node_modules/opentype.js/dist/opentype.module.js";
 const [, , base, out] = process.argv;
 const b = fs.readFileSync(path.join(base, "deps/node_modules/@fontsource/inter/files/inter-latin-800-normal.woff"));
 const F = opentype.parse(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength));
-const BLUE = "#1fbf63";
+const BLUE = "#f0661f";
 
 function text(str, size, x, y, track = -0.035) {
   const scale = size / F.unitsPerEm;
