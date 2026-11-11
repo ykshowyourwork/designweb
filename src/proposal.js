@@ -7,13 +7,21 @@ const slug = location.pathname.split("/").filter(Boolean).pop();
 const month = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" });
 const n = (x) => Number(x || 0).toLocaleString();
 
+// A slide's class list, with one of the business's own photos behind it when the theme has one.
+const photoSlide = (s, key, base = "", low = false) => {
+  const src = s.theme?.photos?.[key];
+  const ok = typeof src === "string" && /^(\/|https:\/\/)[^"'()\s]+$/.test(src);
+  return ok ? `class="slide ${base} photo${low ? " low" : ""}" style="--ph:url('${esc(src)}')"` : `class="slide ${base}"`;
+};
+
 function slides(d) {
   const s = d.site || {};
+  const tagline = s.theme?.tagline;
   const town = s.town || d.area || "";
   const out = [];
   const foot = (t) => `<p class="foot">${esc(t)}</p>`;
 
-  out.push(`<section class="slide cover"><p class="eyebrow">Growth proposal · ${month}</p><h1>${esc(d.business)}</h1><p class="big">${esc(town)} · How to get found by people searching for ${esc(s.trade || "what you do")}.</p><p class="big" style="font-size:16px">Prepared by <b style="color:#f4f2ec">DesiWeb</b> · desiweb.org</p></section>`);
+  out.push(`<section ${photoSlide(s, "cover", "cover", true)}><p class="eyebrow">Growth proposal · ${month}</p><h1>${esc(d.business)}</h1>${tagline ? `<p class="hand">${esc(tagline)}</p>` : ""}<p class="big">${esc(town)} · How to get found by people searching for ${esc(s.trade || "what you do")}.</p><p class="big" style="font-size:16px">Prepared by <b>DesiWeb</b> · desiweb.org</p></section>`);
 
   out.push(`<section class="slide"><p class="eyebrow">Your goals</p><h2>We build around your numbers.</h2>
     <table class="table-blank"><tr><th>Question</th><th>Your answer</th></tr>
@@ -25,17 +33,16 @@ function slides(d) {
     d.no_website || !d.website ? ["No website", "People can't see your prices, your work or book you."] : /facebook|instagram/i.test(d.website) ? ["Social link only", "Your listing points to social media, not a site that books."] : ["Website", "Your site isn't turning those searches into calls."],
     d.unclaimed_google ? ["Unclaimed listing", "Anyone can change your hours or photos."] : null,
   ].filter(Boolean);
-  out.push(`<section class="slide"><p class="eyebrow">Where you stand</p><h2>${esc(s.finding || "Customers love you. Google doesn't show it yet.")}</h2>
+  out.push(`<section ${photoSlide(s, "stand")}><p class="eyebrow">Where you stand</p><h2>${esc(s.finding || "Customers love you. Google doesn't show it yet.")}</h2>
     <div class="cards">${status.map(([h, p]) => `<div class="card"><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join("")}</div>${foot(`Source: Google Maps and your Google listing, ${month}.`)}</section>`);
 
   // The new-site slide links the custom demo when one is built; otherwise it offers to build one.
   const demo = d.demo_url && d.demo_url.replace(/^https?:\/\/(www\.)?desiweb\.org/, "");
   out.push(demo
-    ? `<section class="slide"><p class="eyebrow">Your new site</p><h2>It's already built. Take a look.</h2>
-    <a class="link" href="${esc(demo)}" target="_blank" rel="noopener">desiweb.org${esc(demo)}</a>
-    <div class="cards"><div class="card"><h3>${esc(s.cta || "Book")} in a tap</h3><p>Your best work up front, with a button on every screen.</p></div>
-    <div class="card"><h3>Your real photos</h3><p>Your photos and reviews, full screen.</p></div>
-    <div class="card"><h3>Story mode</h3><p>On phones it opens full screen. People swipe through like a story.</p></div></div>${foot("Private preview. Not on Google until you say go.")}</section>`
+    ? `<section class="slide"><div class="site-slide"><div class="copy"><p class="eyebrow">Your new site</p><h2>It's already built. Try it right here.</h2>
+    <p class="big">This is your real site, running live. Swipe through it like a story, just like your customers will on their phones.</p>
+    <a class="link" href="${esc(demo)}" target="_blank" rel="noopener">desiweb.org${esc(demo)}</a></div>
+    <div class="phone"><iframe src="${esc(demo)}" title="${esc(d.business)} website preview" loading="lazy"></iframe></div></div>${foot("Private preview. Not on Google until you say go.")}</section>`
     : `<section class="slide"><p class="eyebrow">Your new site</p><h2>See it before you pay anything.</h2>
     <p class="big">Say the word and we build your homepage for free, with your real photos, your menu or services, and a button to call or book on every screen.</p>
     <div class="cards"><div class="card"><h3>Free</h3><p>Your homepage, built from your Google listing and photos.</p></div>
@@ -73,10 +80,26 @@ function slides(d) {
     <div class="card hi"><h3>Growth</h3><div class="num">${esc(price.growth || "$3,500")}</div><p>+ ${esc(price.monthly || "$300/mo")}. Everything in Starter, plus booking, Google Maps work and new articles every month.</p></div></div>
     <p class="big">Half to start, half when the site goes live. Stop the monthly anytime.</p></section>`);
 
-  out.push(`<section class="slide next"><p class="eyebrow">Next steps</p><h2>Live in about 2 weeks.</h2><ol>
+  out.push(`<section ${photoSlide(s, "next", "next", true)}><p class="eyebrow">Next steps</p><h2>Live in about 2 weeks.</h2><ol>
     <li>Pay the deposit. The invoice comes by email.</li><li>Send your logo and any new photos.</li>
     <li>We set up your Google listing and 20 listings.</li><li>Your site goes live. Pay the rest.</li></ol>${foot("DesiWeb · gethelp@desiweb.org · desiweb.org")}</section>`);
   return out;
+}
+
+// The business's own colors, fonts and pattern (saved as site.theme when its site is built).
+// Only plain colors, font names and Google Fonts links get through.
+function applyTheme(th) {
+  if (!th || typeof th !== "object") return;
+  const root = document.documentElement.style;
+  const color = (v) => typeof v === "string" && /^#[0-9a-f]{3,8}$/i.test(v);
+  const vars = { bg: "bg", card: "card", line: "line", text: "text", muted: "muted", dim: "dim", accent: "accent", accent2: "accent-2", accent3: "accent-3", accent4: "accent-4", accent5: "accent-5", lightBg: "light-bg", lightText: "light-text", lightCard: "light-card", lightLine: "light-line", lightMuted: "light-muted" };
+  for (const [k, v] of Object.entries(vars)) if (color(th[k])) root.setProperty(`--${v}`, th[k]);
+  if (color(th.bg)) { const h = th.bg.slice(1); const x = h.length === 3 ? h.split("").map((c) => c + c).join("") : h.slice(0, 6); root.setProperty("--shade", [0, 2, 4].map((i) => parseInt(x.slice(i, i + 2), 16)).join(",")); document.querySelector('meta[name="theme-color"]')?.setAttribute("content", th.bg); }
+  for (const k of ["display", "body", "hand"]) if (typeof th[k] === "string" && /^[\w '-]{2,40}$/.test(th[k])) root.setProperty(`--${k}`, `'${th[k]}', ${k === "hand" ? "cursive" : k === "body" ? "system-ui, sans-serif" : "Georgia, serif"}`);
+  if (typeof th.fonts === "string" && /^https:\/\/fonts\.googleapis\.com\/css2\?[\w=:;,@.&+%-]+$/.test(th.fonts)) {
+    const l = document.createElement("link"); l.rel = "stylesheet"; l.href = th.fonts; document.head.appendChild(l);
+  }
+  if (th.pattern === "picado") document.body.classList.add("picado");
 }
 
 (async () => {
@@ -85,6 +108,7 @@ function slides(d) {
     if (!res.ok) throw new Error();
     const d = await res.json();
     document.title = `${d.business} · Growth proposal · DesiWeb`;
+    applyTheme(d.site?.theme);
     const deck = $("deck");
     deck.innerHTML = slides(d).join("");
     const all = [...deck.querySelectorAll(".slide")];

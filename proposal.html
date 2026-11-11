@@ -10,39 +10,58 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" />
 <style>
-  :root { --bg:#0f1115; --card:#181b22; --line:#2c3140; --text:#f4f2ec; --muted:#c9c6bd; --dim:#8a877f; --blue:#1f5eff; --sky:#8fb0ff; }
+  /* Default DesiWeb look. A business's deck can set its own theme (site.theme), which overrides these. */
+  :root { --bg:#0f1115; --card:#181b22; --line:#2c3140; --text:#f4f2ec; --muted:#c9c6bd; --dim:#8a877f; --accent:#1f5eff; --accent-2:#8fb0ff; --accent-3:#f0c75e;
+    --light-bg:#f4f2ec; --light-text:#0f1115; --light-card:#fbfaf6; --light-line:#dcd8cc; --light-muted:#4a4f58;
+    --display: Inter, Arial, sans-serif; --body: Inter, Arial, sans-serif; --hand: Georgia, serif; --shade: 15,17,21; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 18px/1.5 Inter, Arial, sans-serif; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 18px/1.5 var(--body); }
   .deck { height: 100svh; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
-  .slide { min-height: 100svh; scroll-snap-align: start; padding: clamp(28px, 7vw, 96px); padding-bottom: clamp(70px, 9vw, 110px); display: flex; flex-direction: column; justify-content: center; gap: clamp(20px, 3vw, 40px); position: relative; }
-  .slide.cover, .slide.next { background: radial-gradient(circle at 85% 20%, #1c3a8a 0%, var(--bg) 55%); }
-  .slide.money { background: var(--blue); color: #f7f8ff; }
-  .slide.light { background: #f4f2ec; color: #0f1115; }
-  .eyebrow { font: 700 clamp(13px, 1.5vw, 18px)/1.2 "JetBrains Mono", monospace; color: var(--sky); letter-spacing: 2px; text-transform: uppercase; margin: 0; }
-  .light .eyebrow { color: var(--blue); } .money .eyebrow { color: #dfe6ff; }
-  h1 { font-size: clamp(2.6rem, 8vw, 6.4rem); font-weight: 800; line-height: 1.02; letter-spacing: -0.04em; margin: 0; }
-  h2 { font-size: clamp(1.8rem, 4.6vw, 3.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; margin: 0; max-width: 1200px; }
+  .slide { min-height: 100svh; scroll-snap-align: start; padding: clamp(28px, 7vw, 96px); padding-bottom: clamp(70px, 9vw, 110px); display: flex; flex-direction: column; justify-content: center; gap: clamp(20px, 3vw, 40px); position: relative; overflow: hidden; }
+  .slide > * { position: relative; z-index: 1; }
+  .slide.cover, .slide.next { background: radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--accent) 45%, var(--bg)) 0%, var(--bg) 55%); }
+  .slide.money { background: var(--accent); color: #fff; }
+  .slide.light { background: var(--light-bg); color: var(--light-text); }
+  /* A real photo behind the slide, dark enough to read over */
+  .slide.photo { background: linear-gradient(90deg, rgba(var(--shade), .94) 0%, rgba(var(--shade), .78) 48%, rgba(var(--shade), .35) 100%), var(--ph) center/cover; }
+  .slide.photo.low { background: linear-gradient(180deg, rgba(var(--shade), .35) 0%, rgba(var(--shade), .55) 40%, rgba(var(--shade), .96) 100%), var(--ph) center/cover; justify-content: flex-end; }
+  .eyebrow { font: 700 clamp(13px, 1.5vw, 18px)/1.2 var(--body); color: var(--accent-2); letter-spacing: 2px; text-transform: uppercase; margin: 0; }
+  .light .eyebrow { color: var(--accent); } .money .eyebrow { color: rgba(255,255,255,.8); }
+  h1 { font: 800 clamp(2.6rem, 8vw, 6.4rem)/1.02 var(--display); letter-spacing: -0.03em; margin: 0; }
+  h2 { font: 800 clamp(1.8rem, 4.6vw, 3.6rem)/1.08 var(--display); letter-spacing: -0.02em; margin: 0; max-width: 1200px; }
+  .hand { font-family: var(--hand); color: var(--accent-3); font-size: 1.4em; line-height: 1; }
   p.big { font-size: clamp(1.1rem, 2.4vw, 1.9rem); color: var(--muted); max-width: 1100px; margin: 0; line-height: 1.35; }
-  .light p.big { color: #4a4f58; } .money p.big { color: #f7f8ff; }
+  .light p.big { color: var(--light-muted); } .money p.big { color: #fff; }
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: clamp(20px, 2.4vw, 36px); }
-  .light .card { background: #fbfaf6; border-color: #dcd8cc; }
-  .card h3 { margin: 0 0 8px; font-size: clamp(1.1rem, 1.8vw, 1.6rem); }
+  .photo .card { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); backdrop-filter: blur(10px); }
+  .light .card { background: var(--light-card); border-color: var(--light-line); }
+  .card h3 { margin: 0 0 8px; font: 700 clamp(1.1rem, 1.8vw, 1.6rem)/1.15 var(--display); }
   .card p { margin: 0; color: var(--muted); font-size: clamp(.95rem, 1.4vw, 1.2rem); }
-  .light .card p { color: #4a4f58; }
-  .card.hi { border: 2px solid #4f86ff; }
-  .num { font-size: clamp(2.6rem, 7vw, 5.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .light .card p { color: var(--light-muted); }
+  .card.hi { border: 2px solid var(--accent); }
+  .num { font: 800 clamp(2.6rem, 7vw, 5.6rem)/1 var(--display); letter-spacing: -0.03em; }
   table { width: 100%; max-width: 1200px; border-collapse: collapse; font-size: clamp(.95rem, 1.6vw, 1.35rem); }
   th { text-align: left; color: var(--dim); font-weight: 600; padding: 10px 12px; border-bottom: 1px solid var(--line); }
   td { padding: 12px; border-bottom: 1px solid var(--line); }
-  tr.you td { color: #8fb0ff; font-weight: 700; }
+  tr.you td { color: var(--accent-3); font-weight: 700; }
   ol, ul { margin: 0; padding-left: 1.2em; font-size: clamp(1.05rem, 2vw, 1.6rem); line-height: 1.6; max-width: 1100px; }
-  a.link { color: #f0c75e; font-weight: 800; font-size: clamp(1.3rem, 3.6vw, 3rem); word-break: break-all; }
+  a.link { color: var(--accent-3); font-weight: 800; font-size: clamp(1.1rem, 2.6vw, 2rem); word-break: break-all; }
   .foot { position: absolute; left: clamp(28px, 7vw, 96px); right: clamp(28px, 7vw, 96px); bottom: clamp(20px, 3vw, 40px); font-size: 14px; color: var(--dim); }
-  .money .foot { color: #dfe6ff; }
+  .photo .foot, .money .foot { color: rgba(255,255,255,.7); }
+  /* The live demo, running inside a phone on the slide */
+  .site-slide { display: grid; grid-template-columns: 1.1fr auto; gap: clamp(24px, 5vw, 80px); align-items: center; }
+  .site-slide .copy { display: grid; gap: 22px; }
+  .phone { width: 300px; height: 620px; border-radius: 46px; border: 10px solid #0c0c0c; background: #000; overflow: hidden; box-shadow: 0 40px 90px rgba(0,0,0,.5); position: relative; }
+  .phone iframe { width: 390px; height: 836px; border: 0; transform: scale(.718); transform-origin: 0 0; }
+  @media (max-width: 860px) { .site-slide { grid-template-columns: 1fr; } .phone { width: 250px; height: 520px; margin: 0 auto; } .phone iframe { transform: scale(.59); height: 848px; } }
+  /* Papel picado: cut-paper flags across the top, for themes that ask for it */
+  .picado .slide.cover::before, .picado .slide.next::before, .picado .slide.photo::before { content: ""; position: absolute; z-index: 2; top: 0; left: 0; right: 0; height: 26px;
+    background: linear-gradient(135deg, transparent 50%, var(--bg) 50%) 0 100%/26px 10px repeat-x, linear-gradient(225deg, transparent 50%, var(--bg) 50%) 0 100%/26px 10px repeat-x,
+      repeating-linear-gradient(90deg, var(--accent) 0 52px, var(--accent-3) 52px 104px, var(--accent-4, var(--accent-2)) 104px 156px, var(--accent-5, var(--accent)) 156px 208px); }
   .nav { position: fixed; right: 16px; bottom: 16px; display: flex; gap: 8px; z-index: 5; }
-  .nav button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); background: rgba(24,27,34,.9); color: #fff; font-size: 20px; cursor: pointer; }
-  .count { position: fixed; left: 16px; bottom: 22px; font: 600 13px "JetBrains Mono", monospace; color: var(--dim); z-index: 5; }
+  .nav button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 90%, transparent); color: var(--text); font-size: 20px; cursor: pointer; }
+  .count { position: fixed; left: 16px; bottom: 22px; font: 600 13px var(--body); color: var(--dim); z-index: 5; }
   .loading { position: fixed; inset: 0; display: grid; place-items: center; color: var(--dim); background: var(--bg); }
   .loading[hidden] { display: none; }
   .table-blank td:last-child { color: var(--dim); }
