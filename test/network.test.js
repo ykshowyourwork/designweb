@@ -9,6 +9,7 @@ const id = (n) => `00000000-0000-0000-0000-00000000000${n}`;
 // A tiny fake of the Supabase REST API and Resend, enough for these tests.
 function fakeWorld(rows, settings = { auto_send: false, auto_send_on: null, batch_size: 10 }) {
   const sent = [];
+  const copies = [];
   const calls = [];
   const fetchImpl = async (url, init = {}) => {
     const u = new URL(url);
@@ -16,8 +17,10 @@ function fakeWorld(rows, settings = { auto_send: false, auto_send_on: null, batc
     calls.push({ method: init.method, path: u.pathname + u.search, body });
     const ok = (data, status = 200) => ({ ok: true, status, text: async () => JSON.stringify(data), json: async () => data });
     if (u.host === "api.resend.com") {
-      sent.push(body);
-      return ok({ id: `email_${sent.length}` });
+      // Jordan's copy (from network@) is kept apart from the emails businesses get.
+      if (body.from.includes("network@")) copies.push(body);
+      else sent.push(body);
+      return ok({ id: `email_${sent.length + copies.length}` });
     }
     const table = u.pathname.split("/").pop();
     if (table === "network_settings") return ok([settings]);
@@ -48,7 +51,7 @@ function fakeWorld(rows, settings = { auto_send: false, auto_send_on: null, batc
     }
     throw new Error(`unexpected ${init.method} ${url}`);
   };
-  return { fetchImpl, sent, calls, rows };
+  return { fetchImpl, sent, copies, calls, rows };
 }
 
 const lead = (n, extra = {}) => ({ id: id(n), business: `Biz ${n}`, stage: "lead", email: `owner${n}@biz.com`, email_subject: "Hi", email_draft: "Body", reviews: n, followups: 0, ...extra });
@@ -73,6 +76,13 @@ test("a first email goes from gethelp@desiweb.org with the address footer, then 
   assert.equal(row.sent_on, "2026-10-24");
   assert.equal(row.follow_up_on, "2026-10-27");
   assert.match(row.log, /Email sent to owner1@biz.com/);
+  // Jordan's copy lands in gethelp@ from a different sender, so the inbox doesn't drop it as mail to itself.
+  assert.equal(w.sent[0].bcc, undefined);
+  assert.equal(w.copies.length, 1);
+  assert.equal(w.copies[0].from, "DesiWeb Network <network@desiweb.org>");
+  assert.deepEqual(w.copies[0].to, ["gethelp@desiweb.org"]);
+  assert.equal(w.copies[0].reply_to, "owner1@biz.com");
+  assert.match(w.copies[0].subject, /^Sent: /);
 });
 
 test("follow-ups: the first sets another in 7 days, the second ends it", async () => {

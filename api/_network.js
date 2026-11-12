@@ -182,17 +182,38 @@ export async function upsertRows(list, o) {
 }
 
 // ── Email (Resend) ──
-async function sendEmail(c, { to, subject, text }) {
+// Jordan's copy of every outreach email comes from a different address. A hidden copy sent from
+// gethelp@ to gethelp@ looked like mail to itself, and the inbox behind the forward dropped it.
+export const COPY_FROM = "network@desiweb.org";
+
+async function resend(c, payload) {
   const key = c.env.RESEND_API_KEY;
   if (!key) throw new HttpError(500, "The email service key (RESEND_API_KEY) is missing on the server.");
   const res = await c.fetchImpl("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from: `${SENDER} <${FROM_ADDRESS}>`, to: [to], reply_to: FROM_ADDRESS, bcc: [FROM_ADDRESS], subject, text: text + FOOTER }),
+    body: JSON.stringify(payload),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new HttpError(502, `The email service refused it: ${data.message || res.status}`);
   return data.id;
+}
+
+async function sendEmail(c, { to, subject, text, business }) {
+  const id = await resend(c, { from: `${SENDER} <${FROM_ADDRESS}>`, to: [to], reply_to: FROM_ADDRESS, subject, text: text + FOOTER });
+  // The copy: same words, marked as a copy, and replying to it writes to the business.
+  try {
+    await resend(c, {
+      from: `DesiWeb Network <${COPY_FROM}>`,
+      to: [FROM_ADDRESS],
+      reply_to: to,
+      subject: `Sent: ${subject}`,
+      text: `Copy of the email that just went to ${business ? `${business} (${to})` : to}.\n\n${text}${FOOTER}`,
+    });
+  } catch {
+    /* the real email went out; a missing copy shouldn't stop the batch */
+  }
+  return id;
 }
 
 const stamp = (row, line, today) => `${row.log ? `${row.log}\n` : ""}${today} ${line}`;
@@ -210,7 +231,7 @@ export async function sendOne(id, { subject, body, force = false } = {}, o) {
   const subj = String(subject ?? (isFollowUp ? row.followup_subject : row.email_subject) ?? "").trim().slice(0, 200);
   const text = String(body ?? (isFollowUp ? row.followup_draft : row.email_draft) ?? "").trim().slice(0, 5000);
   if (!subj || !text) throw new HttpError(400, "Add a subject and a message.");
-  await sendEmail(c, { to, subject: subj, text });
+  await sendEmail(c, { to, subject: subj, text, business: row.business });
 
   const patch = { last_contact_at: new Date().toISOString() };
   if (isFollowUp) {
