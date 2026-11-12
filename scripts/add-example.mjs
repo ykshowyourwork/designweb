@@ -13,6 +13,8 @@ const root = path.resolve(import.meta.dirname, "..");
 const args = process.argv.slice(2);
 const slug = args[0];
 const forced = args.includes("--industry") ? args[args.indexOf("--industry") + 1] : null;
+// A second look for the same business (demo/<slug>-v2) reads that business's research: --data <business-slug>.
+const dataSlug = args.includes("--data") ? args[args.indexOf("--data") + 1] : slug;
 if (!/^[a-z0-9-]{3,60}$/.test(slug || "")) throw new Error("Usage: node scripts/add-example.mjs <slug> [--industry <industry-slug>]");
 if (!fs.existsSync(path.join(root, "demo", slug, "index.html"))) throw new Error(`No custom demo at demo/${slug}/index.html`);
 
@@ -28,7 +30,7 @@ const TRADES = [
   [/auto|smog|mechanic|tire|brake|car|truck/i, "auto-repair-and-performance"],
 ];
 
-const res = await fetch(`https://desiweb.org/api/site-data?slug=${slug}`);
+const res = await fetch(`https://desiweb.org/api/site-data?slug=${dataSlug}`, { headers: { "user-agent": "Mozilla/5.0 (DesiWeb add-example)" } });
 if (!res.ok) throw new Error(`No saved research for ${slug} (${res.status})`);
 const d = await res.json();
 const s = d.site || {};

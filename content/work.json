@@ -1,5 +1,69 @@
 [
   {
+    "slug": "magic-nails-spa-v2",
+    "name": "Magic Nails & Spa",
+    "status": "Free mockup",
+    "url": "/demo/magic-nails-spa-v2",
+    "image": "/work/magic-nails-spa-v2.jpg",
+    "summary": "A free homepage we built for Magic Nails & Spa, the #1 nail salon in Montebello, CA, modeled on Sundays, one of New York's top nail salons.",
+    "industry": "Salons and Barbers",
+    "location": "Montebello, CA",
+    "launched": "Free mockup",
+    "services": [
+      "Website design",
+      "Story mode on phones",
+      "Google Maps setup"
+    ],
+    "client": "Magic Nails & Spa is a nail salon in Montebello, CA with 1,330 Google reviews at 4.9 stars.",
+    "challenge": "Customers love it on Google, but it had no website of its own. It already showed up #1 for \"nail salon\" on Google Maps, with nowhere to send those people.",
+    "built": [
+      "Its real photos in a full-screen gallery that slides on its own",
+      "Story mode on phones: full-screen screens you swipe through",
+      "Call, directions and the main action on every screen",
+      "A look modeled on Sundays NYC: a price menu with tabs, booking on every screen, warm tan and cream"
+    ],
+    "result": "A free mockup we built to show the owner what's possible. Tap the preview to see it.",
+    "industries": [
+      "salons-and-barbers"
+    ],
+    "mark": {
+      "text": "magic nails & spa",
+      "font": "Cormorant Garamond",
+      "weight": 600
+    },
+    "cover": "/demo/magic-nails-spa-v2/img/red.jpg",
+    "added": "2026-11-12"
+  },
+  {
+    "slug": "magic-nails-spa",
+    "name": "Magic Nails & Spa (blush look)",
+    "status": "Free mockup",
+    "url": "/demo/magic-nails-spa",
+    "image": "/work/magic-nails-spa.jpg",
+    "summary": "A second look we built for Magic Nails & Spa in Montebello, CA: blush, cream and berry from her own flyers and logo.",
+    "industry": "Salons and Barbers",
+    "location": "Montebello, CA",
+    "launched": "Free mockup",
+    "services": [
+      "Website design",
+      "Story mode on phones",
+      "Google Maps setup"
+    ],
+    "client": "Magic Nails & Spa is a nail salon in Montebello, CA with 1,330 Google reviews at 4.9 stars.",
+    "challenge": "Customers love it on Google, but it had no website of its own. It already showed up #1 for \"nail salon\" on Google Maps, with nowhere to send those people.",
+    "built": [
+      "Its real photos in a full-screen gallery that slides on its own",
+      "Story mode on phones: full-screen screens you swipe through",
+      "Call, directions and the main action on every screen",
+      "A look built from its own sign and colors, with \"Nails you'll want to show off\" up front"
+    ],
+    "result": "A free mockup we built to show the owner what's possible. Tap the preview to see it.",
+    "industries": [
+      "salons-and-barbers"
+    ],
+    "added": "2026-11-12"
+  },
+  {
     "slug": "don-zarape-restaurant-2",
     "name": "Don Zarape",
     "status": "Free mockup",
