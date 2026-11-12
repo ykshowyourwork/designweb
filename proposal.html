@@ -25,6 +25,10 @@
   /* A real photo behind the slide, dark enough to read over */
   .slide.photo { background: linear-gradient(90deg, rgba(var(--shade), .94) 0%, rgba(var(--shade), .78) 48%, rgba(var(--shade), .35) 100%), var(--ph) center/cover; }
   .slide.photo.low { background: linear-gradient(180deg, rgba(var(--shade), .35) 0%, rgba(var(--shade), .55) 40%, rgba(var(--shade), .96) 100%), var(--ph) center/cover; justify-content: flex-end; }
+  .slide.photo.dim { background: linear-gradient(90deg, rgba(var(--shade), .95) 0%, rgba(var(--shade), .9) 55%, rgba(var(--shade), .72) 100%), var(--ph) center/cover; }
+  .slide.light.split { padding-right: calc(34% + clamp(28px, 5vw, 64px)); }
+  .slide.light.split::before { content: ""; position: absolute; z-index: 0; top: 0; right: 0; bottom: 0; width: 34%; background: var(--ph) center/cover; box-shadow: inset 24px 0 40px -20px rgba(0,0,0,.25); }
+  @media (max-width: 860px) { .slide.light.split { padding-right: clamp(28px, 7vw, 96px); } .slide.light.split::before { display: none; } }
   .eyebrow { font: 700 clamp(13px, 1.5vw, 18px)/1.2 var(--body); color: var(--accent-2); letter-spacing: 2px; text-transform: uppercase; margin: 0; }
   .light .eyebrow { color: var(--accent); } .money .eyebrow { color: rgba(255,255,255,.8); }
   h1 { font: 800 clamp(2.6rem, 8vw, 6.4rem)/1.02 var(--display); letter-spacing: -0.03em; margin: 0; }

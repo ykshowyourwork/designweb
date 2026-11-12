@@ -8,10 +8,16 @@ const month = new Date().toLocaleDateString("en-US", { month: "long", year: "num
 const n = (x) => Number(x || 0).toLocaleString();
 
 // A slide's class list, with one of the business's own photos behind it when the theme has one.
+// The middle slides take the next photo from theme.gallery, so a themed deck has a real photo on every slide.
+const GALLERY_ORDER = ["goals", "reach", "name", "maps", "rivals", "get", "price"];
 const photoSlide = (s, key, base = "", low = false) => {
-  const src = s.theme?.photos?.[key];
+  const g = s.theme?.gallery;
+  const src = s.theme?.photos?.[key] || (Array.isArray(g) && GALLERY_ORDER.includes(key) ? g[GALLERY_ORDER.indexOf(key) % g.length] : null);
   const ok = typeof src === "string" && /^(\/|https:\/\/)[^"'()\s]+$/.test(src);
-  return ok ? `class="slide ${base} photo${low ? " low" : ""}" style="--ph:url('${esc(src)}')"` : `class="slide ${base}"`;
+  if (!ok) return `class="slide ${base}"`;
+  // Light slides keep their light page and get the photo as a panel on the right; dark ones get it behind a deep wash.
+  if (base.includes("light")) return `class="slide ${base} split" style="--ph:url('${esc(src)}')"`;
+  return `class="slide ${base} photo${low ? " low" : GALLERY_ORDER.includes(key) ? " dim" : ""}" style="--ph:url('${esc(src)}')"`;
 };
 
 function slides(d) {
@@ -25,7 +31,7 @@ function slides(d) {
 
   out.push(`<section ${photoSlide(s, "cover", "cover", true)}><p class="eyebrow">Growth proposal · ${month}</p><h1>${esc(d.business)}</h1>${tagline ? `<p class="hand">${esc(tagline)}</p>` : ""}<p class="big">${esc(town)} · ${lead ? "How to turn your #1 spot into more customers." : `How to get found by people searching for ${esc(s.trade || "what you do")}.`}</p><p class="big" style="font-size:16px">Prepared by <b>DesiWeb</b> · desiweb.org</p></section>`);
 
-  out.push(`<section class="slide"><p class="eyebrow">Your goals</p><h2>We build around your numbers.</h2>
+  out.push(`<section ${photoSlide(s, "goals")}><p class="eyebrow">Your goals</p><h2>We build around your numbers.</h2>
     <table class="table-blank"><tr><th>Question</th><th>Your answer</th></tr>
     <tr><td>New customers a month now?</td><td>[__]</td></tr><tr><td>New customers a month you want?</td><td>[__]</td></tr>
     <tr><td>How many jobs can you take a week?</td><td>[__]</td></tr><tr><td>The job you want more of?</td><td>[__]</td></tr></table></section>`);
@@ -42,14 +48,14 @@ function slides(d) {
   // How far they reach: one Maps search run from spots around them (site.reach = {keyword, title, rows: [{where, rank}], note}).
   if (s.reach?.rows?.length) {
     const rows = s.reach.rows.slice(0, 7).map((r) => `<tr class="${r.rank === 1 ? "you" : ""}"><td>${esc(r.where)}</td><td>${r.rank ? `#${esc(r.rank)}` : "Not in the top 20"}</td></tr>`).join("");
-    out.push(`<section class="slide"><p class="eyebrow">How far you reach</p><h2>${esc(s.reach.title || `Search “${s.reach.keyword}” and here's where you show up.`)}</h2>
+    out.push(`<section ${photoSlide(s, "reach")}><p class="eyebrow">How far you reach</p><h2>${esc(s.reach.title || `Search “${s.reach.keyword}” and here's where you show up.`)}</h2>
       <table><tr><th>Where the person is</th><th>Your spot on Google Maps</th></tr>${rows}</table>${s.reach.note ? `<p class="big">${esc(s.reach.note)}</p>` : ""}${foot(`Google Maps, “${s.reach.keyword}”, searched from each spot, ${month}.`)}</section>`);
   }
 
   // What people find when they search the business by name (site.name_check = {query, title, rows: [{site, says, bad}]}).
   if (s.name_check?.rows?.length) {
     const rows = s.name_check.rows.slice(0, 7).map((r) => `<tr class="${r.bad ? "you" : ""}"><td>${esc(r.site)}</td><td>${esc(r.says || "")}</td></tr>`).join("");
-    out.push(`<section class="slide"><p class="eyebrow">Search your name</p><h2>${esc(s.name_check.title || `Search “${s.name_check.query}” and none of it is yours.`)}</h2>
+    out.push(`<section ${photoSlide(s, "name")}><p class="eyebrow">Search your name</p><h2>${esc(s.name_check.title || `Search “${s.name_check.query}” and none of it is yours.`)}</h2>
       <table><tr><th>What shows up</th><th>What it says</th></tr>${rows}</table>${foot(`Google search, “${s.name_check.query}”, ${month}.`)}</section>`);
   }
 
@@ -70,12 +76,12 @@ function slides(d) {
   if (top.length && !(lead && (s.reach?.rows?.length || s.name_check?.rows?.length))) {
     const rows = top.slice(0, 5).map((t, i) => `<tr class="${t.you ? "you" : ""}"><td>#${t.rank || i + 1}</td><td>${esc(t.name)}</td><td>${n(t.reviews)}</td><td>${t.site ? "Yes" : "No"}</td></tr>`).join("");
     const you = s.maps.rank ? `#${s.maps.rank}` : "not in the top 10";
-    out.push(`<section class="slide"><p class="eyebrow">Who's ahead on Google Maps</p><h2>Search “${esc(s.maps.keyword)}” near you and you're ${esc(you)}.</h2>
+    out.push(`<section ${photoSlide(s, "maps")}><p class="eyebrow">Who's ahead on Google Maps</p><h2>Search “${esc(s.maps.keyword)}” near you and you're ${esc(you)}.</h2>
       <table><tr><th>Spot</th><th>Business</th><th>Reviews</th><th>Website</th></tr>${rows}</table>${foot(`Google Maps, searched from your area, ${month}.`)}</section>`);
   }
 
   if (s.rivals?.length || s.improve?.length) {
-    out.push(`<section class="slide light"><p class="eyebrow">What their sites do</p><h2>${lead ? "We studied the sites near you. Yours does more." : "We studied the sites beating you. Yours does more."}</h2>
+    out.push(`<section ${photoSlide(s, "rivals", "light")}><p class="eyebrow">What their sites do</p><h2>${lead ? "We studied the sites near you. Yours does more." : "We studied the sites beating you. Yours does more."}</h2>
       <div class="cards">${(s.rivals || []).slice(0, 3).map((r) => `<div class="card"><h3>${esc(r.name)}</h3><p>${esc((r.has || []).join(" · ") || "A basic site")}</p></div>`).join("")}</div>
       ${s.improve?.length ? `<ul>${s.improve.slice(0, 5).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}</section>`);
   }
@@ -87,12 +93,12 @@ function slides(d) {
       <p class="big">A site that shows up on its own gets these people for free.</p>${foot(`Google search counts and ad prices, ${month}.`)}</section>`);
   }
 
-  out.push(`<section class="slide light"><p class="eyebrow">What you get</p><h2>${lead ? "Built to reach past your block." : "Built to put you on the map."}</h2><div class="cards">
+  out.push(`<section ${photoSlide(s, "get", "light")}><p class="eyebrow">What you get</p><h2>${lead ? "Built to reach past your block." : "Built to put you on the map."}</h2><div class="cards">
     ${[["New website", "Fast on phones. Full pages for your best work, plus the areas you serve."], [s.cta || "Booking", "One tap to call, order or book, on every screen of the site."], ["Google Maps", "Your listing set up right, plus a link that makes reviews easy."], ["20 listings", "Apple Maps, Bing, Yelp and more, all showing the same info."], ["Every month", "New Google posts and articles, hosting and upkeep."]]
       .map(([h, p]) => `<div class="card"><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join("")}</div>${foot("You own the website and everything we make. Live in about 2 weeks.")}</section>`);
 
   const price = s.price || { growth: "$3,500", monthly: "$300/mo", starter: "$1,750" };
-  out.push(`<section class="slide"><p class="eyebrow">The price</p><h2>One new customer pays for it.</h2><div class="cards">
+  out.push(`<section ${photoSlide(s, "price")}><p class="eyebrow">The price</p><h2>One new customer pays for it.</h2><div class="cards">
     <div class="card"><h3>Starter</h3><div class="num">${esc(price.starter || "$1,750")}</div><p>Your website, service pages and quote form. Ready for Google.</p></div>
     <div class="card hi"><h3>Growth</h3><div class="num">${esc(price.growth || "$3,500")}</div><p>+ ${esc(price.monthly || "$300/mo")}. Everything in Starter, plus booking, Google Maps work and new articles every month.</p></div></div>
     <p class="big">Half to start, half when the site goes live. Stop the monthly anytime.</p></section>`);
