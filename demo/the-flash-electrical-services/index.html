@@ -248,7 +248,7 @@ html.story .hero::before{display:none}
 html.story .hero .photo{display:block;position:absolute;inset:-6% 0;background:linear-gradient(180deg,rgba(10,19,48,.5) 0%,rgba(10,19,48,.1) 28%,rgba(10,19,48,.96) 70%),url("/demo/the-flash-electrical-services/img/panel.jpg") center 30%/cover;will-change:transform}
 html.story .hero .wrap{display:block;padding:0 0 118px}
 html.story .hero-shot{display:none}
-html.story .hero h1{font-size:clamp(3rem,15vw,4.4rem);margin:12px 0 12px}
+html.story .hero h1{font-size:clamp(2.8rem,13.6vw,4.2rem);margin:12px 0 12px}
 html.story .hero .lead{font-size:1rem;margin-bottom:18px}
 html.story .hero .ctas{display:none}
 html.story .pills{margin-bottom:0}
@@ -273,6 +273,8 @@ html.story .job .ph{aspect-ratio:16/10}
 html.story .job .tx{padding:14px 18px 18px}
 html.story .job h3{font-size:1.55rem}
 html.story .job p{font-size:14.5px;margin:6px 0 10px}
+html.story .job a{display:none}
+html.story #services h2{font-size:2.5rem}
 html.story .svc-note{color:#aebbe0;font-size:13px;margin-top:12px}
 html.story .svc-note a{color:#fff}
 /* Screens with a real photo behind them */
@@ -280,7 +282,8 @@ html.story #reviews,html.story #quote,html.story #area{color:#fff;justify-conten
 html.story #reviews{background-image:linear-gradient(180deg,rgba(10,19,48,.55) 0%,rgba(10,19,48,.12) 26%,rgba(10,19,48,.95) 60%),url("/demo/the-flash-electrical-services/img/meters.jpg")}
 html.story #quote{background-image:linear-gradient(180deg,rgba(10,19,48,.5) 0%,rgba(10,19,48,.1) 26%,rgba(10,19,48,.96) 56%),url("/demo/the-flash-electrical-services/img/breakers.jpg")}
 html.story #quote::before{display:none}
-html.story #area{background-image:linear-gradient(180deg,rgba(10,19,48,.55) 0%,rgba(10,19,48,.15) 22%,rgba(10,19,48,.96) 46%),url("/demo/the-flash-electrical-services/img/sign.jpg");background-position:12% 0;background-size:auto 46svh;background-repeat:no-repeat;background-color:var(--ink)}
+html.story #area{background:linear-gradient(180deg,rgba(10,19,48,.35) 0,rgba(10,19,48,0) 90px,rgba(10,19,48,0) 200px,var(--ink) 310px),url("/demo/the-flash-electrical-services/img/sign.jpg") center 76px/100% auto no-repeat,var(--ink)}
+html.story #area .head p{display:none}
 html.story #reviews .kicker,html.story #area .kicker{color:var(--yellow)}
 html.story .score{margin-bottom:16px}
 html.story .score b{color:var(--yellow);font-size:4.4rem}
@@ -298,7 +301,7 @@ html.story .steps{gap:8px;margin-bottom:16px}
 html.story .steps li{grid-template-columns:40px 1fr;padding:10px 14px 10px 10px;background:rgba(10,19,48,.55);backdrop-filter:blur(10px)}
 html.story .steps li b{width:40px;height:40px;font-size:1.4rem;border-radius:11px}
 html.story .steps li small{font-size:13px}
-html.story #quote .story-only{width:100%}
+html.story #quote .story-only{display:none}
 html.story #quote form.q{display:none}
 html.story .sheet-card form.q{display:grid;margin:0;border:0;padding:0;background:none;box-shadow:none}
 html.story .sheet-card form.q h3{display:none}
@@ -347,7 +350,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
     <div class="photo" id="hero-photo" role="img" aria-label="A new electrical panel and meter installed by The Flash Electrical Services"></div>
     <div class="wrap">
       <div>
-        <div class="kicker">South LA electricians · Homes and businesses</div>
+        <div class="kicker">South LA electricians · Homes &amp; businesses</div>
         <h1>Power out? We get there <em>fast.</em></h1>
         <p class="lead">Panel upgrades, EV chargers, outlets, fans and emergency repairs across Los Angeles. Call any hour, day or night.</p>
         <div class="pills">
