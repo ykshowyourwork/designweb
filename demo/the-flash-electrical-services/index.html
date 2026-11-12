@@ -62,7 +62,7 @@ header.top .wrap{display:flex;align-items:center;gap:20px;min-height:76px}
 .mark{width:48px;height:48px;border-radius:50%;background:var(--navy);display:grid;place-items:center;box-shadow:inset 0 0 0 3px var(--yellow)}
 .mark svg{width:24px;height:24px}
 .brand b{display:block;font:800 24px/1 var(--display);text-transform:uppercase;letter-spacing:.01em}
-.brand span{display:block;font:600 12px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.brand div span{display:block;font:600 12px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px}
 nav.links{display:flex;gap:26px}
 nav.links a{text-decoration:none;font-weight:600;font-size:16px}
 nav.links a:hover{color:var(--blue)}
@@ -77,7 +77,7 @@ nav.links a:hover{color:var(--blue)}
 .hero{position:relative;background:var(--navy);color:#fff;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 85% 30%,rgba(44,91,214,.45),transparent 70%),radial-gradient(40% 60% at 10% 100%,rgba(255,201,40,.12),transparent 70%)}
 .hero .photo{display:none}
-.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:88px 0 96px}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:64px 0 72px}
 .hero .kicker{color:var(--yellow)}
 .hero h1{font-size:clamp(3.2rem,7vw,6.2rem);font-weight:800;margin:18px 0 18px}
 .hero h1 em{font-style:normal;color:var(--yellow)}
@@ -87,7 +87,7 @@ nav.links a:hover{color:var(--blue)}
 .pill .dot{width:9px;height:9px;border-radius:50%;background:#5fe08f;box-shadow:0 0 0 4px rgba(95,224,143,.25);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{50%{box-shadow:0 0 0 8px rgba(95,224,143,0)}}
 .ctas{display:flex;flex-wrap:wrap;gap:12px}
-.hero-shot{position:relative;justify-self:end;width:min(420px,100%)}
+.hero-shot{position:relative;justify-self:end;width:min(390px,100%)}
 .hero-shot img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:22px;box-shadow:0 40px 90px rgba(0,0,0,.45);transform:rotate(2deg)}
 .hero-shot .badge{position:absolute;left:-28px;bottom:36px;background:var(--yellow);color:var(--navy);border-radius:16px;padding:14px 18px;box-shadow:0 20px 40px rgba(0,0,0,.3);transform:rotate(-3deg)}
 .hero-shot .badge b{display:block;font:800 2.4rem/1 var(--display)}
@@ -235,7 +235,7 @@ footer a{color:#fff}
 html.story body{overflow:hidden}
 html.story .preview,html.story .stripe,html.story .band,html.story footer,html.story nav.links,html.story header.top .phone{display:none}
 html.story header.top{position:fixed;left:0;right:0;background:linear-gradient(180deg,rgba(10,19,48,.85),rgba(10,19,48,0));border:0;backdrop-filter:none;color:#fff}
-html.story header.top .brand span{color:var(--yellow)}
+html.story header.top .brand div span{color:var(--yellow)}
 html.story header.top .mode{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
 html.story main{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;overscroll-behavior:contain}
 html.story main>section{min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:96px 0 112px}
@@ -314,8 +314,9 @@ html.story .towns span{background:rgba(255,255,255,.12);border-color:rgba(255,25
 html.story .hours{margin:4px 0 6px}
 html.story .hours td{border-color:rgba(255,255,255,.2)}
 html.story .hours tr.today td{color:var(--yellow)}
-html.story .hours:not(.all) tr:not(.today){display:none}
-.more-hours{background:none;border:0;color:var(--yellow);font:700 14px var(--body);padding:4px 0 6px;cursor:pointer}
+html.story .more-hours{color:var(--yellow);margin-top:0}
+.hours:not(.all) tr:not(.today){display:none}
+.more-hours{background:none;border:0;color:var(--blue);margin-top:-12px;font:700 14px var(--body);padding:4px 0 6px;cursor:pointer}
 html.story #area .ctas{display:none}
 html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));gap:8px;padding:8px;border-radius:999px;background:rgba(10,19,48,.86);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12)}
 .dock a{flex:1;min-height:50px;border-radius:999px;display:grid;place-items:center;text-decoration:none;font-weight:700;font-size:15px;color:#fff;background:rgba(255,255,255,.1)}
@@ -394,7 +395,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
 
   <section id="reviews">
     <div class="wrap">
-      <div class="score rv"><b>4.9</b><div><div class="kicker">Google reviews</div><span>27 people rated The Flash Electrical Services</span><div class="chips"><span class="chip">Fans</span><span class="chip">Pricing</span><span class="chip">Light switches</span><span class="chip">Technicians</span><span class="chip">On time</span></div></div></div>
+      <div class="score rv"><b>4.9</b><div><div class="kicker">Google reviews</div><span>27 people rated The Flash Electrical Services</span><div class="chips"><span class="chip">Fans</span><span class="chip">Pricing</span><span class="chip">Light switches</span><span class="chip">Technicians</span><span class="chip">Contractor</span></div></div></div>
       <div class="reviews">
         <div class="rev rv"><div class="stars">★★★★★</div><p>“Made the call in the morning, a few hours later, our problems were fixed.”</p><cite>Nate Drew, Google review</cite></div>
         <div class="rev rv"><div class="stars">★★★★★</div><p>“I had an emergency, and the electrician was there in no time at all.”</p><cite>Marisa, Google review</cite></div>
@@ -441,7 +442,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
           <a class="big-phone" href="tel:+13234034817">(323) 403-4817</a>
           <div class="towns"><span>Los Angeles</span><span>Florence-Firestone</span><span>Watts</span><span>South Gate</span><span>Huntington Park</span><span>Lynwood</span></div>
           <table class="hours" id="hours"></table>
-          <button class="more-hours story-only" type="button" id="more-hours">See all hours</button>
+          <button class="more-hours" type="button" id="more-hours">See all hours</button>
           <p class="addr">9350 Maie Ave #310, Los Angeles, CA 90002</p>
           <div class="ctas"><a class="btn btn-y" href="tel:+13234034817">Call now</a><a class="btn btn-line" href="#quote">Get a free quote</a></div>
         </div>
@@ -471,7 +472,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
   var still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Real photos from the Google listing.
-  var shots = [["panel", "New panel and meter, ready to go"], ["breakers", "Clean, tidy panel wiring"], ["meters", "Meters and panels at an apartment building"], ["sign", "Residential and commercial repair"]];
+  var shots = [["breakers", "Clean, tidy panel wiring"], ["meters", "Meters and panels at an apartment building"], ["panel", "New panel and meter, ready to go"], ["sign", "Residential and commercial repair"]];
   var photos = shots.map(function (s) { return img(s[0]); });
 
   // Services: each one comes from the Google listing or a customer's review. No prices until the real ones are in.
