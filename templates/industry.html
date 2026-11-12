@@ -15,7 +15,7 @@
     <main>
       <section class="hero">
         <div class="wrap">
-          <div class="hero-panel">
+          <div class="hero-panel ind">
             <div class="hero-copy">
               <div class="crumbs"><a href="/industries">Industries</a> / {{name}}</div>
               <h1>{{headline}}</h1>
@@ -25,11 +25,11 @@
                 <a class="btn ghost" href="%callHref%">Book a call</a>
               </div>
             </div>
-            <div class="hero-shots">{{shots}}</div>
+            <div class="devices">{{shots}}</div>
           </div>
         </div>
       </section>
-      <section>
+      <section id="examples">
         <div class="wrap">
           <div class="head">
             <div><span class="eyebrow">Examples</span><h2>Sites for {{plural}}.</h2></div>
@@ -58,5 +58,12 @@
       <!-- @include cta -->
     </main>
     <!-- @include footer -->
+    <script>
+      // The phone loads the live site once the page has settled, so it never slows the first screen.
+      addEventListener("load", () => setTimeout(() => {
+        if (matchMedia("(max-width: 700px)").matches) return;
+        document.querySelectorAll(".phone[data-live] iframe").forEach((f) => (f.src = f.parentElement.dataset.live));
+      }, 900));
+    </script>
   </body>
 </html>

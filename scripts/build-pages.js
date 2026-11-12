@@ -31,8 +31,8 @@ function write(templateName, dir, values, raw = {}) {
 // Every example for one industry: client sites first, then sample sites.
 function examplesFor(slug) {
   return [
-    ...[...work].sort((a, b) => (b.added || "").localeCompare(a.added || "")).filter((w) => w.industries?.includes(slug)).map((w) => ({ slug: w.slug, w, href: `/examples/${w.slug}`, image: w.cover || w.image, name: w.name, tag: w.status ?? "Live client site", text: w.summary })),
-    ...concepts.filter((c) => c.industry === slug).map((c) => ({ slug: c.slug, href: `/examples/${c.slug}`, image: `/work/${c.slug}.jpg`, name: c.name, tag: `Sample site · ${c.trade}`, text: c.headline, accent: c.accent })),
+    ...[...work].sort((a, b) => (b.added || "").localeCompare(a.added || "")).filter((w) => w.industries?.includes(slug)).map((w) => ({ slug: w.slug, w, href: `/examples/${w.slug}`, shot: w.image, live: w.url?.startsWith("/") ? `${w.url.replace(/\/$/, "")}/` : null, image: w.cover || w.image, name: w.name, tag: w.status ?? "Live client site", text: w.summary })),
+    ...concepts.filter((c) => c.industry === slug).map((c) => ({ slug: c.slug, href: `/examples/${c.slug}`, shot: `/work/${c.slug}.jpg`, live: `/examples/${c.slug}/`, image: `/work/${c.slug}.jpg`, name: c.name, tag: `Sample site · ${c.trade}`, text: c.headline, accent: c.accent })),
   ];
 }
 
@@ -49,10 +49,16 @@ for (const ind of industries) {
     }),
     searches: ind.searches.map((q) => `<div class="card"><strong>"${esc(q)}"</strong></div>`).join(""),
     build: list(ind.build),
-    shots: examplesFor(ind.slug)
-      .slice(0, 3)
-      .map((e) => `<a href="${e.href}" data-slug="${e.slug}" aria-label="See the ${esc(e.name)} example"><img src="${e.image}" alt="" width="1200" height="750" /></a>`)
-      .join(""),
+    // The lead example on a computer, the same site live on a phone (story mode), and how many more there are.
+    shots: (() => {
+      const all = examplesFor(ind.slug);
+      const lead = all[0];
+      if (!lead) return "";
+      const live = all.find((e) => e.live);
+      return `<a class="desk" href="${lead.href}" data-slug="${lead.slug}" aria-label="See the ${esc(lead.name)} example"><img src="${lead.shot}" alt="The ${esc(lead.name)} website on a computer" width="1200" height="750" /></a>${
+        live ? `<div class="phone" data-live="${live.live}"><iframe title="${esc(live.name)} on a phone" tabindex="-1" aria-hidden="true"></iframe><span>Live on a phone</span></div>` : ""
+      }${all.length > 1 ? `<a class="more" href="#examples">+${all.length - 1} more example${all.length > 2 ? "s" : ""}</a>` : ""}`;
+    })(),
     examples: examplesFor(ind.slug)
       .map((e) => `<a class="shot-card" href="${e.href}" data-slug="${e.slug}"${e.accent ? ` style="--accent: ${e.accent}"` : ""}><span class="shot-img${e.w?.cover ? " cover" : ""}"><img src="${e.image}" alt="${esc(e.name)} website" width="1200" height="750" loading="lazy" />${e.w?.cover && e.w.mark ? `<b class="mark" style="font-family:'${e.w.mark.font}',serif;font-weight:${e.w.mark.weight || 400}">${esc(e.w.mark.text)}</b>` : ""}</span><div class="shot-text"><span class="tag">${esc(e.tag)}</span><h3>${esc(e.name)}</h3><p>${esc(e.text)}</p></div></a>`)
       .join(""),
@@ -99,6 +105,7 @@ fs.writeFileSync(
   JSON.stringify({
     examples: [
       ...[...work].sort((a, b) => (b.added || "").localeCompare(a.added || "")).map((w) => ({ slug: w.slug, name: w.name, tag: w.status ?? "Live client site", image: w.cover || w.image })),
+      ...concepts.map((c) => ({ slug: c.slug, name: c.name, tag: `Sample site · ${c.trade}`, image: `/work/${c.slug}.jpg` })),
     ],
     industries: industries.map((i) => ({ slug: i.slug, name: i.name })),
   }),

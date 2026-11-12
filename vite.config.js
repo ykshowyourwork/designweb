@@ -49,6 +49,7 @@ const blocks = {
   exampleTiles: () =>
     [
       ...newestFirst(work).map((w) => ({ slug: w.slug, w, href: `/examples/${w.slug}`, image: w.image, name: w.name, tag: w.status ?? "Live client site", text: w.summary, inds: w.industries ?? [], words: [w.industry, w.location, ...(w.services ?? [])] })),
+      ...concepts.map((c) => ({ slug: c.slug, href: `/examples/${c.slug}`, image: `/work/${c.slug}.jpg`, name: c.name, tag: `Sample site · ${c.trade}`, text: c.headline, inds: [c.industry], words: [c.trade, c.city, c.intro] })),
     ]
       .map((e) => {
         const names = e.inds.map((s) => industries.find((i) => i.slug === s)).filter(Boolean).flatMap((i) => [i.name, i.plural, ...(i.searches ?? [])]);
@@ -56,7 +57,7 @@ const blocks = {
         return `<a class="shot-card" href="${e.href}" data-slug="${e.slug || ""}" data-ind="${e.inds.join(" ")}" data-search="${esc(search)}"${e.accent ? ` style="--accent: ${e.accent}"` : ""}>${e.w ? workPic(e.w) : `<span class="shot-img"><img src="${e.image}" alt="${esc(e.name)} website" width="1200" height="750" loading="lazy" /></span>`}<div class="shot-text"><span class="tag">${esc(e.tag)}</span><h3>${esc(e.name)}</h3><p>${esc(e.text)}</p></div></a>`;
       })
       .join("\n"),
-  industryChips: () => industries.filter((i) => work.some((w) => w.industries?.includes(i.slug))).map((i) => `<button type="button" data-ind="${i.slug}">${esc(i.name)}</button>`).join("\n"),
+  industryChips: () => industries.filter((i) => work.some((w) => w.industries?.includes(i.slug)) || concepts.some((c) => c.industry === i.slug)).map((i) => `<button type="button" data-ind="${i.slug}">${esc(i.name)}</button>`).join("\n"),
   heroShots: () =>
     [...newestFirst(work).filter((w) => w.added).slice(0, 2), work.find((w) => w.slug === "the-set")]
       .filter(Boolean)
