@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Why DesiWeb · It's not just a website</title>
+<meta name="description" content="Everything a DesiWeb site does for a local business, in plain words." />
+<meta name="theme-color" content="#17130f" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" />
+<style>
+  :root {
+    --bg: #17130f; --bg2: #201a15; --card: #241d18; --fg: #f7efe6; --muted: #b5a698; --line: #3a2f27;
+    --brand: #ff7a35; --deep: #d9541a; --amber: #ffb867; --teal: #37c6c0; --ink: #1e0b02;
+    --gloss: linear-gradient(180deg, #ff9a5c 0%, #ff7a35 48%, #e2581c 100%);
+    --glow: 0 10px 32px rgba(255,110,40,.35), 0 2px 8px rgba(255,110,40,.25);
+    --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+    --body: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--fg); font: 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .wrap { width: min(1180px, 100% - 32px); margin: 0 auto; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: .95; letter-spacing: -.005em; }
+  h2 { font-size: clamp(42px, 6.4vw, 78px); }
+  h1 em, h2 em, h3 em { font-style: normal; background: linear-gradient(100deg, var(--amber) 0%, var(--brand) 45%, var(--deep) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .eyebrow { display: block; text-transform: uppercase; letter-spacing: .22em; font-size: 12.5px; font-weight: 600; color: var(--amber); margin-bottom: 16px; }
+  .lead { color: var(--muted); font-size: clamp(17px, 1.6vw, 19px); max-width: 52ch; margin-top: 16px; }
+  section { padding: clamp(64px, 10vw, 120px) 0; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 28px; border-radius: 999px; text-transform: uppercase; letter-spacing: .18em; font-size: 13px; font-weight: 700; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+  .btn.solid { background: var(--gloss); color: var(--ink); box-shadow: var(--glow), inset 0 1px 0 rgba(255,255,255,.45); }
+  .btn.solid:hover { transform: translateY(-2px); }
+  .btn.line { border: 1.5px solid rgba(247,239,230,.35); color: var(--fg); }
+  .logo { display: inline-flex; align-items: center; gap: 10px; font: 700 20px/1 var(--body); letter-spacing: -.01em; text-decoration: none; }
+  .logo img { width: 30px; height: 30px; }
+  .logo b { color: var(--brand); }
+
+  /* 1. Hero */
+  .hero { position: relative; min-height: min(100vh, 860px); display: grid; align-items: end; padding: 0; overflow: hidden; isolation: isolate; }
+  .hero .bg { position: absolute; inset: 0; z-index: -2; }
+  .hero .bg img { width: 100%; height: 100%; object-fit: cover; animation: drift 24s ease-in-out infinite alternate; }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(120% 80% at 80% 0%, rgba(255,122,53,.22), transparent 55%), linear-gradient(180deg, rgba(23,19,15,.35) 0%, rgba(23,19,15,.55) 45%, var(--bg) 100%); }
+  @keyframes drift { from { transform: scale(1.04); } to { transform: scale(1.14) translate(-1.5%, -1%); } }
+  .hero .top { position: absolute; top: 22px; left: 0; right: 0; }
+  .hero .top .wrap { display: flex; justify-content: space-between; align-items: center; }
+  .hero .for { font-size: 12.5px; text-transform: uppercase; letter-spacing: .2em; font-weight: 600; color: var(--muted); }
+  .hero .for b { color: var(--fg); }
+  .hero .wrap.main { padding: 0 0 clamp(48px, 8vw, 96px); }
+  .hero h1 { font-size: clamp(64px, 12vw, 156px); max-width: 9ch; margin-bottom: 20px; }
+  .hero p { font-size: clamp(19px, 2.3vw, 25px); max-width: 30ch; color: #efe3d6; }
+  .hero .btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+
+  /* 2. Right now */
+  .now { padding-top: clamp(40px, 6vw, 72px); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 28px 26px; position: relative; overflow: hidden; }
+  .stat::after { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--gloss); opacity: .9; }
+  .stat .n { font: 700 clamp(56px, 7vw, 88px)/.9 var(--display); }
+  .stat .n.hot { background: linear-gradient(100deg, var(--amber), var(--brand) 60%, var(--deep)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat h3 { font-size: 26px; margin: 10px 0 6px; }
+  .stat p { color: var(--muted); font-size: 15.5px; }
+  .callout { margin-top: 28px; font: 600 clamp(26px, 3.4vw, 40px)/1.1 var(--display); max-width: 30ch; }
+
+  /* 3. What you get */
+  .gets { background: var(--bg2); border-block: 1px solid var(--line); }
+  .grid8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+  .card { position: relative; border-radius: 22px; overflow: hidden; min-height: 360px; padding: 22px; display: flex; flex-direction: column; justify-content: flex-end; isolation: isolate; border: 1px solid rgba(255,255,255,.06); }
+  .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .9s ease; }
+  .card::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(13,10,8,0) 20%, rgba(13,10,8,.55) 50%, rgba(13,10,8,.94) 100%); }
+  .card:hover img { transform: scale(1.06); }
+  .card .k { font-size: 11.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--amber); }
+  .card h3 { font-size: 31px; margin: 8px 0; }
+  .card p { font-size: 15px; color: #e6d9cc; line-height: 1.5; }
+  .card.wide { grid-column: span 2; }
+  .card.glow { background: var(--gloss); color: var(--ink); border: 0; box-shadow: var(--glow); }
+  .card.glow::before { display: none; }
+  .card.glow .k { color: var(--ink); opacity: .7; }
+  .card.glow p { color: #3a1606; }
+  .card .big { position: absolute; top: 12px; right: 18px; font: 700 110px/1 var(--display); opacity: .18; }
+
+  /* 4. Proof */
+  .proof .row { display: flex; gap: 16px; margin-top: 36px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: none; }
+  .proof .row::-webkit-scrollbar { display: none; }
+  .shot { flex: 0 0 min(360px, 78vw); scroll-snap-align: start; text-decoration: none; }
+  .shot .frame { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 10; background: var(--card); box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s; }
+  .shot:hover img { transform: scale(1.04); }
+  .shot b { display: block; margin-top: 12px; font: 600 24px/1 var(--display); }
+  .shot span { font-size: 14px; color: var(--muted); }
+
+  /* 5. How it works */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; counter-reset: s; }
+  .step { border: 1px solid var(--line); border-radius: 22px; padding: 28px; background: linear-gradient(180deg, var(--card), transparent); }
+  .step .num { font: 700 64px/1 var(--display); color: var(--brand); }
+  .step h3 { font-size: 30px; margin: 12px 0 8px; }
+  .step p { color: var(--muted); font-size: 15.5px; }
+
+  /* 6. Math */
+  .math { background: radial-gradient(90% 120% at 100% 0%, rgba(255,122,53,.16), transparent 60%), var(--bg2); border-block: 1px solid var(--line); }
+  .math .row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .calc { background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: clamp(22px, 3vw, 34px); }
+  .calc label { display: block; font-size: 14px; color: var(--muted); margin-top: 18px; }
+  .calc label:first-child { margin-top: 0; }
+  .calc .val { font: 700 34px/1 var(--display); color: var(--fg); float: right; }
+  .calc input[type=range] { width: 100%; margin-top: 12px; accent-color: var(--brand); }
+  .calc .out { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .calc .out .n { font: 700 clamp(72px, 9vw, 112px)/.9 var(--display); background: linear-gradient(100deg, var(--amber), var(--brand) 55%, var(--deep)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .calc .out p { color: var(--muted); font-size: 15.5px; margin-top: 6px; }
+  .calc .out p b { color: var(--fg); }
+
+  /* 7. Prices */
+  .plans { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
+  .plan { border: 1px solid var(--line); border-radius: 22px; padding: 26px 22px; background: var(--card); display: flex; flex-direction: column; }
+  .plan .tag { font-size: 11.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .plan h3 { font-size: 30px; margin: 10px 0 2px; }
+  .plan .amt { font: 700 54px/1 var(--display); margin: 6px 0 10px; }
+  .plan .amt small { font-size: 22px; color: var(--muted); }
+  .plan p { color: var(--muted); font-size: 14.5px; }
+  .plan ul { list-style: none; padding: 0; margin-top: 14px; display: grid; gap: 8px; font-size: 14.5px; }
+  .plan li { padding-left: 24px; position: relative; }
+  .plan li::before { content: ""; position: absolute; left: 0; top: .5em; width: 12px; height: 7px; border-left: 2px solid var(--brand); border-bottom: 2px solid var(--brand); transform: rotate(-45deg) translateY(-3px); }
+  .plan.free { background: var(--fg); color: var(--ink); border-color: transparent; }
+  .plan.free .tag, .plan.free p { color: #6b5a4c; }
+  .plan.hot { background: linear-gradient(180deg, rgba(255,122,53,.18), var(--card) 70%); border-color: var(--brand); box-shadow: var(--glow); }
+  .plan.hot .tag { color: var(--amber); }
+  .monthly { margin-top: 16px; border-radius: 22px; padding: 24px 26px; background: var(--gloss); color: var(--ink); display: grid; grid-template-columns: auto 1fr; gap: 10px 32px; align-items: center; box-shadow: var(--glow); }
+  .monthly .amt { font: 700 64px/1 var(--display); }
+  .monthly .amt small { font-size: 24px; }
+  .monthly h3 { font-size: 30px; }
+  .monthly ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 6px; font-weight: 600; font-size: 15px; }
+  .monthly li::before { content: "✓ "; }
+
+  /* 8. Promises */
+  .promises { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 30px; }
+  .promise { border-top: 3px solid var(--brand); padding-top: 14px; }
+  .promise b { display: block; font: 600 24px/1.05 var(--display); }
+  .promise span { color: var(--muted); font-size: 14.5px; }
+
+  /* 9. CTA */
+  .cta { position: relative; text-align: center; overflow: hidden; isolation: isolate; padding: clamp(90px, 14vw, 170px) 0; }
+  .cta img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .cta::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(70% 90% at 50% 50%, rgba(23,19,15,.6), rgba(23,19,15,.92)); }
+  .cta h2 { font-size: clamp(56px, 10vw, 130px); }
+  .cta p { color: #e6d9cc; max-width: 40ch; margin: 18px auto 0; font-size: 19px; }
+  .cta .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+  footer { padding: 26px 0 40px; text-align: center; color: var(--muted); font-size: 14px; }
+  footer a { color: var(--fg); }
+
+  /* Reveal */
+  .r { opacity: 0; transform: translateY(22px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .r.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .r { opacity: 1; transform: none; transition: none; } .hero .bg img { animation: none; } }
+
+  @media (max-width: 1000px) {
+    .grid8 { grid-template-columns: repeat(2, 1fr); }
+    .plans { grid-template-columns: repeat(2, 1fr); }
+    .promises { grid-template-columns: repeat(2, 1fr); }
+    .promises .promise:last-child { grid-column: span 2; }
+  }
+  @media (max-width: 720px) {
+    body { font-size: 16px; }
+    .stats, .steps, .math .row { grid-template-columns: 1fr; }
+    .stat { padding: 22px; }
+    .grid8 { grid-template-columns: 1fr; }
+    .card.wide { grid-column: auto; }
+    .card { min-height: 300px; }
+    .plans { grid-template-columns: 1fr; }
+    .monthly { grid-template-columns: 1fr; }
+    .promises { grid-template-columns: 1fr; }
+    .promises .promise:last-child { grid-column: auto; }
+    .hero .for { display: none; }
+    .hero .btns .btn { flex: 1 1 100%; }
+  }
+
+  /* Print / PDF: two pages */
+  @page { size: letter; margin: 0; }
+  @media print {
+    html { zoom: .68; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 15px; }
+    .r { opacity: 1 !important; transform: none !important; transition: none !important; }
+    h1 em, h2 em, h3 em, .stat .n.hot, .calc .out .n { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--brand); }
+    .wrap { width: calc(100% - 64px); }
+    section { padding: 26px 0; }
+    h2 { font-size: 50px; }
+    .lead { margin-top: 8px; font-size: 15px; }
+    .hero { min-height: 0; height: 5in; }
+    .hero .bg img { animation: none; transform: none; }
+    .hero h1 { font-size: 92px; margin-bottom: 12px; }
+    .hero .wrap.main { padding-bottom: 30px; }
+    .hero p { font-size: 20px; }
+    .hero .btns, .proof, .cta .btns { display: none; }
+    .now { padding-top: 12px; }
+    .stats { grid-template-columns: repeat(3, 1fr); margin-top: 18px; gap: 12px; }
+    .stat { padding: 18px; }
+    .stat .n { font-size: 60px; }
+    .callout { margin-top: 16px; font-size: 28px; }
+    .grid8 { grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
+    .card { min-height: 225px; padding: 16px; }
+    .card h3 { font-size: 25px; }
+    .card p { font-size: 13px; }
+    .how { break-before: page; padding-top: 34px; }
+    .steps { grid-template-columns: repeat(3, 1fr); margin-top: 18px; }
+    .step { padding: 20px; }
+    .step .num { font-size: 44px; }
+    .math .row { grid-template-columns: 1fr 1fr; }
+    .calc input { display: none; }
+    .calc label { margin-top: 8px; }
+    .calc .out { margin-top: 14px; padding-top: 14px; }
+    .calc .out .n { font-size: 80px; }
+    .plans { grid-template-columns: repeat(4, 1fr); margin-top: 18px; gap: 12px; }
+    .plan { padding: 18px 16px; }
+    .plan .amt { font-size: 44px; }
+    .monthly { grid-template-columns: auto 1fr; padding: 18px 22px; }
+    .monthly .amt { font-size: 52px; }
+    .promises { grid-template-columns: repeat(5, 1fr); margin-top: 18px; }
+    .promises .promise:last-child { grid-column: auto; }
+    .cta { padding: 16px 0 14px; break-inside: avoid; }
+    .cta p { font-size: 15px; margin-top: 8px; }
+    .cta h2 { font-size: 52px; }
+    .how, .math, .prices { padding-bottom: 18px; }
+    .math, .prices { padding-top: 20px; }
+    footer { display: none; }
+    .print-only { display: block !important; margin-top: 10px; font-weight: 600; color: var(--amber); }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="bg"><img id="heroImg" src="/samples/fade-theory-barbershop/img/shop.jpg" alt="" /></div>
+  <div class="top"><div class="wrap">
+    <a class="logo" href="https://desiweb.org"><img src="/favicon.svg" alt="" /><span>DesiWeb<b>.</b></span></a>
+    <span class="for" id="forLine">Websites for local businesses</span>
+  </div></div>
+  <div class="wrap main">
+    <span class="eyebrow r" id="hello">Here's what you're really getting</span>
+    <h1 class="r">It's not just a <em>website.</em></h1>
+    <p class="r" id="heroSub">It's a machine that gets you found, gets you picked, and gets you booked, all day, every day, while you do the work.</p>
+    <div class="btns r">
+      <a class="btn solid" href="https://desiweb.org/free-mockup" id="ctaTop">Get a free mockup</a>
+      <a class="btn line" href="#gets">See what you get</a>
+    </div>
+  </div>
+</header>
+
+<section class="now">
+  <div class="wrap">
+    <span class="eyebrow r">Right now</span>
+    <h2 class="r" id="nowTitle">Your next customer is <em>searching.</em></h2>
+    <div class="stats" id="stats">
+      <div class="stat r"><div class="n hot">1</div><h3>They search on a phone</h3><p>"Near me" on Google, or they just ask ChatGPT. Most never open a laptop.</p></div>
+      <div class="stat r"><div class="n hot">3</div><h3>They pick from the top 3</h3><p>The map shows three businesses first. Most people never scroll past them.</p></div>
+      <div class="stat r"><div class="n hot">1</div><h3>They book the easiest one</h3><p>Whoever looks best and lets them book fastest gets the job. Not always the best business.</p></div>
+    </div>
+    <p class="callout r" id="callout">We make sure that easy choice is <em>you.</em></p>
+  </div>
+</section>
+
+<section class="gets" id="gets">
+  <div class="wrap">
+    <span class="eyebrow r">What you get</span>
+    <h2 class="r">Eight ways it brings you <em>more customers.</em></h2>
+    <p class="lead r">Not features. What actually changes for your business.</p>
+    <div class="grid8">
+      <article class="card r">
+        <img src="/samples/lone-star-roof-pros/img/crew-reroof-sm.jpg" alt="" loading="lazy" />
+        <div class="k">01 · Get found</div>
+        <h3>Show up on Google</h3>
+        <p>A page for each thing you sell and the towns you serve, so people searching "[what you do] near me" find you, not just the folks on your block.</p>
+      </article>
+      <article class="card r">
+        <img src="/samples/summit-ridge-tree-care/img/climber-sm.jpg" alt="" loading="lazy" />
+        <div class="k">02 · Get named</div>
+        <h3>ChatGPT says your name</h3>
+        <p>More people ask AI who to hire. Hidden code on your site tells it exactly who you are, so it can answer: you.</p>
+      </article>
+      <article class="card r">
+        <img src="/samples/fade-theory-barbershop/img/chair-sm.jpg" alt="" loading="lazy" />
+        <div class="k">03 · Get booked</div>
+        <h3>Booked while you sleep</h3>
+        <p>Call, book and quote buttons on every screen. Forms text you right away. A customer at 11pm doesn't wait till morning.</p>
+      </article>
+      <article class="card r">
+        <img src="/demo/magic-nails-spa-v2/img/red-sm.jpg" alt="" loading="lazy" />
+        <div class="k">04 · Look the part</div>
+        <h3>Wow on every phone</h3>
+        <p>Story mode: your real photos fill the screen, swipe by swipe, like Instagram stories. One look and they want it.</p>
+      </article>
+      <article class="card r">
+        <img src="/demo/las-chinampas/img/front-sm.jpg" alt="" loading="lazy" />
+        <div class="k">05 · Own the map</div>
+        <h3>Your Google listing, working</h3>
+        <p>We set up and clean up your Google profile and link it to your site, so the two push each other up the map.</p>
+      </article>
+      <article class="card r">
+        <img src="/demo/las-chinampas/img/tacos-sm.jpg" alt="" loading="lazy" />
+        <div class="k">06 · Stay fresh</div>
+        <h3>New every month</h3>
+        <p>Professional photos, new articles and Google posts every month, so you always look busy, loved and open.</p>
+      </article>
+      <article class="card r">
+        <img src="/samples/coolwave-heating-and-air/img/thermostat-sm.jpg" alt="" loading="lazy" />
+        <div class="k">07 · Get paid</div>
+        <h3>Deposits up front</h3>
+        <p>Customers pay deposits and invoices by card. Reminders go out on their own, so fewer no-shows and no chasing money.</p>
+      </article>
+      <article class="card glow r">
+        <div class="big" aria-hidden="true">100%</div>
+        <div class="k">08 · Yours</div>
+        <h3>You own all of it</h3>
+        <p>The site, the photos, the words and your web address stay in your name. No long contract. Nobody can take it away.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <span class="eyebrow r">Built for businesses like yours</span>
+    <h2 class="r">See it for <em>real.</em></h2>
+    <p class="lead r">Tap one. Open it on your phone. That's what your customers will see.</p>
+    <div class="row r">
+      <a class="shot" href="https://desiweb.org/demo/magic-nails-spa-v2"><div class="frame"><img src="/work/magic-nails-spa-v2.jpg" alt="Magic Nails & Spa site" loading="lazy" /></div><b>Magic Nails &amp; Spa</b><span>Nail salon · Montebello, CA</span></a>
+      <a class="shot" href="https://desiweb.org/demo/las-chinampas"><div class="frame"><img src="/work/las-chinampas.jpg" alt="Las Chinampas site" loading="lazy" /></div><b>Las Chinampas</b><span>Restaurant · Whittier, CA</span></a>
+      <a class="shot" href="https://desiweb.org/examples/fade-theory-barbershop"><div class="frame"><img src="/work/fade-theory-barbershop.jpg" alt="Fade Theory sample site" loading="lazy" /></div><b>Fade Theory</b><span>Barbershop · sample</span></a>
+      <a class="shot" href="https://desiweb.org/examples/lone-star-roof-pros"><div class="frame"><img src="/work/lone-star-roof-pros.jpg" alt="Lone Star Roof Pros sample site" loading="lazy" /></div><b>Lone Star Roof Pros</b><span>Roofing · sample</span></a>
+      <a class="shot" href="https://desiweb.org/examples/coolwave-heating-and-air"><div class="frame"><img src="/work/coolwave-heating-and-air.jpg" alt="CoolWave sample site" loading="lazy" /></div><b>CoolWave Heating &amp; Air</b><span>HVAC · sample</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <span class="eyebrow r">How it works</span>
+    <h2 class="r">Three steps. <em>Zero stress.</em></h2>
+    <div class="steps">
+      <div class="step r"><div class="num">01</div><h3>See it free</h3><p>We build your homepage first with your real photos and reviews. You pay nothing to see it.</p></div>
+      <div class="step r"><div class="num">02</div><h3>Live in about 2 weeks</h3><p>Love it? Half to start, half on launch day. We write the words, you just say yes.</p></div>
+      <div class="step r"><div class="num">03</div><h3>It keeps growing</h3><p>Every month we add photos, articles and Google updates, so you climb higher and stay there.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="math">
+  <div class="wrap row">
+    <div>
+      <span class="eyebrow r">The simple math</span>
+      <h2 class="r">One good customer <em>pays for it.</em></h2>
+      <p class="lead r">A website is not a cost if it brings in more than it takes. Slide the numbers to fit your business.</p>
+    </div>
+    <div class="calc r">
+      <label>What one customer spends per visit <span class="val" id="vSpend">$75</span><input id="spend" type="range" min="25" max="2000" step="25" value="75" aria-label="What one customer spends per visit" /></label>
+      <label>Visits per year from one customer <span class="val" id="vVisits">6</span><input id="visits" type="range" min="1" max="24" step="1" value="6" aria-label="Visits per year from one customer" /></label>
+      <div class="out">
+        <div class="n" id="need">4</div>
+        <p><b>new customers</b> pay for the whole Starter site in their first year (<span id="yearVal">$450</span> each). Every one after that is pure profit, for years.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="prices">
+  <div class="wrap">
+    <span class="eyebrow r">Your choices</span>
+    <h2 class="r">Simple prices. <em>No surprises.</em></h2>
+    <div class="plans">
+      <div class="plan free r"><div class="tag">Step one</div><h3>Free mockup</h3><div class="amt">$0</div><p>Your homepage, built with your real photos and reviews, before you pay a thing.</p></div>
+      <div class="plan r"><div class="tag">Get online</div><h3>Starter</h3><div class="amt">$1,750</div><p>One time. For businesses with no site, or one that isn't working.</p>
+        <ul><li>Fast site, built for phones</li><li>Ready for Google and ChatGPT</li><li>Call, quote and contact forms</li><li>Installs like an app</li></ul></div>
+      <div class="plan hot r"><div class="tag">Best value</div><h3>Growth</h3><div class="amt">$3,500</div><p>One time. For businesses ready to fill their calendar.</p>
+        <ul><li>Everything in Starter</li><li>Online booking and deposits</li><li>Reminder texts and emails</li><li>Google profile set up</li></ul></div>
+      <div class="plan r"><div class="tag">Run on it</div><h3>Full stack</h3><div class="amt">$7,500<small>+</small></div><p>For businesses that run on their website.</p>
+        <ul><li>Everything in Growth</li><li>Lead tracking that fills itself in</li><li>Invoices and payouts</li><li>Monthly ranking reports</li></ul></div>
+    </div>
+    <div class="monthly r">
+      <div class="amt">$300<small>/mo</small></div>
+      <div><h3>The part that keeps customers coming. We recommend it with any plan.</h3>
+        <ul><li>Professional photos and content</li><li>New articles every month</li><li>Google profile updates</li><li>Hosting and upkeep, done for you</li></ul></div>
+    </div>
+    <div class="promises">
+      <div class="promise r"><b>See it first</b><span>Free mockup before you pay</span></div>
+      <div class="promise r"><b>Fixed price</b><span>You know it before we start</span></div>
+      <div class="promise r"><b>Half and half</b><span>Half to start, half at launch</span></div>
+      <div class="promise r"><b>You own it</b><span>Site and domain in your name</span></div>
+      <div class="promise r"><b>No contract</b><span>Monthly is month to month</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <img id="ctaImg" src="/samples/lone-star-roof-pros/img/crew-reroof.jpg" alt="" loading="lazy" />
+  <div class="wrap">
+    <h2 class="r">Let's get you <em>found.</em></h2>
+    <p class="r" id="ctaSub">See your free homepage first. If you love it, we build the rest. If not, you owe nothing.</p>
+    <p class="print-only" style="display:none">desiweb.org · gethelp@desiweb.org</p>
+    <div class="btns r">
+      <a class="btn solid" href="https://desiweb.org/free-mockup" id="ctaMain">Get my free mockup</a>
+      <a class="btn line" href="https://desiweb.org/book-a-call">Book a quick call</a>
+    </div>
+  </div>
+</section>
+
+<footer><a href="https://desiweb.org">desiweb.org</a> · <a href="mailto:gethelp@desiweb.org">gethelp@desiweb.org</a></footer>
+
+<script>
+  // Calculator
+  const $ = (id) => document.getElementById(id);
+  const money = (n) => "$" + Math.round(n).toLocaleString();
+  function calc() {
+    const spend = +$("spend").value, visits = +$("visits").value, year = spend * visits;
+    $("vSpend").textContent = money(spend); $("vVisits").textContent = visits;
+    $("yearVal").textContent = money(year); $("need").textContent = Math.max(1, Math.ceil(1750 / year));
+  }
+  ["spend", "visits"].forEach((id) => $(id).addEventListener("input", calc)); calc();
+
+  // Reveal on scroll
+  const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.1 }) : null;
+  const reveal = () => document.querySelectorAll(".r:not(.in)").forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + "ms"; io ? io.observe(el) : el.classList.add("in"); });
+  reveal();
+  window.addEventListener("beforeprint", () => document.querySelectorAll(".r").forEach((el) => el.classList.add("in")));
+
+  // Make it theirs: /why?slug=<business slug> fills in their name, photo and real Google numbers.
+  // Optional: &name=<first name>
+  const q = new URLSearchParams(location.search);
+  const first = (q.get("name") || "").trim().slice(0, 30);
+  if (first) $("hello").textContent = `${first}, here's what you're really getting`;
+  const slug = q.get("slug");
+  if (slug && /^[a-z0-9-]{2,80}$/.test(slug)) {
+    fetch(`/api/site-data?slug=${slug}`).then((r) => (r.ok ? r.json() : null)).then((d) => {
+      if (!d || !d.business) return;
+      const s = d.site || {}, m = s.maps || {}, theme = s.theme || {}, town = s.town || d.area || "";
+      document.title = `${d.business} · It's not just a website · DesiWeb`;
+      $("forLine").innerHTML = ""; $("forLine").append("For ", Object.assign(document.createElement("b"), { textContent: d.business }));
+      $("heroSub").textContent = `It's more people finding ${d.business}, picking you, and booking, all day, every day, while you do the work.`;
+      const cover = theme.photos?.cover; if (cover && /^\/[\w\-/.]+$/.test(cover)) $("heroImg").src = cover;
+      const next = theme.photos?.next || theme.photos?.stand; if (next && /^\/[\w\-/.]+$/.test(next)) $("ctaImg").src = next;
+      if (d.demo_url && /^https:\/\/desiweb\.org\//.test(d.demo_url)) {
+        $("ctaTop").href = $("ctaMain").href = d.demo_url;
+        $("ctaTop").textContent = "See your new site"; $("ctaMain").textContent = "See your new site";
+        $("ctaSub").textContent = "Your free homepage is already built. Open it on your phone, then let's talk for 10 minutes.";
+      }
+      // Their real numbers
+      const cards = [];
+      const card = (n, h, p, hot = true) => { const el = document.createElement("div"); el.className = "stat r";
+        el.innerHTML = `<div class="n${hot ? " hot" : ""}"></div><h3></h3><p></p>`;
+        el.querySelector(".n").textContent = n; el.querySelector("h3").textContent = h; el.querySelector("p").textContent = p; return el; };
+      if (m.rank) cards.push(card(`#${m.rank}`, `on Google Maps${town ? ` in ${town}` : ""}`, m.keyword ? `For "${m.keyword}" right from your door.` : "Right from your door."));
+      if (d.reviews) cards.push(card(Number(d.reviews).toLocaleString(), `Google reviews${d.rating ? ` at ${Number(d.rating).toFixed(1)} stars` : ""}`, "People who find you love you."));
+      const far = s.reach?.rows?.find((r) => !r.rank);
+      if (far) cards.push(card("0", `times you show up in ${far.where.split(",")[0]}`, `Just ${far.where.split(",").slice(1).join(",").trim() || "a few miles away"}.`, false));
+      else if (!d.website) cards.push(card("0", "website of your own", "Nowhere to send the people who find you.", false));
+      if (cards.length >= 2) {
+        $("stats").replaceChildren(...cards.slice(0, 3));
+        $("nowTitle").innerHTML = "People who find you <em>love</em> you.";
+        $("callout").textContent = s.reach?.note || "The problem isn't your business. It's the people who never find it.";
+      }
+      reveal();
+    }).catch(() => {});
+  }
+</script>
+</body>
+</html>
