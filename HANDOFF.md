@@ -6,7 +6,7 @@ Read this first. It covers the business, what's built, where everything lives, a
 
 Selling websites to local service businesses by cold calling. Name: **DesiWeb**, domain **desiweb.org** (bought 2026-10-21). Goal: book 10 clients, then turn every step into a Notion guide an AI agent can follow.
 
-Pricing: Starter $1,750 (raised from $1,500 on 2026-10-22) · Growth $3,500 + $300/mo (month to month) · Full Stack from $7,500 · App Store add-on $1,000 ($500 intro for the first 3 clients) · 50% deposit, 50% at launch.
+Pricing: Starter $2,500 (raised from $1,500 on 2026-10-22, $1,750 to $2,500 on 2026-11-13) · Growth $3,500 + $300/mo (month to month) · Full Stack from $7,500 · App Store add-on $1,000 ($500 intro for the first 3 clients) · 50% deposit, 50% at launch.
 
 ## How to talk to the owner
 
@@ -25,7 +25,7 @@ Pricing: Starter $1,750 (raised from $1,500 on 2026-10-22) · Growth $3,500 + $3
 | Cold call list: 926 businesses, 434 with no website | Notion database "Website Cold Call List" (moved 2026-10-21 into the Notion page "designweb.org" with the call script and Relume sitemap), id `67184cda17ee4835b65d157259e2a353` |
 | Website leads inbox (the /free-mockup form writes here) | Notion database "DesignWeb Inbound Leads" (private), id `9333b0479f054dbcb1f79abf3177d868` |
 | Relume plan for this site | https://www.relume.ai/app/site/01a15e8c-35db-7504-bd4a-eabf65e4fbdd |
-| Lead audit decks (the "show them the money" pitch) | JL Absolute: https://claude.ai/artifact/2AkV8YnTB3vwSvThs2HX5n · Pines Tree Service: https://claude.ai/artifact/U7dBb35KRvqjQL9q5rHPoL · Friendswood Tree & Fence: https://claude.ai/artifact/1NTaP1zmPWz8eMCns6BZ3u · MCM Atlanta (first warm lead, via Riley; $3,000 + 2 free months, then $300/mo): https://claude.ai/artifact/HvXR2WxJ9FdL9Cb2u9mUtq (links also in each Notion row). Format: Maps ranking first, plain "what these searches are worth" money slide, Starter $1,750 |
+| Lead audit decks (the "show them the money" pitch) | JL Absolute: https://claude.ai/artifact/2AkV8YnTB3vwSvThs2HX5n · Pines Tree Service: https://claude.ai/artifact/U7dBb35KRvqjQL9q5rHPoL · Friendswood Tree & Fence: https://claude.ai/artifact/1NTaP1zmPWz8eMCns6BZ3u · MCM Atlanta (first warm lead, via Riley; $3,000 + 2 free months, then $300/mo): https://claude.ai/artifact/HvXR2WxJ9FdL9Cb2u9mUtq (links also in each Notion row). Format: Maps ranking first, plain "what these searches are worth" money slide, Starter $2,500 |
 | Owner pages: /admin (Dashboard), /admin/invoices, /admin/network, one sign-in for all three |  |
 | Free demo homepages (private, noindex, `/demo/<business>/`) | JL Absolute: https://desiweb.org/demo/jl-absolute-tree-service · MCM Atlanta: https://desiweb.org/demo/mcm-atlanta (black and gold from his logo, his real package prices and Wix photos hotlinked; confirm address, hours and deposit) (built to beat the top 3 on Google Maps; real Google reviews; hero photo hotlinked from their Google listing, so replace with a saved copy if it ever breaks) |
 | Lead research credits | OpenSEO, about 7,900 credits left (each business search ≈ 35 credits for up to 50 businesses) |

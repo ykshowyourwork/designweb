@@ -97,9 +97,9 @@ function slides(d) {
     ${[["New website", "Fast on phones. Full pages for your best work, plus the areas you serve."], [s.cta || "Booking", "One tap to call, order or book, on every screen of the site."], ["Google Maps", "Your listing set up right, plus a link that makes reviews easy."], ["20 listings", "Apple Maps, Bing, Yelp and more, all showing the same info."], ["Every month", "New Google posts and articles, hosting and upkeep."]]
       .map(([h, p]) => `<div class="card"><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join("")}</div>${foot("You own the website and everything we make. Live in about 2 weeks.")}</section>`);
 
-  const price = s.price || { growth: "$3,500", monthly: "$300/mo", starter: "$1,750" };
+  const price = s.price || { growth: "$3,500", monthly: "$300/mo", starter: "$2,500" };
   out.push(`<section ${photoSlide(s, "price")}><p class="eyebrow">The price</p><h2>One new customer pays for it.</h2><div class="cards">
-    <div class="card"><h3>Starter</h3><div class="num">${esc(price.starter || "$1,750")}</div><p>Your website, service pages and quote form. Ready for Google.</p></div>
+    <div class="card"><h3>Starter</h3><div class="num">${esc(price.starter || "$2,500")}</div><p>Your website, service pages and quote form. Ready for Google.</p></div>
     <div class="card hi"><h3>Growth</h3><div class="num">${esc(price.growth || "$3,500")}</div><p>+ ${esc(price.monthly || "$300/mo")}. Everything in Starter, plus booking, Google Maps work and new articles every month.</p></div></div>
     <p class="big">Half to start, half when the site goes live. Stop the monthly anytime.</p></section>`);
 

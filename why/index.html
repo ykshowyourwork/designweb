@@ -371,7 +371,7 @@
     <h2 class="r">Simple prices. <em>No surprises.</em></h2>
     <div class="plans">
       <div class="plan free r"><div class="tag">Step one</div><h3>Free mockup</h3><div class="amt">$0</div><p>Your homepage, built with your real photos and reviews, before you pay a thing.</p></div>
-      <div class="plan r"><div class="tag">Get online</div><h3>Starter</h3><div class="amt">$1,750</div><p>One time. For businesses with no site, or one that isn't working.</p>
+      <div class="plan r"><div class="tag">Get online</div><h3>Starter</h3><div class="amt">$2,500</div><p>One time. For businesses with no site, or one that isn't working.</p>
         <ul><li>Fast site, built for phones</li><li>Ready for Google and ChatGPT</li><li>Call, quote and contact forms</li><li>Installs like an app</li></ul></div>
       <div class="plan hot r"><div class="tag">Best value</div><h3>Growth</h3><div class="amt">$3,500</div><p>One time. For businesses ready to fill their calendar.</p>
         <ul><li>Everything in Starter</li><li>Online booking and deposits</li><li>Reminder texts and emails</li><li>Google profile set up</li></ul></div>
@@ -415,7 +415,7 @@
   function calc() {
     const spend = +$("spend").value, visits = +$("visits").value, year = spend * visits;
     $("vSpend").textContent = money(spend); $("vVisits").textContent = visits;
-    $("yearVal").textContent = money(year); $("need").textContent = Math.max(1, Math.ceil(1750 / year));
+    $("yearVal").textContent = money(year); $("need").textContent = Math.max(1, Math.ceil(2500 / year));
   }
   ["spend", "visits"].forEach((id) => $(id).addEventListener("input", calc)); calc();
 

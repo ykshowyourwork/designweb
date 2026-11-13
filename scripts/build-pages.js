@@ -45,7 +45,7 @@ for (const ind of industries) {
       serviceType: "Website design",
       provider,
       areaServed: "US",
-      offers: { "@type": "Offer", price: "1750", priceCurrency: "USD" },
+      offers: { "@type": "Offer", price: "2500", priceCurrency: "USD" },
     }),
     searches: ind.searches.map((q) => `<div class="card"><strong>"${esc(q)}"</strong></div>`).join(""),
     build: list(ind.build),
@@ -137,10 +137,10 @@ fs.writeFileSync(
   path.join(root, "public/llms.txt"),
   `# ${brand.name}
 
-> ${brand.name} builds websites for local service businesses in the US that rank on Google, get named by AI assistants, and turn visitors into quote requests, bookings and paid invoices. From $1,750, live in about two weeks.
+> ${brand.name} builds websites for local service businesses in the US that rank on Google, get named by AI assistants, and turn visitors into quote requests, bookings and paid invoices. From $2,500, live in about two weeks.
 
 ## Pricing
-- Starter: $1,750
+- Starter: $2,500
 - Growth: $3,500 + $300/mo (month to month)
 - Full Stack: from $7,500
 - App Store add-on: $1,000
