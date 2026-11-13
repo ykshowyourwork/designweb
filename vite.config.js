@@ -8,6 +8,7 @@ import work from "./content/work.json" with { type: "json" };
 import concepts from "./content/concepts.json" with { type: "json" };
 import faq from "./content/faq.json" with { type: "json" };
 import brands from "./content/brands.json" with { type: "json" };
+import inside from "./content/inside.json" with { type: "json" };
 
 const root = import.meta.dirname;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -82,6 +83,9 @@ const blocks = {
     const stills = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith(".jpg")).sort().map((f) => `<img src="/brands/work/${f}" alt="" width="320" height="180" loading="lazy" />`).join("") : "";
     return `<div class="logo-wall" aria-label="Brands we've worked with"><div class="logo-track">${row}${row}</div></div>${stills ? `<div class="still-wall" aria-hidden="true"><div class="still-track">${stills}${stills}</div></div>` : ""}`;
   },
+  // Everything a client gets, grouped, for the pricing page and /why.
+  insideCount: () => String(inside.reduce((n, g) => n + g.items.length, 0)),
+  inside: () => `<div class="inside">${inside.map((g) => `<div class="inside-group"><h3>${esc(g.name)}</h3><ul>${g.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></div>`).join("")}</div>`,
   markFonts: () => (markFontsHref() ? `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link rel="stylesheet" href="${markFontsHref()}" />` : ""),
   faq: () => faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n"),
   faqSchema: () =>

@@ -152,6 +152,38 @@
   footer { padding: 26px 0 40px; text-align: center; color: var(--muted); font-size: 14px; }
   footer a { color: var(--fg); }
 
+
+  /* Everything inside */
+  .insides { background: var(--bg2); border-block: 1px solid var(--line); }
+  .inside { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 34px; }
+  .inside-group { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 22px; position: relative; overflow: hidden; }
+  .inside-group::after { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--gloss); }
+  .inside-group:last-child { background: linear-gradient(180deg, rgba(255,122,53,.18), var(--card) 70%); border-color: var(--brand); }
+  .inside-group h3 { font-size: 30px; margin-bottom: 12px; }
+  .inside-group ul { list-style: none; padding: 0; display: grid; gap: 7px; }
+  .inside-group li { display: flex; gap: 10px; font-size: 14.5px; line-height: 1.45; color: #e6d9cc; }
+  .inside-group li::before { content: "✓"; color: var(--brand); font-weight: 700; flex: none; }
+
+  /* Go big */
+  .gobig { margin-top: 48px; }
+  .gobig-head h3 { font-size: clamp(36px, 5vw, 60px); margin-bottom: 10px; }
+  .gobig-head p { color: var(--muted); max-width: 52ch; }
+  .bigs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .big-tier { position: relative; border-radius: 24px; overflow: hidden; min-height: 500px; display: flex; flex-direction: column; justify-content: flex-end; isolation: isolate; border: 1px solid var(--line); }
+  .big-tier img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1s; }
+  .big-tier::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(13,10,8,.1), rgba(13,10,8,.72) 42%, rgba(13,10,8,.96)); }
+  .big-tier:hover img { transform: scale(1.05); }
+  .big-tier.hot { border-color: var(--brand); box-shadow: var(--glow); }
+  .bt { padding: 26px; }
+  .bt b { font: 700 46px/1 var(--display); }
+  .bp { font: 700 30px/1.1 var(--display); color: var(--amber); margin: 6px 0 14px; }
+  .bp small { font-size: 18px; color: var(--muted); }
+  .bt ul { list-style: none; padding: 0; display: grid; gap: 8px; }
+  .bt li { display: flex; gap: 10px; font-size: 15px; color: #eadccf; }
+  .bt li::before { content: ""; width: 9px; height: 9px; margin-top: 7px; border-radius: 3px; background: var(--brand); flex: none; }
+  @media (max-width: 1000px) { .inside { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) { .inside, .bigs { grid-template-columns: 1fr; } .big-tier { min-height: 440px; } }
+
   /* Reveal */
   .r { opacity: 0; transform: translateY(22px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
   .r.in { opacity: 1; transform: none; }
@@ -225,6 +257,22 @@
     .cta h2 { font-size: 52px; }
     .how, .math, .prices { padding-bottom: 18px; }
     .math, .prices { padding-top: 20px; }
+    .insides { padding-top: 22px; }
+    .prices { break-before: page; padding-top: 30px; }
+    .inside { grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+    .inside-group { padding: 14px 16px; }
+    .inside-group h3 { font-size: 24px; margin-bottom: 8px; }
+    .inside-group li { font-size: 12.5px; }
+    .inside-group ul { gap: 4px; }
+    .gobig { margin-top: 22px; }
+    .gobig-head h3 { font-size: 40px; }
+    .bigs { grid-template-columns: 1fr 1fr; margin-top: 14px; }
+    .big-tier { min-height: 330px; }
+    .bt { padding: 16px 18px; }
+    .bt b { font-size: 36px; }
+    .bp { font-size: 24px; margin-bottom: 8px; }
+    .bt li { font-size: 12.5px; }
+    .bt ul { gap: 4px; }
     footer { display: none; }
     .print-only { display: block !important; margin-top: 10px; font-weight: 600; color: var(--amber); }
   }
@@ -365,6 +413,15 @@
   </div>
 </section>
 
+<section class="insides">
+  <div class="wrap">
+    <span class="eyebrow r">Everything inside</span>
+    <h2 class="r"><!-- @insideCount --> things we build and run, <em>so you don't have to.</em></h2>
+    <p class="lead r">Most website companies hand you a site and leave. This is what's working for you from day one, and every month after.</p>
+    <div class="r"><!-- @inside --></div>
+  </div>
+</section>
+
 <section class="prices">
   <div class="wrap">
     <span class="eyebrow r">Your choices</span>
@@ -382,6 +439,17 @@
       <div class="amt">$300<small>/mo</small></div>
       <div><h3>The part that keeps customers coming. We recommend it with any plan.</h3>
         <ul><li>Professional photos and content</li><li>New articles every month</li><li>Google profile updates</li><li>Hosting and upkeep, done for you</li></ul></div>
+    </div>
+    <div class="gobig r">
+      <div class="gobig-head"><span class="eyebrow">Go big</span><h3>We don't just build it. <em>We grow your company.</em></h3><p>Made with the ad crew behind work for brands like Nike, Ferrari and Netflix.</p></div>
+      <div class="bigs">
+        <div class="big-tier"><img src="/brands/work/nike-pegasus.jpg" alt="" loading="lazy" /><div class="bt">
+          <b>Scale</b><div class="bp">From $15,000 <small>+ $2,500/mo</small></div>
+          <ul><li>Everything in Full stack</li><li>A brand commercial, 10 short videos and a photo shoot</li><li>New short videos every month</li><li>Ads run with your videos, aimed at your towns</li><li>Instant text back on missed calls</li><li>Review requests and come-back texts, on autopilot</li><li>A monthly strategy call</li></ul></div></div>
+        <div class="big-tier hot"><img src="/brands/work/ferrari.jpg" alt="" loading="lazy" /><div class="bt">
+          <b>Flagship</b><div class="bp">From $35,000 <small>+ $5,000/mo</small></div>
+          <ul><li>Everything in Scale</li><li>A full ad campaign: 3 commercials, built to run anywhere</li><li>A shoot every quarter</li><li>A page and a plan for every location or town you want</li><li>A hiring page and recruiting video</li><li>A team on call, like your own marketing department</li></ul></div></div>
+      </div>
     </div>
     <div class="promises">
       <div class="promise r"><b>See it first</b><span>Free mockup before you pay</span></div>

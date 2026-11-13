@@ -143,6 +143,8 @@ fs.writeFileSync(
 - Starter: $2,500
 - Growth: $3,500 + $300/mo (month to month)
 - Full Stack: from $7,500
+- Scale: from $15,000 + $2,500/mo (brand commercial, monthly short videos, ads, missed-call text back, review and come-back texts)
+- Flagship: from $35,000 + $5,000/mo (3-commercial ad campaign, quarterly shoots, every location)
 - App Store add-on: $1,000
 - Payment: 50% deposit, 50% on launch day, by card through Stripe
 
