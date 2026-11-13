@@ -77,7 +77,10 @@ const blocks = {
     }
     if (!mixed.length) return "";
     const row = mixed.join("");
-    return `<div class="logo-wall" aria-label="Brands we've worked with"><div class="logo-track">${row}${row}</div></div>`;
+    // Stills from the brand work, as a second row moving the other way.
+    const dir = path.resolve("public/brands/work");
+    const stills = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith(".jpg")).sort().map((f) => `<img src="/brands/work/${f}" alt="" width="320" height="180" loading="lazy" />`).join("") : "";
+    return `<div class="logo-wall" aria-label="Brands we've worked with"><div class="logo-track">${row}${row}</div></div>${stills ? `<div class="still-wall" aria-hidden="true"><div class="still-track">${stills}${stills}</div></div>` : ""}`;
   },
   markFonts: () => (markFontsHref() ? `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link rel="stylesheet" href="${markFontsHref()}" />` : ""),
   faq: () => faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n"),
