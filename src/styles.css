@@ -497,3 +497,9 @@ a.line-item:hover { background: rgba(255,255,255,.03); }
 .devices .more:hover { border-color: var(--brand); color: var(--brand); }
 @media (max-width: 900px) { .devices { min-height: 300px; margin-top: 18px; } .devices .desk { position: relative; right: auto; transform: none; } .devices .phone { width: 170px; height: 352px; border-width: 6px; border-radius: 30px; bottom: -40px; right: 4%; } .devices .phone iframe { transform: scale(.405); height: 850px; } .devices .phone span, .devices .more { display: none; } }
 @media (max-width: 700px) { .devices .phone { display: none; } }
+
+/* Brand logos in the wall: flat grey shapes, a touch brighter on hover */
+.logo-track .brand { flex: none; display: inline-flex; align-items: center; }
+.logo-img { display: block; height: clamp(28px, 3.2vw, 44px); width: auto; opacity: .85; transition: opacity .2s; }
+.logo-track .brand:hover .logo-img { opacity: 1; }
+.logo-track .brand .logo-mark { color: #a0968e; }

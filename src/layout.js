@@ -11,17 +11,25 @@ const arrange = (container, list) => {
   for (const { el } of sorted) hidden.has(el.dataset.slug) ? el.remove() : container.appendChild(el);
 };
 
-// The logo wall repeats its list to fill the screen, so it's rebuilt from one copy in the new order.
+// The logo wall repeats its list to fill the screen. Our sites follow the saved order (hidden ones drop out);
+// the brand logos between them stay where they are.
 const arrangeLogos = (track, list) => {
-  const first = new Map();
-  for (const el of track.children) if (el.dataset.slug && !first.has(el.dataset.slug)) first.set(el.dataset.slug, el);
+  const seen = new Set();
+  const one = [];
+  for (const el of track.children) {
+    const key = el.dataset.slug || el.dataset.brand;
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    one.push(el.cloneNode(true));
+  }
   const holder = document.createElement("div");
-  first.forEach((el) => holder.appendChild(el.cloneNode(true)));
+  one.filter((el) => el.dataset.slug).forEach((el) => holder.appendChild(el));
   arrange(holder, list);
-  const one = [...holder.children];
-  if (!one.length) return;
-  const times = Math.max(2, Math.ceil(10 / one.length));
-  track.replaceChildren(...Array.from({ length: one.length * times * 2 }, (_, i) => one[i % one.length].cloneNode(true)));
+  const sites = [...holder.children];
+  let k = 0;
+  const merged = one.map((el) => (el.dataset.slug ? sites[k++] : el)).filter(Boolean);
+  if (!merged.length) return;
+  track.replaceChildren(...merged.map((el) => el.cloneNode(true)), ...merged.map((el) => el.cloneNode(true)));
 };
 
 (async () => {

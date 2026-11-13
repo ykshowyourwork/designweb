@@ -7,6 +7,7 @@ import services from "./content/services.json" with { type: "json" };
 import work from "./content/work.json" with { type: "json" };
 import concepts from "./content/concepts.json" with { type: "json" };
 import faq from "./content/faq.json" with { type: "json" };
+import brands from "./content/brands.json" with { type: "json" };
 
 const root = import.meta.dirname;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -18,7 +19,7 @@ const newestFirst = (list) => [...list].sort((a, b) => (b.added || "").localeCom
 // request that loads just the letters those wordmarks use.
 const markHtml = (m, cls = "mark") => (m ? `<b class="${cls}" style="font-family:'${m.font}',serif;font-weight:${m.weight || 400}">${esc(m.text)}</b>` : "");
 const markFontsHref = () => {
-  const marks = work.map((w) => w.mark).filter(Boolean);
+  const marks = [...work, ...brands].map((w) => w.mark).filter(Boolean);
   if (!marks.length) return "";
   const fams = [...new Map(marks.map((m) => [`${m.font}:${m.weight || 400}`, m])).values()]
     .map((m) => `family=${m.font.replace(/ /g, "+")}:wght@${m.weight || 400}`).join("&");
@@ -64,11 +65,19 @@ const blocks = {
       .slice(0, 3)
       .map((w) => `<img src="${w.image}" alt="" width="1200" height="750"${w.slug ? ` data-slug="${w.slug}"` : ""} />`)
       .join("\n"),
+  // The logo wall: our sites (their names in their own lettering) mixed in with the brands our team has worked with.
   logoWall: () => {
-    const marks = newestFirst(work).filter((w) => w.mark).map((w) => `<a href="/examples/${w.slug}" data-slug="${w.slug}">${markHtml(w.mark, "logo-mark")}</a>`);
-    if (!marks.length) return "";
-    const row = Array.from({ length: Math.max(2, Math.ceil(10 / marks.length)) }, () => marks.join("")).join("");
-    return `<div class="logo-wall" aria-label="Brands we've built for"><div class="logo-track">${row}${row}</div></div>`;
+    const sites = newestFirst(work).filter((w) => w.mark).map((w) => `<a href="/examples/${w.slug}" data-slug="${w.slug}">${markHtml(w.mark, "logo-mark")}</a>`);
+    const logos = brands.map((b) => `<span class="brand" data-brand="${b.slug}" title="${esc(b.name)}">${b.logo ? `<img class="logo-img" src="${b.logo}" alt="${esc(b.name)}" height="46" loading="lazy" />` : markHtml(b.mark, "logo-mark")}</span>`);
+    const mixed = [];
+    for (let i = 0, j = 0; i < logos.length || j < sites.length; ) {
+      if (i < logos.length) mixed.push(logos[i++]);
+      if (i < logos.length) mixed.push(logos[i++]);
+      if (j < sites.length) mixed.push(sites[j++]);
+    }
+    if (!mixed.length) return "";
+    const row = mixed.join("");
+    return `<div class="logo-wall" aria-label="Brands we've worked with"><div class="logo-track">${row}${row}</div></div>`;
   },
   markFonts: () => (markFontsHref() ? `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link rel="stylesheet" href="${markFontsHref()}" />` : ""),
   faq: () => faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n"),
