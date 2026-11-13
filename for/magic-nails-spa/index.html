@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Magic Nails & Spa · What you get · DesiWeb</title>
+<meta name="description" content="What a DesiWeb site does for Magic Nails & Spa, in plain words." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Lato:wght@400;700;900&display=swap" />
+<style>
+  :root {
+    --cream: #f7f2ec; --paper: #fffcf8; --sand: #ddcbb7; --tan: #c9b39c;
+    --brown: #3e2c22; --ink: #2b211b; --muted: #7a685b; --line: #e4d7c9; --red: #a3262e;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: var(--cream); color: var(--ink); font: 400 17px/1.55 Lato, system-ui, sans-serif; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .serif { font-family: "Cormorant Garamond", Georgia, serif; }
+  .eyebrow { font: 900 11px/1 Lato, sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--red); }
+  .wrap { width: min(1080px, 100% - 32px); margin: 0 auto; }
+  h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.02; letter-spacing: -.01em; }
+  h2 { font-size: clamp(34px, 5vw, 54px); }
+  h2 em, h1 em { font-style: italic; color: var(--red); }
+
+  /* 1. Cover */
+  .cover { position: relative; min-height: min(88vh, 760px); display: grid; align-items: end; color: #fff; overflow: hidden; }
+  .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(43,33,27,.15) 0%, rgba(43,33,27,.25) 40%, rgba(43,33,27,.88) 100%); }
+  .cover .wrap { position: relative; z-index: 1; padding: 0 0 clamp(36px, 7vw, 72px); }
+  .cover .eyebrow { color: #f3d9c9; }
+  .cover h1 { font-size: clamp(48px, 9vw, 104px); margin: 14px 0 16px; max-width: 12ch; }
+  .cover h1 em { color: #ffd7c2; }
+  .cover p { font-size: clamp(18px, 2.2vw, 22px); max-width: 34ch; color: #f6ece4; }
+  .from { position: absolute; top: 20px; left: 0; right: 0; z-index: 1; }
+  .from .wrap { display: flex; justify-content: space-between; font: 700 13px/1 Lato, sans-serif; letter-spacing: .08em; color: #fff; text-transform: uppercase; }
+  .from b { color: #ffd7c2; }
+
+  /* 2. Today */
+  .today { padding: clamp(56px, 9vw, 96px) 0 clamp(40px, 6vw, 64px); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0 22px; }
+  .stat { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 24px 22px; }
+  .stat .n { font: 600 clamp(46px, 6vw, 68px)/1 "Cormorant Garamond", serif; color: var(--brown); }
+  .stat.bad .n { color: var(--red); }
+  .stat p { margin-top: 8px; color: var(--muted); font-size: 15px; }
+  .big-line { font: italic 500 clamp(24px, 3.2vw, 34px)/1.25 "Cormorant Garamond", serif; color: var(--brown); max-width: 30ch; }
+
+  /* 3. What changes */
+  .gets { padding: clamp(40px, 7vw, 80px) 0; background: var(--paper); border-block: 1px solid var(--line); }
+  .gets > .wrap > p { color: var(--muted); max-width: 46ch; margin-top: 12px; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+  .card { position: relative; border-radius: 22px; overflow: hidden; min-height: 330px; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; isolation: isolate; }
+  .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .8s ease; }
+  .card::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(43,33,27,0) 25%, rgba(43,33,27,.9) 100%); }
+  .card:hover img { transform: scale(1.05); }
+  .card .k { font: 900 11px/1 Lato, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #ffd7c2; }
+  .card h3 { font-size: 32px; margin: 8px 0 8px; }
+  .card p { font-size: 15.5px; color: #f3e8df; }
+  .card.solid { background: var(--brown); }
+  .card.solid::before { display: none; }
+  .card.red { background: var(--red); }
+  .card.red::before { display: none; }
+  .card .mark { position: absolute; top: 14px; right: 20px; font: italic 600 120px/1 "Cormorant Garamond", serif; color: rgba(255,255,255,.16); }
+
+  /* 4. The math */
+  .math { padding: clamp(56px, 9vw, 96px) 0; }
+  .math .row { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+  .math .pic { border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 5; }
+  .math .pic img { width: 100%; height: 100%; object-fit: cover; }
+  .steps { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 12px; }
+  .steps li { display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+  .steps b { font: 600 34px/1 "Cormorant Garamond", serif; color: var(--red); text-align: center; }
+  .math .sum { margin-top: 20px; font: italic 600 clamp(24px, 3vw, 30px)/1.2 "Cormorant Garamond", serif; color: var(--brown); }
+
+  /* 5. Price */
+  .price { padding: clamp(56px, 9vw, 96px) 0; background: var(--brown); color: var(--cream); }
+  .price h2 em { color: #ffbfa3; }
+  .price .eyebrow { color: #ffbfa3; }
+  .plans { display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 14px; margin-top: 30px; }
+  .plan { border: 1px solid rgba(247,242,236,.18); border-radius: 22px; padding: 24px; background: rgba(255,255,255,.04); }
+  .plan.free { background: var(--cream); color: var(--ink); }
+  .plan.month { background: linear-gradient(160deg, #b3323a, #8a1d25); border-color: transparent; }
+  .plan .tag { font: 900 11px/1 Lato, sans-serif; letter-spacing: .2em; text-transform: uppercase; opacity: .8; }
+  .plan .amt { font: 600 52px/1 "Cormorant Garamond", serif; margin: 12px 0 6px; }
+  .plan .amt small { font-size: 22px; }
+  .plan p, .plan li { font-size: 15px; }
+  .plan ul { padding-left: 18px; margin-top: 10px; display: grid; gap: 4px; }
+  .fine { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 15px; color: #e9dccf; }
+  .fine span::before { content: "✓"; color: #ffbfa3; margin-right: 8px; font-weight: 900; }
+
+  /* 6. Next */
+  .next { position: relative; color: #fff; text-align: center; padding: clamp(80px, 12vw, 140px) 0; overflow: hidden; isolation: isolate; }
+  .next img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .next::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(43,33,27,.72); }
+  .next h2 { font-size: clamp(40px, 7vw, 76px); }
+  .next h2 em { color: #ffd7c2; }
+  .next p { max-width: 40ch; margin: 14px auto 0; color: #f3e8df; font-size: 18px; }
+  .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px; border-radius: 999px; font: 900 13px/1 Lato, sans-serif; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; }
+  .btn.solid { background: var(--cream); color: var(--brown); }
+  .btn.line { border: 1.5px solid rgba(255,255,255,.7); color: #fff; }
+  .sign { margin-top: 26px; font: italic 600 26px/1 "Cormorant Garamond", serif; color: #ffd7c2; }
+  footer { padding: 22px 0; text-align: center; font-size: 13px; color: var(--muted); }
+
+  /* Reveal */
+  .r { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .r.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .r { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 860px) {
+    .cards { grid-template-columns: 1fr 1fr; }
+    .plans { grid-template-columns: 1fr; }
+    .math .row { grid-template-columns: 1fr; }
+    .math .pic { aspect-ratio: 16 / 10; }
+  }
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { display: flex; gap: 16px; align-items: center; padding: 18px; }
+    .stat p { margin: 0; }
+    .stat .n { min-width: 112px; }
+    .cards { grid-template-columns: 1fr; }
+    .card { min-height: 280px; }
+    .from .wrap span:last-child { display: none; }
+  }
+
+  /* Print / PDF: two pages */
+  @page { size: letter; margin: 0; }
+  @media print {
+    html { zoom: .84; }
+    body { font-size: 12.5px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .r { opacity: 1 !important; transform: none !important; }
+    .cover { min-height: 0; height: 3.7in; }
+    .cover h1 { font-size: 64px; }
+    .cover p { font-size: 17px; }
+    .today { padding: 20px 0 16px; }
+    h2 { font-size: 34px; }
+    .stats { margin: 14px 0 12px; gap: 10px; }
+    .stat { padding: 12px 14px; border-radius: 14px; }
+    .stat .n { font-size: 44px; }
+    .stat p { font-size: 12px; }
+    .big-line { font-size: 21px; }
+    .gets { padding: 18px 0 20px; break-inside: avoid; }
+    .cards { grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+    .card { min-height: 175px; padding: 14px; border-radius: 14px; }
+    .card h3 { font-size: 22px; margin: 4px 0; }
+    .card p { font-size: 11.5px; }
+    .math { padding: 28px 0 22px; break-before: page; }
+    .math .row { grid-template-columns: 1fr 1.6fr; gap: 22px; }
+    .math .pic { aspect-ratio: 4 / 5; }
+    .card .mark { font-size: 70px; }
+    .steps { margin-top: 10px; gap: 6px; }
+    .steps li { padding: 8px 12px; }
+    .steps b { font-size: 24px; }
+    .math .sum { font-size: 19px; margin-top: 10px; }
+    .price { padding: 20px 0 22px; }
+    .plans { grid-template-columns: 1fr 1fr 1.15fr; gap: 10px; margin-top: 14px; }
+    .plan { padding: 14px; border-radius: 14px; }
+    .plan .amt { font-size: 36px; }
+    .plan p, .plan li { font-size: 11.5px; }
+    .fine { font-size: 12px; margin-top: 12px; }
+    .next { padding: 34px 0; }
+    .next h2 { font-size: 40px; }
+    .next p { font-size: 15px; }
+    .btn { min-height: 40px; font-size: 11px; }
+    footer { padding: 8px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <img src="/demo/magic-nails-spa-v2/img/red.jpg" alt="Red nails done at Magic Nails & Spa" />
+  <div class="from"><div class="wrap"><span>For <b>Magic Nails &amp; Spa</b></span><span>From DesiWeb</span></div></div>
+  <div class="wrap">
+    <div class="eyebrow">Chau, here's what you're really getting</div>
+    <h1>It's not just a <em>website.</em></h1>
+    <p>It's more people finding Magic Nails, picking you, and booking a chair while you work.</p>
+  </div>
+</header>
+
+<section class="today">
+  <div class="wrap">
+    <div class="eyebrow r">Where you are today</div>
+    <h2 class="r" style="margin-top:12px">People who find you <em>love</em> you.</h2>
+    <div class="stats">
+      <div class="stat r"><div class="n">#1</div><p>nail salon on Google Maps in Montebello</p></div>
+      <div class="stat r"><div class="n">1,330</div><p>Google reviews at 4.9 stars. That's huge.</p></div>
+      <div class="stat bad r"><div class="n">0</div><p>times you show up in East LA, just 3.5 miles away</p></div>
+    </div>
+    <p class="big-line r">The #1 salon in East LA has 21 reviews. You have 1,330. You should be the one they find.</p>
+  </div>
+</section>
+
+<section class="gets">
+  <div class="wrap">
+    <div class="eyebrow r">What changes for you</div>
+    <h2 class="r" style="margin-top:12px">Six things that bring you <em>more clients.</em></h2>
+    <p class="r">You do the nails. This does the rest, day and night.</p>
+    <div class="cards">
+      <article class="card r">
+        <img src="/demo/magic-nails-spa-v2/img/salon-sm.jpg" alt="" />
+        <div class="k">01 · Get found</div>
+        <h3>New towns find you</h3>
+        <p>We build pages so people searching "nail salon" in East LA, Pico Rivera and Monterey Park can find Magic Nails, not just your block.</p>
+      </article>
+      <article class="card r">
+        <img src="/demo/magic-nails-spa-v2/img/ombre-sm.jpg" alt="" />
+        <div class="k">02 · Get named</div>
+        <h3>ChatGPT says your name</h3>
+        <p>More people ask AI "where should I get my nails done?" Your site is set up so it can answer: Magic Nails.</p>
+      </article>
+      <article class="card r">
+        <img src="/demo/magic-nails-spa-v2/img/french-sm.jpg" alt="" />
+        <div class="k">03 · Get booked</div>
+        <h3>Booked while you work</h3>
+        <p>A Book button on every screen. Clients pick a time in a few taps, even at 11pm, without calling the salon.</p>
+      </article>
+      <article class="card r">
+        <img src="/demo/magic-nails-spa-v2/img/cherry-sm.jpg" alt="" />
+        <div class="k">04 · Show off</div>
+        <h3>Your work sells itself</h3>
+        <p>Your real nail art fills the whole phone screen, swipe by swipe, like Instagram stories. One look and they want it.</p>
+      </article>
+      <article class="card r">
+        <img src="/demo/magic-nails-spa-v2/img/pink-sm.jpg" alt="" />
+        <div class="k">05 · Stay fresh</div>
+        <h3>New photos every month</h3>
+        <p>Professional photos, new posts and Google updates every month, so you always look busy and loved. You don't lift a finger.</p>
+      </article>
+      <article class="card red r">
+        <div class="mark" aria-hidden="true">100%</div>
+        <div class="k">06 · Yours</div>
+        <h3>You own all of it</h3>
+        <p>The site, the photos and your web address stay in your name. No long contract. No one can take it away.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="math">
+  <div class="wrap row">
+    <div class="pic r"><img src="/demo/magic-nails-spa-v2/img/burgundy.jpg" alt="Burgundy nails at Magic Nails & Spa" /></div>
+    <div>
+      <div class="eyebrow r">The simple math</div>
+      <h2 class="r" style="margin-top:12px">It only takes a <em>few regulars.</em></h2>
+      <ol class="steps">
+        <li class="r"><b>1</b><span>A new client from East LA finds you on Google or ChatGPT.</span></li>
+        <li class="r"><b>2</b><span>She sees your work, taps Book, and sits in your chair.</span></li>
+        <li class="r"><b>3</b><span>She loves it (1,330 reviews say she will) and comes back every few weeks.</span></li>
+      </ol>
+      <p class="sum r">One regular comes back 12 or more times a year. A handful of them pays for the whole site, then keeps paying you for years.</p>
+    </div>
+  </div>
+</section>
+
+<section class="price">
+  <div class="wrap">
+    <div class="eyebrow r">Your choices</div>
+    <h2 class="r" style="margin-top:12px">Simple prices. <em>No surprises.</em></h2>
+    <div class="plans">
+      <div class="plan free r">
+        <div class="tag">Already done</div>
+        <div class="amt">Free</div>
+        <p>Your new homepage is built, with your real photos and reviews. See it with no strings attached.</p>
+      </div>
+      <div class="plan r">
+        <div class="tag">Pick one</div>
+        <div class="amt">$1,750</div>
+        <p><b>Starter</b>, one time. Your full site, fast on phones, ready for Google and AI.</p>
+        <div class="amt" style="margin-top:16px">$3,500</div>
+        <p><b>Growth</b>, one time. Everything in Starter, plus booking built in, reminder texts and your Google profile set up.</p>
+      </div>
+      <div class="plan month r">
+        <div class="tag">We recommend</div>
+        <div class="amt">$300<small>/mo</small></div>
+        <p>The part that keeps clients coming:</p>
+        <ul>
+          <li>Professional photos and content</li>
+          <li>New articles every month</li>
+          <li>Google profile updates</li>
+          <li>Hosting and upkeep, done for you</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine r">
+      <span>Half to start, half when it goes live</span>
+      <span>You own the site and your domain</span>
+      <span>Month to month, stop anytime</span>
+    </div>
+  </div>
+</section>
+
+<section class="next">
+  <img src="/demo/magic-nails-spa-v2/img/heart.jpg" alt="" />
+  <div class="wrap">
+    <h2 class="r">Let's get you <em>found.</em></h2>
+    <p class="r">Open your new site on your phone, then let's talk for 10 minutes.</p>
+    <div class="btns r">
+      <a class="btn solid" href="/demo/magic-nails-spa-v2">See your site</a>
+      <a class="btn line" href="/book-a-call">Book a quick call</a>
+    </div>
+    <div class="sign r">Jordan, DesiWeb</div>
+  </div>
+</section>
+
+<footer>DesiWeb · desiweb.org · gethelp@desiweb.org</footer>
+
+<script>
+  const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 }) : null;
+  document.querySelectorAll(".r").forEach((el, i) => { el.style.transitionDelay = (i % 3) * 90 + "ms"; io ? io.observe(el) : el.classList.add("in"); });
+</script>
+</body>
+</html>
