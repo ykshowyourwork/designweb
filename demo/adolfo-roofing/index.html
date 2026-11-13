@@ -79,9 +79,9 @@ nav.links a:hover{color:var(--copper)}
 .hero{position:relative;background:var(--slate);color:#fff;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(55% 80% at 88% 20%,rgba(169,200,226,.22),transparent 70%),radial-gradient(40% 60% at 0% 100%,rgba(224,96,42,.16),transparent 70%)}
 .hero .photo{display:none}
-.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;padding:70px 0 80px}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;padding:52px 0 60px}
 .hero .kicker{color:var(--sky)}
-.hero h1{font-size:clamp(3.4rem,7.6vw,6.8rem);font-weight:900;margin:18px 0 20px}
+.hero h1{font-size:clamp(3.2rem,6.4vw,5.8rem);font-weight:900;margin:16px 0 18px}
 .hero h1 em{font-style:normal;color:var(--copper);display:block}
 .hero .lead{font-size:clamp(1.08rem,1.6vw,1.28rem);max-width:540px;color:#d3dae3;margin:0 0 28px}
 .pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
@@ -89,7 +89,7 @@ nav.links a:hover{color:var(--copper)}
 .pill .dot{width:9px;height:9px;border-radius:50%;background:#5fe08f;box-shadow:0 0 0 4px rgba(95,224,143,.25);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{50%{box-shadow:0 0 0 8px rgba(95,224,143,0)}}
 .ctas{display:flex;flex-wrap:wrap;gap:12px}
-.hero-shot{position:relative;justify-self:end;width:min(400px,100%)}
+.hero-shot{position:relative;justify-self:end;width:min(360px,100%)}
 .hero-shot img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:16px;box-shadow:0 40px 90px rgba(0,0,0,.45)}
 .hero-shot .tag{position:absolute;right:-14px;top:28px;background:var(--copper);color:#fff;border-radius:8px;padding:10px 16px;font:900 1.25rem/1 var(--display);font-stretch:72%;text-transform:uppercase;letter-spacing:.03em;box-shadow:0 16px 30px rgba(0,0,0,.3)}
 .hero-shot .badge{position:absolute;left:-30px;bottom:34px;background:#fff;color:var(--slate);border-radius:14px;padding:14px 18px;box-shadow:0 20px 40px rgba(0,0,0,.3)}
@@ -254,6 +254,9 @@ html.story body{overflow:hidden}
 html.story .preview,html.story .shingles,html.story .band,html.story footer,html.story nav.links,html.story header.top .phone,html.story #quote,html.story #faq{display:none}
 html.story header.top{position:fixed;left:0;right:0;background:linear-gradient(180deg,rgba(18,22,28,.85),rgba(18,22,28,0));border:0;backdrop-filter:none;color:#fff}
 html.story header.top .brand div span{color:var(--sky)}
+html.story .brand b{font-size:22px;white-space:nowrap}
+html.story .brand div span{font-size:10.5px}
+html.story .mark{width:42px;height:42px}
 html.story header.top .mode{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
 html.story main{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;overscroll-behavior:contain}
 html.story main>section{min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:96px 0 112px}
@@ -263,13 +266,14 @@ html.story .story-only{display:inline-flex}
 /* Hero: the real new roof, full screen */
 html.story .hero{min-height:100svh;padding:0;justify-content:flex-end}
 html.story .hero::before{display:none}
-html.story .hero .photo{display:block;position:absolute;inset:-6% 0;background:linear-gradient(180deg,rgba(18,22,28,.5) 0%,rgba(18,22,28,.05) 26%,rgba(18,22,28,.96) 68%),url("/demo/adolfo-roofing/img/ridge.jpg") center 30%/cover;will-change:transform}
+html.story .hero .photo{display:block;position:absolute;inset:-6% 0;background:linear-gradient(180deg,rgba(18,22,28,.5) 0%,rgba(18,22,28,.05) 22%,rgba(18,22,28,.82) 46%,rgba(18,22,28,.97) 66%),url("/demo/adolfo-roofing/img/ridge.jpg") center 30%/cover;will-change:transform}
 html.story .hero .wrap{display:block;padding:0 0 118px}
 html.story .hero-shot{display:none}
-html.story .hero h1{font-size:clamp(3.2rem,15.5vw,4.6rem);margin:12px 0 12px}
+html.story .hero h1{font-size:clamp(2.9rem,13.4vw,4rem);margin:10px 0 10px}
 html.story .hero .lead{font-size:1rem;margin-bottom:18px}
 html.story .hero .ctas{display:none}
-html.story .pills{margin-bottom:0}
+html.story .pills{margin-bottom:0;gap:8px}
+html.story .pill{font-size:13.5px;padding:7px 12px}
 html.story .swipe{display:block;margin-top:20px;text-align:center;color:#d3dae3;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateY(-6px)}}
 /* Gallery */
@@ -285,7 +289,7 @@ html.story #services .head{margin-bottom:16px}
 html.story #services .head p{display:none}
 html.story .svc{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -18px;padding:4px 18px 8px;scrollbar-width:none}
 html.story .svc::-webkit-scrollbar{display:none}
-html.story .job{flex:0 0 80%;scroll-snap-align:center;border:0}
+html.story .job{flex:0 0 80%;scroll-snap-align:center;border:0;color:var(--ink)}
 html.story .job .ph{aspect-ratio:16/10}
 html.story .job .tx{padding:14px 18px 18px}
 html.story .job h3{font-size:1.65rem}
@@ -310,6 +314,7 @@ html.story .rev{flex:0 0 84%;scroll-snap-align:center;background:rgba(255,255,25
 html.story .rev p{font-size:1.12rem;margin:8px 0 10px;color:#fff}
 html.story .rev cite{color:#cbd3dc}
 html.story #why .head{margin-bottom:14px}
+html.story #why h2{font-size:2.5rem}
 html.story #why .head p{display:none}
 html.story .pillars{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 html.story .pillar{padding:14px;background:rgba(18,22,28,.55);backdrop-filter:blur(10px)}
@@ -406,7 +411,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
         <label>Name<input required autocomplete="name" /></label>
         <label>Phone<input required type="tel" autocomplete="tel" /></label>
         <label>ZIP code<input inputmode="numeric" autocomplete="postal-code" maxlength="5" /></label>
-        <label>What do you need?<select><option>Roof leak or repair</option><option>New roof</option><option>Flat roof</option><option>Gutters</option><option>Commercial roof</option><option>Something else</option></select></label>
+        <label>What do you need?<select><option>Leak or repair</option><option>New roof</option><option>Flat roof</option><option>Gutters</option><option>Commercial roof</option><option>Something else</option></select></label>
         <label class="note">Tell us a little<textarea rows="3" placeholder="Leak over the kitchen, old flat roof, need a price…"></textarea></label>
         <button class="btn btn-c" type="submit">Get my estimate</button>
         <p class="fine">Leak right now? Skip the form and call <a href="tel:+13233105048">(323) 310-5048</a>. We're open 24 hours.</p>
@@ -511,14 +516,14 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
 
   // Services: each one comes from the Google listing or a customer's review. No prices until the real ones are in.
   var jobs = [
-    ["New roofs", "Old roof off, new roof on, with quality materials and safety first.", "vents", "From Walter Hendrix's review"],
+    ["New roofs", "Old roof off, new roof on, with quality materials and safety first.", "ridge", "From Walter Hendrix's review"],
     ["Flat roofs", "Flat roof replacements, torch down included. One took four days, start to finish.", "pipes", "Our most reviewed job"],
     ["Leaks and repairs", "A hole in the roof fixed the same day. A small leak fixed in under an hour.", 0, "From Inez's and Dominic's reviews"],
     ["Gutters", "We price and fix gutters along with your roof.", 0, "From Margaret Ballou's review"],
     ["Commercial roofs", "Inspections and work on business buildings, metal roofs too.", 0, "From Oriana Carter's review"],
     ["Picking your roof", "Help choosing the right roof color for your street.", "hip", "From William Johnson's review"],
     ["Permits handled", "We apply for the city permit and keep you posted to final inspection.", 0, "From a flat roof customer's review"],
-    ["Roof checks", "We get up on the roof to look, not just from the ground.", 0, "From Dominic Price's review"]
+    ["Roof checks", "We get up on the roof to look, not just from the ground.", "cap", "From Dominic Price's review"]
   ];
   $("svc").innerHTML = jobs.map(function (j) {
     return '<div class="job rv' + (j[2] ? "" : " nophoto") + '">' + (j[2] ? '<span class="ph" style="background-image:url(' + img(j[2] + "-sm") + ')" role="img" aria-label="' + j[0] + '"></span>' : '<span class="ph" aria-hidden="true"><svg><use href="#i-roof"/></svg></span>') + '<div class="tx"><h3>' + j[0] + "</h3><p>" + j[1] + '</p><a href="#quote" data-sheet>Get an estimate →</a><span class="from">' + j[3] + "</span></div></div>";
