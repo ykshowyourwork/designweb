@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Deason's Heating &amp; Air · AC Repair and Heating in Marietta, GA</title>
+<meta name="description" content="Veteran-owned heating and air in Marietta, GA with over 30 years of experience. AC repair, heating, new systems, service plans and commercial HVAC. Call (770) 946-3842." />
+<meta name="theme-color" content="#072642" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d4a80'/%3E%3Ctext x='32' y='45' font-family='Arial' font-size='36' font-weight='700' fill='%23bfe6ff' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" />
+<script>
+  // Phones open in Story mode, computers in Classic mode. A pick from the switch is remembered.
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem("dh-mode"); } catch (e) {}
+    var story = saved ? saved === "story" : window.matchMedia("(max-width: 767px)").matches;
+    if (story) document.documentElement.classList.add("story");
+  })();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HVACBusiness","name":"Deason's Heating & Air","description":"Veteran-owned heating, ventilation and air conditioning for homes and businesses in Metro Atlanta, with over 30 years of experience.","address":{"@type":"PostalAddress","streetAddress":"2244 NW Pkwy SE","addressLocality":"Marietta","addressRegion":"GA","postalCode":"30067","addressCountry":"US"},"geo":{"@type":"GeoCoordinates","latitude":33.9182984,"longitude":-84.4879367},"telephone":"+1-770-946-3842","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.7","reviewCount":"15"},"areaServed":["Marietta","Smyrna","Kennesaw","Vinings","East Cobb","Austell"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"12:00"}],"hasOfferCatalog":{"@type":"OfferCatalog","name":"HVAC services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"AC repair"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Heating repair"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"HVAC installation"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Service plans"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Commercial HVAC"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Whole-home air purifiers"}}]}}
+</script>
+<style>
+:root{
+  --deep:#072642; --navy:#0d4a80; --navy-2:#0a3c69; --ice:#9fd8f7; --ice-2:#d6effc; --steel:#c7d6e3;
+  --heat:#f2622e; --heat-2:#d94f1e; --paper:#ffffff; --bg:#f2f6fa; --ink:#0b1c2c; --muted:#58697a; --line:#dbe5ee;
+  --display:'Exo 2', system-ui, sans-serif; --body:'Inter', system-ui, -apple-system, sans-serif;
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 40px);margin:0 auto}
+h1,h2,h3{font-family:var(--display);line-height:1.02;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800}
+.kicker{font:700 12px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--navy)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 26px;border-radius:12px;border:0;font:700 16px/1 var(--body);text-decoration:none;cursor:pointer;transition:transform .15s,background .15s}
+.btn:active{transform:scale(.97)}
+.btn-heat{background:var(--heat);color:#fff}.btn-heat:hover{background:var(--heat-2)}
+.btn-light{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.5);backdrop-filter:blur(8px)}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy-2)}
+.btn-line{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+
+/* DesiWeb preview strip */
+.preview{background:var(--deep);color:#cfe3f3;font-size:13px;text-align:center;padding:8px 16px}
+.preview b{color:#fff}.preview a{color:#fff;font-weight:700}
+
+/* Utility bar (Goettl style: hours, area, phone, Book Now always in reach) */
+.util{background:var(--navy);color:#e3f1fb;font-size:13px}
+.util .wrap{display:flex;gap:22px;align-items:center;min-height:38px;flex-wrap:wrap}
+.util .vet{margin-right:auto;font-weight:700;color:#fff}
+.util .vet i{font-style:normal;color:var(--ice)}
+.util a{color:#fff;text-decoration:none;font-weight:700}
+@media (max-width:760px){.util .hide-sm{display:none}}
+
+/* Header */
+header.top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:18px;min-height:74px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
+.mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(145deg,#0f5596,#082f55);color:var(--ice);display:grid;place-items:center;font:900 26px/1 var(--display);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.brand b{display:block;font:800 22px/1 var(--display);letter-spacing:.01em}
+.brand span{display:block;font:600 13px/1.2 var(--display);color:var(--navy);letter-spacing:.06em;margin-top:3px}
+nav.links{display:flex;gap:26px}
+nav.links a{text-decoration:none;font-weight:600;font-size:15px}
+nav.links a:hover{color:var(--navy)}
+.mode{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:9px 14px;font:600 13px var(--body);cursor:pointer;color:var(--ink)}
+@media (max-width:980px){nav.links{display:none}}
+@media (max-width:560px){header.top .btn{display:none}}
+
+/* Hero */
+.hero{position:relative;min-height:min(88vh,820px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--deep)}
+.hero .photo{position:absolute;inset:-6% 0;background:linear-gradient(90deg,rgba(7,38,66,.94) 0%,rgba(7,38,66,.72) 42%,rgba(7,38,66,.15) 100%),url("/demo/deason-s/img/units.jpg") center/cover;will-change:transform}
+.hero .wrap{position:relative;padding:120px 0 80px}
+.hero .kicker{color:var(--ice)}
+.hero h1{font-size:clamp(2.7rem,5.8vw,5rem);font-weight:900;max-width:820px;margin:18px 0 16px}
+.hero h1 em{font-style:normal;color:var(--ice)}
+.hero .lead{font-size:clamp(1.05rem,1.6vw,1.3rem);max-width:560px;color:#dcebf6;margin:0 0 28px}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);font-weight:600;font-size:14px;backdrop-filter:blur(8px)}
+.pill .dot{width:9px;height:9px;border-radius:50%;background:#7bd88f;box-shadow:0 0 0 4px rgba(123,216,143,.25)}
+.pill.closed .dot{background:#f39a7a;box-shadow:0 0 0 4px rgba(243,154,122,.25)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.swipe{display:none}
+
+/* Promise strip (Goettl's "No surprises" band, in Deason's customers' words) */
+.promise{background:var(--deep);color:#fff;padding:0}
+.promise .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.promise div.p{padding:26px 22px;border-left:1px solid rgba(255,255,255,.1)}
+.promise div.p:first-child{border-left:0}
+.promise b{display:block;font:800 1.15rem/1.2 var(--display);color:var(--ice);margin-bottom:4px}
+.promise span{font-size:14px;color:#c4d8e8}
+@media (max-width:900px){.promise .wrap{grid-template-columns:1fr 1fr}.promise div.p:nth-child(3){border-left:0}}
+
+/* Gallery stage (one photo at a time, slides on its own) */
+.stage-sec{background:var(--deep);padding:0}
+.stage{position:relative;height:min(80vh,780px);min-height:440px;overflow:hidden;user-select:none;-webkit-user-select:none}
+.stage .frame{position:absolute;inset:2.5% 4%;border-radius:24px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.stage .layer{position:absolute;inset:0}
+.stage .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(34px);transform:scale(1.2);opacity:.6}
+.stage .fit{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.stage .layer::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,transparent 26%,transparent 70%,rgba(0,0,0,.75) 100%)}
+.stage .in-r{animation:inR .55s cubic-bezier(.22,1,.36,1) both}.stage .in-l{animation:inL .55s cubic-bezier(.22,1,.36,1) both}
+@keyframes inR{from{transform:translateX(100%)}}@keyframes inL{from{transform:translateX(-100%)}}
+.stage .sl{position:absolute;top:9%;bottom:9%;width:3%;overflow:hidden;opacity:.55;pointer-events:none}
+.stage .sl img{width:100%;height:100%;object-fit:cover}
+.stage .sl.l{left:0;border-radius:0 18px 18px 0}.stage .sl.l img{object-position:right}
+.stage .sl.r{right:0;border-radius:18px 0 0 18px}.stage .sl.r img{object-position:left}
+.stage-head{position:absolute;z-index:4;left:calc(4% + 28px);top:calc(2.5% + 34px);pointer-events:none;color:#fff}
+.stage-head h2{color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+.stage-head span{display:block;margin-top:8px;font:700 12px/1.3 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--ice)}
+.stage .tap{position:absolute;z-index:3;top:18%;bottom:22%;background:none;border:0;padding:0}
+.stage .prev{left:0;width:18%;cursor:w-resize}.stage .next{right:0;width:18%;cursor:e-resize}.stage .mid{left:18%;right:18%;cursor:zoom-in}
+.stage .cap{position:absolute;z-index:4;left:calc(4% + 28px);bottom:calc(2.5% + 28px);color:#fff;font:700 clamp(1.3rem,2.6vw,2rem)/1.1 var(--display);text-shadow:0 2px 16px rgba(0,0,0,.6);pointer-events:none}
+@media (max-width:767px){.stage .frame{inset:2% 7%}.stage .sl{width:5.5%}.stage-head,.stage .cap{left:calc(7% + 18px)}}
+
+/* Sections */
+section{padding:clamp(72px,9vw,124px) 0;scroll-margin-top:74px}
+.stage-sec{scroll-margin-top:74px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.head p{max-width:440px;color:var(--muted);margin:0}
+
+/* Services (Goettl's service grid: every card is a way in) */
+#services{background:var(--paper)}
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.s{position:relative;border-radius:var(--radius);overflow:hidden;background:var(--bg);border:1px solid var(--line);display:flex;flex-direction:column}
+.s .ph{aspect-ratio:16/10;background:center/cover;display:grid;place-items:center}
+.s .ph b{font:900 2.1rem/1 var(--display);color:#fff;text-align:center;padding:0 18px}
+.s.c-heat .ph{background:linear-gradient(135deg,#f2622e,#b8360f)}
+.s.c-navy .ph{background:linear-gradient(135deg,#0f5596,#072642)}
+.s.c-ice .ph{background:linear-gradient(135deg,#bfe6ff,#5aaee0)}.s.c-ice .ph b{color:var(--deep)}
+.s .tx{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.s h3{font-size:1.5rem;font-weight:800;margin-bottom:6px}
+.s p{margin:0 0 14px;color:var(--muted);font-size:15px;flex:1}
+.s a.go{font-weight:700;color:var(--heat-2);text-decoration:none;font-size:15px}
+.price-note{margin-top:22px;color:var(--muted);font-size:14px}
+@media (max-width:900px){.svc{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.svc{grid-template-columns:1fr}}
+
+/* Areas band */
+.band{background:var(--navy);color:#fff;padding:0;overflow:hidden}
+.track{display:flex;gap:42px;white-space:nowrap;padding:20px 0;animation:marq 34s linear infinite;font:800 clamp(1.3rem,2.8vw,2rem)/1 var(--display)}
+.track span::after{content:"•";margin-left:42px;color:var(--ice)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* Reviews */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rev{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.rev .stars{color:#f5a623;letter-spacing:3px;font-size:18px}
+.rev p{font:600 1.2rem/1.38 var(--display);margin:14px 0 18px}
+.rev cite{font-style:normal;color:var(--muted);font-size:14px}
+.score{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.score b{font:900 clamp(3.5rem,8vw,5.5rem)/1 var(--display);color:var(--navy)}
+.score span{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;font-weight:600;font-size:14px}
+.chip i{font-style:normal;color:var(--muted);margin-left:6px}
+@media (max-width:900px){.reviews{grid-template-columns:1fr}}
+
+/* About (Parker & Sons "Why choose us", with Deason's own words) */
+#about{background:var(--deep);color:#e3eef7}
+.tale{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.tale .kicker{color:var(--ice)}
+.tale h2{margin:16px 0 20px;color:#fff}
+.tale p{color:#c6d7e6;font-size:1.06rem;max-width:540px}
+.why{display:grid;gap:12px;margin-top:22px}
+.why div{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px}
+.why b{display:block;color:#fff;font-family:var(--display);font-size:1.1rem}
+.why span{font-size:14px;color:#b5c8d8}
+.why .ic{flex:none;width:34px;height:34px;border-radius:10px;background:var(--navy);display:grid;place-items:center;color:var(--ice);font-weight:900}
+.story-photos{position:relative;aspect-ratio:1/1}
+.story-photos img{position:absolute;border-radius:20px;object-fit:cover;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.story-photos img:nth-child(1){inset:0 16% 24% 0;width:84%;height:76%}
+.story-photos img:nth-child(2){right:0;bottom:0;width:56%;height:46%;border:6px solid var(--deep)}
+@media (max-width:900px){.tale{grid-template-columns:1fr}}
+
+/* Book (Goettl's Book Now, as a short form) */
+.cater{display:grid;grid-template-columns:.95fr 1.05fr;gap:48px;align-items:center}
+.cater-photo{border-radius:var(--radius);overflow:hidden;aspect-ratio:5/4}
+.cater-photo img{width:100%;height:100%;object-fit:cover}
+.plan{margin-top:18px;background:var(--ice-2);border-radius:16px;padding:16px 18px;font-size:15px}
+.plan b{font-family:var(--display);font-size:1.1rem;display:block}
+form.q{display:grid;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:26px;margin-top:24px}
+form.q .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+form.q label{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--muted)}
+form.q input,form.q select,form.q textarea{font:16px var(--body);padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink);width:100%}
+@media (max-width:900px){.cater{grid-template-columns:1fr}form.q .row{grid-template-columns:1fr}}
+
+/* Visit */
+#visit{background:var(--bg)}
+.visit{display:grid;grid-template-columns:1fr 1.15fr;gap:22px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+.card h3{font-size:2rem;font-weight:800;margin-bottom:6px}
+.card .addr{font-size:1.1rem;margin:0 0 14px}
+.areas{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.areas span{font-size:13px;font-weight:600;background:var(--bg);border-radius:999px;padding:5px 11px}
+.hours{width:100%;border-collapse:collapse;margin:8px 0 22px;font-size:15px}
+.hours td{padding:8px 0;border-bottom:1px dashed var(--line)}
+.hours td:last-child{text-align:right}
+.hours tr.today td{font-weight:700;color:var(--navy)}
+.map{border-radius:var(--radius);overflow:hidden;min-height:380px;border:1px solid var(--line)}
+.map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+@media (max-width:900px){.visit{grid-template-columns:1fr}}
+
+/* Footer */
+footer{background:var(--deep);color:#b9cbdb;padding:60px 0 120px}
+footer .big{font:900 clamp(2.4rem,7vw,5rem)/1 var(--display);color:#fff}
+footer .big span{font:600 .32em/1.3 var(--display);color:var(--ice);display:block;margin-top:10px;letter-spacing:.06em}
+footer .cols{display:flex;flex-wrap:wrap;gap:30px 60px;margin-top:34px;font-size:15px}
+footer a{color:#fff}
+
+/* Reveal motion */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.track{animation:none}}
+
+/* Full-screen photo viewer */
+.lb{position:fixed;inset:0;z-index:80;background:rgba(4,14,24,.96);display:grid;place-items:center}
+.lb[hidden]{display:none}
+.lb img{max-width:94vw;max-height:86vh;border-radius:12px}
+.lb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;width:52px;height:52px;border-radius:50%;font-size:26px;cursor:pointer}
+.lb .x{top:18px;right:18px}.lb .p{left:18px}.lb .n{right:18px}
+.lb .c{position:absolute;bottom:20px;color:#fff;font-weight:600}
+
+/* Bottom bar + toast */
+.dock{display:none}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);z-index:90;background:var(--deep);color:#fff;padding:14px 20px;border-radius:14px;max-width:min(92vw,460px);text-align:center;font-size:15px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.toast[hidden]{display:none}
+
+/* ── Story mode: full-screen screens you swipe through, like a story ── */
+html.story body{overflow:hidden}
+html.story .preview,html.story .util,html.story .band,html.story .promise,html.story footer,html.story nav.links{display:none}
+html.story header.top{position:fixed;left:0;right:0;background:linear-gradient(180deg,rgba(4,20,36,.88),rgba(4,20,36,0));border:0;backdrop-filter:none;color:#fff}
+html.story header.top .brand span{color:var(--ice)}
+html.story header.top .mode{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
+html.story header.top .btn{display:none}
+html.story main{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;overscroll-behavior:contain}
+html.story main>section{min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:96px 0 112px}
+html.story main>section>.wrap{width:calc(100% - 36px)}
+html.story h2{font-size:clamp(2.1rem,10.5vw,3rem)}
+html.story .hero{min-height:100svh;padding:0;justify-content:flex-end}
+html.story .hero .photo{background:linear-gradient(180deg,rgba(4,20,36,.4) 0%,rgba(4,20,36,.1) 28%,rgba(4,20,36,.96) 70%),url("/demo/deason-s/img/trane.jpg") 30% center/cover}
+html.story .hero .wrap{padding:0 0 118px}
+html.story .hero h1{font-size:clamp(2.5rem,12.5vw,4rem);margin:14px 0 12px}
+html.story .hero .lead{font-size:1rem;margin-bottom:18px}
+html.story .hero .ctas{display:none}
+html.story .swipe{display:block;margin-top:18px;text-align:center;color:#dcebf6;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(-6px)}}
+html.story main>section.stage-sec{padding:0;display:block}
+html.story .stage{height:100svh;min-height:0}
+html.story .stage .frame{top:76px;bottom:100px}
+html.story .stage .sl{top:calc(76px + 7%);bottom:calc(100px + 7%)}
+html.story .stage-head{top:108px}
+html.story .stage .cap{bottom:122px}
+html.story .head{margin-bottom:16px}
+html.story .head p{font-size:15px}
+/* Story screens with a photo behind them */
+html.story #services,html.story #reviews,html.story #about,html.story #book,html.story #visit{color:#fff;justify-content:flex-end;background-size:cover;background-position:center;background-color:var(--deep)}
+html.story #services{background-image:linear-gradient(180deg,rgba(4,20,36,.7) 0%,rgba(4,20,36,.35) 22%,rgba(4,20,36,.96) 52%),url("/demo/deason-s/img/units.jpg");background-position:62% center}
+html.story #reviews{background-image:linear-gradient(180deg,rgba(4,20,36,.6) 0%,rgba(4,20,36,.15) 26%,rgba(4,20,36,.96) 58%),url("/demo/deason-s/img/valves.jpg")}
+html.story #about{background-image:linear-gradient(180deg,rgba(4,20,36,.55) 0%,rgba(4,20,36,.15) 24%,rgba(4,20,36,.97) 50%),url("/demo/deason-s/img/commercial.jpg");background-position:30% center}
+html.story #book{background-image:linear-gradient(180deg,rgba(4,20,36,.55) 0%,rgba(4,20,36,.1) 30%,rgba(4,20,36,.96) 60%),url("/demo/deason-s/img/trane.jpg");background-position:85% center}
+html.story #visit{background-image:linear-gradient(180deg,rgba(4,20,36,.6) 0%,rgba(4,20,36,.2) 22%,rgba(4,20,36,.96) 46%),url("/demo/deason-s/img/units.jpg");background-position:15% center}
+html.story #services .kicker,html.story #reviews .kicker,html.story #book .kicker,html.story #visit .kicker{color:var(--ice)}
+html.story #services .head p{display:none}
+html.story .svc{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -18px;padding:4px 18px 8px;scrollbar-width:none}
+html.story .svc::-webkit-scrollbar{display:none}
+html.story .s{flex:0 0 78%;scroll-snap-align:center;border:0}
+html.story .s .ph{aspect-ratio:16/11}
+html.story .s .tx{padding:14px 16px 16px}
+html.story .s h3{font-size:1.3rem}
+html.story .s p{font-size:14px;margin-bottom:10px}
+html.story .price-note{color:#c6d7e6;font-size:13px;margin-top:10px}
+html.story .score{margin-bottom:12px}
+html.story .score b{color:var(--ice)}
+html.story .score span{color:#dcebf6}
+html.story .chips{margin-bottom:14px}
+html.story .chip{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:#fff;font-size:13px;padding:6px 12px}
+html.story .chip i{color:var(--ice)}
+html.story .reviews{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -18px;padding:4px 18px;scrollbar-width:none}
+html.story .reviews::-webkit-scrollbar{display:none}
+html.story .rev{flex:0 0 84%;scroll-snap-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px);color:#fff;padding:20px}
+html.story .rev p{font-size:1.1rem;margin:8px 0 10px}
+html.story .rev cite{color:#cfe0ee}
+html.story #about{background-color:var(--deep)}
+html.story .tale{gap:0}
+html.story .tale h2{margin:12px 0 12px}
+html.story .tale p{font-size:.98rem}
+html.story .tale p.more{display:none}
+html.story .why{gap:8px;margin-top:12px}
+html.story .why div{padding:10px 12px;background:rgba(255,255,255,.08)}
+html.story .why b{font-size:1rem}
+html.story .why span{font-size:13px}
+html.story .story-photos{display:none}
+html.story #book .cater-photo,html.story #book form.q{display:none}
+html.story .sheet-card form.q{display:grid;margin:0;border:0;padding:0;background:none}
+html.story #book .lead{color:#dcebf6 !important;font-size:1rem}
+html.story #book .plan{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;backdrop-filter:blur(10px)}
+html.story #book .story-only{width:100%;margin-top:16px}
+html.story .visit{gap:12px}
+html.story .map{display:none}
+html.story #visit .head{margin-bottom:12px}
+html.story #visit .card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(12px);color:#fff;padding:22px}
+html.story #visit .card h3{font-size:1.6rem}
+html.story #visit .card a{color:#fff}
+html.story .areas span{background:rgba(255,255,255,.12)}
+html.story .hours{margin:4px 0 6px}
+html.story .hours td{border-color:rgba(255,255,255,.2)}
+html.story .hours tr.today td{color:var(--ice)}
+html.story .hours:not(.all) tr:not(.today){display:none}
+.more-hours{background:none;border:0;color:var(--navy);font:700 14px var(--body);padding:4px 0 14px;cursor:pointer}
+html.story .more-hours{color:var(--ice)}
+html.story #visit .ctas{display:none}
+html.story .story-only{display:inline-flex}
+.story-only{display:none}
+html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));gap:8px;padding:8px;border-radius:18px;background:rgba(4,20,36,.84);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12)}
+.dock a{flex:1;min-height:50px;border-radius:12px;display:grid;place-items:center;text-decoration:none;font-weight:700;font-size:15px;color:#fff;background:rgba(255,255,255,.1)}
+.dock a.main{background:var(--heat);flex:1.3}
+.sheet{position:fixed;inset:0;z-index:70;background:rgba(4,14,24,.6);display:flex;align-items:flex-end}
+.sheet[hidden]{display:none}
+.sheet-card{background:var(--paper);width:100%;max-height:88svh;overflow:auto;border-radius:24px 24px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom));animation:up .35s cubic-bezier(.22,1,.36,1)}
+.sheet-card h3{font-size:1.8rem;margin-bottom:6px}
+.sheet-card .x{float:right;border:0;background:var(--bg);width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer}
+@keyframes up{from{transform:translateY(100%)}}
+</style>
+</head>
+<body>
+<div class="preview"><b>Preview</b> of your new website, built by DesiWeb. Not live yet. <a href="https://desiweb.org" target="_blank" rel="noopener">desiweb.org</a></div>
+<div class="util"><div class="wrap"><span class="vet">★ Veteran-owned <i>·</i> 30+ years in HVAC</span><span class="hide-sm">Serving Metro Atlanta from Marietta</span><span class="hide-sm" id="util-hours">Mon to Fri 9 to 6 · Sat 9 to 12</span><a href="tel:+17709463842">(770) 946-3842</a></div></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark">D</span><div><b>Deason's</b><span>Heating &amp; Air</span></div></a>
+    <nav class="links"><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#about">About</a><a href="#visit">Service area</a></nav>
+    <a class="btn btn-heat" href="#book" data-sheet>Book a visit</a>
+    <button class="mode" type="button" id="mode">Story mode</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="photo" id="hero-photo" role="img" aria-label="Outdoor AC units"></div>
+    <div class="wrap">
+      <div class="kicker">Marietta, GA · Veteran-owned · 30+ years</div>
+      <h1>Honest heating and air. <em>No push</em> to buy a new unit.</h1>
+      <p class="lead">AC repair, heating, new systems and service plans for homes and businesses across Metro Atlanta. We find the real problem, explain it, and fix it right.</p>
+      <div class="pills">
+        <span class="pill">★ 4.7 · 15 Google reviews</span>
+        <span class="pill" id="open-pill"><span class="dot"></span><span id="open-text">Open today</span></span>
+      </div>
+      <div class="ctas">
+        <a class="btn btn-heat" href="#book" data-sheet>Book a visit</a>
+        <a class="btn btn-light" href="tel:+17709463842">Call (770) 946-3842</a>
+      </div>
+      <div class="swipe">Swipe up ↑</div>
+    </div>
+  </section>
+
+  <div class="promise" aria-label="What customers say we do">
+    <div class="wrap">
+      <div class="p"><b>We explain it</b><span>"The problem was explained to me in detail."</span></div>
+      <div class="p"><b>No upsell</b><span>"Not pushed into buying a new unit."</span></div>
+      <div class="p"><b>Fair price</b><span>"A great value for the money."</span></div>
+      <div class="p"><b>Clean visits</b><span>"They put protectors on their shoes."</span></div>
+    </div>
+  </div>
+
+  <section class="stage-sec" id="gallery" aria-label="Photos">
+    <div class="stage" id="stage">
+      <div class="sl l" aria-hidden="true"><img alt="" /></div>
+      <div class="sl r" aria-hidden="true"><img alt="" /></div>
+      <div class="frame" id="frame"></div>
+      <div class="stage-head"><h2>On the job</h2><span id="stage-count">Deason's Heating &amp; Air</span></div>
+      <div class="cap" id="stage-cap"></div>
+      <button class="tap prev" type="button" aria-label="Previous photo"></button>
+      <button class="tap mid" type="button" aria-label="Open photo full screen"></button>
+      <button class="tap next" type="button" aria-label="Next photo"></button>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="head rv">
+        <div><div class="kicker">Services</div><h2>Hot house? Cold house? We've got it.</h2></div>
+        <p>Homes and businesses, from a quick repair to a whole new system. Tap any service to book a visit.</p>
+      </div>
+      <div class="svc" id="svc"></div>
+      <p class="price-note">Your real prices and specials go here, like a tune-up price or a repair coupon. Call <a href="tel:+17709463842">(770) 946-3842</a> to book.</p>
+    </div>
+  </section>
+
+  <div class="band" aria-hidden="true"><div class="track"><span>Marietta</span><span>Smyrna</span><span>Kennesaw</span><span>Vinings</span><span>East Cobb</span><span>Austell</span><span>Metro Atlanta</span><span>Marietta</span><span>Smyrna</span><span>Kennesaw</span><span>Vinings</span><span>East Cobb</span><span>Austell</span><span>Metro Atlanta</span></div></div>
+
+  <section id="reviews">
+    <div class="wrap">
+      <div class="score rv"><b>4.7</b><div><div class="kicker">Google reviews</div><span>13 of 15 reviews are 5 stars</span></div></div>
+      <div class="chips rv"><span class="chip">Affordability<i>3</i></span><span class="chip">Issue resolution<i>2</i></span><span class="chip">Diagnosis<i>2</i></span></div>
+      <div class="reviews">
+        <div class="rev rv"><div class="stars">★★★★★</div><p>“I appreciated his honesty and felt the service was a great value for the money.”</p><cite>Linda Alexander, Google review</cite></div>
+        <div class="rev rv"><div class="stars">★★★★★</div><p>“The cost was reasonable and I was not pushed or harnessed into buying a new unit.”</p><cite>Althea Ramsammy, Google review</cite></div>
+        <div class="rev rv"><div class="stars">★★★★★</div><p>“We had a small fire in our AC unit. Monday morning Tyrell was here. Wednesday they installed our new unit.”</p><cite>Dawn Carpenter, Google review</cite></div>
+        <div class="rev rv"><div class="stars">★★★★★</div><p>“Very professional and knowledgable. The problem I was experiencing was explained to me in details.”</p><cite>Adriana Amegadzie, Google review</cite></div>
+        <div class="rev rv"><div class="stars">★★★★★</div><p>“The tech arrived on time, was very professional, and their service was super affordable.”</p><cite>Ronnie Williams, Google review</cite></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap tale">
+      <div class="rv">
+        <div class="kicker">About Deason's</div>
+        <h2>30 years of heating and air in Metro Atlanta.</h2>
+        <p>Deason's Heating &amp; Air is a veteran-owned team with over 30 years of experience. We handle homes and businesses, from installs to service plans.</p>
+        <p class="more">Our people are the reason it works. Each tech is trained to do honest work at a fair price, and to tell you what's going on before anything gets fixed.</p>
+        <div class="why">
+          <div><span class="ic">★</span><p style="margin:0"><b>Veteran-owned</b><span>Right on our Google listing.</span></p></div>
+          <div><span class="ic">30</span><p style="margin:0"><b>30+ years</b><span>Some customers have used us the whole time.</span></p></div>
+          <div><span class="ic">⌂</span><p style="margin:0"><b>Homes and businesses</b><span>Residential and commercial HVAC.</span></p></div>
+        </div>
+      </div>
+      <div class="story-photos rv"><img src="/demo/deason-s/img/commercial-sm.jpg" alt="Commercial HVAC equipment" loading="lazy" /><img src="/demo/deason-s/img/valves-sm.jpg" alt="AC service valves during a repair" loading="lazy" /></div>
+    </div>
+  </section>
+
+  <section id="book">
+    <div class="wrap cater">
+      <div class="cater-photo rv"><img src="/demo/deason-s/img/trane.jpg" alt="Two outdoor AC units beside a home" loading="lazy" /></div>
+      <div class="rv">
+        <div class="kicker">Book a visit</div>
+        <h2>Tell us what's wrong. We'll call you back.</h2>
+        <p class="lead" style="color:var(--muted)">No cool, no heat, a strange noise, or time for a tune-up. Send it here and we'll call to set a time.</p>
+        <div class="plan"><b>Service plans</b>Regular check-ups for your home or business. Your plan details and price go here.</div>
+        <a class="btn btn-heat story-only" href="#book" data-sheet>Book a visit</a>
+        <form class="q" data-demo>
+          <div class="row"><label>Name<input required autocomplete="name" /></label><label>Phone<input required type="tel" autocomplete="tel" /></label></div>
+          <div class="row"><label>What do you need?<select id="need"><option>AC repair</option><option>Heating repair</option><option>New system</option><option>Service plan or tune-up</option><option>Commercial HVAC</option><option>Indoor air quality</option></select></label><label>ZIP code<input inputmode="numeric" autocomplete="postal-code" placeholder="30067" /></label></div>
+          <label>What's going on?<textarea rows="3" placeholder="Upstairs is warm, unit is making a noise…"></textarea></label>
+          <button class="btn btn-heat" type="submit">Send request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit">
+    <div class="wrap">
+      <div class="head rv"><div><div class="kicker">Service area</div><h2>Marietta and all around.</h2></div></div>
+      <div class="visit">
+        <div class="card rv">
+          <h3>Deason's Heating &amp; Air</h3>
+          <p class="addr">2244 NW Pkwy SE, Marietta, GA 30067<br /><a href="tel:+17709463842">(770) 946-3842</a></p>
+          <div class="areas"><span>Marietta</span><span>Smyrna</span><span>Kennesaw</span><span>Vinings</span><span>East Cobb</span><span>Austell</span></div>
+          <table class="hours" id="hours"></table>
+          <button class="more-hours story-only" type="button" id="more-hours">See all hours</button>
+          <div class="ctas"><a class="btn btn-heat" href="tel:+17709463842">Call now</a><a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&destination=Deason%27s+2244+NW+Pkwy+SE+Marietta+GA+30067" target="_blank" rel="noopener">Directions</a></div>
+        </div>
+        <div class="map rv"><iframe title="Map to Deason's Heating and Air" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Deason%27s%2C%202244%20NW%20Pkwy%20SE%2C%20Marietta%2C%20GA%2030067&z=13&output=embed"></iframe></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="big">Deason's<span>HEATING &amp; AIR · VETERAN-OWNED · MARIETTA, GA</span></div>
+    <div class="cols"><div>2244 NW Pkwy SE<br />Marietta, GA 30067</div><div><a href="tel:+17709463842">(770) 946-3842</a></div><div>Mon to Fri 9am to 6pm<br />Sat 9am to 12pm · Sun closed</div></div>
+  </div>
+</footer>
+
+<nav class="dock" aria-label="Quick actions"><a href="tel:+17709463842">Call</a><a class="main" href="#book" data-sheet>Book a visit</a><a href="https://www.google.com/maps/dir/?api=1&destination=Deason%27s+2244+NW+Pkwy+SE+Marietta+GA+30067" target="_blank" rel="noopener">Directions</a></nav>
+<div class="sheet" hidden><div class="sheet-card"><button class="x" type="button" aria-label="Close">×</button><h3>Book a visit</h3><p style="color:var(--muted);margin:0 0 14px">Tell us what's wrong and we'll call you back to set a time.</p></div></div>
+<div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo"><img alt="" /><button class="x" type="button" aria-label="Close">×</button><button class="p" type="button" aria-label="Previous photo">‹</button><button class="n" type="button" aria-label="Next photo">›</button><div class="c"></div></div>
+<div class="toast" role="status" hidden>This is a preview. On your live site, this request goes straight to your phone.</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var html = document.documentElement;
+  var img = function (n) { return "/demo/deason-s/img/" + n + ".jpg"; };
+  var still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Real photos from the Google listing.
+  var shots = [["units", "Outdoor AC units"], ["trane", "New outdoor units"], ["valves", "Service valves, mid-repair"], ["commercial", "Commercial HVAC"], ["logo", "Deason's Heating & Air"]];
+  var photos = shots.map(function (s) { return img(s[0]); });
+
+  // Services: each card gets its own photo or a bold brand card. No prices until the real ones are in.
+  var svc = [
+    ["AC repair", "We find what's really wrong, explain it, then fix it.", "valves", "AC repair"],
+    ["Heating repair", "Furnace and heat pump repair when the house won't warm up.", 0, "c-heat"],
+    ["New systems", "Quotes and options when it's time to replace, and quick installs.", "trane", "New system"],
+    ["Service plans", "Regular check-ups so small problems don't turn into big ones.", 0, "c-navy"],
+    ["Commercial HVAC", "Heating and cooling for offices, shops and buildings.", "commercial", "Commercial HVAC"],
+    ["Indoor air", "Whole-home in-duct air purifiers for cleaner air.", 0, "c-ice"]
+  ];
+  $("svc").innerHTML = svc.map(function (s) {
+    var ph = s[2] ? '<span class="ph" style="background-image:url(' + img(s[2] + "-sm") + ')"></span>' : '<span class="ph"><b>' + s[0] + "</b></span>";
+    return '<div class="s rv ' + (s[2] ? "" : s[3]) + '">' + ph + '<div class="tx"><h3>' + s[0] + "</h3><p>" + s[1] + '</p><a class="go" href="#book" data-sheet data-need="' + (s[2] ? s[3] : s[0]) + '">Book this →</a></div></div>';
+  }).join("");
+
+  // Hours, today's row, and open / closed right now (Marietta, Eastern time).
+  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var hrs = [null, [9, 18], [9, 18], [9, 18], [9, 18], [9, 18], [9, 12]];
+  var now = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+  var d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
+  var fmt = function (x) { return (x > 12 ? x - 12 : x) + (x >= 12 ? "pm" : "am"); };
+  $("hours").innerHTML = [1, 2, 3, 4, 5, 6, 0].map(function (i) { return '<tr class="' + (i === d ? "today" : "") + '"><td>' + days[i] + "</td><td>" + (hrs[i] ? fmt(hrs[i][0]) + " to " + fmt(hrs[i][1]) : "Closed") + "</td></tr>"; }).join("");
+  $("more-hours").onclick = function () { var all = $("hours").classList.toggle("all"); this.textContent = all ? "Just today" : "See all hours"; };
+  var t = hrs[d], open = t && h >= t[0] && h < t[1];
+  if (!open) $("open-pill").classList.add("closed");
+  var next = function () { for (var k = 0; k < 7; k++) { var j = (d + k) % 7, x = hrs[j]; if (x && (k > 0 || h < x[0])) return (k === 0 ? "today " : k === 1 ? "tomorrow " : days[j] + " ") + fmt(x[0]); } };
+  $("open-text").textContent = open ? "Open now · until " + fmt(t[1]) : "Closed · opens " + next();
+
+  // Reveal on scroll + slow drift on the hero photo.
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { threshold: 0.15 });
+  document.querySelectorAll(".rv").forEach(function (el, i) { el.style.transitionDelay = (i % 3) * 90 + "ms"; io.observe(el); });
+  var main = document.querySelector("main"), hp = $("hero-photo"), tick = false;
+  var drift = function () { tick = false; var y = html.classList.contains("story") ? main.scrollTop : scrollY; hp.style.transform = "translate3d(0," + (y * 0.25).toFixed(1) + "px,0)"; };
+  var onScroll = function () { if (!tick && !still) { tick = true; requestAnimationFrame(drift); } };
+  addEventListener("scroll", onScroll, { passive: true }); main.addEventListener("scroll", onScroll, { passive: true });
+
+  // Full-screen viewer.
+  var lb = document.querySelector(".lb"), lbImg = lb.querySelector("img"), at = 0;
+  var show = function (i) { at = (i + photos.length) % photos.length; lbImg.src = photos[at]; lbImg.alt = shots[at][1]; lb.querySelector(".c").textContent = shots[at][1] + " · " + (at + 1) + " / " + photos.length; };
+  lb.querySelector(".x").onclick = function () { lb.hidden = true; };
+  lb.querySelector(".p").onclick = function () { show(at - 1); };
+  lb.querySelector(".n").onclick = function () { show(at + 1); };
+  lb.onclick = function (e) { if (e.target === lb) lb.hidden = true; };
+  addEventListener("keydown", function (e) { if (lb.hidden) return; if (e.key === "Escape") lb.hidden = true; if (e.key === "ArrowLeft") show(at - 1); if (e.key === "ArrowRight") show(at + 1); });
+
+  // The gallery: slides on by itself every 5 seconds while it's on screen; tap the sides to move, the middle for full screen.
+  var stage = $("stage"), frame = $("frame"), n = photos.length, i = 0, timer = 0, seen = false;
+  var sl = stage.querySelectorAll(".sl img");
+  var arm = function () { clearTimeout(timer); if (seen && lb.hidden && !document.hidden) timer = setTimeout(function () { go(1); }, 5000); };
+  var paint = function (dir) {
+    var layer = document.createElement("div");
+    layer.className = "layer" + (dir && !still ? (dir > 0 ? " in-r" : " in-l") : "");
+    layer.innerHTML = '<img class="fill" alt="" src="' + photos[i] + '" /><img class="fit" alt="' + shots[i][1] + '" src="' + photos[i] + '" />';
+    var old = [].slice.call(frame.children);
+    frame.appendChild(layer);
+    if (layer.classList.length > 1) layer.addEventListener("animationend", function () { old.forEach(function (o) { o.remove(); }); }, { once: true });
+    else old.forEach(function (o) { o.remove(); });
+    sl[0].src = photos[(i - 1 + n) % n]; sl[1].src = photos[(i + 1) % n];
+    $("stage-count").textContent = "Deason's Heating & Air · " + (i + 1) + " of " + n;
+    $("stage-cap").textContent = shots[i][1];
+    new Image().src = photos[(i + 1) % n];
+    arm();
+  };
+  var go = function (k) { i = (i + k + n) % n; paint(k); };
+  stage.querySelector(".prev").onclick = function () { go(-1); };
+  stage.querySelector(".next").onclick = function () { go(1); };
+  stage.querySelector(".mid").onclick = function () { show(i); lb.hidden = false; arm(); };
+  new MutationObserver(arm).observe(lb, { attributes: true, attributeFilter: ["hidden"] });
+  document.addEventListener("visibilitychange", arm);
+  new IntersectionObserver(function (es) { seen = es[0].intersectionRatio > 0.5; arm(); }, { threshold: [0, 0.5, 1] }).observe(stage);
+  var sx = null, sy = 0;
+  stage.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  stage.addEventListener("touchend", function (e) { if (sx === null) return; var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1); sx = null; });
+  paint(0);
+
+  // Book form: opens as a sheet from any "Book" button. This is a preview, so it shows a note instead of sending.
+  var form = document.querySelector("form[data-demo]"), home = form.parentElement, sheet = document.querySelector(".sheet");
+  var openSheet = function () { sheet.querySelector(".sheet-card").appendChild(form); sheet.hidden = false; };
+  var closeSheet = function () { sheet.hidden = true; home.appendChild(form); };
+  sheet.querySelector(".x").onclick = closeSheet;
+  sheet.onclick = function (e) { if (e.target === sheet) closeSheet(); };
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("[data-sheet]"); if (!a) return;
+    e.preventDefault();
+    if (a.dataset.need) { var sel = $("need"); [].forEach.call(sel.options, function (o) { if (a.dataset.need.toLowerCase().indexOf(o.text.split(" ")[0].toLowerCase()) === 0) sel.value = o.text; }); }
+    openSheet();
+  });
+  var toast = document.querySelector(".toast");
+  form.onsubmit = function (e) { e.preventDefault(); closeSheet(); toast.hidden = false; setTimeout(function () { toast.hidden = true; }, 4200); };
+
+  // Story mode / Classic mode switch. Story mode loops back to the top after the last screen.
+  var modeBtn = $("mode"), loopIO = null;
+  function setMode(story, remember) {
+    html.classList.toggle("story", story);
+    modeBtn.textContent = story ? "Classic mode" : "Story mode";
+    main.querySelector(".loop") && main.querySelector(".loop").remove();
+    loopIO && loopIO.disconnect();
+    if (story) {
+      var clone = main.querySelector(".hero").cloneNode(true);
+      clone.classList.add("loop"); clone.setAttribute("aria-hidden", "true"); clone.querySelector(".photo").removeAttribute("id");
+      main.appendChild(clone);
+      loopIO = new IntersectionObserver(function (en) { if (en[0].intersectionRatio > 0.9) main.scrollTop = 0; }, { root: main, threshold: [0.9] });
+      loopIO.observe(clone);
+      main.scrollTop = 0;
+    } else closeSheet();
+    if (remember) try { localStorage.setItem("dh-mode", story ? "story" : "classic"); } catch (e) {}
+  }
+  modeBtn.onclick = function () { setMode(!html.classList.contains("story"), true); };
+  var narrow = matchMedia("(max-width: 767px)");
+  narrow.addEventListener("change", function () { try { localStorage.removeItem("dh-mode"); } catch (e) {} setMode(narrow.matches, false); });
+  setMode(html.classList.contains("story"), false);
+})();
+</script>
+</body>
+</html>
