@@ -64,7 +64,7 @@ header.top .wrap{display:flex;align-items:center;gap:18px;min-height:76px}
 .mark::before{content:"";position:absolute;inset:8px;border:1.5px solid var(--gold);transform:rotate(45deg);background:var(--blush)}
 .mark i{position:relative;font-style:italic}
 .brand b{display:block;font:400 30px/1 var(--hand);color:var(--ink)}
-.brand span{display:block;font:600 10px/1 var(--body);letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.brand div span{display:block;font:600 10px/1 var(--body);letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-top:3px}
 nav.links{display:flex;gap:26px}
 nav.links a{text-decoration:none;font-weight:500;font-size:15px}
 nav.links a:hover{color:var(--rose)}
@@ -74,10 +74,12 @@ nav.links a:hover{color:var(--rose)}
 
 /* Hero */
 .hero{position:relative;min-height:min(92vh,860px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--ink)}
-.hero .photo{position:absolute;inset:-6% 0;background:linear-gradient(90deg,rgba(28,18,22,.86) 0%,rgba(28,18,22,.55) 45%,rgba(28,18,22,.05) 100%),url("/demo/iridescent-events/img/piano.jpg") 70% 30%/cover;will-change:transform}
+.hero .photo{position:absolute;inset:-6% 0 -6% 42%;background:linear-gradient(90deg,var(--ink) 0%,rgba(35,27,30,.35) 22%,rgba(35,27,30,0) 45%),url("/demo/iridescent-events/img/piano.jpg") 50% 30%/cover;will-change:transform}
+.hero::before{content:"";position:absolute;inset:0 58% 0 0;background:radial-gradient(120% 90% at 0% 100%,rgba(166,90,108,.35),transparent 60%)}
+@media (max-width:900px){.hero .photo{inset:-6% 0;background:linear-gradient(180deg,rgba(28,18,22,.3) 0%,rgba(28,18,22,.92) 75%),url("/demo/iridescent-events/img/piano.jpg") 50% 20%/cover}}
 .hero .wrap{position:relative;padding:120px 0 84px}
 .hero .kicker{color:var(--gold-l)}
-.hero h1{font-size:clamp(3rem,6.6vw,5.8rem);max-width:780px;margin:18px 0 18px}
+.hero h1{font-size:clamp(3rem,6vw,5.4rem);max-width:600px;margin:18px 0 18px}
 .hero h1 em{color:var(--blush-2)}
 .hero .lead{font-size:clamp(1.05rem,1.6vw,1.25rem);max-width:540px;color:#f3e7e9;margin:0 0 28px}
 .pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
@@ -237,7 +239,7 @@ html.story body{overflow:hidden}
 html.story .preview,html.story .shine,html.story .band,html.story footer,html.story nav.links{display:none}
 html.story header.top{position:fixed;left:0;right:0;background:linear-gradient(180deg,rgba(28,18,22,.85),rgba(28,18,22,0));border:0;backdrop-filter:none;color:#fff}
 html.story header.top .brand b{color:#fff}
-html.story header.top .brand span{color:var(--gold-l)}
+html.story header.top .brand div span{color:var(--gold-l)}
 html.story header.top .mode{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
 html.story header.top .btn{display:none}
 html.story main{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;overscroll-behavior:contain}
@@ -245,7 +247,8 @@ html.story main>section{min-height:100svh;scroll-snap-align:start;scroll-snap-st
 html.story main>section>.wrap{width:calc(100% - 36px)}
 html.story h2{font-size:clamp(2.4rem,11.5vw,3.4rem)}
 html.story .hero{min-height:100svh;padding:0;justify-content:flex-end}
-html.story .hero .photo{background:linear-gradient(180deg,rgba(28,18,22,.45) 0%,rgba(28,18,22,.1) 30%,rgba(28,18,22,.95) 76%),url("/demo/iridescent-events/img/piano.jpg") 60% 20%/cover}
+html.story .hero::before{display:none}
+html.story .hero .photo{inset:-6% 0;background:linear-gradient(180deg,rgba(28,18,22,.45) 0%,rgba(28,18,22,.1) 30%,rgba(28,18,22,.95) 76%),url("/demo/iridescent-events/img/piano.jpg") 60% 20%/cover}
 html.story .hero .wrap{padding:0 0 118px}
 html.story .hero h1{font-size:clamp(2.9rem,14vw,4.4rem);margin:14px 0 12px}
 html.story .hero .lead{font-size:1rem;margin-bottom:20px}
