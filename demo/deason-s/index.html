@@ -64,7 +64,7 @@ header.top .wrap{display:flex;align-items:center;gap:18px;min-height:74px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
 .mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(145deg,#0f5596,#082f55);color:var(--ice);display:grid;place-items:center;font:900 26px/1 var(--display);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
 .brand b{display:block;font:800 22px/1 var(--display);letter-spacing:.01em}
-.brand span{display:block;font:600 13px/1.2 var(--display);color:var(--navy);letter-spacing:.06em;margin-top:3px}
+.brand div span{display:block;font:600 13px/1.2 var(--display);color:var(--navy);letter-spacing:.06em;margin-top:3px}
 nav.links{display:flex;gap:26px}
 nav.links a{text-decoration:none;font-weight:600;font-size:15px}
 nav.links a:hover{color:var(--navy)}
@@ -235,7 +235,7 @@ footer a{color:#fff}
 html.story body{overflow:hidden}
 html.story .preview,html.story .util,html.story .band,html.story .promise,html.story footer,html.story nav.links{display:none}
 html.story header.top{position:fixed;left:0;right:0;background:linear-gradient(180deg,rgba(4,20,36,.88),rgba(4,20,36,0));border:0;backdrop-filter:none;color:#fff}
-html.story header.top .brand span{color:var(--ice)}
+html.story header.top .brand div span{color:var(--ice)}
 html.story header.top .mode{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
 html.story header.top .btn{display:none}
 html.story main{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;overscroll-behavior:contain}
@@ -263,13 +263,13 @@ html.story #services,html.story #reviews,html.story #about,html.story #book,html
 html.story #services{background-image:linear-gradient(180deg,rgba(4,20,36,.7) 0%,rgba(4,20,36,.35) 22%,rgba(4,20,36,.96) 52%),url("/demo/deason-s/img/units.jpg");background-position:62% center}
 html.story #reviews{background-image:linear-gradient(180deg,rgba(4,20,36,.6) 0%,rgba(4,20,36,.15) 26%,rgba(4,20,36,.96) 58%),url("/demo/deason-s/img/valves.jpg")}
 html.story #about{background-image:linear-gradient(180deg,rgba(4,20,36,.55) 0%,rgba(4,20,36,.15) 24%,rgba(4,20,36,.97) 50%),url("/demo/deason-s/img/commercial.jpg");background-position:30% center}
-html.story #book{background-image:linear-gradient(180deg,rgba(4,20,36,.55) 0%,rgba(4,20,36,.1) 30%,rgba(4,20,36,.96) 60%),url("/demo/deason-s/img/trane.jpg");background-position:85% center}
+html.story #book{background-image:linear-gradient(180deg,rgba(4,20,36,.55) 0%,rgba(4,20,36,.25) 22%,rgba(4,20,36,.96) 48%),url("/demo/deason-s/img/trane.jpg");background-position:85% center}
 html.story #visit{background-image:linear-gradient(180deg,rgba(4,20,36,.6) 0%,rgba(4,20,36,.2) 22%,rgba(4,20,36,.96) 46%),url("/demo/deason-s/img/units.jpg");background-position:15% center}
 html.story #services .kicker,html.story #reviews .kicker,html.story #book .kicker,html.story #visit .kicker{color:var(--ice)}
 html.story #services .head p{display:none}
 html.story .svc{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -18px;padding:4px 18px 8px;scrollbar-width:none}
 html.story .svc::-webkit-scrollbar{display:none}
-html.story .s{flex:0 0 78%;scroll-snap-align:center;border:0}
+html.story .s{flex:0 0 78%;scroll-snap-align:center;border:0;color:var(--ink)}
 html.story .s .ph{aspect-ratio:16/11}
 html.story .s .tx{padding:14px 16px 16px}
 html.story .s h3{font-size:1.3rem}
@@ -300,7 +300,7 @@ html.story #book .cater-photo,html.story #book form.q{display:none}
 html.story .sheet-card form.q{display:grid;margin:0;border:0;padding:0;background:none}
 html.story #book .lead{color:#dcebf6 !important;font-size:1rem}
 html.story #book .plan{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;backdrop-filter:blur(10px)}
-html.story #book .story-only{width:100%;margin-top:16px}
+html.story #book .story-only{display:none}
 html.story .visit{gap:12px}
 html.story .map{display:none}
 html.story #visit .head{margin-bottom:12px}
@@ -344,7 +344,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
   <section class="hero">
     <div class="photo" id="hero-photo" role="img" aria-label="Outdoor AC units"></div>
     <div class="wrap">
-      <div class="kicker">Marietta, GA · Veteran-owned · 30+ years</div>
+      <div class="kicker">Marietta, GA · Veteran-owned</div>
       <h1>Honest heating and air. <em>No push</em> to buy a new unit.</h1>
       <p class="lead">AC repair, heating, new systems and service plans for homes and businesses across Metro Atlanta. We find the real problem, explain it, and fix it right.</p>
       <div class="pills">
@@ -401,7 +401,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
       <div class="reviews">
         <div class="rev rv"><div class="stars">★★★★★</div><p>“I appreciated his honesty and felt the service was a great value for the money.”</p><cite>Linda Alexander, Google review</cite></div>
         <div class="rev rv"><div class="stars">★★★★★</div><p>“The cost was reasonable and I was not pushed or harnessed into buying a new unit.”</p><cite>Althea Ramsammy, Google review</cite></div>
-        <div class="rev rv"><div class="stars">★★★★★</div><p>“We had a small fire in our AC unit. Monday morning Tyrell was here. Wednesday they installed our new unit.”</p><cite>Dawn Carpenter, Google review</cite></div>
+        <div class="rev rv"><div class="stars">★★★★★</div><p>“Tyrell was able to provide us with a quote and what our options would be rather quickly.”</p><cite>Dawn Carpenter, Google review</cite></div>
         <div class="rev rv"><div class="stars">★★★★★</div><p>“Very professional and knowledgable. The problem I was experiencing was explained to me in details.”</p><cite>Adriana Amegadzie, Google review</cite></div>
         <div class="rev rv"><div class="stars">★★★★★</div><p>“The tech arrived on time, was very professional, and their service was super affordable.”</p><cite>Ronnie Williams, Google review</cite></div>
       </div>
@@ -416,7 +416,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
         <p>Deason's Heating &amp; Air is a veteran-owned team with over 30 years of experience. We handle homes and businesses, from installs to service plans.</p>
         <p class="more">Our people are the reason it works. Each tech is trained to do honest work at a fair price, and to tell you what's going on before anything gets fixed.</p>
         <div class="why">
-          <div><span class="ic">★</span><p style="margin:0"><b>Veteran-owned</b><span>Right on our Google listing.</span></p></div>
+          <div><span class="ic">★</span><p style="margin:0"><b>Veteran-owned</b><span>Owned by a U.S. veteran.</span></p></div>
           <div><span class="ic">30</span><p style="margin:0"><b>30+ years</b><span>Some customers have used us the whole time.</span></p></div>
           <div><span class="ic">⌂</span><p style="margin:0"><b>Homes and businesses</b><span>Residential and commercial HVAC.</span></p></div>
         </div>
