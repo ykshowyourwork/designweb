@@ -82,7 +82,7 @@ nav.links a:hover{color:var(--cedar)}
 .hero .photo{position:absolute;inset:-6% 0;background:linear-gradient(90deg,rgba(20,28,22,.92) 0%,rgba(20,28,22,.7) 42%,rgba(20,28,22,.25) 100%),url("/demo/michaels-fence-landscape-designs/img/cedar.jpg") center/cover;will-change:transform}
 .hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;padding:84px 0 92px}
 .hero .kicker{color:var(--honey)}
-.hero h1{font-size:clamp(3rem,6vw,5.4rem);margin:16px 0 18px}
+.hero h1{font-size:clamp(3rem,5.4vw,4.7rem);margin:16px 0 18px}
 .hero h1 em{font-style:normal;color:var(--honey);display:block}
 .hero .lead{font-size:clamp(1.08rem,1.6vw,1.28rem);max-width:540px;color:#e3e9e0;margin:0 0 26px}
 .pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
@@ -265,6 +265,7 @@ html.story .hero{min-height:100svh;padding:0;justify-content:flex-end}
 html.story .hero .photo{background:linear-gradient(180deg,rgba(20,28,22,.5) 0%,rgba(20,28,22,.05) 22%,rgba(20,28,22,.8) 50%,rgba(20,28,22,.97) 70%),url("/demo/michaels-fence-landscape-designs/img/cedar.jpg") 30% center/cover}
 html.story .hero .wrap{display:block;padding:0 0 118px}
 html.story .hero h1{font-size:clamp(2.9rem,13vw,3.9rem);margin:10px 0 10px}
+html.story .hero .kicker{font-size:11px;letter-spacing:.12em}
 html.story .hero .lead{font-size:1rem;margin-bottom:18px}
 html.story .hero .ctas{display:none}
 html.story .pills{margin-bottom:0;gap:8px}
@@ -279,7 +280,7 @@ html.story .stage .sl{top:calc(76px + 7%);bottom:calc(100px + 7%)}
 html.story .stage-head{top:108px}
 html.story .stage .cap{bottom:122px}
 /* Find your fence: bold pine screen, swipe cards, every card its own photo or a brand-color card */
-html.story #fences{background:var(--pine);color:#fff}
+html.story #fences{background:linear-gradient(180deg,rgba(20,28,22,.82) 0%,rgba(20,28,22,.9) 40%,rgba(20,28,22,.97) 100%),url("/demo/michaels-fence-landscape-designs/img/bench.jpg") center/cover;color:#fff}
 html.story #fences .head{margin-bottom:14px}
 html.story #fences .head p{display:none}
 html.story #fences .kicker{color:var(--honey)}
@@ -301,7 +302,7 @@ html.story .svc-note a{color:#fff}
 /* Screens with a real photo behind them */
 html.story #plan,html.story #reviews,html.story #area{color:#fff;justify-content:flex-end;background-size:cover;background-position:center;background-color:var(--ink)}
 html.story #plan{background-image:linear-gradient(180deg,rgba(20,28,22,.5) 0%,rgba(20,28,22,.08) 22%,rgba(20,28,22,.9) 46%,rgba(20,28,22,.97) 62%),url("/demo/michaels-fence-landscape-designs/img/deck.jpg")}
-html.story #reviews{background-image:linear-gradient(180deg,rgba(20,28,22,.55) 0%,rgba(20,28,22,.1) 24%,rgba(20,28,22,.92) 54%,rgba(20,28,22,.97) 70%),url("/demo/michaels-fence-landscape-designs/img/pool.jpg")}
+html.story #reviews{background-image:linear-gradient(180deg,rgba(20,28,22,.55) 0%,rgba(20,28,22,.1) 24%,rgba(20,28,22,.92) 54%,rgba(20,28,22,.97) 70%),url("/demo/michaels-fence-landscape-designs/img/pool.jpg");background-position:center 75%}
 html.story #area{background-image:linear-gradient(180deg,rgba(20,28,22,.5) 0%,rgba(20,28,22,.05) 22%,rgba(20,28,22,.9) 46%,rgba(20,28,22,.97) 60%),url("/demo/michaels-fence-landscape-designs/img/iron.jpg")}
 html.story #reviews .kicker,html.story #area .kicker{color:var(--honey)}
 html.story #plan .head{margin-bottom:14px}
@@ -386,7 +387,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
           <label>Name<input required autocomplete="name" /></label>
           <label>Phone<input required type="tel" autocomplete="tel" /></label>
           <label>ZIP code<input inputmode="numeric" autocomplete="postal-code" maxlength="5" /></label>
-          <label>What do you need?<select><option>Cedar privacy fence</option><option>Iron fence</option><option>Ranch or pasture fence</option><option>Gate or automatic gate</option><option>Fence repair</option><option>Deck or bench</option><option>Landscaping</option><option>Something else</option></select></label>
+          <label>What do you need?<select><option>Cedar privacy fence</option><option>Iron fence</option><option>Ranch or pasture fence</option><option>Gate or automatic gate</option><option>Gate repair</option><option>Deck or bench</option><option>Landscaping</option><option>Something else</option></select></label>
           <label class="full">Tell us a little<textarea rows="2" placeholder="Backyard, about 150 feet, old fence coming down…"></textarea></label>
           <button class="btn btn-c" type="submit">Send my quote request</button>
           <p class="fine">Rather talk? Call <a href="tel:+18179025814">(817) 902-5814</a>. Mon–Fri 7am–6pm, Sat 7am–noon.</p>
@@ -433,7 +434,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
 
   <section id="plan">
     <div class="wrap">
-      <div class="head rv"><div><div class="kicker">How it works</div><h2>Three steps to<br />a new fence.</h2></div><p>No guessing. You know the price before we start, and you know the day we finish.</p></div>
+      <div class="head rv"><div><div class="kicker">How it works</div><h2>Three steps to<br />a new fence.</h2></div><p>No guessing. You get a fair price before we start, and the crew keeps the schedule.</p></div>
       <div class="steps">
         <div class="step rv"><b>1</b><h3>Call or send the form</h3><p>Tell us what you want built. We come out as soon as we can.</p><cite>“Came out to help me as soon as possible.” Melissa Alexander</cite></div>
         <div class="step rv"><b>2</b><h3>Get a fair price</h3><p>We measure, talk wood, stain and gates, and give you one clear price.</p><cite>“Fair price, excellent work!!” kevin sparger</cite></div>
@@ -444,7 +445,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
 
   <section id="reviews">
     <div class="wrap">
-      <div class="score rv"><b>4.5</b><div><div class="kicker">Google reviews</div><span>7 of 8 reviews are five stars</span><div class="chips"><span class="chip">Timeliness</span><span class="chip">Fair price</span><span class="chip">Cedar fence</span><span class="chip">Gates</span></div></div></div>
+      <div class="score rv"><b>4.5</b><div><div class="kicker">Google reviews</div><span>7 of 8 reviews are five stars</span><div class="chips"><span class="chip">Timeliness</span><span class="chip">Responsiveness</span><span class="chip">Quality</span><span class="chip">Fence installation</span></div></div></div>
       <div class="reviews">
         <div class="rev rv"><div class="stars">★★★★★</div><p>“He gave me a fair price, kept his schedule and knocked the fence out extremely fast.”</p><cite>Lesley R, Google review</cite></div>
         <div class="rev rv"><div class="stars">★★★★★</div><p>“Work was accomplished with great quality and timeliness.”</p><cite>Austin Stump, Google review</cite></div>
@@ -514,7 +515,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
   // Find your fence: each job comes from the Google photos or a customer's review. No prices until the real ones are in.
   var groups = [
     ["Fences", [["Cedar privacy fences", "Tall board-on-board cedar, stained so it stays rich and dark.", "side"], ["Iron fences", "Black iron with spear tops, for the front yard or the drive.", "iron"], ["Ranch and pasture fences", "Long runs for acreage, animals and open land.", "ranch"], ["Pool yard fences", "Cedar that closes in the pool and the whole backyard.", "pool"]]],
-    ["Gates", [["Gates", "Walk gates and drive gates, built to match the fence.", 0, "i-gate"], ["Automatic gates", "Gate work a customer named in a Google review.", 0, "i-gate"], ["Fence repairs", "Leaning posts, broken boards and gates that drag.", 0, "i-fence"]]],
+    ["Gates", [["Gates", "Walk gates and drive gates, built to match the fence.", 0, "i-gate"], ["Automatic gates", "Automatic gate installs, named in a customer's Google review.", 0, "i-gate"], ["Gate repairs", "Gates that sag, drag or won't latch, fixed and swinging right.", 0, "i-fence"]]],
     ["Outdoor living", [["Decks", "Wood decks built right up to the fence line.", "deck"], ["Built-in benches", "Cedar corner benches built into the fence.", "bench"], ["Landscape design", "Beds, plants and yards planned around your new fence.", 0, "i-leaf"]]]
   ];
   $("tabs").innerHTML = groups.map(function (g, i) { return '<button type="button" role="tab" aria-selected="' + (i === 0) + '" data-i="' + i + '">' + g[0] + "</button>"; }).join("");
