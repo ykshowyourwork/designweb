@@ -60,7 +60,7 @@ header.top .wrap{display:flex;align-items:center;gap:18px;min-height:72px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
 .mark{width:46px;height:46px;border-radius:12px;background:var(--orange);color:var(--ink);display:grid;place-items:center;font:400 21px/1 var(--display)}
 .brand b{display:block;font:400 23px/1 var(--display);text-transform:uppercase;letter-spacing:.02em}
-.brand span{font:700 11px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--orange-2);display:block;margin-top:5px}
+.brand div span{font:700 11px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--orange-2);display:block;margin-top:5px}
 nav.links{display:flex;gap:26px}
 nav.links a{text-decoration:none;font-weight:600;font-size:16px}
 nav.links a:hover{color:var(--orange-2)}
@@ -237,7 +237,7 @@ footer a{color:var(--cream)}
 html.story body{overflow:hidden}
 html.story .preview,html.story .stripe,html.story .band,html.story footer,html.story nav.links,html.story header.top .phone{display:none}
 html.story header.top{position:fixed;left:0;right:0;background:linear-gradient(180deg,rgba(13,22,17,.88),rgba(13,22,17,0));border:0;backdrop-filter:none;color:#fff}
-html.story header.top .brand span{color:var(--lime)}
+html.story header.top .brand div span{color:var(--lime)}
 html.story header.top .mode{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
 html.story header.top .btn{display:none}
 html.story main{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;overscroll-behavior:contain}
@@ -247,10 +247,10 @@ html.story h2{font-size:clamp(2.3rem,11.5vw,3.3rem)}
 html.story .story-only{display:inline-flex}
 /* Hero: the crew, full screen */
 html.story .hero{min-height:100svh;padding:0;justify-content:flex-end}
-html.story .hero .photo{background:linear-gradient(180deg,rgba(13,22,17,.5) 0%,rgba(13,22,17,.05) 26%,rgba(13,22,17,.55) 56%,rgba(13,22,17,.97) 80%),url("/demo/tree-services-rosharon/img/crew.jpg") center 22%/cover}
+html.story .hero .photo{background:linear-gradient(180deg,rgba(13,22,17,.5) 0%,rgba(13,22,17,0) 22%,rgba(13,22,17,.1) 44%,rgba(13,22,17,.86) 62%,rgba(13,22,17,.98) 80%),url("/demo/tree-services-rosharon/img/crew.jpg") center 22%/cover}
 html.story .hero .wrap{display:block;padding:0 0 118px}
 html.story .hero .crew{display:none}
-html.story .hero h1{font-size:clamp(2.9rem,14vw,4.4rem);margin:12px 0 12px}
+html.story .hero h1{font-size:clamp(2.5rem,11.6vw,3.7rem);margin:10px 0 10px}
 html.story .hero .lead{font-size:1.05rem;margin-bottom:16px}
 html.story .hero .pills{margin-bottom:0}
 html.story .hero .ctas{display:none}
@@ -266,6 +266,10 @@ html.story .stage .cap{bottom:122px}
 /* Services: swipe cards, each its own photo or a bold color card */
 html.story .head{margin-bottom:16px}
 html.story #services .head p{display:none}
+html.story #services{background:var(--ink);color:#fff}
+html.story #services .kicker{color:var(--lime)}
+html.story #services .job{color:var(--ink);border:0}
+html.story #services .note{color:#cdd8cc}
 html.story .jobs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -18px;padding:4px 18px 8px;scrollbar-width:none}
 html.story .jobs::-webkit-scrollbar{display:none}
 html.story .job{flex:0 0 80%;scroll-snap-align:center}
@@ -341,7 +345,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
       <div>
         <div class="kicker">Rosharon, TX · Tree service</div>
         <h1>Make that problem tree <em>a thing of the past.</em></h1>
-        <p class="lead">Tree removal, trimming, pruning and stump grinding in Rosharon and the towns around it. Free quotes.</p>
+        <p class="lead">Tree removal, trimming, pruning and stump grinding in Rosharon. Free quotes.</p>
         <div class="pills">
           <span class="pill" id="open-pill"><span class="dot"></span><span id="open-text">Open Mon to Sat</span></span>
           <span class="pill">★★★★★ “Will use again!”</span>
@@ -441,7 +445,7 @@ html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bot
       <div class="towns rv"><span>Rosharon</span><span>Fresno</span><span>Arcola</span><span>Manvel</span><span>Pearland</span><span>Missouri City</span></div>
       <div class="visit">
         <div class="card rv">
-          <h3>Call or stop by</h3>
+          <h3>Call us</h3>
           <a class="big-phone" href="tel:+18325736251">(832) 573-6251</a>
           <p class="addr">618 Davis Rd, Rosharon, TX 77583</p>
           <table class="hours" id="hours"></table>
