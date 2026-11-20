@@ -66,7 +66,10 @@ const entry = {
   launched: "Free mockup",
   services: ["Website design", "Story mode on phones", "Google Maps setup"],
   client: `${d.business} is a ${tradeName} in ${place}${d.reviews ? ` with ${Number(d.reviews).toLocaleString()} Google reviews${stars}` : ""}.`,
-  challenge: `Customers love it on Google, but it had no website of its own.${rank}`,
+  // Only say "no website" when the saved research says so; otherwise the old site is the story.
+  challenge: d.website && !d.no_website
+    ? `Customers love it on Google, but its website didn't show that off or make it easy to book.${s.maps?.rank && s.maps?.keyword ? ` It already showed up #${s.maps.rank} for "${s.maps.keyword}" on Google Maps.` : ""}`
+    : `Customers love it on Google, but it had no website of its own.${rank}`,
   built: [
     "Its real photos in a full-screen gallery that slides on its own",
     "Story mode on phones: full-screen screens you swipe through",
