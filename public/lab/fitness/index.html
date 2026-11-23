@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>PlaylistFit Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one phone-width app column, centered, with a fixed tab bar. Chalk-and-iron gym palette, cobalt for action, heat orange for effort, amber for food. */
+:root {
+  --bg: #eef0ec; --surface: #ffffff; --raised: #f7f8f5; --ink: #15171c; --muted: #646a73; --line: #dfe2dc;
+  --accent: #2e5bff; --accent-soft: #e6ecff; --on-accent: #ffffff;
+  --heat: #f2582c; --heat-soft: #ffe9e1; --food: #d88b16; --food-soft: #fdf1dc; --ok: #178a57; --ok-soft: #dff3e9; --warn: #b8670f;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 18px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d0f13; --surface: #171a20; --raised: #1d2128; --ink: #eceef2; --muted: #9aa1ab; --line: #2a2f37;
+  --accent: #7891ff; --accent-soft: #1f2748; --on-accent: #0d0f13;
+  --heat: #ff7a52; --heat-soft: #3a2017; --food: #f0b24d; --food-soft: #35290f; --ok: #3cc487; --ok-soft: #133024; --warn: #e9a04a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0d0f13; --surface: #171a20; --raised: #1d2128; --ink: #eceef2; --muted: #9aa1ab; --line: #2a2f37;
+  --accent: #7891ff; --accent-soft: #1f2748; --on-accent: #0d0f13;
+  --heat: #ff7a52; --heat-soft: #3a2017; --food: #f0b24d; --food-soft: #35290f; --ok: #3cc487; --ok-soft: #133024; --warn: #e9a04a; color-scheme: dark }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 500 15px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; cursor: pointer; }
+input, select { font: inherit; color: var(--ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.num { font-variant-numeric: tabular-nums; }
+
+.app { max-width: 440px; margin: 0 auto; min-height: 100%; position: relative; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 14px 110px; }
+.proto-note { max-width: 440px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 10px 0; display: flex; gap: 8px; align-items: center; justify-content: space-between; color: var(--muted); font-size: 12px; }
+.proto-note b { color: var(--ink); }
+.linkbtn { background: none; border: 0; color: var(--accent); font-weight: 700; font-size: 12px; padding: 4px 0; }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 800; color: var(--muted); }
+.title { font: 800 34px/0.95 var(--display); letter-spacing: .01em; text-transform: uppercase; }
+.title.sm { font-size: 26px; }
+.avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 800; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; }
+.stack { display: grid; gap: 12px; }
+.row { display: flex; gap: 10px; align-items: center; }
+.between { justify-content: space-between; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.tiny { font-size: 11.5px; }
+
+.btn { border: 0; border-radius: 999px; min-height: 46px; padding: 0 20px; font-weight: 800; letter-spacing: .02em; background: var(--raised); border: 1px solid var(--line); }
+.btn.primary { background: var(--accent); color: var(--on-accent); border-color: transparent; }
+.btn.block { width: 100%; }
+.btn.ghost { background: transparent; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 7px 13px; font-size: 13px; font-weight: 700; }
+.chip.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 3px 10px; font-size: 11.5px; font-weight: 800; background: var(--accent-soft); color: var(--accent); }
+.pill.heat { background: var(--heat-soft); color: var(--heat); }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.food { background: var(--food-soft); color: var(--food); }
+
+/* Today hero */
+.today { background: var(--ink); color: var(--bg); border: 0; position: relative; overflow: hidden; }
+.today .eyebrow { color: color-mix(in srgb, var(--bg) 70%, transparent); }
+.today .title { font-size: 44px; }
+.today .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; opacity: .85; margin: 8px 0 14px; }
+.today .stripe { position: absolute; right: -30px; top: -30px; width: 160px; height: 160px; border-radius: 50%; border: 22px solid var(--heat); opacity: .9; }
+.today .btn.primary { background: var(--heat); color: #fff; }
+
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.day { text-align: center; border-radius: 12px; padding: 8px 2px; background: var(--surface); border: 1px solid var(--line); font-size: 11px; font-weight: 700; }
+.day b { display: block; font-size: 13px; }
+.day.done { background: var(--ok-soft); border-color: transparent; color: var(--ok); }
+.day.now { background: var(--accent); color: var(--on-accent); border-color: transparent; }
+.day.rest { color: var(--muted); }
+
+.phase { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; margin-top: 10px; }
+.phase span { height: 8px; border-radius: 3px; background: var(--line); }
+.phase span.done { background: var(--accent); }
+.phase span.now { background: var(--heat); }
+.phase span.deload { background: repeating-linear-gradient(45deg, var(--line), var(--line) 3px, transparent 3px, transparent 6px); }
+.phase span.deload.done { background: repeating-linear-gradient(45deg, var(--accent), var(--accent) 3px, transparent 3px, transparent 6px); }
+
+/* Lists */
+.list { display: grid; }
+.item { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); background: none; border-left: 0; border-right: 0; border-bottom: 0; width: 100%; text-align: left; }
+.item:first-child { border-top: 0; }
+.thumb { width: 52px; height: 52px; border-radius: 12px; flex: none; display: grid; place-items: center; font: 800 13px/1 var(--display); letter-spacing: .04em; color: var(--accent); background: var(--accent-soft); position: relative; overflow: hidden; text-transform: uppercase; }
+.thumb::after { content: ""; position: absolute; right: 5px; bottom: 5px; border-left: 8px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; opacity: .7; }
+.thumb[data-img] { background-size: cover; background-position: center; color: transparent; border: 0; }
+.thumb[data-img]::after { color: #fff; opacity: 1; filter: drop-shadow(0 0 3px rgba(0,0,0,.6)); right: 50%; bottom: 50%; transform: translate(50%, 50%); border-left-width: 12px; border-top-width: 8px; border-bottom-width: 8px; }
+.player { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 14px; overflow: hidden; background: #000; }
+.player.tall { aspect-ratio: 9 / 16; max-height: 62vh; margin: 0 auto; }
+.player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.credit a { color: inherit; font-weight: 700; }
+.item .grow { flex: 1; min-width: 0; }
+.item .name { font-weight: 800; }
+.item .sub { color: var(--muted); font-size: 12.5px; }
+
+/* Workout logger */
+.ex { padding: 14px; }
+.ex-head { display: flex; gap: 12px; align-items: flex-start; }
+.sets { display: grid; gap: 8px; margin-top: 12px; }
+.set { display: grid; grid-template-columns: 26px 1fr 1fr auto; gap: 8px; align-items: center; }
+.set .n { font: 800 18px/1 var(--display); color: var(--muted); text-align: center; }
+.set input { width: 100%; min-width: 0; border: 1px solid var(--line); background: var(--raised); border-radius: 10px; padding: 8px 10px; font-weight: 800; }
+.set label { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 2px; }
+.effort { display: flex; gap: 4px; }
+.effort button { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 6px; font-size: 10.5px; font-weight: 800; }
+.effort button.on { background: var(--heat); border-color: var(--heat); color: #fff; }
+.set.logged input { border-color: var(--ok); }
+.last { font-size: 12px; color: var(--muted); }
+.coachtip { margin-top: 10px; border-radius: 12px; padding: 10px 12px; font-size: 13px; font-weight: 700; background: var(--ok-soft); color: var(--ok); }
+.coachtip.hold { background: var(--accent-soft); color: var(--accent); }
+.coachtip.drop { background: var(--heat-soft); color: var(--heat); }
+
+/* Sheets */
+.scrim { position: fixed; inset: 0; background: rgba(8, 10, 14, .5); z-index: 40; display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); width: 100%; max-width: 440px; border-radius: 22px 22px 0 0; padding: 18px max(16px, env(safe-area-inset-right, 0px)) calc(22px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); max-height: 88vh; overflow: auto; }
+.grab { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 0 auto 12px; }
+.video { display: flex; gap: 12px; align-items: center; border-radius: 14px; background: var(--ink); color: var(--bg); padding: 14px; text-decoration: none; }
+.video .play { width: 46px; height: 46px; border-radius: 50%; background: var(--heat); display: grid; place-items: center; flex: none; }
+.video .play::before { content: ""; border-left: 14px solid #fff; border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px; }
+.video .vt { font-weight: 800; font-size: 13.5px; }
+.video .vc { font-size: 12px; opacity: .75; }
+.chain { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 12.5px; }
+.chain .lv { border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; font-weight: 700; background: var(--raised); }
+.chain .lv.me { background: var(--accent); color: var(--on-accent); border-color: transparent; }
+.cues { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+/* Tabs */
+.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(10px); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.tabs .in { max-width: 440px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px)); }
+.tabs button { background: none; border: 0; padding: 10px 0 12px; font-size: 11px; font-weight: 800; color: var(--muted); display: grid; justify-items: center; gap: 4px; }
+.tabs button svg { width: 22px; height: 22px; }
+.tabs button.on { color: var(--accent); }
+
+/* Rings and charts */
+.rings { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.ring { text-align: center; font-size: 11.5px; font-weight: 700; color: var(--muted); }
+.ring svg { width: 100%; max-width: 76px; height: auto; display: block; margin: 0 auto 4px; }
+.ring b { display: block; color: var(--ink); font-size: 13px; }
+.chart { width: 100%; height: auto; display: block; }
+.stat { display: grid; gap: 2px; }
+.stat .v { font: 800 30px/1 var(--display); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+/* Onboarding */
+.q { display: grid; gap: 8px; padding: 12px 0; border-top: 1px solid var(--line); }
+.q:first-of-type { border-top: 0; }
+.yn { display: flex; gap: 8px; }
+.yn button { flex: 1; border: 1px solid var(--line); background: var(--raised); border-radius: 10px; padding: 9px; font-weight: 800; }
+.yn button.on.no { background: var(--ok); border-color: var(--ok); color: #fff; }
+.yn button.on.yes { background: var(--heat); border-color: var(--heat); color: #fff; }
+.steps { display: flex; gap: 4px; margin: 4px 0 14px; }
+.steps span { flex: 1; height: 5px; border-radius: 3px; background: var(--line); }
+.steps span.on { background: var(--accent); }
+.field { display: grid; gap: 6px; }
+.field > span { font-size: 12px; font-weight: 800; color: var(--muted); letter-spacing: .04em; }
+.field input, .field select { border: 1px solid var(--line); background: var(--raised); border-radius: 12px; padding: 11px 12px; font-weight: 700; width: 100%; }
+.alert { border-radius: 14px; padding: 12px 14px; background: var(--heat-soft); color: var(--heat); font-weight: 700; font-size: 13.5px; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(86px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-weight: 800; font-size: 13px; z-index: 60; }
+.tier { border: 1px solid var(--line); border-radius: 16px; padding: 14px; display: grid; gap: 6px; background: var(--surface); }
+.tier.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.msg { background: var(--raised); border-radius: 14px 14px 14px 4px; padding: 10px 12px; font-size: 14px; }
+.msg.me { background: var(--accent); color: var(--on-accent); border-radius: 14px 14px 4px 14px; justify-self: end; }
+.scan { border-radius: 18px; background: var(--ink); color: var(--bg); aspect-ratio: 4 / 3; max-width: 100%; display: grid; place-items: center; position: relative; overflow: hidden; }
+.scan .frame { width: 70%; height: 38%; border: 3px solid var(--food); border-radius: 12px; position: relative; }
+.scan .laser { position: absolute; left: 6%; right: 6%; height: 2px; background: var(--heat); top: 50%; box-shadow: 0 0 12px var(--heat); animation: laser 1.6s ease-in-out infinite alternate; }
+@keyframes laser { from { top: 15%; } to { top: 85%; } }
+.credit { font-size: 11px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .scan .laser { animation: none; } }
+</style>
+
+</head>
+<body>
+<div class="proto-note"><span><b>Prototype</b> · example member, sample data</span><button class="linkbtn" id="restart" type="button">Try sign-up</button></div>
+<main class="app" id="app" aria-live="polite"><p class="muted">Loading the exercise library…</p></main>
+<nav class="tabs" id="tabs" aria-label="Main"><div class="in"></div></nav>
+<div id="layer"></div>
+
+<script>
+// ---------- Rules (from data/rules.json, the parts the prototype runs) ----------
+const RULES = {
+  parq: [
+    "Has your doctor ever said that you have a heart condition OR high blood pressure?",
+    "Do you feel pain in your chest at rest, during your daily activities of living, OR when you do physical activity?",
+    "Do you lose balance because of dizziness OR have you lost consciousness in the last 12 months?",
+    "Have you ever been diagnosed with another chronic medical condition (other than heart disease or high blood pressure)?",
+    "Are you currently taking prescribed medications for a chronic medical condition?",
+    "Do you currently have (or have had within the past 12 months) a bone, joint, or soft tissue problem that could be made worse by becoming more physically active?",
+    "Has your doctor ever said that you should only do medically supervised physical activity?"
+  ],
+  goals: {
+    muscle_gain:    { label: "Muscle gain",    sets: 4, reps: [8, 12], rir: [1, 3], rest: "60–120 s", tempo: "2-0-2", kcal: +350, protein: [1.6, 2.0], fat: 0.25, pace: "+1–2 lb a month" },
+    weight_loss:    { label: "Weight loss",    sets: 3, reps: [8, 15], rir: [2, 3], rest: "30–90 s",  tempo: "2-0-2", kcal: -400, protein: [2.0, 2.2], fat: 0.30, pace: "−1–2 lb a week" },
+    performance:    { label: "Performance",    sets: 4, reps: [3, 5],  rir: [1, 3], rest: "2–5 min",  tempo: "Explosive", kcal: +150, protein: [1.6, 2.0], fat: 0.25, pace: "Test scores up each block" },
+    general_health: { label: "General health", sets: 3, reps: [8, 15], rir: [2, 4], rest: "60–90 s",  tempo: "2-0-2", kcal: 0, protein: [1.2, 1.6], fat: 0.30, pace: "Test scores up each block" },
+    foundation:     { label: "Foundation",     sets: 2, reps: [12, 20], rir: [3, 4], rest: "0–90 s", tempo: "4-2-1 (slow)" }
+  },
+  splits: {
+    muscle_gain:    { 2: ["full_a","full_b"], 3: ["full_a","full_b","full_c"], 4: ["upper_a","lower_a","upper_b","lower_b"], 5: ["upper_a","lower_a","push","pull","legs"], 6: ["push","pull","legs","push","pull","legs"] },
+    weight_loss:    { 2: ["full_a","full_b"], 3: ["full_a","full_b","full_c"], 4: ["full_a","conditioning","full_b","conditioning"], 5: ["upper_a","lower_a","conditioning","full_a","cardio"], 6: ["upper_a","lower_a","conditioning","upper_b","lower_b","cardio"] },
+    general_health: { 2: ["full_a","full_b"], 3: ["full_a","full_b","full_c"], 4: ["full_a","conditioning","full_b","conditioning"], 5: ["upper_a","lower_a","conditioning","full_a","cardio"], 6: ["upper_a","lower_a","conditioning","upper_b","lower_b","cardio"] },
+    performance:    { 2: ["full_a","full_b"], 3: ["full_a","speed_agility","full_b"], 4: ["lower_a","upper_a","speed_agility","full_a"], 5: ["lower_a","upper_a","speed_agility","full_a","conditioning"], 6: ["upper_a","lower_a","push","pull","legs","speed_agility"] }
+  },
+  playlists: {
+    full_a: ["squat","push_horizontal","pull_vertical","hinge","core","carry"],
+    full_b: ["hinge","push_vertical","pull_horizontal","lunge","core","iso:biceps"],
+    full_c: ["lunge","push_horizontal","pull_horizontal","squat","core","plyo_agility"],
+    upper_a: ["push_horizontal","pull_horizontal","push_vertical","pull_vertical","iso:biceps","iso:triceps","core"],
+    upper_b: ["push_vertical","pull_vertical","push_horizontal","pull_horizontal","iso:side delts","iso:rear delts","core"],
+    lower_a: ["squat","hinge","lunge","iso:hamstrings","iso:calves","core"],
+    lower_b: ["hinge","lunge","squat","iso:quads","iso:calves","core"],
+    push: ["push_horizontal","push_vertical","push_horizontal","iso:side delts","iso:triceps","iso:triceps"],
+    pull: ["pull_vertical","pull_horizontal","pull_horizontal","iso:rear delts","iso:biceps","core"],
+    legs: ["squat","hinge","lunge","iso:quads","iso:hamstrings","iso:calves"],
+    speed_agility: ["warmup_mobility","plyo_agility","plyo_agility","plyo_agility","core"],
+    conditioning: ["squat","push_horizontal","pull_horizontal","lunge","carry"],
+    cardio: ["cardio","cardio"]
+  },
+  names: { full_a: "Full Body A", full_b: "Full Body B", full_c: "Full Body C", upper_a: "Upper A", upper_b: "Upper B", lower_a: "Lower A", lower_b: "Lower B", push: "Push", pull: "Pull", legs: "Legs", speed_agility: "Speed + Agility", conditioning: "Conditioning", cardio: "Cardio" },
+  slotsForMinutes: { 30: 4, 45: 6, 60: 99, 75: 99 },
+  squatFix: { knees_cave: ["banded-lateral-walk","glute-bridge"], heels_lift: ["foam-roll-calves","standing-calf-raise"], arms_fall: ["foam-roll-upper-back","band-pull-apart"], forward_lean: ["half-kneeling-hip-flexor-stretch","front-plank"], low_back_arch: ["dead-bug","half-kneeling-hip-flexor-stretch"] },
+  equipment: {
+    full_gym: ["bodyweight","dumbbell","barbell","kettlebell","band","cable","machine","suspension","medicine_ball","bench","box","pullup_bar","foam_roller"],
+    home: ["bodyweight","dumbbell","band","bench","box","foam_roller","kettlebell"],
+    bodyweight: ["bodyweight","box","band","foam_roller"]
+  }
+};
+const LEVEL = { push: [[0,1],[5,2],[15,3],[30,4]], pull: [[0,1],[5,2],[12,3],[20,4]], legs: [[0,1],[15,2],[30,3],[50,4]], core: [[0,1],[30,2],[60,3],[120,4]] };
+const levelFor = (k, v) => LEVEL[k].reduce((lv, [min, l]) => (v >= min ? l : lv), 1);
+const groupOf = (p) => p.startsWith("push") ? "push" : p.startsWith("pull") ? "pull" : ["squat","hinge","lunge"].includes(p) ? "legs" : p === "core" ? "core" : "legs";
+
+// ---------- State ----------
+const SAMPLE = {
+  onboarded: true,
+  profile: { name: "Maya", sex: "female", age: 29, cm: 165, kg: 66, goal: "muscle_gain", weeks: 12, days: 4, minutes: 60, equip: "full_gym", status: "6_to_24_months", activity: 1.55 },
+  parq: [false,false,false,false,false,false,false],
+  test: { push: 12, pull: 8, legs: 34, core: 70, rhr: 62, squat: ["knees_cave"] },
+  block: 1, week: 2, todayIndex: 1,
+  saved: { "Saved": ["barbell-hip-thrust","bulgarian-split-squat","face-pull"], "Glutes": ["barbell-hip-thrust","glute-bridge","bulgarian-split-squat","dumbbell-romanian-deadlift"], "Hotel room": ["push-up","reverse-lunge","front-plank","glute-bridge"] },
+  hidden: [], tier: "check_in", log: {}, food: null
+};
+let S = load() || structuredClone(SAMPLE);
+function load() { try { const v = localStorage.getItem("pf-proto"); return v ? JSON.parse(v) : null; } catch { return null; } }
+function save() { try { localStorage.setItem("pf-proto", JSON.stringify(S)); } catch {} }
+
+let EX = [], BY = {}, tab = "today", onb = null;
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const initials = (n) => n.split(/\s|-/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("");
+
+// ---------- Engine ----------
+function levels() { const t = S.test; return { push: levelFor("push", t.push), pull: levelFor("pull", t.pull), legs: levelFor("legs", t.legs), core: levelFor("core", t.core) }; }
+function inFoundation() { const lv = levels(); return S.parq.some(Boolean) || ["never","under_6_months"].includes(S.profile.status) || Object.values(lv).includes(1); }
+function goalTable() { return inFoundation() && S.week <= 2 && S.block === 1 ? RULES.goals.foundation : RULES.goals[S.profile.goal]; }
+function fits(e) { const ok = RULES.equipment[S.profile.equip]; return e.equipment.every((q) => ok.includes(q)) && !S.hidden.includes(e.id); }
+function pick(slot, used, dayKey) {
+  const lv = levels();
+  let pool;
+  if (slot.startsWith("iso:")) { const m = slot.slice(4); pool = EX.filter((e) => e.pattern === "isolation" && e.muscles_primary.includes(m)); }
+  else pool = EX.filter((e) => e.pattern === slot);
+  pool = pool.filter((e) => fits(e) && !used.has(e.id));
+  if (!pool.length) return null;
+  const cap = slot.startsWith("iso:") ? 5 : (lv[groupOf(slot)] || 2) + (S.block - 1);
+  const allSaved = new Set(Object.values(S.saved).flat());
+  const scored = pool.map((e) => ({ e, s: (e.level <= cap ? 10 - (cap - e.level) : -5) + (allSaved.has(e.id) ? 2 : 0) + ((hash(dayKey + e.id + S.block) % 7) / 10) }));
+  scored.sort((a, b) => b.s - a.s);
+  return scored[0].e;
+}
+function hash(s) { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; }
+function buildDay(key) {
+  const used = new Set(), slots = RULES.playlists[key].slice(0, RULES.slotsForMinutes[S.profile.minutes]);
+  const items = slots.map((sl) => { const e = pick(sl, used, key); if (e) used.add(e.id); return e; }).filter(Boolean);
+  const g = goalTable();
+  return { key, name: RULES.names[key], items: items.map((e) => ({ id: e.id, sets: e.pattern === "core" || e.pattern === "carry" ? Math.min(3, g.sets) : g.sets, reps: e.pattern === "plyo_agility" ? [3, 6] : e.pattern === "isolation" ? [Math.max(10, g.reps[0]), Math.max(15, g.reps[1])] : g.reps })) };
+}
+function warmup() { const ids = (S.test.squat || []).flatMap((k) => RULES.squatFix[k] || []); return [...new Set(ids)].map((id) => BY[id]).filter(Boolean); }
+function schedule() { return RULES.splits[S.profile.goal][S.profile.days]; }
+function targets() {
+  const p = S.profile, g = RULES.goals[p.goal];
+  const bmr = 10 * p.kg + 6.25 * p.cm - 5 * p.age + (p.sex === "male" ? 5 : -161);
+  const tdee = bmr * p.activity;
+  let kcal = Math.round((tdee + g.kcal) / 10) * 10;
+  if (p.goal === "weight_loss") kcal = Math.max(kcal, p.sex === "male" ? 1500 : 1200);
+  const protein = Math.round(p.kg * ((g.protein[0] + g.protein[1]) / 2));
+  const fat = Math.round((kcal * g.fat) / 9);
+  const carbs = Math.round((kcal - protein * 4 - fat * 9) / 4);
+  return { bmr: Math.round(bmr), tdee: Math.round(tdee), kcal, protein, fat, carbs };
+}
+function hrZones() { const max = 208 - 0.7 * S.profile.age, r = S.test.rhr; const z = (p) => Math.round((max - r) * p + r); return { 2: [z(.6), z(.7)], 4: [z(.8), z(.9)], max: Math.round(max) }; }
+function rirForWeek(w) { return w === 4 ? "4 (easy week)" : { 1: "3", 2: "2", 3: "1–2" }[w]; }
+function lastTime(id) { // sample history so double progression has something to work from
+  const e = BY[id]; if (!e) return null;
+  const base = { barbell: 95, dumbbell: 25, kettlebell: 35, machine: 70, cable: 40 }[e.equipment.find((q) => ["barbell","dumbbell","kettlebell","machine","cable"].includes(q))] || 0;
+  const reps = 9 + (hash(id) % 3);
+  return { kg: base, reps, effort: "good" };
+}
+function verdict(id, rows, range) {
+  const logged = rows.filter((r) => r.reps && r.effort);
+  if (!logged.length) return null;
+  const allTop = logged.length === rows.length && logged.every((r) => +r.reps >= range[1] && ["easy","good"].includes(r.effort));
+  const below = logged.some((r) => +r.reps < range[0]);
+  const w = +(logged[0].w || 0), body = !w;
+  const e = BY[id];
+  if (allTop) return body ? { cls: "", t: `All sets at the top. Next time: move up to ${e.harder ? BY[e.harder]?.name : "a harder version"}.` } : { cls: "", t: `All sets at the top of ${range[0]}–${range[1]}. Next time: ${w + (["squat","hinge","lunge"].includes(e.pattern) ? 10 : 5)} lb, back to ${range[0]} reps.` };
+  if (below) return { cls: "drop", t: `Under ${range[0]} reps. If it happens again next session, the weight drops 5–10%.` };
+  return { cls: "hold", t: `In range. Next time: same weight, aim for 1 more rep per set.` };
+}
+
+// ---------- Rendering ----------
+const ICONS = {
+  today: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg>',
+  playlists: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h12M4 12h12M4 18h7"/><path d="M17 15v6l4-3z" fill="currentColor"/></svg>',
+  progress: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
+  food: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 5v6M7 5v6M4 8h3M5.5 11v8M15 5c-2 0-3 2-3 5s1 4 3 4v5M15 5c1.5 0 2.5 2 2.5 5"/></svg>',
+  coach: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg>'
+};
+function renderTabs() {
+  const T = [["today","Today"],["playlists","Playlists"],["progress","Progress"],["food","Food"],["coach","Coach"]];
+  $("#tabs .in").innerHTML = T.map(([k, l]) => `<button type="button" data-tab="${k}" class="${tab === k ? "on" : ""}" aria-current="${tab === k ? "page" : "false"}">${ICONS[k]}${l}</button>`).join("");
+  $("#tabs").hidden = !S.onboarded;
+}
+function render() {
+  renderTabs();
+  if (!S.onboarded) return renderOnboarding();
+  ({ today: renderToday, workout: renderWorkout, playlists: renderPlaylists, progress: renderProgress, food: renderFood, coach: renderCoach })[tab]();
+  window.scrollTo({ top: 0 });
+}
+function header(eyebrow, title, extra = "") {
+  return `<div class="top"><div><div class="eyebrow">${eyebrow}</div><h1 class="title">${title}</h1></div>${extra || `<div class="avatar" aria-hidden="true">${esc(S.profile.name[0])}</div>`}</div>`;
+}
+
+function renderToday() {
+  const sch = schedule(), key = sch[S.todayIndex % sch.length], day = buildDay(key), g = goalTable();
+  const t = targets(), dayNames = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  const trainDays = { 2: [0,3], 3: [0,2,4], 4: [0,1,3,4], 5: [0,1,2,4,5], 6: [0,1,2,3,4,5] }[S.profile.days];
+  const todayDow = trainDays[S.todayIndex % trainDays.length];
+  const weeks = S.profile.weeks;
+  const phase = Array.from({ length: 12 }, (_, i) => { const wk = i + 1, cur = (S.block - 1) * 4 + S.week; const cls = [wk < cur ? "done" : wk === cur ? "now" : "", wk % 4 === 0 ? "deload" : ""].join(" "); return wk <= weeks ? `<span class="${cls}" title="Week ${wk}"></span>` : ""; }).join("");
+  $("#app").innerHTML = `
+    ${header(`Block ${S.block} · Week ${S.week} of 4`, `Hey ${esc(S.profile.name)}`)}
+    <div class="stack">
+      <section class="card today">
+        <div class="stripe" aria-hidden="true"></div>
+        <div class="eyebrow">Today's playlist</div>
+        <h2 class="title">${day.name}</h2>
+        <div class="meta"><span>${day.items.length} exercises</span><span>~${S.profile.minutes} min</span><span>${g.label} · ${g.reps[0]}–${g.reps[1]} reps</span><span>Leave ${rirForWeek(S.week)} reps in the tank</span></div>
+        <button class="btn primary block" type="button" data-go="workout">Start workout</button>
+      </section>
+      <div class="week">${dayNames.map((d, i) => { const train = trainDays.indexOf(i); const cls = i < todayDow && train >= 0 ? "done" : i === todayDow ? "now" : train < 0 ? "rest" : ""; return `<div class="day ${cls}">${d}<b>${train >= 0 ? RULES.names[sch[train % sch.length]].replace("Full Body","FB").replace(" + Agility","").split(" ")[0] : "Rest"}</b></div>`; }).join("")}</div>
+      <section class="card">
+        <div class="row between"><b>${weeks}-week program</b><span class="pill">${g.label}${inFoundation() && S.block === 1 && S.week <= 2 ? " start" : ""}</span></div>
+        <div class="phase" aria-label="Program weeks">${phase}</div>
+        <p class="small muted" style="margin-top:8px">Every 4th week is an easy week (striped). New playlists start each block.</p>
+      </section>
+      <section class="card">
+        <div class="row between"><b>Daily check-in</b><span class="tiny muted">10 seconds</span></div>
+        <div class="grid2" style="margin-top:10px">
+          <label class="field"><span>Weight (lb)</span><input id="ci-w" inputmode="decimal" value="${Math.round(S.profile.kg * 2.2)}"></label>
+          <label class="field"><span>Sleep (hours)</span><input id="ci-s" inputmode="decimal" value="7.5"></label>
+        </div>
+        <div class="field" style="margin-top:10px"><span>Soreness</span><div class="chips" data-pick="soreness">${[1,2,3,4,5].map((n) => `<button type="button" class="chip ${n === 2 ? "on" : ""}">${n}</button>`).join("")}</div></div>
+        <button class="btn block" type="button" style="margin-top:12px" data-toast="Check-in saved. Your 7-day weight trend is updated.">Save check-in</button>
+      </section>
+      <section class="grid2">
+        <button class="card stat" type="button" data-tab="food" style="text-align:left"><span class="eyebrow">Food today</span><span class="v num">${foodSum(1).toLocaleString()}</span><span class="small muted">of ${t.kcal.toLocaleString()} kcal</span></button>
+        <button class="card stat" type="button" data-tab="food" style="text-align:left"><span class="eyebrow">Protein</span><span class="v num">${foodSum(2)} g</span><span class="small muted">of ${t.protein} g</span></button>
+      </section>
+    </div>`;
+}
+
+function renderWorkout() {
+  const sch = schedule(), key = sch[S.todayIndex % sch.length], day = buildDay(key), g = goalTable();
+  const wu = warmup();
+  const logKey = `${S.block}-${S.week}-${key}`;
+  S.log[logKey] ||= {};
+  $("#app").innerHTML = `
+    <div class="top"><div><div class="eyebrow">Block ${S.block} · Week ${S.week}</div><h1 class="title">${day.name}</h1></div><button class="btn ghost" type="button" data-go="today">Close</button></div>
+    <div class="stack">
+      <section class="card">
+        <div class="row between"><b>Warm-up</b><span class="tiny muted">10 min</span></div>
+        <p class="small muted" style="margin:4px 0 8px">5 min easy cardio, then these fixes from your squat check:</p>
+        <div class="list">${wu.map(exItem).join("") || `<p class="small muted">No fixes needed.</p>`}</div>
+      </section>
+      <div class="row between small"><span class="muted">Rest ${g.rest} · Tempo ${g.tempo}</span><span class="pill heat">Leave ${rirForWeek(S.week)} in the tank</span></div>
+      ${day.items.map((it, i) => exCard(it, i, logKey)).join("")}
+      <section class="card">
+        <div class="row between"><b>Cool-down</b><span class="tiny muted">5–10 min</span></div>
+        <div class="list">${EX.filter((e) => ["stretch","foam_roll"].includes(e.pattern)).slice(0, 3).map(exItem).join("")}</div>
+      </section>
+      <button class="btn primary block" type="button" data-finish>Finish workout</button>
+    </div>`;
+}
+function exItem(e) {
+  return `<button class="item" type="button" data-ex="${e.id}"><span class="thumb"${thumbBg(e)}>${esc(initials(e.name))}</span><span class="grow"><span class="name">${esc(e.name)}</span><br><span class="sub">${esc(e.muscles_primary.join(", "))} · ${esc(e.equipment.join(", "))}</span></span></button>`;
+}
+function exCard(it, i, logKey) {
+  const e = BY[it.id], lt = lastTime(it.id), rows = S.log[logKey][it.id] || Array.from({ length: it.sets }, () => ({ w: lt?.kg || "", reps: "", effort: "" }));
+  S.log[logKey][it.id] = rows;
+  const v = verdict(it.id, rows, it.reps);
+  return `<section class="card ex" data-card="${it.id}">
+    <div class="ex-head">
+      <button class="thumb" type="button" data-ex="${e.id}" aria-label="Play ${esc(e.name)} video and form tips"${thumbBg(e) || ' style="border:0"'}>${esc(initials(e.name))}</button>
+      <div style="flex:1;min-width:0"><div class="name" style="font-weight:800">${i + 1}. ${esc(e.name)}</div>
+        <div class="small muted">${it.sets} sets × ${it.reps[0]}–${it.reps[1]} reps</div>
+        ${lt ? `<div class="last num">Last time: ${lt.kg ? lt.kg + " lb × " : ""}${lt.reps} reps · Good</div>` : ""}</div>
+      <button class="chip" type="button" data-save="${e.id}" aria-label="Save ${esc(e.name)}">Save</button>
+    </div>
+    <div class="sets">${rows.map((r, n) => `
+      <div class="set ${r.reps && r.effort ? "logged" : ""}">
+        <span class="n">${n + 1}</span>
+        <div><label for="w-${it.id}-${n}">lb</label><input id="w-${it.id}-${n}" class="num" inputmode="decimal" data-w="${it.id}:${n}" value="${esc(r.w)}" placeholder="0"></div>
+        <div><label for="r-${it.id}-${n}">Reps</label><input id="r-${it.id}-${n}" class="num" inputmode="numeric" data-r="${it.id}:${n}" value="${esc(r.reps)}" placeholder="${it.reps[1]}"></div>
+        <div class="effort" role="group" aria-label="How hard">${[["easy","Easy"],["good","Good"],["hard","Hard"],["all","All out"]].map(([k, l]) => `<button type="button" class="${r.effort === k ? "on" : ""}" data-eff="${it.id}:${n}:${k}">${l}</button>`).join("")}</div>
+      </div>`).join("")}</div>
+    ${v ? `<div class="coachtip ${v.cls}">${esc(v.t)}</div>` : ""}
+  </section>`;
+}
+
+function renderPlaylists() {
+  const sch = [...new Set(schedule())];
+  const patterns = [["squat","Squat"],["hinge","Hinge"],["lunge","Lunge"],["push_horizontal","Push"],["push_vertical","Overhead"],["pull_horizontal","Row"],["pull_vertical","Pull-down / up"],["core","Core"],["carry","Carry"],["plyo_agility","Speed + agility"],["isolation","Arms, shoulders, calves"],["warmup_mobility","Warm-up"],["stretch","Stretch"],["foam_roll","Foam roll"],["cardio","Cardio"]];
+  const f = renderPlaylists.filter || "squat";
+  $("#app").innerHTML = `
+    ${header("Your library", "Playlists")}
+    <div class="stack">
+      <section class="card">
+        <div class="row between"><b>Block ${S.block} playlists</b><span class="pill">Built for you</span></div>
+        <div class="list" style="margin-top:6px">${sch.map((k) => { const d = buildDay(k); return `<button class="item" type="button" data-pl="${k}"><span class="thumb" style="color:var(--heat);background:var(--heat-soft)">${esc(initials(d.name))}</span><span class="grow"><span class="name">Block ${S.block} · ${esc(d.name)}</span><br><span class="sub">${d.items.length} exercises · ${esc(d.items.slice(0, 3).map((x) => BY[x.id].name).join(", "))}…</span></span></button>`; }).join("")}</div>
+        <p class="tiny muted" style="margin-top:6px">At the end of each block, 50–70% of these swap for new versions. Your main lifts stay while they're still going up.</p>
+      </section>
+      <section class="card">
+        <div class="row between"><b>Your playlists</b><button class="chip" type="button" data-newpl>+ New</button></div>
+        <div class="list" style="margin-top:6px">${Object.entries(S.saved).map(([n, ids]) => `<button class="item" type="button" data-mypl="${esc(n)}"><span class="thumb">${esc(initials(n))}</span><span class="grow"><span class="name">${esc(n)}</span><br><span class="sub">${ids.length} saved · ${esc(ids.slice(0, 3).map((id) => BY[id]?.name).filter(Boolean).join(", "))}</span></span></button>`).join("")}</div>
+      </section>
+      <section class="card">
+        <b>All exercises</b>
+        <div class="chips" style="margin:10px 0 4px">${patterns.map(([k, l]) => `<button type="button" class="chip ${f === k ? "on" : ""}" data-filter="${k}">${l}</button>`).join("")}</div>
+        <div class="list">${EX.filter((e) => e.pattern === f).sort((a, b) => a.level - b.level).map(exItem).join("")}</div>
+      </section>
+    </div>`;
+}
+
+function spark(points, w = 320, h = 120, color = "var(--accent)", goal = null) {
+  const min = Math.min(...points, goal ?? Infinity) - 2, max = Math.max(...points, goal ?? -Infinity) + 2;
+  const x = (i) => 28 + (i * (w - 40)) / (points.length - 1), y = (v) => 10 + ((max - v) * (h - 30)) / (max - min);
+  const d = points.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+  const area = `${d}L${x(points.length - 1)},${h - 20}L${x(0)},${h - 20}Z`;
+  const grid = [min + 2, (min + max) / 2, max - 2].map((v) => `<line x1="28" x2="${w - 12}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="0" y="${y(v) + 4}" font-size="10" fill="var(--muted)">${Math.round(v)}</text>`).join("");
+  const labels = points.map((_, i) => (i % 2 === 0 || i === points.length - 1) ? `<text x="${x(i)}" y="${h - 4}" font-size="10" text-anchor="middle" fill="var(--muted)">W${i + 1}</text>` : "").join("");
+  return `<svg class="chart" viewBox="0 0 ${w} ${h}" role="img">${grid}${goal != null ? `<line x1="28" x2="${w - 12}" y1="${y(goal)}" y2="${y(goal)}" stroke="var(--ok)" stroke-dasharray="4 4"/>` : ""}<path d="${area}" fill="${color}" opacity=".12"/><path d="${d}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/><circle cx="${x(points.length - 1)}" cy="${y(points[points.length - 1])}" r="4.5" fill="${color}"/>${labels}</svg>`;
+}
+function ring(pct, color, label, val) {
+  const r = 30, c = 2 * Math.PI * r, p = Math.min(1, pct);
+  return `<div class="ring"><svg viewBox="0 0 76 76"><circle cx="38" cy="38" r="${r}" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="38" cy="38" r="${r}" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(c * p).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 38 38)"/><text x="38" y="43" text-anchor="middle" font-size="14" font-weight="800" fill="var(--ink)">${Math.round(pct * 100)}%</text></svg><b class="num">${val}</b>${label}</div>`;
+}
+function renderProgress() {
+  const lb = Math.round(S.profile.kg * 2.2);
+  const z = hrZones();
+  $("#app").innerHTML = `
+    ${header("Example data · 6 weeks", "Progress")}
+    <div class="stack">
+      <section class="grid3">
+        <div class="card stat"><span class="eyebrow">Done</span><span class="v num">92%</span><span class="tiny muted">22 of 24 sessions</span></div>
+        <div class="card stat"><span class="eyebrow">Records</span><span class="v num">9</span><span class="tiny muted">this block</span></div>
+        <div class="card stat"><span class="eyebrow">Streak</span><span class="v num">5</span><span class="tiny muted">weeks on track</span></div>
+      </section>
+      <section class="card">
+        <div class="row between"><b>Goblet squat · estimated max</b><span class="pill ok">+14%</span></div>
+        ${spark([70, 72, 74, 77, 76, 80], 320, 130, "var(--accent)")}
+        <p class="tiny muted">Estimated max = weight × (1 + reps ÷ 30). On track = +2–5% a block.</p>
+      </section>
+      <section class="card">
+        <div class="row between"><b>Body weight · 7-day trend</b><span class="pill ok">On pace</span></div>
+        ${spark([lb, lb + 0.2, lb + 0.5, lb + 0.6, lb + 0.9, lb + 1.2], 320, 130, "var(--heat)", lb + 1.5)}
+        <p class="tiny muted">Muscle gain pace: +1–2 lb a month. Dashed line = where you'll be at week 8.</p>
+      </section>
+      <section class="card">
+        <b>Sets per muscle this week</b>
+        <div class="stack" style="margin-top:10px;gap:8px">${[["Glutes",14],["Quads",12],["Back",13],["Chest",10],["Shoulders",9],["Arms",8]].map(([m, n]) => `<div><div class="row between small"><span>${m}</span><span class="num muted">${n} / 10–20</span></div><div style="height:8px;border-radius:4px;background:var(--line);overflow:hidden"><div style="height:100%;width:${(n / 20) * 100}%;background:${n >= 10 ? "var(--ok)" : "var(--warn)"}"></div></div></div>`).join("")}</div>
+      </section>
+      <section class="card">
+        <div class="row between"><b>Starting test vs now</b><span class="tiny muted">Recheck at week 4</span></div>
+        <div class="list" style="margin-top:4px">${[["Push-ups", S.test.push, S.test.push + 5],["Rows", S.test.pull, S.test.pull + 3],["Squats", S.test.legs, S.test.legs + 8],["Plank (s)", S.test.core, S.test.core + 25],["Resting heart rate", S.test.rhr, S.test.rhr - 3]].map(([l, a, b]) => `<div class="item"><span class="grow">${l}</span><span class="num muted">${a}</span><span>→</span><b class="num">${b}</b></div>`).join("")}</div>
+      </section>
+      <section class="card">
+        <b>Your heart-rate zones</b>
+        <p class="small muted" style="margin:4px 0 8px">From age ${S.profile.age} and resting heart rate ${S.test.rhr}. Max ${z.max}.</p>
+        <div class="grid2"><div class="stat"><span class="eyebrow">Zone 2 · easy cardio</span><span class="v num">${z[2][0]}–${z[2][1]}</span></div><div class="stat"><span class="eyebrow">Zone 4 · intervals</span><span class="v num">${z[4][0]}–${z[4][1]}</span></div></div>
+      </section>
+      <section class="card"><b>Photos</b><p class="small muted" style="margin-top:4px">Front, back and sides, every 4 weeks. Slide to compare week 0 with now.</p><div class="grid2" style="margin-top:10px"><div class="scan" style="aspect-ratio:3/4;background:var(--raised);color:var(--muted)">Week 0</div><div class="scan" style="aspect-ratio:3/4;background:var(--raised);color:var(--muted)">Week 6</div></div></section>
+    </div>`;
+}
+
+const SAMPLE_MEALS = [
+  { meal: "Breakfast", items: [["Greek yogurt, plain, 1 cup", 150, 23, 9, 0], ["Banana, medium", 105, 1, 27, 0], ["Granola, 1/4 cup", 140, 3, 20, 5]] },
+  { meal: "Lunch", items: [["Chicken breast, grilled, 6 oz", 280, 53, 0, 6], ["White rice, cooked, 1 cup", 205, 4, 45, 0], ["Broccoli, 1 cup", 31, 3, 6, 0]] },
+  { meal: "Snack", items: [["Protein bar", 200, 20, 22, 7]] }
+];
+function foodSum(i) { return (S.food || SAMPLE_MEALS).flatMap((m) => m.items).reduce((a, x) => a + x[i], 0); }
+function renderFood() {
+  const t = targets();
+  S.food ||= structuredClone(SAMPLE_MEALS);
+  const all = S.food.flatMap((m) => m.items), sum = (i) => all.reduce((a, x) => a + x[i], 0);
+  const kcal = sum(1), p = sum(2), c = sum(3), f = sum(4);
+  $("#app").innerHTML = `
+    ${header("Today · example log", "Food")}
+    <div class="stack">
+      <section class="card">
+        <div class="rings">${ring(kcal / t.kcal, "var(--food)", "Calories", `${kcal.toLocaleString()} / ${t.kcal.toLocaleString()}`)}${ring(p / t.protein, "var(--accent)", "Protein", `${p} / ${t.protein} g`)}${ring(c / t.carbs, "var(--ok)", "Carbs", `${c} / ${t.carbs} g`)}${ring(f / t.fat, "var(--heat)", "Fat", `${f} / ${t.fat} g`)}</div>
+        <p class="tiny muted" style="margin-top:10px">Target = daily burn ${t.tdee.toLocaleString()} ${RULES.goals[S.profile.goal].kcal >= 0 ? "+" : "−"} ${Math.abs(RULES.goals[S.profile.goal].kcal)} kcal for ${RULES.goals[S.profile.goal].label.toLowerCase()}. It adjusts each week from your weight trend.</p>
+      </section>
+      <div class="grid2"><button class="btn primary" type="button" data-scan>Scan barcode</button><button class="btn" type="button" data-search>Search food</button></div>
+      ${S.food.map((m) => `<section class="card"><div class="row between"><b>${m.meal}</b><span class="num small muted">${m.items.reduce((a, x) => a + x[1], 0)} kcal</span></div><div class="list" style="margin-top:4px">${m.items.map((x) => `<div class="item"><span class="grow"><span class="name" style="font-weight:700">${esc(x[0])}</span><br><span class="sub num">P ${x[2]} · C ${x[3]} · F ${x[4]}</span></span><span class="num small">${x[1]}</span></div>`).join("")}</div></section>`).join("")}
+      <p class="credit">Food data: Powered by fatsecret (connects when the API account is approved; these are example entries).</p>
+    </div>`;
+}
+
+function renderCoach() {
+  const tiers = [["app","App","The program runs on its own: playlists, progression, food targets."],["check_in","Check-in","A coach reads your weekly check-in and replies. Monthly form-video review."],["coached","Coached","Your coach can change your program and food. Weekly form checks, monthly video call."],["live","Live","1–2 live sessions a week, full nutrition coaching, direct messages."]];
+  $("#app").innerHTML = `
+    ${header("Your coach", "Coach")}
+    <div class="stack">
+      ${S.tier === "app" ? "" : `<section class="card stack" style="gap:8px">
+        <div class="row"><div class="avatar" aria-hidden="true">C</div><div><b>Coach (example)</b><div class="tiny muted">Replied Monday</div></div></div>
+        <div class="msg">Week 1 looked strong. Your squats went up two sessions in a row, so we're adding 10 lb on Lower A. Protein was short 3 days. Try the yogurt + protein bar snack.</div>
+        <div class="msg me">Got it. Knees felt better with the band walks in the warm-up.</div>
+        <button class="btn block" type="button" data-toast="Form video sent to your coach.">Send a form video</button>
+      </section>`}
+      <section class="card">
+        <b>Weekly check-in</b>
+        <div class="list" style="margin-top:4px">${[["Workouts done","3 of 4"],["Avg sleep","7.2 h"],["Weight trend","+0.3 lb"],["Food logged","5 of 7 days"],["Protein hit","4 of 7 days"]].map(([a, b]) => `<div class="item"><span class="grow">${a}</span><b class="num">${b}</b></div>`).join("")}</div>
+        <button class="btn primary block" type="button" style="margin-top:10px" data-toast="Check-in sent${S.tier === "app" ? "" : " to your coach"}.">Send check-in</button>
+      </section>
+      <section class="stack" style="gap:10px">
+        <div class="eyebrow">Plans · more coach as you go up</div>
+        ${tiers.map(([k, n, d]) => `<button class="tier ${S.tier === k ? "on" : ""}" type="button" data-tier="${k}" style="text-align:left"><div class="row between"><b>${n}</b>${S.tier === k ? '<span class="pill">Your plan</span>' : ""}</div><span class="small muted">${d}</span></button>`).join("")}
+      </section>
+      <section class="card"><b>What your coach sees</b><div class="chips" style="margin-top:8px">${["Health check: YES answer","Pain report","2 missed sessions","Stalled on 2 lifts","Weight off target 2 weeks","Auto easy week","Not active 5 days"].map((x) => `<span class="pill heat">${x}</span>`).join("")}</div></section>
+    </div>`;
+}
+
+// ---------- Onboarding ----------
+function renderOnboarding() {
+  const st = onb.step, steps = 4;
+  const bar = `<div class="steps">${Array.from({ length: steps }, (_, i) => `<span class="${i <= st ? "on" : ""}"></span>`).join("")}</div>`;
+  const P = onb.profile;
+  const pills = (key, opts) => `<div class="chips">${opts.map(([v, l]) => `<button type="button" class="chip ${String(P[key]) === String(v) ? "on" : ""}" data-p="${key}:${v}">${l}</button>`).join("")}</div>`;
+  let body = "";
+  if (st === 0) body = `
+    <h1 class="title">Health check</h1>
+    <p class="small muted" style="margin:6px 0 4px">7 quick questions (PAR-Q+) so your program is safe from day one.</p>
+    ${RULES.parq.map((q, i) => `<div class="q"><span class="small">${i + 1}. ${q}</span><div class="yn"><button type="button" class="no ${onb.parq[i] === false ? "on" : ""}" data-parq="${i}:0">No</button><button type="button" class="yes ${onb.parq[i] === true ? "on" : ""}" data-parq="${i}:1">Yes</button></div></div>`).join("")}
+    ${onb.parq.some((x) => x === true) ? `<div class="alert">Please check with your doctor before starting. You can still start with light Foundation workouts, and your coach will be told.</div>` : ""}
+    <button class="btn primary block" type="button" data-next ${onb.parq.every((x) => x !== null) ? "" : "disabled"} style="margin-top:12px">Continue</button>`;
+  if (st === 1) body = `
+    <h1 class="title">Your goal</h1>
+    <div class="stack" style="margin-top:12px">
+      <div class="field"><span>What's your main goal?</span>${pills("goal", [["muscle_gain","Build muscle"],["weight_loss","Lose weight"],["performance","Sport performance"],["general_health","Feel better"]])}</div>
+      <div class="field"><span>Program length</span>${pills("weeks", [[2,"2 wks"],[4,"4 wks"],[6,"6 wks"],[8,"8 wks"],[12,"12 wks"]])}</div>
+      <div class="field"><span>Days a week</span>${pills("days", [[2,"2"],[3,"3"],[4,"4"],[5,"5"],[6,"6"]])}</div>
+      <div class="field"><span>Minutes per workout</span>${pills("minutes", [[30,"30"],[45,"45"],[60,"60"],[75,"75"]])}</div>
+      <div class="field"><span>Where you train</span>${pills("equip", [["full_gym","Full gym"],["home","Home, dumbbells"],["bodyweight","Bodyweight only"]])}</div>
+      <div class="field"><span>Experience</span>${pills("status", [["never","Never trained"],["under_6_months","Under 6 months"],["6_to_24_months","6 mo – 2 yrs"],["over_2_years","2+ years"]])}</div>
+      <div class="grid2">
+        <label class="field"><span>First name</span><input id="o-name" value="${esc(P.name)}"></label>
+        <label class="field"><span>Age</span><input id="o-age" inputmode="numeric" value="${P.age}"></label>
+        <label class="field"><span>Height (in)</span><input id="o-in" inputmode="numeric" value="${Math.round(P.cm / 2.54)}"></label>
+        <label class="field"><span>Weight (lb)</span><input id="o-lb" inputmode="numeric" value="${Math.round(P.kg * 2.2)}"></label>
+      </div>
+      <div class="field"><span>Sex (for calorie math)</span>${pills("sex", [["female","Female"],["male","Male"]])}</div>
+    </div>
+    <button class="btn primary block" type="button" data-next style="margin-top:14px">Continue</button>`;
+  if (st === 2) body = `
+    <h1 class="title">Starting test</h1>
+    <p class="small muted" style="margin:6px 0 12px">About 20 minutes. Each one sets your starting level.</p>
+    <div class="grid2">
+      ${[["push","Push-ups","max with good form"],["pull","Rows","table or TRX, max"],["legs","Squats","max, up to 50"],["core","Plank","seconds"],["rhr","Resting heart rate","morning, 60 s"]].map(([k, l, h]) => `<label class="field"><span>${l}</span><input id="t-${k}" inputmode="numeric" value="${onb.test[k]}"><span class="tiny muted" style="font-weight:600">${h}</span></label>`).join("")}
+    </div>
+    <div class="field" style="margin-top:12px"><span>Overhead squat check: tick what you see</span>
+      <div class="chips">${[["knees_cave","Knees cave in"],["heels_lift","Heels lift"],["arms_fall","Arms fall forward"],["forward_lean","Big forward lean"],["low_back_arch","Low back arches"]].map(([k, l]) => `<button type="button" class="chip ${onb.test.squat.includes(k) ? "on" : ""}" data-sq="${k}">${l}</button>`).join("")}</div></div>
+    <button class="btn primary block" type="button" data-next style="margin-top:14px">Build my program</button>`;
+  if (st === 3) {
+    const prev = S; S = { ...S, profile: P, parq: onb.parq, test: onb.test, block: 1, week: 1, todayIndex: 0 };
+    const lv = levels(), t = targets(), sch = schedule(), found = inFoundation(), g = RULES.goals[P.goal];
+    const blocks = { 2: "Foundation starter", 4: "1 block", 6: "1 block + 2 weeks", 8: "2 blocks", 12: "3 blocks" }[P.weeks];
+    body = `
+      <div class="eyebrow">Your program is ready</div>
+      <h1 class="title">${P.weeks} weeks · ${g.label}</h1>
+      <div class="stack" style="margin-top:12px">
+        <section class="card"><b>Plan</b><p class="small muted" style="margin-top:4px">${blocks}. ${found ? "You start with 2 weeks of Foundation (form, core, balance), then " : "You start with "}${g.label.toLowerCase()}: ${g.reps[0]}–${g.reps[1]} reps, ${g.rest} rest. Every 4th week is easy. New playlists each block.</p>
+          <div class="chips" style="margin-top:10px">${sch.map((k) => `<span class="pill">${RULES.names[k]}</span>`).join("")}</div></section>
+        <section class="card"><b>Your starting levels</b><div class="grid2" style="margin-top:8px">${Object.entries(lv).map(([k, v]) => `<div class="stat"><span class="eyebrow">${k}</span><span class="v num">Level ${v}</span></div>`).join("")}</div></section>
+        <section class="card"><b>Food targets</b><div class="grid2" style="margin-top:8px"><div class="stat"><span class="eyebrow">Calories</span><span class="v num">${t.kcal.toLocaleString()}</span></div><div class="stat"><span class="eyebrow">Protein</span><span class="v num">${t.protein} g</span></div></div><p class="tiny muted" style="margin-top:6px">Daily burn ${t.tdee.toLocaleString()} kcal. Adjusts weekly from your weight trend.</p></section>
+        ${onb.parq.some(Boolean) ? `<div class="alert">Health check: a YES answer. Light Foundation workouts until you confirm your doctor cleared you.</div>` : ""}
+      </div>
+      <button class="btn primary block" type="button" data-done style="margin-top:14px">Start week 1</button>`;
+    S = prev;
+  }
+  $("#app").innerHTML = `${bar}${body}`;
+}
+function readOnbFields() {
+  const P = onb.profile, v = (id) => $(id)?.value;
+  if ($("#o-name")) { P.name = v("#o-name").trim() || "You"; P.age = +v("#o-age") || 30; P.cm = Math.round((+v("#o-in") || 66) * 2.54); P.kg = Math.round(((+v("#o-lb") || 150) / 2.2) * 10) / 10; }
+  if ($("#t-push")) ["push","pull","legs","core","rhr"].forEach((k) => (onb.test[k] = +v(`#t-${k}`) || 0));
+}
+
+// ---------- Sheets ----------
+function sheet(html) { $("#layer").innerHTML = `<div class="scrim" data-close><div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>${html}</div></div>`; }
+function closeSheet() { $("#layer").innerHTML = ""; }
+function exSheet(id) {
+  const e = BY[id]; if (!e) return;
+  const chain = []; let c = e; while (c.easier && BY[c.easier] && chain.length < 6) c = BY[c.easier]; while (c && chain.length < 7) { chain.push(c); c = c.harder ? BY[c.harder] : null; }
+  sheet(`
+    <div class="row between"><div><div class="eyebrow">${esc(e.pattern.replace("_", " "))} · level ${e.level}</div><h2 class="title sm">${esc(e.name)}</h2></div><button class="chip" type="button" data-save="${e.id}">Save</button></div>
+    <div class="stack" style="margin-top:12px">
+      ${e.video ? videoBlock(e) : ""}
+      <div><b>Form tips</b><ol class="cues small" style="margin-top:6px">${e.cues.map((q) => `<li>${esc(q)}</li>`).join("")}</ol></div>
+      <div class="small"><b>Works</b> <span class="muted">${esc(e.muscles_primary.join(", "))}${e.muscles_secondary.length ? " · also " + esc(e.muscles_secondary.join(", ")) : ""}</span></div>
+      <div class="small"><b>Equipment</b> <span class="muted">${esc(e.equipment.join(", "))}</span></div>
+      ${chain.length > 1 ? `<div><b class="small">Easier → harder</b><div class="chain" style="margin-top:6px">${chain.map((x) => `<button type="button" class="lv ${x.id === e.id ? "me" : ""}" data-ex="${x.id}">${esc(x.name)}</button>`).join("<span aria-hidden='true'>›</span>")}</div></div>` : ""}
+      <button class="btn block" type="button" data-hide="${e.id}">Don't show me this</button>
+    </div>`);
+}
+// Videos play inside the app where the host allows a YouTube player (desiweb.org, local); elsewhere they open YouTube.
+const CAN_EMBED = /(^|\.)desiweb\.org$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
+function vid(e) { const u = e?.video?.url || ""; const m = u.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([\w-]{11})/); return m ? m[1] : null; }
+function videoBlock(e) {
+  const id = vid(e), tall = /shorts\//.test(e.video.url);
+  if (CAN_EMBED && id) return `<div class="player ${tall ? "tall" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&playsinline=1" title="${esc(e.video.title)}" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div><p class="credit">Video: <a href="${esc(e.video.creator_url || e.video.url)}" target="_blank" rel="noopener">${esc(e.video.creator)}</a></p>`;
+  return `<a class="video" href="${esc(e.video.url)}" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><span class="vt">${esc(e.video.title)}</span><br><span class="vc">Video: ${esc(e.video.creator)} · opens YouTube</span></span></a><p class="credit">In the full app at desiweb.org/lab/fitness, videos play right here.</p>`;
+}
+function thumbBg(e) { const id = vid(e); return CAN_EMBED && id ? ` style="background-image:url(https://i.ytimg.com/vi/${id}/mqdefault.jpg)" data-img` : ""; }
+function saveSheet(id) {
+  const e = BY[id];
+  sheet(`<h2 class="title sm">Save ${esc(e.name)}</h2><p class="small muted" style="margin:4px 0 10px">Saved exercises get picked more often in your playlists.</p>
+    <div class="list">${Object.keys(S.saved).map((n) => `<button class="item" type="button" data-saveto="${esc(n)}|${id}"><span class="thumb">${esc(initials(n))}</span><span class="grow"><span class="name">${esc(n)}</span><br><span class="sub">${S.saved[n].length} saved</span></span><span class="pill ${S.saved[n].includes(id) ? "ok" : ""}">${S.saved[n].includes(id) ? "Saved" : "Add"}</span></button>`).join("")}</div>
+    <div class="row" style="margin-top:10px"><label class="field" style="flex:1"><span>New playlist</span><input id="newpl" placeholder="e.g. Glute day"></label><button class="btn primary" type="button" data-saveto-new="${id}" style="align-self:end">Create</button></div>`);
+}
+function playlistSheet(title, ids, sub) {
+  sheet(`<h2 class="title sm">${esc(title)}</h2><p class="small muted" style="margin:4px 0 8px">${esc(sub)}</p><div class="list">${ids.map((id) => BY[id]).filter(Boolean).map(exItem).join("")}</div><button class="btn primary block" type="button" data-toast="Playlist started. Logged like any workout." style="margin-top:12px">Play as a workout</button>`);
+}
+function scanSheet() {
+  sheet(`<h2 class="title sm">Scan barcode</h2><p class="small muted" style="margin:4px 0 10px">Point the camera at the barcode. (Prototype: tap to simulate a scan.)</p>
+    <button class="scan" type="button" data-scanned style="width:100%;border:0"><span class="frame"><span class="laser"></span></span></button>
+    <p class="credit" style="margin-top:8px">Powered by fatsecret</p>`);
+}
+function scannedSheet() {
+  sheet(`<div class="eyebrow">Example scan result</div><h2 class="title sm">Greek yogurt, vanilla, 5.3 oz</h2>
+    <div class="grid3" style="margin:12px 0"><div class="stat"><span class="eyebrow">kcal</span><span class="v num">120</span></div><div class="stat"><span class="eyebrow">Protein</span><span class="v num">12 g</span></div><div class="stat"><span class="eyebrow">Carbs</span><span class="v num">14 g</span></div></div>
+    <div class="field"><span>Add to</span><div class="chips" data-pick="meal">${["Breakfast","Lunch","Snack","Dinner"].map((m, i) => `<button type="button" class="chip ${i === 2 ? "on" : ""}">${m}</button>`).join("")}</div></div>
+    <button class="btn primary block" type="button" data-addfood style="margin-top:12px">Add 1 serving</button>
+    <p class="credit" style="margin-top:8px">Powered by fatsecret</p>`);
+}
+function toast(t) { const d = document.createElement("div"); d.className = "toast"; d.setAttribute("role", "status"); d.textContent = t; document.body.append(d); setTimeout(() => d.remove(), 2200); }
+
+// ---------- Events ----------
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest("button, a, [data-close]"); if (!b) return;
+  const d = b.dataset;
+  if (d.close !== undefined && ev.target === b) return closeSheet();
+  if (d.tab) { tab = d.tab; closeSheet(); return render(); }
+  if (d.go) { tab = d.go; return render(); }
+  if (d.ex) return exSheet(d.ex);
+  if (d.save) return saveSheet(d.save);
+  if (d.saveto) { const [n, id] = d.saveto.split("|"); const l = S.saved[n]; l.includes(id) ? l.splice(l.indexOf(id), 1) : l.push(id); save(); saveSheet(id); return toast(l.includes(id) ? `Saved to ${n}` : `Removed from ${n}`); }
+  if (d.savetoNew) { const n = ($("#newpl").value || "").trim(); if (!n) return $("#newpl").focus(); S.saved[n] ||= []; S.saved[n].push(d.savetoNew); save(); saveSheet(d.savetoNew); return toast(`Saved to ${n}`); }
+  if (d.hide) { S.hidden.push(d.hide); save(); closeSheet(); render(); return toast("Got it. You won't see that one again."); }
+  if (d.filter) { renderPlaylists.filter = d.filter; return renderPlaylists(); }
+  if (d.pl) { const day = buildDay(d.pl); return playlistSheet(`Block ${S.block} · ${day.name}`, day.items.map((x) => x.id), "Built from your goal, level and equipment."); }
+  if (d.mypl) return playlistSheet(d.mypl, S.saved[d.mypl], "Your playlist. Run it any day as a workout.");
+  if (d.newpl !== undefined) { const n = `My playlist ${Object.keys(S.saved).length + 1}`; S.saved[n] = []; save(); renderPlaylists(); return toast(`Created "${n}". Tap Save on any exercise to add it.`); }
+  if (d.eff) { const [id, n, k] = d.eff.split(":"); const key = logKeyNow(); const r = S.log[key][id][+n]; r.effort = k; if (!r.reps) r.reps = String(buildRange(id)[1]); save(); return rerenderCard(id); }
+  if (d.finish !== undefined) { S.todayIndex++; if (S.todayIndex % S.profile.days === 0) { S.week++; if (S.week > 4) { S.week = 1; S.block++; } } save(); tab = "today"; render(); return toast("Workout saved. Next session's weights are set."); }
+  if (d.toast) return toast(d.toast);
+  if (d.tier) { S.tier = d.tier; save(); renderCoach(); return toast("Plan switched (prototype)"); }
+  if (d.scan !== undefined) return scanSheet();
+  if (d.scanned !== undefined) return scannedSheet();
+  if (d.search !== undefined) return sheet(`<h2 class="title sm">Search food</h2><label class="field" style="margin-top:10px"><span>Food name</span><input id="fs" value="chicken breast"></label><div class="list" style="margin-top:8px">${[["Chicken breast, grilled, 4 oz",187,35,0,4],["Chicken breast, raw, 4 oz",136,26,0,3],["Rotisserie chicken breast, 3 oz",140,25,0,4]].map((x) => `<div class="item"><span class="grow"><span class="name" style="font-weight:700">${x[0]}</span><br><span class="sub num">P ${x[2]} · C ${x[3]} · F ${x[4]}</span></span><span class="num small">${x[1]}</span></div>`).join("")}</div><p class="credit" style="margin-top:8px">Powered by fatsecret · example results</p>`);
+  if (d.addfood !== undefined) { const m = $(".sheet .chips .on")?.textContent || "Snack"; S.food ||= structuredClone(SAMPLE_MEALS); let meal = S.food.find((x) => x.meal === m); if (!meal) S.food.push((meal = { meal: m, items: [] })); meal.items.push(["Greek yogurt, vanilla, 5.3 oz", 120, 12, 14, 2]); save(); closeSheet(); renderFood(); return toast(`Added to ${m}`); }
+  if (b.closest("[data-pick]")) { b.parentElement.querySelectorAll(".chip").forEach((c) => c.classList.remove("on")); b.classList.add("on"); return; }
+  // onboarding
+  if (d.parq) { const [i, y] = d.parq.split(":"); onb.parq[+i] = y === "1"; return renderOnboarding(); }
+  if (d.p) { readOnbFields(); const [k, v] = d.p.split(":"); onb.profile[k] = isNaN(+v) ? v : +v; return renderOnboarding(); }
+  if (d.sq) { readOnbFields(); const s = onb.test.squat; s.includes(d.sq) ? s.splice(s.indexOf(d.sq), 1) : s.push(d.sq); return renderOnboarding(); }
+  if (d.next !== undefined) { readOnbFields(); onb.step++; window.scrollTo({ top: 0 }); return renderOnboarding(); }
+  if (d.done !== undefined) { S = { ...structuredClone(SAMPLE), onboarded: true, profile: onb.profile, parq: onb.parq, test: onb.test, block: 1, week: 1, todayIndex: 0, saved: { "Saved": [] }, log: {}, food: null }; onb = null; save(); tab = "today"; render(); return toast("Program built. Week 1 starts today."); }
+});
+document.addEventListener("input", (ev) => {
+  const el = ev.target, d = el.dataset;
+  if (d.w || d.r) { const [id, n] = (d.w || d.r).split(":"); const row = S.log[logKeyNow()][id][+n]; d.w ? (row.w = el.value) : (row.reps = el.value); save(); }
+});
+document.addEventListener("change", (ev) => { const d = ev.target.dataset; if (d.w || d.r) rerenderCard((d.w || d.r).split(":")[0]); });
+function logKeyNow() { const sch = schedule(); return `${S.block}-${S.week}-${sch[S.todayIndex % sch.length]}`; }
+function buildRange(id) { const sch = schedule(), day = buildDay(sch[S.todayIndex % sch.length]); return day.items.find((x) => x.id === id)?.reps || [8, 12]; }
+function rerenderCard(id) {
+  const sch = schedule(), day = buildDay(sch[S.todayIndex % sch.length]); const i = day.items.findIndex((x) => x.id === id); if (i < 0) return;
+  const old = document.querySelector(`[data-card="${id}"]`); if (!old) return;
+  const tmp = document.createElement("div"); tmp.innerHTML = exCard(day.items[i], i, logKeyNow()); old.replaceWith(tmp.firstElementChild);
+}
+$("#restart").addEventListener("click", () => {
+  closeSheet();
+  onb = { step: 0, parq: [null,null,null,null,null,null,null], profile: { name: "", sex: "female", age: 30, cm: 168, kg: 68, goal: "muscle_gain", weeks: 12, days: 3, minutes: 45, equip: "full_gym", status: "under_6_months", activity: 1.55 }, test: { push: 8, pull: 6, legs: 25, core: 45, rhr: 66, squat: [] } };
+  S = { ...S, onboarded: false }; render();
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSheet(); });
+
+// ---------- Boot ----------
+const VIEWS = ["today", "workout", "playlists", "progress", "food", "coach"];
+function fromHash() { const h = location.hash.slice(1); if (VIEWS.includes(h) && S.onboarded) { tab = h; closeSheet(); render(); } }
+window.addEventListener("hashchange", fromHash);
+fetch("exercises.json").then((r) => r.json()).then((d) => { EX = d; BY = Object.fromEntries(d.map((e) => [e.id, e])); if (!S.onboarded && !onb) S = structuredClone(SAMPLE); const h = location.hash.slice(1); if (VIEWS.includes(h)) tab = h; render(); })
+  .catch(() => { $("#app").innerHTML = `<p class="alert">The exercise library didn't load. Reload the page to try again.</p>`; });
+</script>
+
+</body>
+</html>
