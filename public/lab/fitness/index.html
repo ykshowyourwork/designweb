@@ -176,6 +176,10 @@ p { margin: 0; }
 .steps span.on { background: var(--accent); }
 .field { display: grid; gap: 6px; }
 .field > span { font-size: 12px; font-weight: 800; color: var(--muted); letter-spacing: .04em; }
+.field textarea { border: 1px solid var(--line); background: var(--raised); border-radius: 12px; padding: 10px 12px; font: inherit; font-weight: 600; color: var(--ink); width: 100%; resize: vertical; }
+.photo-in { display: grid; place-items: center; aspect-ratio: 3 / 4; border: 1.5px dashed var(--line); border-radius: 12px; font-size: 12px; font-weight: 800; color: var(--muted); cursor: pointer; overflow: hidden; text-align: center; padding: 4px; }
+.photo-in img { width: 100%; height: 100%; object-fit: cover; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
 .field input, .field select { border: 1px solid var(--line); background: var(--raised); border-radius: 12px; padding: 11px 12px; font-weight: 700; width: 100%; }
 .alert { border-radius: 14px; padding: 12px 14px; background: var(--heat-soft); color: var(--heat); font-weight: 700; font-size: 13.5px; }
 .toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(86px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-weight: 800; font-size: 13px; z-index: 60; }
@@ -202,13 +206,24 @@ p { margin: 0; }
 // ---------- Rules (from data/rules.json, the parts the prototype runs) ----------
 const RULES = {
   parq: [
-    "Has your doctor ever said that you have a heart condition OR high blood pressure?",
-    "Do you feel pain in your chest at rest, during your daily activities of living, OR when you do physical activity?",
-    "Do you lose balance because of dizziness OR have you lost consciousness in the last 12 months?",
-    "Have you ever been diagnosed with another chronic medical condition (other than heart disease or high blood pressure)?",
-    "Are you currently taking prescribed medications for a chronic medical condition?",
-    "Do you currently have (or have had within the past 12 months) a bone, joint, or soft tissue problem that could be made worse by becoming more physically active?",
-    "Has your doctor ever said that you should only do medically supervised physical activity?"
+    "Has your doctor ever diagnosed you with a heart condition AND told you to only do physical activity they can supervise?",
+    "Does your doctor currently prescribe you drugs for your blood pressure or heart condition?",
+    "Do you feel chest pain during physical activity?",
+    "Do you lose your balance due to dizziness OR have you lost consciousness in the last 12 months?",
+    "Do you have a bone, joint, or soft tissue problem that may be irritated by physical activity?",
+    "In the past 30 days have you had chest pain at any point?",
+    "Do you have any other reason to NOT do physical activity?"
+  ],
+  history: [
+    "Has a doctor diagnosed you with a heart condition?",
+    "Have you ever had angina pectoris, sharp pain, or heavy pressure in your chest as a result of exercise, walking, or other physical activity such as climbing stairs? (Not including the normal out of breath feeling that results from normal activity)",
+    "Do you experience any sharp pain or extreme tightness in your chest in cold temperatures?",
+    "Have you ever had a real or suspected heart attack, coronary occlusion, myocardial infarction, coronary insufficiency, or thrombosis?",
+    "Have you ever had rheumatic fever?",
+    "Do you have or have you had diabetes, hypertension, or high blood pressure?",
+    "Have you ever or do you take medications or been on a special diet to lower your cholesterol?",
+    "Have you ever taken digitalis, quinine, or any other drug for your heart?",
+    "Do you have a physical condition, impairment or disability, including a joint or muscle problem, that should be considered before you begin a fitness program?"
   ],
   goals: {
     muscle_gain:    { label: "Muscle gain",    sets: 4, reps: [8, 12], rir: [1, 3], rest: "60–120 s", tempo: "2-0-2", kcal: +350, protein: [1.6, 2.0], fat: 0.25, pace: "+1–2 lb a month" },
@@ -247,23 +262,24 @@ const RULES = {
     bodyweight: ["bodyweight","box","band","foam_roller"]
   }
 };
-const LEVEL = { push: [[0,1],[5,2],[15,3],[30,4]], pull: [[0,1],[5,2],[12,3],[20,4]], legs: [[0,1],[15,2],[30,3],[50,4]], core: [[0,1],[30,2],[60,3],[120,4]] };
+const LEVEL = { push: [[0,1],[5,2],[15,3],[30,4]], pull: [[0,1],[1,2],[4,3],[10,4]], legs: [[0,1],[15,2],[30,3],[50,4]], core: [[0,1],[30,2],[60,3],[120,4]] };
 const levelFor = (k, v) => LEVEL[k].reduce((lv, [min, l]) => (v >= min ? l : lv), 1);
 const groupOf = (p) => p.startsWith("push") ? "push" : p.startsWith("pull") ? "pull" : ["squat","hinge","lunge"].includes(p) ? "legs" : p === "core" ? "core" : "legs";
 
 // ---------- State ----------
 const SAMPLE = {
   onboarded: true,
-  profile: { name: "Maya", sex: "female", age: 29, cm: 165, kg: 66, goal: "muscle_gain", weeks: 12, days: 4, minutes: 60, equip: "full_gym", status: "6_to_24_months", activity: 1.55 },
-  parq: [false,false,false,false,false,false,false],
-  test: { push: 12, pull: 8, legs: 34, core: 70, rhr: 62, squat: ["knees_cave"] },
+  profile: { name: "Maya", sex: "female", age: 29, cm: 165, kg: 66, goal: "muscle_gain", weeks: 12, days: 4, minutes: 60, equip: "full_gym", status: "6_to_24_months", activity: 1.55, pref_plan: "both", pref_equipment: "both" },
+  parq: [false,false,false,false,false,false,false], history: [false,false,false,false,false,false,false,false,false],
+  test: { push: 12, pull: 3, core: 70, rhr: 0, squat: ["knees_cave"], meas: { waist: 28, hip: 38, chest: 34, arm: 11.5, thigh: 21 } },
+  intake: { outcome: "Build muscle and get my glutes and back stronger", why: "I want to feel strong and confident, and keep up with my nephews", life_yes: "More energy, clothes fit better, proud of myself", life_no: "Same routine, tired, frustrated", target_date: "", frequency: "1–2", serious: 4, barriers: "Long work days, not knowing what to do at the gym", support: "Yes", support_who: "My sister", pref_stress: "both", interests: "Kettlebells, glute training", dislikes: "Running on a treadmill", last3: "Walking 3x a week, a few gym visits", joints: "Left knee gets tight on deep squats", how_long: "About a year", held_back: "No plan, I'd wander the gym", why_today: "I finally have a set schedule", conf_know: 4, conf_know_fix: "A clear plan for each day", conf_will: 7, conf_will_fix: "Someone checking in on me", help: "Tell me exactly what to do and keep me accountable", comm: "Text" },
   block: 1, week: 2, todayIndex: 1,
   saved: { "Saved": ["barbell-hip-thrust","bulgarian-split-squat","face-pull"], "Glutes": ["barbell-hip-thrust","glute-bridge","bulgarian-split-squat","dumbbell-romanian-deadlift"], "Hotel room": ["push-up","reverse-lunge","front-plank","glute-bridge"] },
   hidden: [], tier: "check_in", log: {}, food: null
 };
 let S = load() || structuredClone(SAMPLE);
-function load() { try { const v = localStorage.getItem("pf-proto"); return v ? JSON.parse(v) : null; } catch { return null; } }
-function save() { try { localStorage.setItem("pf-proto", JSON.stringify(S)); } catch {} }
+function load() { try { const v = localStorage.getItem("pf-proto-2"); return v ? JSON.parse(v) : null; } catch { return null; } }
+function save() { try { localStorage.setItem("pf-proto-2", JSON.stringify(S)); } catch {} }
 
 let EX = [], BY = {}, tab = "today", onb = null;
 const $ = (s, el = document) => el.querySelector(s);
@@ -271,20 +287,24 @@ const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<
 const initials = (n) => n.split(/\s|-/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("");
 
 // ---------- Engine ----------
-function levels() { const t = S.test; return { push: levelFor("push", t.push), pull: levelFor("pull", t.pull), legs: levelFor("legs", t.legs), core: levelFor("core", t.core) }; }
+function legsLevel() { const base = { never: 1, under_6_months: 2, "6_to_24_months": 3, over_2_years: 4 }[S.profile.status] || 2; return Math.max(1, base - ((S.test.squat || []).length >= 2 ? 1 : 0)); }
+function levels() { const t = S.test; if (S.parq.some(Boolean)) return { push: 1, pull: 1, legs: 1, core: 1 }; return { push: levelFor("push", t.push), pull: levelFor("pull", t.pull), legs: legsLevel(), core: levelFor("core", t.core) }; }
 function inFoundation() { const lv = levels(); return S.parq.some(Boolean) || ["never","under_6_months"].includes(S.profile.status) || Object.values(lv).includes(1); }
 function goalTable() { return inFoundation() && S.week <= 2 && S.block === 1 ? RULES.goals.foundation : RULES.goals[S.profile.goal]; }
 function fits(e) { const ok = RULES.equipment[S.profile.equip]; return e.equipment.every((q) => ok.includes(q)) && !S.hidden.includes(e.id); }
+function prefScore(e) { const p = S.profile.pref_equipment; if (p === "conventional") return e.equipment.some((q) => ["barbell","dumbbell","machine","cable"].includes(q)) ? 1.5 : 0; if (p === "new") return e.equipment.some((q) => ["kettlebell","suspension","medicine_ball","band"].includes(q)) ? 1.5 : 0; return 0; }
+const canSwap = () => S.profile.pref_plan !== "structure";
 function pick(slot, used, dayKey) {
   const lv = levels();
   let pool;
   if (slot.startsWith("iso:")) { const m = slot.slice(4); pool = EX.filter((e) => e.pattern === "isolation" && e.muscles_primary.includes(m)); }
   else pool = EX.filter((e) => e.pattern === slot);
-  pool = pool.filter((e) => fits(e) && !used.has(e.id));
+  const skip = (S.swapped || {})[dayKey] || [];
+  pool = pool.filter((e) => fits(e) && !used.has(e.id) && !skip.includes(e.id));
   if (!pool.length) return null;
   const cap = slot.startsWith("iso:") ? 5 : (lv[groupOf(slot)] || 2) + (S.block - 1);
   const allSaved = new Set(Object.values(S.saved).flat());
-  const scored = pool.map((e) => ({ e, s: (e.level <= cap ? 10 - (cap - e.level) : -5) + (allSaved.has(e.id) ? 2 : 0) + ((hash(dayKey + e.id + S.block) % 7) / 10) }));
+  const scored = pool.map((e) => ({ e, s: (e.level <= cap ? 10 - (cap - e.level) : -5) + (allSaved.has(e.id) ? 2 : 0) + prefScore(e) + ((hash(dayKey + e.id + S.block) % 7) / 10) }));
   scored.sort((a, b) => b.s - a.s);
   return scored[0].e;
 }
@@ -308,7 +328,7 @@ function targets() {
   const carbs = Math.round((kcal - protein * 4 - fat * 9) / 4);
   return { bmr: Math.round(bmr), tdee: Math.round(tdee), kcal, protein, fat, carbs };
 }
-function hrZones() { const max = 208 - 0.7 * S.profile.age, r = S.test.rhr; const z = (p) => Math.round((max - r) * p + r); return { 2: [z(.6), z(.7)], 4: [z(.8), z(.9)], max: Math.round(max) }; }
+function hrZones() { const max = 208 - 0.7 * S.profile.age, r = S.test.rhr; const z = (p) => Math.round(r ? (max - r) * p + r : max * p); return { 2: [z(.6), z(.7)], 4: [z(.8), z(.9)], max: Math.round(max) }; }
 function rirForWeek(w) { return w === 4 ? "4 (easy week)" : { 1: "3", 2: "2", 3: "1–2" }[w]; }
 function lastTime(id) { // sample history so double progression has something to work from
   const e = BY[id]; if (!e) return null;
@@ -425,7 +445,7 @@ function exCard(it, i, logKey) {
       <div style="flex:1;min-width:0"><div class="name" style="font-weight:800">${i + 1}. ${esc(e.name)}</div>
         <div class="small muted">${it.sets} sets × ${it.reps[0]}–${it.reps[1]} reps</div>
         ${lt ? `<div class="last num">Last time: ${lt.kg ? lt.kg + " lb × " : ""}${lt.reps} reps · Good</div>` : ""}</div>
-      <button class="chip" type="button" data-save="${e.id}" aria-label="Save ${esc(e.name)}">Save</button>
+      <div class="stack" style="gap:6px"><button class="chip" type="button" data-save="${e.id}" aria-label="Save ${esc(e.name)}">Save</button>${canSwap() ? `<button class="chip" type="button" data-swap="${e.id}" aria-label="Swap ${esc(e.name)}">Swap</button>` : ""}</div>
     </div>
     <div class="sets">${rows.map((r, n) => `
       <div class="set ${r.reps && r.effort ? "logged" : ""}">
@@ -502,14 +522,14 @@ function renderProgress() {
       </section>
       <section class="card">
         <div class="row between"><b>Starting test vs now</b><span class="tiny muted">Recheck at week 4</span></div>
-        <div class="list" style="margin-top:4px">${[["Push-ups", S.test.push, S.test.push + 5],["Rows", S.test.pull, S.test.pull + 3],["Squats", S.test.legs, S.test.legs + 8],["Plank (s)", S.test.core, S.test.core + 25],["Resting heart rate", S.test.rhr, S.test.rhr - 3]].map(([l, a, b]) => `<div class="item"><span class="grow">${l}</span><span class="num muted">${a}</span><span>→</span><b class="num">${b}</b></div>`).join("")}</div>
+        <div class="list" style="margin-top:4px">${[["Push-ups", S.test.push, S.test.push + 5],["Pull-ups", S.test.pull, S.test.pull + 2],["Plank (s)", S.test.core, S.test.core + 25],["Body weight (lb)", Math.round(S.profile.kg * 2.2), Math.round(S.profile.kg * 2.2) + 2],["Waist (in)", (S.test.meas || {}).waist || 30, ((S.test.meas || {}).waist || 30) - 0.5],["Arm (in)", (S.test.meas || {}).arm || 12, ((S.test.meas || {}).arm || 12) + 0.25]].map(([l, a, b]) => `<div class="item"><span class="grow">${l}</span><span class="num muted">${a}</span><span>→</span><b class="num">${b}</b></div>`).join("")}</div>
       </section>
       <section class="card">
         <b>Your heart-rate zones</b>
-        <p class="small muted" style="margin:4px 0 8px">From age ${S.profile.age} and resting heart rate ${S.test.rhr}. Max ${z.max}.</p>
+        <p class="small muted" style="margin:4px 0 8px">From your age (${S.profile.age}). Max ${z.max} beats a minute.</p>
         <div class="grid2"><div class="stat"><span class="eyebrow">Zone 2 · easy cardio</span><span class="v num">${z[2][0]}–${z[2][1]}</span></div><div class="stat"><span class="eyebrow">Zone 4 · intervals</span><span class="v num">${z[4][0]}–${z[4][1]}</span></div></div>
       </section>
-      <section class="card"><b>Photos</b><p class="small muted" style="margin-top:4px">Front, back and sides, every 4 weeks. Slide to compare week 0 with now.</p><div class="grid2" style="margin-top:10px"><div class="scan" style="aspect-ratio:3/4;background:var(--raised);color:var(--muted)">Week 0</div><div class="scan" style="aspect-ratio:3/4;background:var(--raised);color:var(--muted)">Week 6</div></div></section>
+      <section class="card"><b>Photos</b><p class="small muted" style="margin-top:4px">Front, back and side angle, every 4 weeks. Slide to compare week 0 with now.</p><div class="grid2" style="margin-top:10px"><div class="scan" style="aspect-ratio:3/4;background:var(--raised);color:var(--muted)">Week 0</div><div class="scan" style="aspect-ratio:3/4;background:var(--raised);color:var(--muted)">Week 6</div></div></section>
     </div>`;
 }
 
@@ -548,6 +568,9 @@ function renderCoach() {
         <div class="msg me">Got it. Knees felt better with the band walks in the warm-up.</div>
         <button class="btn block" type="button" data-toast="Form video sent to your coach.">Send a form video</button>
       </section>`}
+      ${S.intake ? `<section class="card"><div class="row between"><b>Intake on file</b><span class="tiny muted">PDTM interview</span></div>
+        <div class="list" style="margin-top:4px">${[["Goal", S.intake.outcome],["Why it matters", S.intake.why],["Biggest barriers", S.intake.barriers],["What held them back", S.intake.held_back],["Doesn't want", S.intake.dislikes],["Joints / pain", S.intake.joints],["Knows what to do", S.intake.conf_know ? S.intake.conf_know + " / 10" : ""],["Confident they will", S.intake.conf_will ? S.intake.conf_will + " / 10" : ""],["Support", S.intake.support === "Yes" ? (S.intake.support_who || "Yes") : S.intake.support],["Reach them by", S.intake.comm]].filter(([, v]) => v).map(([k, v]) => `<div class="item" style="align-items:flex-start"><span class="small muted" style="flex:0 0 40%">${k}</span><span class="small" style="flex:1">${esc(v)}</span></div>`).join("")}</div>
+        ${(S.parq || []).some(Boolean) || (S.history || []).some(Boolean) ? `<div class="alert" style="margin-top:8px">Health flag: a YES on the PAR-Q or health history. Get doctor clearance before testing or hard training.</div>` : ""}</section>` : ""}
       <section class="card">
         <b>Weekly check-in</b>
         <div class="list" style="margin-top:4px">${[["Workouts done","3 of 4"],["Avg sleep","7.2 h"],["Weight trend","+0.3 lb"],["Food logged","5 of 7 days"],["Protein hit","4 of 7 days"]].map(([a, b]) => `<div class="item"><span class="grow">${a}</span><b class="num">${b}</b></div>`).join("")}</div>
@@ -561,69 +584,152 @@ function renderCoach() {
     </div>`;
 }
 
-// ---------- Onboarding ----------
+// ---------- Onboarding: the client's ISSA forms, in order ----------
+// PAR-Q → Health history (Client Intake Form) → About you → Purpose → Preference → Status → Motivation → Testing → Plan
+const CH = (key, opts) => ({ t: "chips", key, opts });
+const ONB = [
+  { id: "parq", title: "Health check", sub: "ISSA PAR-Q. Please answer honestly. Designed for ages 15 to 70." },
+  { id: "history", title: "Health history", sub: "From the client intake form. Your coach keeps this private." },
+  { id: "about", title: "About you", fields: [
+    { t: "short", key: "name", label: "Name" }, { t: "date", key: "dob", label: "Date of birth" },
+    CH("sex", [["female","Female"],["male","Male"]]),
+    { t: "num", key: "height_in", label: "Height (inches)" }, { t: "num", key: "weight_lb", label: "Weight (lb)" },
+    { t: "short", key: "phone", label: "Phone", type: "tel" }, { t: "short", key: "email", label: "Email", type: "email" },
+    { ...CH("comm", [["Email","Email"],["Phone","Phone"],["Text","Text"]]), label: "Best way to reach you" },
+    { t: "short", key: "occupation", label: "Occupation" },
+    { ...CH("job", [["sedentary","Mostly sitting"],["mixed","On my feet some"],["physical","Physically demanding"]]), label: "Is your job physically demanding or more sedentary?" } ] },
+  { id: "purpose", title: "Purpose", fields: [
+    { ...CH("goal", [["general_health","General health"],["muscle_gain","Muscle gain"],["weight_loss","Weight loss"],["performance","Performance"]]), label: "Primary fitness goal" },
+    { t: "text", key: "outcome", label: "What goals or outcomes are you hoping to achieve?" },
+    { t: "text", key: "why", label: "Why is this goal important to you? Does it impact anyone else?" },
+    { t: "text", key: "life_yes", label: "What will your life look and feel like when you achieve your goal(s)?" },
+    { t: "text", key: "life_no", label: "What would your life look and feel like if you DO NOT achieve your goal(s)?" },
+    { t: "date", key: "target_date", label: "What date would you like to achieve your goal by?" },
+    { ...CH("frequency", [["0","0"],["1–2","1–2"],["3–4","3–4"],["5+","5+"]]), label: "How often do you currently exercise each week?" },
+    { t: "short", key: "motivation", label: "What is your primary motivation for achieving your goal?" },
+    { t: "scale", key: "serious", label: "How serious are you about achieving your goal? (1 = not motivated, 5 = very motivated)", max: 5 },
+    { t: "text", key: "barriers", label: "What are the biggest barriers to your success?" },
+    { ...CH("support", [["Yes","Yes"],["No","No"]]), label: "Do you have anyone currently supporting you?" },
+    { t: "short", key: "support_who", label: "If so, who?" } ] },
+  { id: "prefs", title: "Preference", fields: [
+    { ...CH("pref_plan", [["structure","Structure"],["both","Open to both"],["flexibility","Flexibility"]]), label: "More motivated by a structured plan, or more variety and freedom?" },
+    { ...CH("pref_stress", [["calm","Practical and calm"],["both","Open to both"],["loud","Adventurous and loud"]]), label: "To reduce stress, what type of activities do you prefer?" },
+    { ...CH("pref_equipment", [["conventional","Conventional"],["both","Open to both"],["new","New equipment"]]), label: "Machines and free weights, or open to trying new things?" },
+    { t: "text", key: "interests", label: "Any exercises or styles of training you're interested in trying or learning about?" },
+    { t: "text", key: "dislikes", label: "Any equipment or exercises you DO NOT like or DO NOT want to do?" } ] },
+  { id: "status", title: "Status", fields: [
+    { t: "text", key: "last3", label: "In the last 3 months, what activities or exercise have you done, and how often?" },
+    { ...CH("status", [["never","Never trained"],["under_6_months","Under 6 months"],["6_to_24_months","6 months – 2 years"],["over_2_years","2+ years"]]), label: "How long have you been training consistently?" },
+    { t: "text", key: "joints", label: "Any joint limitations, pain, tightness, or soreness that might affect you?" },
+    { ...CH("days", [[2,"2"],[3,"3"],[4,"4"],[5,"5"],[6,"6"]]), label: "Days a week you can train" },
+    { ...CH("minutes", [[30,"30 min"],[45,"45 min"],[60,"60 min"],[75,"75 min"]]), label: "Time per workout" },
+    { ...CH("equip", [["full_gym","Full gym"],["home","Home, dumbbells"],["bodyweight","Bodyweight only"]]), label: "Where you'll train" } ] },
+  { id: "motivation", title: "Motivation", fields: [
+    { t: "short", key: "how_long", label: "How long have you been wanting to make these changes?" },
+    { t: "text", key: "held_back", label: "What has held you back from making these changes up to this point?" },
+    { t: "text", key: "why_today", label: "Why today? What is different about right now?" },
+    { t: "scale", key: "conf_know", label: "Do you know what you need to do to reach your goal? (10 = most confident)", max: 10 },
+    { t: "short", key: "conf_know_fix", label: "What would improve your confidence?" },
+    { t: "scale", key: "conf_will", label: "How confident are you that you WILL do it? (10 = most confident)", max: 10 },
+    { t: "short", key: "conf_will_fix", label: "What would improve your confidence?" },
+    { t: "text", key: "help", label: "In what ways do you believe your coach can help you?" } ] },
+  { id: "test", title: "Testing", sub: "About 20 minutes. Each test sets your starting level." },
+  { id: "plan", title: "Your plan" }
+];
+function onbDefaults() {
+  return { step: 0, parq: Array(7).fill(null), history: Array(9).fill(null), ack: false,
+    a: { name: "", dob: "", sex: "female", height_in: 66, weight_lb: 150, phone: "", email: "", comm: "Text", occupation: "", job: "sedentary",
+      goal: "", outcome: "", why: "", life_yes: "", life_no: "", target_date: "", frequency: "1–2", motivation: "", serious: 4, barriers: "", support: "No", support_who: "",
+      pref_plan: "both", pref_stress: "both", pref_equipment: "both", interests: "", dislikes: "",
+      last3: "", status: "under_6_months", joints: "", days: 3, minutes: 45, equip: "full_gym",
+      how_long: "", held_back: "", why_today: "", conf_know: 5, conf_know_fix: "", conf_will: 7, conf_will_fix: "", help: "" },
+    test: { push: "", core: "", pull: "", squat: [], meas: { waist: "", hip: "", chest: "", arm: "", thigh: "" }, photos: {} } };
+}
+function fieldHtml(f) {
+  const v = onb.a[f.key] ?? "", lab = f.label ? `<span>${esc(f.label)}</span>` : "";
+  if (f.t === "chips") return `<div class="field">${lab}<div class="chips">${f.opts.map(([val, l]) => `<button type="button" class="chip ${String(v) === String(val) ? "on" : ""}" data-a="${f.key}:${val}">${esc(l)}</button>`).join("")}</div></div>`;
+  if (f.t === "scale") return `<div class="field">${lab}<div class="chips">${Array.from({ length: f.max }, (_, i) => i + 1).map((n) => `<button type="button" class="chip ${+v === n ? "on" : ""}" data-a="${f.key}:${n}">${n}</button>`).join("")}</div></div>`;
+  if (f.t === "text") return `<label class="field">${lab}<textarea data-f="${f.key}" rows="2">${esc(v)}</textarea></label>`;
+  const type = f.t === "num" ? "text" : f.t === "date" ? "date" : f.type || "text";
+  return `<label class="field">${lab}<input data-f="${f.key}" type="${type}" ${f.t === "num" ? 'inputmode="decimal"' : ""} value="${esc(v)}"></label>`;
+}
+function ynList(qs, arr, key) {
+  return qs.map((q, i) => `<div class="q"><span class="small">${i + 1}. ${esc(q)}</span><div class="yn"><button type="button" class="yes ${arr[i] === true ? "on" : ""}" data-yn="${key}:${i}:1">Yes</button><button type="button" class="no ${arr[i] === false ? "on" : ""}" data-yn="${key}:${i}:0">No</button></div></div>`).join("");
+}
+function ageFrom(dob) { if (!dob) return 30; const d = new Date(dob), n = new Date(); let a = n.getFullYear() - d.getFullYear(); if (n < new Date(n.getFullYear(), d.getMonth(), d.getDate())) a--; return a > 0 && a < 110 ? a : 30; }
+function weeksFrom(date) { if (!date) return 12; const w = Math.ceil((new Date(date) - new Date()) / 6048e5); return w <= 3 ? 2 : w <= 5 ? 4 : w <= 7 ? 6 : w <= 10 ? 8 : 12; }
+function onbToState() {
+  const A = onb.a, T = onb.test, num = (x) => (x === "" || x == null ? 0 : +x);
+  const profile = { name: A.name.trim() || "You", sex: A.sex, age: ageFrom(A.dob), cm: Math.round(num(A.height_in) * 2.54) || 168, kg: Math.round((num(A.weight_lb) / 2.2) * 10) / 10 || 68,
+    goal: A.goal || "general_health", weeks: weeksFrom(A.target_date), days: +A.days, minutes: +A.minutes, equip: A.equip, status: A.status,
+    activity: { sedentary: 1.375, mixed: 1.55, physical: 1.725 }[A.job], pref_plan: A.pref_plan, pref_equipment: A.pref_equipment };
+  const meas = Object.fromEntries(Object.entries(T.meas).map(([k, v]) => [k, num(v)]));
+  return { profile, parq: onb.parq.map(Boolean), history: onb.history.map(Boolean), intake: { ...A }, test: { push: num(T.push), core: num(T.core), pull: num(T.pull), rhr: 0, squat: T.squat, meas } };
+}
 function renderOnboarding() {
-  const st = onb.step, steps = 4;
-  const bar = `<div class="steps">${Array.from({ length: steps }, (_, i) => `<span class="${i <= st ? "on" : ""}"></span>`).join("")}</div>`;
-  const P = onb.profile;
-  const pills = (key, opts) => `<div class="chips">${opts.map(([v, l]) => `<button type="button" class="chip ${String(P[key]) === String(v) ? "on" : ""}" data-p="${key}:${v}">${l}</button>`).join("")}</div>`;
-  let body = "";
-  if (st === 0) body = `
-    <h1 class="title">Health check</h1>
-    <p class="small muted" style="margin:6px 0 4px">7 quick questions (PAR-Q+) so your program is safe from day one.</p>
-    ${RULES.parq.map((q, i) => `<div class="q"><span class="small">${i + 1}. ${q}</span><div class="yn"><button type="button" class="no ${onb.parq[i] === false ? "on" : ""}" data-parq="${i}:0">No</button><button type="button" class="yes ${onb.parq[i] === true ? "on" : ""}" data-parq="${i}:1">Yes</button></div></div>`).join("")}
-    ${onb.parq.some((x) => x === true) ? `<div class="alert">Please check with your doctor before starting. You can still start with light Foundation workouts, and your coach will be told.</div>` : ""}
-    <button class="btn primary block" type="button" data-next ${onb.parq.every((x) => x !== null) ? "" : "disabled"} style="margin-top:12px">Continue</button>`;
-  if (st === 1) body = `
-    <h1 class="title">Your goal</h1>
-    <div class="stack" style="margin-top:12px">
-      <div class="field"><span>What's your main goal?</span>${pills("goal", [["muscle_gain","Build muscle"],["weight_loss","Lose weight"],["performance","Sport performance"],["general_health","Feel better"]])}</div>
-      <div class="field"><span>Program length</span>${pills("weeks", [[2,"2 wks"],[4,"4 wks"],[6,"6 wks"],[8,"8 wks"],[12,"12 wks"]])}</div>
-      <div class="field"><span>Days a week</span>${pills("days", [[2,"2"],[3,"3"],[4,"4"],[5,"5"],[6,"6"]])}</div>
-      <div class="field"><span>Minutes per workout</span>${pills("minutes", [[30,"30"],[45,"45"],[60,"60"],[75,"75"]])}</div>
-      <div class="field"><span>Where you train</span>${pills("equip", [["full_gym","Full gym"],["home","Home, dumbbells"],["bodyweight","Bodyweight only"]])}</div>
-      <div class="field"><span>Experience</span>${pills("status", [["never","Never trained"],["under_6_months","Under 6 months"],["6_to_24_months","6 mo – 2 yrs"],["over_2_years","2+ years"]])}</div>
-      <div class="grid2">
-        <label class="field"><span>First name</span><input id="o-name" value="${esc(P.name)}"></label>
-        <label class="field"><span>Age</span><input id="o-age" inputmode="numeric" value="${P.age}"></label>
-        <label class="field"><span>Height (in)</span><input id="o-in" inputmode="numeric" value="${Math.round(P.cm / 2.54)}"></label>
-        <label class="field"><span>Weight (lb)</span><input id="o-lb" inputmode="numeric" value="${Math.round(P.kg * 2.2)}"></label>
-      </div>
-      <div class="field"><span>Sex (for calorie math)</span>${pills("sex", [["female","Female"],["male","Male"]])}</div>
-    </div>
-    <button class="btn primary block" type="button" data-next style="margin-top:14px">Continue</button>`;
-  if (st === 2) body = `
-    <h1 class="title">Starting test</h1>
-    <p class="small muted" style="margin:6px 0 12px">About 20 minutes. Each one sets your starting level.</p>
-    <div class="grid2">
-      ${[["push","Push-ups","max with good form"],["pull","Rows","table or TRX, max"],["legs","Squats","max, up to 50"],["core","Plank","seconds"],["rhr","Resting heart rate","morning, 60 s"]].map(([k, l, h]) => `<label class="field"><span>${l}</span><input id="t-${k}" inputmode="numeric" value="${onb.test[k]}"><span class="tiny muted" style="font-weight:600">${h}</span></label>`).join("")}
-    </div>
-    <div class="field" style="margin-top:12px"><span>Overhead squat check: tick what you see</span>
-      <div class="chips">${[["knees_cave","Knees cave in"],["heels_lift","Heels lift"],["arms_fall","Arms fall forward"],["forward_lean","Big forward lean"],["low_back_arch","Low back arches"]].map(([k, l]) => `<button type="button" class="chip ${onb.test.squat.includes(k) ? "on" : ""}" data-sq="${k}">${l}</button>`).join("")}</div></div>
-    <button class="btn primary block" type="button" data-next style="margin-top:14px">Build my program</button>`;
-  if (st === 3) {
-    const prev = S; S = { ...S, profile: P, parq: onb.parq, test: onb.test, block: 1, week: 1, todayIndex: 0 };
-    const lv = levels(), t = targets(), sch = schedule(), found = inFoundation(), g = RULES.goals[P.goal];
-    const blocks = { 2: "Foundation starter", 4: "1 block", 6: "1 block + 2 weeks", 8: "2 blocks", 12: "3 blocks" }[P.weeks];
-    body = `
-      <div class="eyebrow">Your program is ready</div>
-      <h1 class="title">${P.weeks} weeks · ${g.label}</h1>
-      <div class="stack" style="margin-top:12px">
-        <section class="card"><b>Plan</b><p class="small muted" style="margin-top:4px">${blocks}. ${found ? "You start with 2 weeks of Foundation (form, core, balance), then " : "You start with "}${g.label.toLowerCase()}: ${g.reps[0]}–${g.reps[1]} reps, ${g.rest} rest. Every 4th week is easy. New playlists each block.</p>
-          <div class="chips" style="margin-top:10px">${sch.map((k) => `<span class="pill">${RULES.names[k]}</span>`).join("")}</div></section>
-        <section class="card"><b>Your starting levels</b><div class="grid2" style="margin-top:8px">${Object.entries(lv).map(([k, v]) => `<div class="stat"><span class="eyebrow">${k}</span><span class="v num">Level ${v}</span></div>`).join("")}</div></section>
-        <section class="card"><b>Food targets</b><div class="grid2" style="margin-top:8px"><div class="stat"><span class="eyebrow">Calories</span><span class="v num">${t.kcal.toLocaleString()}</span></div><div class="stat"><span class="eyebrow">Protein</span><span class="v num">${t.protein} g</span></div></div><p class="tiny muted" style="margin-top:6px">Daily burn ${t.tdee.toLocaleString()} kcal. Adjusts weekly from your weight trend.</p></section>
-        ${onb.parq.some(Boolean) ? `<div class="alert">Health check: a YES answer. Light Foundation workouts until you confirm your doctor cleared you.</div>` : ""}
-      </div>
-      <button class="btn primary block" type="button" data-done style="margin-top:14px">Start week 1</button>`;
+  const st = onb.step, S0 = ONB[st];
+  const bar = `<div class="steps">${ONB.map((_, i) => `<span class="${i <= st ? "on" : ""}"></span>`).join("")}</div>`;
+  const back = st > 0 ? `<button class="btn ghost" type="button" data-back>Back</button>` : "";
+  const parqYes = onb.parq.some((x) => x === true);
+  let body = `<div class="eyebrow">Step ${st + 1} of ${ONB.length}</div><h1 class="title">${S0.title}</h1>${S0.sub ? `<p class="small muted" style="margin:6px 0 4px">${esc(S0.sub)}</p>` : ""}`;
+  let canNext = true;
+  if (S0.id === "parq") {
+    body += ynList(RULES.parq, onb.parq, "parq");
+    body += parqYes
+      ? `<div class="alert"><b>You answered YES.</b> Talk to your doctor BEFORE you begin physical activity and BEFORE completing any fitness assessments. Discuss the questions you answered YES to with your doctor, and find out what activity you're cleared for. You can finish sign-up now; testing and hard training stay locked until you confirm your doctor cleared you.</div>`
+      : onb.parq.every((x) => x === false) ? `<div class="coachtip">No to all: you may become more physically active (start slowly and build up), take part in fitness assessments, and work with your coach.</div>` : "";
+    body += `<div class="card" style="margin-top:12px;background:var(--food-soft);border-color:transparent"><b>Delay becoming more active if:</b><ul class="small" style="margin:6px 0 0;padding-left:18px"><li>You are not feeling well</li><li>You are or may become pregnant</li><li>Your health suddenly changes</li></ul></div>
+      <label class="row small" style="margin-top:12px;align-items:flex-start"><input type="checkbox" id="ack" ${onb.ack ? "checked" : ""} style="margin-top:4px"> <span>I have read, understood to my satisfaction, and completed this questionnaire. I acknowledge that my fitness professional may retain a copy for their records, kept confidential in compliance with applicable laws.</span></label>
+      <p class="tiny muted" style="margin-top:6px">Valid for 12 months, or until your health changes and you would answer YES to any question.</p>`;
+    canNext = onb.parq.every((x) => x !== null) && onb.ack;
+  } else if (S0.id === "history") {
+    body += ynList(RULES.history, onb.history, "history");
+    if (onb.history.some((x) => x === true)) body += `<div class="alert" style="margin-top:8px">Thanks for sharing. Your coach will see this and may ask for your doctor's OK before harder training.</div>`;
+    canNext = onb.history.every((x) => x !== null);
+  } else if (S0.id === "test") {
+    const T = onb.test;
+    if (parqYes) body += `<div class="alert" style="margin-top:8px">Because of a YES on the PAR-Q, skip the tests until your doctor clears you. You'll start with light Foundation workouts. You can still log body weight, measurements and photos.</div>`;
+    const tnum = (k, l, h) => `<label class="field"><span>${l}</span><input data-t="${k}" inputmode="numeric" value="${esc(T[k])}" ${parqYes ? "disabled" : ""}><span class="tiny muted" style="font-weight:600">${h}</span></label>`;
+    body += `<div class="stack" style="margin-top:12px">
+      <div class="grid2">${tnum("push", "Push-up test", "Most with good form")}${tnum("core", "Plank hold", "Seconds, good form")}${tnum("pull", "Pull-up test", "Most with good form (0 is fine)")}
+        <label class="field"><span>Body weight (lb)</span><input data-f="weight_lb" inputmode="decimal" value="${esc(onb.a.weight_lb)}"><span class="tiny muted" style="font-weight:600">Morning, before eating</span></label></div>
+      <div class="field"><span>Squat check: 5 squats, arms overhead. Tick what you see.</span><div class="chips">${[["knees_cave","Knees cave in"],["heels_lift","Heels lift"],["arms_fall","Arms fall forward"],["forward_lean","Big forward lean"],["low_back_arch","Low back arches"]].map(([k, l]) => `<button type="button" class="chip ${T.squat.includes(k) ? "on" : ""}" data-sq="${k}" ${parqYes ? "disabled" : ""}>${l}</button>`).join("")}</div></div>
+      <div class="field"><span>Measurements (inches)</span><div class="grid3">${["waist","hip","chest","arm","thigh"].map((k) => `<label class="field"><span class="tiny">${k[0].toUpperCase() + k.slice(1)}</span><input data-m="${k}" inputmode="decimal" value="${esc(T.meas[k])}"></label>`).join("")}</div></div>
+      <div class="field"><span>Photos</span><div class="grid3">${[["front","Front side"],["back","Back side"],["side","Side angle"]].map(([k, l]) => `<label class="photo-in"><input type="file" accept="image/*" data-photo="${k}" hidden>${T.photos[k] ? `<img src="${T.photos[k]}" alt="${l} photo">` : `<span>+ ${l}</span>`}</label>`).join("")}</div></div>
+      <div class="card" style="background:var(--accent-soft);border-color:transparent"><b class="small">Starting weights</b><p class="small" style="margin-top:4px">Set in your first workout: each exercise starts light, and you go up until a set leaves 2–3 reps in the tank. That's your starting weight.</p></div>
+    </div>`;
+  } else if (S0.id === "plan") {
+    const prev = S, built = onbToState(); S = { ...S, ...built, block: 1, week: 1, todayIndex: 0 };
+    const lv = levels(), t = targets(), sch = schedule(), found = inFoundation(), g = RULES.goals[S.profile.goal];
+    const blocks = { 2: "Foundation starter", 4: "1 block", 6: "1 block + 2 weeks", 8: "2 blocks", 12: "3 blocks" }[S.profile.weeks];
+    const stress = { calm: "steady cardio like walks, bike and rowing", loud: "intervals, circuits and speed work", both: "a mix of steady cardio and intervals" }[onb.a.pref_stress];
+    body += `<div class="stack" style="margin-top:12px">
+      <section class="card"><b>${S.profile.weeks} weeks · ${g.label}</b><p class="small muted" style="margin-top:4px">${blocks}${onb.a.target_date ? `, to reach your goal by ${new Date(onb.a.target_date).toLocaleDateString(undefined, { month: "long", day: "numeric" })}` : ""}. ${found ? "You start with 2 weeks of Foundation (form, core, balance), then " : "You start with "}${g.label.toLowerCase()}: ${g.reps[0]}–${g.reps[1]} reps, ${g.rest} rest. Every 4th week is easy, and new playlists start each block.</p>
+        <div class="chips" style="margin-top:10px">${sch.map((k) => `<span class="pill">${RULES.names[k]}</span>`).join("")}</div></section>
+      <section class="card"><b>Built around you</b><ul class="small" style="margin:6px 0 0;padding-left:18px;display:grid;gap:4px">
+        <li>${S.profile.pref_plan === "structure" ? "A set plan, same order every time." : "You can swap any exercise for another that works the same muscles."}</li>
+        <li>${S.profile.pref_equipment === "conventional" ? "Mostly machines, dumbbells and barbells." : S.profile.pref_equipment === "new" ? "Kettlebells, bands, suspension and med balls where they fit." : "A mix of free weights, machines and new equipment."}</li>
+        <li>Cardio: ${stress}.</li>
+        ${onb.a.dislikes ? `<li>Your coach will keep out: ${esc(onb.a.dislikes)}.</li>` : ""}
+        ${(+onb.a.conf_know || 10) <= 5 ? `<li>You said you're not sure what to do yet, so every exercise has a video and form tips.</li>` : ""}
+        ${(+onb.a.conf_will || 10) <= 6 ? `<li>Weekly check-ins to keep you on track.</li>` : ""}</ul></section>
+      <section class="card"><b>Starting levels</b><div class="grid2" style="margin-top:8px">${Object.entries(lv).map(([k, v]) => `<div class="stat"><span class="eyebrow">${k}</span><span class="v num">Level ${v}</span></div>`).join("")}</div></section>
+      <section class="card"><b>Food targets</b><div class="grid2" style="margin-top:8px"><div class="stat"><span class="eyebrow">Calories</span><span class="v num">${t.kcal.toLocaleString()}</span></div><div class="stat"><span class="eyebrow">Protein</span><span class="v num">${t.protein} g</span></div></div><p class="tiny muted" style="margin-top:6px">Daily burn ${t.tdee.toLocaleString()} kcal. Adjusts weekly from your weight trend.</p></section>
+      ${parqYes ? `<div class="alert">PAR-Q: a YES answer. Light Foundation workouts until you confirm your doctor cleared you.</div>` : ""}
+    </div>`;
     S = prev;
+  } else {
+    body += `<div class="stack" style="margin-top:12px">${S0.fields.map(fieldHtml).join("")}</div>`;
+    if (S0.id === "purpose") canNext = !!onb.a.goal;
   }
-  $("#app").innerHTML = `${bar}${body}`;
+  const nextLabel = S0.id === "plan" ? "Start week 1" : S0.id === "test" ? "Build my program" : "Continue";
+  $("#app").innerHTML = `${bar}${body}<div class="row" style="margin-top:16px">${back}<button class="btn primary" style="flex:1" type="button" ${S0.id === "plan" ? "data-done" : "data-next"} ${canNext ? "" : "disabled"}>${nextLabel}</button></div>${!canNext && S0.id === "purpose" ? `<p class="tiny muted" style="margin-top:6px">Pick a primary goal to continue.</p>` : ""}`;
 }
 function readOnbFields() {
-  const P = onb.profile, v = (id) => $(id)?.value;
-  if ($("#o-name")) { P.name = v("#o-name").trim() || "You"; P.age = +v("#o-age") || 30; P.cm = Math.round((+v("#o-in") || 66) * 2.54); P.kg = Math.round(((+v("#o-lb") || 150) / 2.2) * 10) / 10; }
-  if ($("#t-push")) ["push","pull","legs","core","rhr"].forEach((k) => (onb.test[k] = +v(`#t-${k}`) || 0));
+  document.querySelectorAll("[data-f]").forEach((el) => (onb.a[el.dataset.f] = el.value));
+  document.querySelectorAll("[data-t]").forEach((el) => (onb.test[el.dataset.t] = el.value));
+  document.querySelectorAll("[data-m]").forEach((el) => (onb.test.meas[el.dataset.m] = el.value));
+  const ack = $("#ack"); if (ack) onb.ack = ack.checked;
 }
 
 // ---------- Sheets ----------
@@ -736,18 +842,25 @@ document.addEventListener("click", (ev) => {
   if (d.addfood !== undefined) { const m = $(".sheet [data-pick=meal] .on")?.textContent || "Snack"; const { f, servings: k } = FOOD_PICK; S.food ||= structuredClone(SAMPLE_MEALS); let meal = S.food.find((x) => x.meal === m); if (!meal) S.food.push((meal = { meal: m, items: [] })); meal.items.push([`${f[0]}${k !== 1 ? ` × ${k}` : ""}`, Math.round(f[1] * k), Math.round(f[2] * k), Math.round(f[3] * k), Math.round(f[4] * k)]); save(); closeSheet(); tab = "food"; render(); return toast(`Added to ${m}`); }
   if (b.closest("[data-pick]")) { b.parentElement.querySelectorAll(".chip").forEach((c) => c.classList.remove("on")); b.classList.add("on"); return; }
   // onboarding
-  if (d.parq) { const [i, y] = d.parq.split(":"); onb.parq[+i] = y === "1"; return renderOnboarding(); }
-  if (d.p) { readOnbFields(); const [k, v] = d.p.split(":"); onb.profile[k] = isNaN(+v) ? v : +v; return renderOnboarding(); }
+  if (d.yn) { readOnbFields(); const [k, i, y] = d.yn.split(":"); onb[k][+i] = y === "1"; return renderOnboarding(); }
+  if (d.a) { readOnbFields(); const i = d.a.indexOf(":"), k = d.a.slice(0, i), v = d.a.slice(i + 1); onb.a[k] = v; return renderOnboarding(); }
   if (d.sq) { readOnbFields(); const s = onb.test.squat; s.includes(d.sq) ? s.splice(s.indexOf(d.sq), 1) : s.push(d.sq); return renderOnboarding(); }
+  if (d.back !== undefined) { readOnbFields(); onb.step--; window.scrollTo({ top: 0 }); return renderOnboarding(); }
   if (d.next !== undefined) { readOnbFields(); onb.step++; window.scrollTo({ top: 0 }); return renderOnboarding(); }
-  if (d.done !== undefined) { S = { ...structuredClone(SAMPLE), onboarded: true, profile: onb.profile, parq: onb.parq, test: onb.test, block: 1, week: 1, todayIndex: 0, saved: { "Saved": [] }, log: {}, food: null }; onb = null; save(); tab = "today"; render(); return toast("Program built. Week 1 starts today."); }
+  if (d.done !== undefined) { const built = onbToState(); S = { ...structuredClone(SAMPLE), onboarded: true, ...built, block: 1, week: 1, todayIndex: 0, saved: { "Saved": [] }, log: {}, food: null, swapped: {} }; onb = null; save(); tab = "today"; render(); return toast("Program built. Week 1 starts today."); }
+  if (d.swap) { const key = schedule()[S.todayIndex % schedule().length]; S.swapped ||= {}; (S.swapped[key] ||= []).push(d.swap); delete S.log[logKeyNow()]?.[d.swap]; save(); renderWorkout(); return toast("Swapped for another exercise that works the same muscles."); }
 });
 document.addEventListener("input", (ev) => {
   const el = ev.target, d = el.dataset;
   if (el.id === "fs") return renderFoodResults();
   if (d.w || d.r) { const [id, n] = (d.w || d.r).split(":"); const row = S.log[logKeyNow()][id][+n]; d.w ? (row.w = el.value) : (row.reps = el.value); save(); }
 });
-document.addEventListener("change", (ev) => { const d = ev.target.dataset; if (d.w || d.r) rerenderCard((d.w || d.r).split(":")[0]); });
+document.addEventListener("change", (ev) => {
+  const el = ev.target, d = el.dataset;
+  if (d.w || d.r) rerenderCard((d.w || d.r).split(":")[0]);
+  if (el.id === "ack") { readOnbFields(); renderOnboarding(); }
+  if (d.photo && el.files?.[0]) { const fr = new FileReader(); fr.onload = () => { readOnbFields(); onb.test.photos[d.photo] = fr.result; renderOnboarding(); }; fr.readAsDataURL(el.files[0]); }
+});
 function logKeyNow() { const sch = schedule(); return `${S.block}-${S.week}-${sch[S.todayIndex % sch.length]}`; }
 function buildRange(id) { const sch = schedule(), day = buildDay(sch[S.todayIndex % sch.length]); return day.items.find((x) => x.id === id)?.reps || [8, 12]; }
 function rerenderCard(id) {
@@ -757,7 +870,7 @@ function rerenderCard(id) {
 }
 $("#restart").addEventListener("click", () => {
   closeSheet();
-  onb = { step: 0, parq: [null,null,null,null,null,null,null], profile: { name: "", sex: "female", age: 30, cm: 168, kg: 68, goal: "muscle_gain", weeks: 12, days: 3, minutes: 45, equip: "full_gym", status: "under_6_months", activity: 1.55 }, test: { push: 8, pull: 6, legs: 25, core: 45, rhr: 66, squat: [] } };
+  onb = onbDefaults();
   S = { ...S, onboarded: false }; render();
 });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSheet(); });
