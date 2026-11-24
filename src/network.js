@@ -55,7 +55,9 @@ function render() {
   const counts = Object.fromEntries(STAGES.map(([s]) => [s, 0]));
   rows.forEach((r) => (counts[r.stage] = (counts[r.stage] ?? 0) + 1));
   const todayCount = rows.filter(onToday).length;
+  const callCount = rows.filter((r) => r.call_rank).length;
   $("tabs").innerHTML =
+    (callCount ? `<button class="chip ${tab === "calllist" ? "on" : ""}" data-tab="calllist">Call list ${callCount}</button>` : "") +
     `<button class="chip ${tab === "today" ? "on" : ""}" data-tab="today">Today ${todayCount}</button>` +
     STAGES.map(([s, l]) => `<button class="chip ${tab === s ? "on" : ""}" data-tab="${s}">${l} ${counts[s]}</button>`).join("") +
     `<button class="chip ${tab === "all" ? "on" : ""}" data-tab="all">Everyone ${rows.length}</button>`;
@@ -73,9 +75,9 @@ function render() {
 
   const q = $("search").value.trim().toLowerCase();
   const shown = rows
-    .filter((r) => tab === "all" || (tab === "today" ? onToday(r) : r.stage === tab))
+    .filter((r) => tab === "all" || (tab === "calllist" ? r.call_rank : tab === "today" ? onToday(r) : r.stage === tab))
     .filter((r) => !q || [r.business, r.area, r.phone, r.email, r.category, r.contact_name].join(" ").toLowerCase().includes(q))
-    .sort((a, b) => (b.reviews ?? 0) - (a.reviews ?? 0));
+    .sort((a, b) => (tab === "calllist" ? (a.call_rank ?? 999) - (b.call_rank ?? 999) : (b.fit_score ?? -1) - (a.fit_score ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0)));
 
   $("list").innerHTML = shown.length
     ? shown.slice(0, 300).map(card).join("") + (shown.length > 300 ? `<p class="muted">Showing the first 300 of ${shown.length}. Search to narrow it down.</p>` : "")
@@ -104,6 +106,7 @@ function card(r) {
         <div class="meta">${facts.map((f) => `<span>${esc(f)}</span>`).join("")}</div>
         <div class="meta" style="margin-top:4px">${links.join("")}</div>
         ${r.heads_up ? `<p class="note-line" style="margin:8px 0 0">${esc(r.heads_up)}</p>` : ""}
+        ${research(r)}
         ${!isOpen && draft ? `<p class="note-line" style="margin:8px 0 0"><b>${esc(subj ?? "")}</b> — ${esc(draft.slice(0, 140))}…</p>` : ""}
         ${r.opener && OPEN.includes(r.stage) ? `<p class="note-line" style="margin:8px 0 0"><b>If you call, say:</b> ${esc(r.opener)}</p>` : ""}
       </div>
@@ -113,6 +116,21 @@ function card(r) {
     </div>
     ${reach(r, follow, subj, draft)}
     ${isOpen ? editor(r, follow, subj, draft) : ""}
+  </div>`;
+}
+
+// The caller's research: rank, fit, who they are, can they afford it, the pitch.
+function research(r) {
+  const x = r.research;
+  if (!x && r.fit_score == null) return "";
+  const head = [r.call_rank && `#${r.call_rank} to call`, r.fit_score != null && `Fit ${r.fit_score}/10`, x?.affordability && `Can afford: ${x.affordability}`, x?.lead_tier && `Lead with ${x.lead_tier}`, x?.website_status && `Website: ${x.website_status.replace(/-/g, " ")}`].filter(Boolean);
+  const who = [x?.owner && x.owner !== "unknown" && `Owner: ${x.owner}`, x?.years_in_business && x.years_in_business !== "unknown" && `${x.years_in_business} in business`, x?.locations && x.locations !== "unknown" && `${x.locations} location(s)`, x?.team_size && x.team_size !== "unknown" && `Team: ${x.team_size}`].filter(Boolean);
+  return `<div class="note-line" style="margin:8px 0 0;border-left:3px solid var(--brand);padding-left:10px">
+    <b>${esc(head.join(" · "))}</b>
+    ${x?.pitch ? `<br><b>Say:</b> ${esc(x.pitch)}` : ""}
+    ${who.length ? `<br>${esc(who.join(" · "))}` : ""}
+    ${x?.affordability_evidence ? `<br><span style="opacity:.8">Why they can pay: ${esc(x.affordability_evidence)}</span>` : ""}
+    ${x?.website_notes ? `<br><span style="opacity:.8">Website: ${esc(x.website_notes)}</span>` : ""}
   </div>`;
 }
 
