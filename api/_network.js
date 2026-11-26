@@ -224,6 +224,9 @@ export async function sendOne(id, { subject, body, force = false } = {}, o) {
   const row = await getRow(id, c);
   const to = String(row.email ?? "").trim();
   if (!EMAIL.test(to)) throw new HttpError(400, "This business has no email address.");
+  // Never email someone who said stop or replied, even with "send anyway" (the law and good manners).
+  if (row.stage === "pass" || (row.tags ?? []).includes("unsubscribed")) throw new HttpError(409, "They asked not to be emailed. This one stays off.");
+  if (["replied", "yes"].includes(row.stage) && !force) throw new HttpError(409, "They already replied. Answer them from your inbox instead.");
   const isFollowUp = row.stage === "follow_up";
   if (!isFollowUp && !["lead", "warm"].includes(row.stage) && !force) {
     throw new HttpError(409, `Already contacted (${row.stage}). Send anyway from the card if you mean it.`);
