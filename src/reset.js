@@ -9,9 +9,10 @@ $("set").addEventListener("submit", async (e) => {
   e.preventDefault();
   if ($("pw").value !== $("pw2").value) return ($("msg").textContent = "Those don’t match.");
   try {
-    save(await post({ code, password: $("pw").value }));
+    const v = await post({ code, password: $("pw").value });
+    save(v);
     history.replaceState(null, "", "/admin/reset");
-    location.href = "/admin";
+    location.href = v.role === "caller" ? "/admin/calls" : "/admin";
   } catch (err) {
     $("msg").textContent = err.message;
   }

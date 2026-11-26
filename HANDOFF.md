@@ -86,3 +86,10 @@ It screenshots the live demo for its tile (public/work/<slug>.jpg) and puts it a
 The next build puts it first on /examples, first on its industry page (hero shots + examples row), in the homepage hero,
 and gives it its own /examples/<slug> page. If the trade has no industry page yet, add one to content/industries.json first.
 Read the new entry's words, then build, commit and push.
+
+## Callers (2026-11-25)
+
+- **Invite**: /admin/network → Callers tab → name + email → Send invite. They get a "set your password" email (same one-time link as Forgot password), then sign in at https://desiweb.org/admin/calls.
+- **What a caller sees**: only the Call list (ranked rows + their own leads): tap to call, why they fit, what to compliment, what to say, history, and six result buttons (Talked, No answer, Voicemail, Booked with Jordan + time, Not interested, Call back + day). They can add a lead (tagged with their name). No emails, drafts, prices, decks, settings.
+- **Enforced on the server**: caller sessions only work on `/api/call` (GET list, `log`, `add`). `/api/network`, `/api/admin`, site layout all still require an owner email. Turn a caller off in the Callers tab and their sign-in stops working right away.
+- **Tables** (add-only): `network_callers`, `network_calls` (one row per logged call), and network columns `booked_at`, `call_back_on`, `added_by`, `last_called_at`.

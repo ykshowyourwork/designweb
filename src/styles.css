@@ -543,3 +543,22 @@ a.line-item:hover { background: rgba(255,255,255,.03); }
 .inside-group li::before { content: "✓"; color: var(--brand); font-weight: 700; flex: none; }
 @media (max-width: 960px) { .inside { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { .inside { grid-template-columns: 1fr; } }
+
+/* Call list cards (/admin/calls and the Network page's Call list tab, src/callcard.js) */
+.cc { padding: 16px 18px; margin-bottom: 14px; }
+.cc h3 { margin: 0 0 2px; font-size: 1.2rem; }
+.cc .rank { color: var(--brand); font-weight: 800; margin-right: 6px; }
+.cc .meta { font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 4px; }
+.cc .meta a { color: var(--brand); text-decoration: none; }
+.cc .callbtn { display: flex; width: 100%; margin: 12px 0 4px; min-height: 52px; font-size: 17px; }
+.cc .say { margin: 10px 0 0; font-size: 15px; line-height: 1.45; }
+.cc .say b { color: var(--brand); }
+.pill { display: inline-block; border-radius: 999px; padding: 3px 10px; font: 700 12px/1.4 var(--body); border: 1px solid var(--line); margin-left: 6px; vertical-align: middle; }
+.pill.hot { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.cc .results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.cc .results .b { padding: 0 8px; font-size: 13px; min-height: 46px; white-space: normal; text-align: center; line-height: 1.15; }
+@media (max-width: 380px) { .cc .results { grid-template-columns: repeat(2, 1fr); } }
+.cc .pick { margin-top: 10px; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
+.cc details.hist { margin-top: 12px; font-size: 13px; color: var(--muted); }
+.cc details.hist summary { cursor: pointer; font-weight: 600; }
+.cc details.hist pre { white-space: pre-wrap; font: inherit; margin: 8px 0 0; }

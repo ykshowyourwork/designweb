@@ -2,6 +2,7 @@
 // Same sign-in as invoices. Talks to /api/network.
 import { esc } from "./money.js";
 import { api as call, signIn } from "./session.js";
+import { callCard, wireCallCards } from "./callcard.js";
 
 const $ = (id) => document.getElementById(id);
 // Same as the server's noStop: Jordan texts from his own phone, so no "Reply STOP" line.
@@ -24,8 +25,11 @@ const HOT = ["warm", "replied", "yes", "follow_up"];
 let rows = [];
 let settings = {};
 let autoSend = false;
-let tab = new URLSearchParams(location.search).get("tab") || "today";
-let open = null;
+let callers = null;
+let tab = new URLSearchParams(location.search).get("tab") || "calllist";
+let open = null; // the row in the contact drawer
+let picking = null; // a Booked / Call back result waiting for its date
+const filters = { trade: "", town: "", site: "", fit: "" };
 
 const api = (method, body) => call("/api/network", method, body);
 
@@ -51,16 +55,60 @@ function batchCounts() {
   return { fresh: Math.min(fresh, settings.batch_size ?? 10), follow };
 }
 
+// The tabs across the top, like YKE's Network: the call list first, then each stage in order.
+const onCallList = (r) => (r.call_rank != null || r.added_by) && r.stage !== "pass" && !(r.tags ?? []).includes("unsubscribed");
+const isBooked = (r) => r.stage === "yes" || Boolean(r.booked_at);
+const TABS = [
+  ["calllist", "Call list", onCallList],
+  ["today", "Today", (r) => onToday(r)],
+  ["lead", "To email", (r) => ["lead", "warm"].includes(r.stage)],
+  ["call", "To call or text", (r) => r.stage === "call"],
+  ["messaged", "Sent", (r) => ["messaged", "followed_up"].includes(r.stage)],
+  ["follow_up", "Follow-up", (r) => r.stage === "follow_up"],
+  ["replied", "Replied", (r) => r.stage === "replied"],
+  ["booked", "Booked", isBooked],
+  ["pass", "Pass", (r) => r.stage === "pass"],
+  ["all", "Everyone", () => true],
+];
+// Old links (?tab=warm, ?tab=yes…) still land somewhere sensible.
+const ALIAS = { warm: "lead", yes: "booked", followed_up: "messaged" };
+if (ALIAS[tab]) tab = ALIAS[tab];
+
+const hasSite = (r) => Boolean(r.website) && !r.no_website && r.research?.website_status !== "none";
+function passFilters(r) {
+  if (filters.trade && (r.category ?? "") !== filters.trade) return false;
+  if (filters.town && (r.area ?? "") !== filters.town) return false;
+  if (filters.site === "yes" && !hasSite(r)) return false;
+  if (filters.site === "no" && hasSite(r)) return false;
+  if (filters.fit === "researched" && r.fit_score == null) return false;
+  if (/^\d+$/.test(filters.fit) && !((r.fit_score ?? -1) >= Number(filters.fit))) return false;
+  return true;
+}
+
+// Filter menus list what's on the list, most common first.
+function options(field, current, any) {
+  const counts = {};
+  rows.forEach((r) => r[field] && (counts[r[field]] = (counts[r[field]] ?? 0) + 1));
+  const list = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 80);
+  return `<option value="">${any}</option>` + list.map(([v, n]) => `<option value="${esc(v)}" ${v === current ? "selected" : ""}>${esc(v)} (${n})</option>`).join("");
+}
+function renderFilters() {
+  $("f-trade").innerHTML = options("category", filters.trade, "Any trade");
+  $("f-town").innerHTML = options("area", filters.town, "Any town");
+  $("f-site").value = filters.site;
+  $("f-fit").value = filters.fit;
+  const on = Object.values(filters).filter(Boolean).length;
+  $("f-clear").hidden = !on;
+}
+
 function render() {
   const counts = Object.fromEntries(STAGES.map(([s]) => [s, 0]));
   rows.forEach((r) => (counts[r.stage] = (counts[r.stage] ?? 0) + 1));
   const todayCount = rows.filter(onToday).length;
-  const callCount = rows.filter((r) => r.call_rank).length;
+  const base = rows.filter(passFilters);
   $("tabs").innerHTML =
-    (callCount ? `<button class="chip ${tab === "calllist" ? "on" : ""}" data-tab="calllist">Call list ${callCount}</button>` : "") +
-    `<button class="chip ${tab === "today" ? "on" : ""}" data-tab="today">Today ${todayCount}</button>` +
-    STAGES.map(([s, l]) => `<button class="chip ${tab === s ? "on" : ""}" data-tab="${s}">${l} ${counts[s]}</button>`).join("") +
-    `<button class="chip ${tab === "all" ? "on" : ""}" data-tab="all">Everyone ${rows.length}</button>`;
+    TABS.map(([k, l, f]) => `<button class="chip ${tab === k ? "on" : ""}" data-tab="${k}">${l} ${base.filter(f).length}</button>`).join("") +
+    `<button class="chip ${tab === "callers" ? "on" : ""}" data-tab="callers">Callers${callers ? ` ${callers.filter((k) => k.active).length}` : ""}</button>`;
 
   const { fresh, follow } = batchCounts();
   $("send-batch").textContent = fresh + follow ? `Send today's batch (${fresh} new${follow ? ` + ${follow} follow-ups` : ""})` : "Nothing ready to send";
@@ -71,17 +119,74 @@ function render() {
     : settings.auto_send_on
       ? `Review week: turns on by itself ${settings.auto_send_on}.`
       : "";
-  $("summary").textContent = `Today: ${todayCount} to reach · ${rows.filter(doneToday).length} done · ${rows.length} businesses · ${counts.messaged + counts.follow_up + counts.followed_up + counts.replied + counts.yes + counts.pass} contacted · ${counts.replied + counts.yes} replied · batch size ${settings.batch_size ?? 10} a day`;
+  $("summary").textContent = `Today: ${todayCount} to reach · ${rows.filter(doneToday).length} done · ${rows.length} businesses · ${counts.messaged + counts.follow_up + counts.followed_up + counts.replied + counts.yes + counts.pass} contacted · ${counts.replied + counts.yes} replied · ${rows.filter(isBooked).length} booked · batch size ${settings.batch_size ?? 10} a day`;
+
+  const isCallers = tab === "callers";
+  $("callers").hidden = !isCallers;
+  $("finder").hidden = isCallers;
+  $("list").hidden = isCallers;
+  if (isCallers) return renderCallers();
+  renderFilters();
 
   const q = $("search").value.trim().toLowerCase();
-  const shown = rows
-    .filter((r) => tab === "all" || (tab === "calllist" ? r.call_rank : tab === "today" ? onToday(r) : r.stage === tab))
+  const test = (TABS.find(([k]) => k === tab) ?? TABS[0])[2];
+  const shown = base
+    .filter(test)
     .filter((r) => !q || [r.business, r.area, r.phone, r.email, r.category, r.contact_name].join(" ").toLowerCase().includes(q))
     .sort((a, b) => (tab === "calllist" ? (a.call_rank ?? 999) - (b.call_rank ?? 999) : (b.fit_score ?? -1) - (a.fit_score ?? -1) || (b.reviews ?? 0) - (a.reviews ?? 0)));
 
+  const one = (r) => (tab === "calllist" ? callCard(r, { picking: picking?.id === r.id ? picking.result : null, extra: `<div class="acts"><button class="b" data-act="open">Open contact</button></div>` }) : card(r));
   $("list").innerHTML = shown.length
-    ? shown.slice(0, 300).map(card).join("") + (shown.length > 300 ? `<p class="muted">Showing the first 300 of ${shown.length}. Search to narrow it down.</p>` : "")
+    ? shown.slice(0, 300).map(one).join("") + (shown.length > 300 ? `<p class="muted">Showing the first 300 of ${shown.length}. Search or filter to narrow it down.</p>` : "")
     : `<p class="muted">Nobody here.</p>`;
+  renderDrawer();
+}
+
+// ── Callers: invite, turn off, see their numbers ──
+function renderCallers() {
+  const list = callers ?? [];
+  $("caller-list").innerHTML =
+    callers === null
+      ? `<p class="muted">Couldn't load callers. Refresh to try again.</p>`
+      : list.length
+        ? `<table class="ctable"><thead><tr><th>Caller</th><th>Today</th><th>This week</th><th>Booked (week / all)</th><th></th></tr></thead><tbody>${list
+            .map(
+              (k) => `<tr data-caller="${k.id}">
+                <td><b>${esc(k.name)}</b>${k.active ? "" : ` <span class="pill">Off</span>`}<br><span class="muted" style="font-size:13px">${esc(k.email)}</span></td>
+                <td>${k.today} calls</td><td>${k.week} calls</td><td>${k.bookingsWeek} / ${k.bookings}</td>
+                <td style="text-align:right;white-space:nowrap">
+                  <button class="b" data-cact="invite" data-name="${esc(k.name)}" data-email="${esc(k.email)}">Send invite again</button>
+                  <button class="b" data-cact="active" data-on="${k.active ? "0" : "1"}">${k.active ? "Turn off" : "Turn on"}</button>
+                </td></tr>`,
+            )
+            .join("")}</tbody></table>`
+        : `<p class="muted">No callers yet. Invite one above.</p>`;
+}
+
+// ── Contact drawer: everything about one business, with its full history ──
+function renderDrawer() {
+  const r = open && rows.find((x) => x.id === open);
+  $("drawer").hidden = !r;
+  $("drawer-bg").hidden = !r;
+  document.body.classList.toggle("drawer-open", Boolean(r));
+  if (!r) return;
+  const follow = r.stage === "follow_up";
+  const subj = follow ? r.followup_subject : r.email_subject;
+  const draft = follow ? r.followup_draft : r.email_draft;
+  const facts = [r.category, r.area, r.contact_name && `Contact: ${r.contact_name}`, r.reviews != null && `${r.rating ?? "–"}★ · ${r.reviews} reviews`, r.no_website ? "No website" : r.website && "Has website", r.source && `From: ${r.source}`, r.booked_at && `Booked ${new Date(r.booked_at).toLocaleString()}`, r.call_back_on && `Call back ${r.call_back_on}`].filter(Boolean);
+  $("drawer-body").innerHTML = `
+    <div data-id="${r.id}">
+      <h2 style="margin:0 0 6px">${esc(r.business)} <span class="stage ${HOT.includes(r.stage) ? "hot" : ""}">${esc(isBooked(r) ? "Booked" : LABEL[r.stage] ?? r.stage)}</span></h2>
+      <div class="meta">${facts.map((f) => `<span>${esc(f)}</span>`).join("")}</div>
+      ${(r.tags ?? []).length ? `<div class="meta" style="margin-top:6px">${r.tags.map((t) => `<span class="pill" style="margin:0">${esc(t)}</span>`).join("")}</div>` : ""}
+      ${research(r)}
+      ${r.why_fit ? `<p class="note-line" style="margin:8px 0 0"><b>Why they fit:</b> ${esc(r.why_fit)}</p>` : ""}
+      ${reach(r, follow, subj, draft)}
+      ${editor(r, follow, subj, draft)}
+      <h3 style="margin:22px 0 6px">History</h3>
+      ${r.log ? `<p class="log" style="margin-top:0">${esc(r.log)}</p>` : `<p class="muted">Nothing yet.</p>`}
+      <p class="note-line">Added ${esc(new Date(r.created_at).toLocaleDateString())}${r.last_called_at ? ` · last called ${esc(new Date(r.last_called_at).toLocaleString())}` : ""}${r.last_contact_at ? ` · last reached ${esc(new Date(r.last_contact_at).toLocaleString())}` : ""}</p>
+    </div>`;
 }
 
 function card(r) {
@@ -97,7 +202,6 @@ function card(r) {
     r.demo_url && `<a href="${esc(r.demo_url)}" target="_blank" rel="noopener">Demo</a>`,
   ].filter(Boolean);
   const facts = [r.category, r.area, r.reviews != null && `${r.rating ?? "–"}★ · ${r.reviews} reviews`, r.no_website && "No website", r.sent_on && `Sent ${r.sent_on}`, r.follow_up_on && `Follow up ${r.follow_up_on}`].filter(Boolean);
-  const isOpen = open === r.id;
   return `
   <div class="panel" data-id="${r.id}">
     <div class="row">
@@ -107,15 +211,14 @@ function card(r) {
         <div class="meta" style="margin-top:4px">${links.join("")}</div>
         ${r.heads_up ? `<p class="note-line" style="margin:8px 0 0">${esc(r.heads_up)}</p>` : ""}
         ${research(r)}
-        ${!isOpen && draft ? `<p class="note-line" style="margin:8px 0 0"><b>${esc(subj ?? "")}</b> — ${esc(draft.slice(0, 140))}…</p>` : ""}
+        ${draft ? `<p class="note-line" style="margin:8px 0 0"><b>${esc(subj ?? "")}</b> — ${esc(draft.slice(0, 140))}…</p>` : ""}
         ${r.opener && OPEN.includes(r.stage) ? `<p class="note-line" style="margin:8px 0 0"><b>If you call, say:</b> ${esc(r.opener)}</p>` : ""}
       </div>
       <div class="acts" style="margin:0">
-        <button class="b" data-act="open">${isOpen ? "Close" : "Open"}</button>
+        <button class="b" data-act="open">Open</button>
       </div>
     </div>
     ${reach(r, follow, subj, draft)}
-    ${isOpen ? editor(r, follow, subj, draft) : ""}
   </div>`;
 }
 
@@ -189,8 +292,7 @@ function editor(r, follow, subj, draft) {
       <button class="b" data-act="stage" data-stage="yes">Yes</button>
       <button class="b" data-act="stage" data-stage="pass">Pass</button>
     </div>
-    ${r.why_fit ? `<p class="log"><b>Why they fit:</b> ${esc(r.why_fit)}</p>` : ""}
-    ${r.log ? `<p class="log">${esc(r.log)}</p>` : ""}`;
+    `;
 }
 
 function readEdits(el) {
@@ -204,6 +306,7 @@ async function load() {
   rows = data.rows;
   settings = data.settings;
   autoSend = data.autoSend;
+  callers = data.callers ?? null;
   render();
 }
 
@@ -264,15 +367,17 @@ $("auto").addEventListener("change", async (e) => {
   }
 });
 
-$("list").addEventListener("click", async (e) => {
+async function onAct(e) {
   const b = e.target.closest("[data-act]");
   if (!b) return;
   const el = b.closest("[data-id]");
+  if (!el) return;
   const id = el.dataset.id;
   const act = b.dataset.act;
+  if (["result", "save-pick"].includes(act)) return; // call results: wireCallCards
   if (act === "open") {
-    open = open === id ? null : id;
-    render();
+    open = id;
+    renderDrawer();
     return;
   }
   if (act === "copy") {
@@ -309,6 +414,69 @@ $("list").addEventListener("click", async (e) => {
       replaceRow(await api("POST", { action: "send", id, subject, body, force: !["lead", "warm", "follow_up"].includes(row.stage) }));
       toast("Sent.");
     }
+  } catch (err) {
+    toast(err.message);
+  } finally {
+    b.disabled = false;
+  }
+}
+$("list").addEventListener("click", onAct);
+$("drawer-body").addEventListener("click", onAct);
+$("drawer-close").addEventListener("click", () => ((open = null), renderDrawer()));
+$("drawer-bg").addEventListener("click", () => ((open = null), renderDrawer()));
+document.addEventListener("keydown", (e) => e.key === "Escape" && open && ((open = null), renderDrawer()));
+
+// Filters
+for (const [id, key] of [["f-trade", "trade"], ["f-town", "town"], ["f-site", "site"], ["f-fit", "fit"]]) {
+  $(id).addEventListener("change", (e) => ((filters[key] = e.target.value), render()));
+}
+$("f-clear").addEventListener("click", () => {
+  Object.keys(filters).forEach((k) => (filters[k] = ""));
+  render();
+});
+
+// Call results on the Call list tab (same buttons the callers have; logged as Jordan).
+wireCallCards($("list"), {
+  logFn: (id, body) => api("POST", { action: "log-call", id, ...body }),
+  done: (row, msg) => {
+    if (row) replaceRow(row);
+    toast(msg);
+  },
+  rerender: render,
+  getPicking: () => picking,
+  setPicking: (p) => (picking = p),
+});
+
+// Callers
+$("invite").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const { name, email } = Object.fromEntries(new FormData(e.target));
+  if (!confirm(`Email ${name} an invite at ${email}? They'll get a link to set their password, then they only see the Call list.`)) return;
+  try {
+    await api("POST", { action: "invite-caller", name, email });
+    e.target.reset();
+    await load();
+    toast(`Invite sent to ${email}.`);
+  } catch (err) {
+    toast(err.message);
+  }
+});
+$("caller-list").addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-cact]");
+  if (!b) return;
+  const id = b.closest("[data-caller]").dataset.caller;
+  b.disabled = true;
+  try {
+    if (b.dataset.cact === "invite") {
+      if (!confirm(`Email ${b.dataset.name} a new "set your password" link at ${b.dataset.email}?`)) return;
+      await api("POST", { action: "invite-caller", name: b.dataset.name, email: b.dataset.email });
+      toast(`New link sent to ${b.dataset.email}.`);
+    } else {
+      const on = b.dataset.on === "1";
+      await api("POST", { action: "caller-active", id, active: on });
+      toast(on ? "Turned back on. They can sign in again." : "Turned off. They can't sign in or see the list any more.");
+    }
+    await load();
   } catch (err) {
     toast(err.message);
   } finally {

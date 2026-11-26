@@ -97,3 +97,39 @@ alter table public.network_settings enable row level security;
 create table if not exists site_layout (key text primary key, items jsonb not null default '[]'::jsonb, updated_at timestamptz not null default now());
 alter table site_layout enable row level security;
 insert into site_layout (key) values ('examples'), ('industries'), ('queue') on conflict do nothing;
+
+-- Callers (2026-11-25): people Jordan invites to work the Call list. Add-only.
+-- They sign in with their own Supabase Auth account (password set from the invite email).
+-- Read and written only through /api/call and /api/network (RLS on, no policies).
+create table if not exists public.network_callers (
+  id          uuid primary key default gen_random_uuid(),
+  name        text not null,
+  email       text not null,
+  active      boolean not null default true,  -- false = can't sign in or use the call list
+  invited_at  timestamptz,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+create unique index if not exists network_callers_email_key on public.network_callers (lower(email));
+alter table public.network_callers enable row level security;
+
+-- One row per call logged from the call list (by a caller or Jordan).
+create table if not exists public.network_calls (
+  id            uuid primary key default gen_random_uuid(),
+  network_id    uuid references public.network(id) on delete set null,
+  caller_email  text not null,
+  caller_name   text,
+  result        text not null,      -- talked, no_answer, voicemail, booked, not_interested, call_back
+  note          text,
+  booked_for    timestamptz,        -- the meeting time with Jordan
+  call_back_on  date,
+  created_at    timestamptz not null default now()
+);
+create index if not exists network_calls_caller_idx on public.network_calls (caller_email, created_at desc);
+create index if not exists network_calls_row_idx on public.network_calls (network_id, created_at desc);
+alter table public.network_calls enable row level security;
+
+alter table public.network add column if not exists booked_at    timestamptz;  -- call with Jordan booked for this time
+alter table public.network add column if not exists call_back_on date;         -- a caller said: call back this day
+alter table public.network add column if not exists added_by     text;         -- caller email, when a caller added the lead
+alter table public.network add column if not exists last_called_at timestamptz;

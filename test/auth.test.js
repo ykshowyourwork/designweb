@@ -25,7 +25,7 @@ function fakeAuth(email = "gethelp@desiweb.org") {
 test("the right email and password sign in; a wrong one is a plain 401", async () => {
   const a = fakeAuth();
   const s = await signIn("gethelp@desiweb.org", "right", { ...a, env });
-  assert.deepEqual(s, { token: "tok", refresh: "ref2", expiresAt: 2000000000, email: "gethelp@desiweb.org" });
+  assert.deepEqual(s, { token: "tok", refresh: "ref2", expiresAt: 2000000000, email: "gethelp@desiweb.org", role: "admin", name: "Jordan" });
   await assert.rejects(signIn("gethelp@desiweb.org", "wrong", { ...a, env }), (e) => e.status === 401);
   assert.equal(a.calls[0].apikey, "svc");
 });

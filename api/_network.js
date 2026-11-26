@@ -9,6 +9,7 @@
 
 import { HttpError } from "./_core.js";
 
+// Callers (api/_callers.js) log calls through /api/call and never reach this file's send or settings code.
 export const STAGES = ["warm", "lead", "call", "messaged", "follow_up", "followed_up", "replied", "yes", "pass"];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const UUID = /^[0-9a-f-]{36}$/i;
@@ -32,7 +33,7 @@ const addDays = (iso, n) => {
   d.setUTCDate(d.getUTCDate() + n);
   return dayString(d);
 };
-const ctx = (o = {}) => ({ fetchImpl: o.fetchImpl ?? fetch, env: o.env ?? process.env, today: o.today ?? dayString(new Date()) });
+export const ctx = (o = {}) => ({ fetchImpl: o.fetchImpl ?? fetch, env: o.env ?? process.env, today: o.today ?? dayString(new Date()) });
 
 /** Jordan texts from his own phone, so drafts don't carry a "Reply STOP" line. */
 export const noStop = (t) => String(t).replace(/\s*Reply STOP to opt out\.?/gi, "").trim() || null;
@@ -60,7 +61,7 @@ export function cleanPatch(p = {}) {
 }
 
 // ── Supabase (PostgREST) ──
-async function db(c, method, path, body, prefer) {
+export async function db(c, method, path, body, prefer) {
   const { SUPABASE_URL: base, SUPABASE_SERVICE_ROLE_KEY: key } = c.env;
   if (!base || !key) throw new Error("SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set");
   const res = await c.fetchImpl(`${base.replace(/\/$/, "")}/rest/v1/${path}`, {

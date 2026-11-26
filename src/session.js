@@ -18,6 +18,12 @@ export const save = (v) => {
   }
 };
 
+/** The signed-in session ({ email, role, name }) or null. Sessions from before callers existed are the owner's. */
+export const me = () => s;
+const CALLER_HOME = "/admin/calls";
+// A caller who lands on an owner page goes to the call list (the owner APIs refuse them anyway).
+const callerElsewhere = () => s?.role === "caller" && !location.pathname.startsWith(CALLER_HOME);
+
 export async function post(body) {
   const res = await fetch("/api/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
   const data = await res.json().catch(() => ({}));
@@ -74,6 +80,7 @@ export function signIn(onReady) {
     $("login-msg").textContent = text;
   };
   const show = async () => {
+    if (callerElsewhere()) return location.replace(CALLER_HOME);
     $("login").hidden = true;
     $("panel").hidden = false;
     $("signout")?.removeAttribute("hidden");
