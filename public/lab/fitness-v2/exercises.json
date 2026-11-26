@@ -1,0 +1,3039 @@
+[
+  {
+    "id": "box-squat",
+    "name": "Box Squat",
+    "pattern": "squat",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "core"
+    ],
+    "equipment": [
+      "bodyweight",
+      "box"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "goblet-squat",
+    "cues": [
+      "Stand in front of a box or bench",
+      "Sit back until you touch it",
+      "Drive through your whole foot to stand"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=7LpLZOdz68A",
+      "title": "Bodyweight Box Squat | Step-by-Step Tutorial",
+      "creator": "Physio Plus Fitness",
+      "creator_url": "https://www.youtube.com/@Physioplusfitness",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "goblet-squat",
+    "name": "Goblet Squat",
+    "pattern": "squat",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "core"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": "box-squat",
+    "harder": "dumbbell-front-squat",
+    "cues": [
+      "Hold the weight at your chest",
+      "Sit between your hips",
+      "Knees track over toes"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=3gpXflqRiEc",
+      "title": "How to Goblet Squat",
+      "creator": "Men's Health",
+      "creator_url": "https://www.youtube.com/@menshealthmag",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "dumbbell-front-squat",
+    "name": "Dumbbell Front Squat",
+    "pattern": "squat",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "core",
+      "upper back"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "goblet-squat",
+    "harder": "barbell-back-squat",
+    "cues": [
+      "Rest the dumbbells on your shoulders",
+      "Keep elbows up and chest tall",
+      "Squat deep and stand up strong"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=MJao9o7ROs0",
+      "title": "Dumbbell Front Squat | Exercise Guide",
+      "creator": "Bodybuilding.com",
+      "creator_url": "https://www.youtube.com/@bodybuildingcom",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "barbell-back-squat",
+    "name": "Barbell Back Squat",
+    "pattern": "squat",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hamstrings",
+      "core",
+      "lower back"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "level": 4,
+    "unilateral": false,
+    "compound": true,
+    "easier": "dumbbell-front-squat",
+    "harder": null,
+    "cues": [
+      "Bar sits on your upper back",
+      "Brace your core before you drop",
+      "Push the floor away to stand"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=-bJIpOq-LWk",
+      "title": "How to do a Barbell Back Squat",
+      "creator": "National Academy of Sports Medicine (NASM)",
+      "creator_url": "https://www.youtube.com/@NasmOrgPersonalTrainer",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "leg-press",
+    "name": "Leg Press",
+    "pattern": "squat",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "machine"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "goblet-squat",
+    "cues": [
+      "Feet flat, hip-width on the platform",
+      "Lower until knees reach about 90 degrees",
+      "Press up without locking your knees"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=W1SD96lrudY",
+      "title": "Jay Cutler's Training Tips: How To Do A Leg Press Correctly",
+      "creator": "Muscle & Strength",
+      "creator_url": "https://www.youtube.com/@muscleandstrength",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "glute-bridge",
+    "name": "Glute Bridge",
+    "pattern": "hinge",
+    "category": "foundation",
+    "muscles_primary": [
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hamstrings",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "kettlebell-deadlift",
+    "cues": [
+      "Lie on your back, feet flat",
+      "Squeeze your glutes to lift your hips",
+      "Pause at the top, lower slowly"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=wPM8icPu6H8",
+      "title": "How To Do A Glute Bridge | The Right Way | Well+Good",
+      "creator": "Well+Good",
+      "creator_url": "https://www.youtube.com/@Wellandgood",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "kettlebell-deadlift",
+    "name": "Kettlebell Deadlift",
+    "pattern": "hinge",
+    "category": "strength",
+    "muscles_primary": [
+      "glutes",
+      "hamstrings"
+    ],
+    "muscles_secondary": [
+      "lower back",
+      "core"
+    ],
+    "equipment": [
+      "kettlebell"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": "glute-bridge",
+    "harder": "dumbbell-romanian-deadlift",
+    "cues": [
+      "Kettlebell between your feet",
+      "Push your hips back, flat back",
+      "Stand tall by squeezing your glutes"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=l6gDwf3xC6s",
+      "title": "Kettlebell Deadlift | Exercise Tutorial",
+      "creator": "Onnit",
+      "creator_url": "https://www.youtube.com/@Onnitofficial",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "dumbbell-romanian-deadlift",
+    "name": "Dumbbell Romanian Deadlift",
+    "pattern": "hinge",
+    "category": "strength",
+    "muscles_primary": [
+      "hamstrings",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "lower back"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "kettlebell-deadlift",
+    "harder": "barbell-romanian-deadlift",
+    "cues": [
+      "Soft knees, push hips back",
+      "Dumbbells slide down your thighs",
+      "Stop when hamstrings feel a stretch"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=Xn1Wxg-asXE",
+      "title": "FULL BODY BEGINNER WEEK 1 DAY 2",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 553
+    }
+  },
+  {
+    "id": "barbell-romanian-deadlift",
+    "name": "Barbell Romanian Deadlift",
+    "pattern": "hinge",
+    "category": "strength",
+    "muscles_primary": [
+      "hamstrings",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "lower back",
+      "upper back"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "level": 4,
+    "unilateral": false,
+    "compound": true,
+    "easier": "dumbbell-romanian-deadlift",
+    "harder": "barbell-deadlift",
+    "cues": [
+      "Start standing with the bar",
+      "Hips back, bar close to your legs",
+      "Drive hips forward to stand"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=0RpO-BlFpos",
+      "title": "12 BEST HAMSTRING EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 28
+    }
+  },
+  {
+    "id": "barbell-deadlift",
+    "name": "Barbell Deadlift",
+    "pattern": "hinge",
+    "category": "strength",
+    "muscles_primary": [
+      "glutes",
+      "hamstrings",
+      "lower back"
+    ],
+    "muscles_secondary": [
+      "upper back",
+      "forearms",
+      "quads"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "level": 5,
+    "unilateral": false,
+    "compound": true,
+    "easier": "barbell-romanian-deadlift",
+    "harder": null,
+    "cues": [
+      "Bar over the middle of your foot",
+      "Pull the slack out, chest up",
+      "Push the floor away and stand tall"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=p2OPUi4xGrM",
+      "title": "Learning to Deadlift | The Starting Strength Method",
+      "creator": "Starting Strength",
+      "creator_url": "https://www.youtube.com/@startingstrength",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "barbell-hip-thrust",
+    "name": "Barbell Hip Thrust",
+    "pattern": "hinge",
+    "category": "strength",
+    "muscles_primary": [
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "barbell",
+      "bench"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "glute-bridge",
+    "harder": null,
+    "cues": [
+      "Upper back on the bench, bar on hips",
+      "Chin tucked, drive through heels",
+      "Lock out with a hard glute squeeze"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=Zp26q4BY5HE",
+      "title": "How To Do a Barbell Hip Thrust",
+      "creator": "Girls Gone Strong | Women's Health & Fitness",
+      "creator_url": "https://www.youtube.com/@GirlsGoneStrong",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "kettlebell-swing",
+    "name": "Kettlebell Swing",
+    "pattern": "hinge",
+    "category": "metabolic",
+    "muscles_primary": [
+      "glutes",
+      "hamstrings"
+    ],
+    "muscles_secondary": [
+      "core",
+      "shoulders"
+    ],
+    "equipment": [
+      "kettlebell"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "kettlebell-deadlift",
+    "harder": null,
+    "cues": [
+      "Hike the bell back between your legs",
+      "Snap your hips forward",
+      "Let the bell float, arms relaxed"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=0RpO-BlFpos",
+      "title": "12 BEST HAMSTRING EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 47
+    }
+  },
+  {
+    "id": "single-leg-romanian-deadlift",
+    "name": "Single-Leg Romanian Deadlift",
+    "pattern": "hinge",
+    "category": "strength",
+    "muscles_primary": [
+      "hamstrings",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "core"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 3,
+    "unilateral": true,
+    "compound": true,
+    "easier": "dumbbell-romanian-deadlift",
+    "harder": null,
+    "cues": [
+      "Stand on one leg, soft knee",
+      "Reach the back leg long as you tip",
+      "Keep your hips square to the floor"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=0RpO-BlFpos",
+      "title": "12 BEST HAMSTRING EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 35
+    }
+  },
+  {
+    "id": "split-squat",
+    "name": "Split Squat",
+    "pattern": "lunge",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": true,
+    "compound": true,
+    "easier": null,
+    "harder": "reverse-lunge",
+    "cues": [
+      "Long stance, back heel up",
+      "Drop your back knee straight down",
+      "Push through the front foot"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=FgflNVdgNnM",
+      "title": "FULL BODY BEGINNER WEEK 2 DAY 3",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 735
+    }
+  },
+  {
+    "id": "reverse-lunge",
+    "name": "Reverse Lunge",
+    "pattern": "lunge",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hamstrings",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": true,
+    "compound": true,
+    "easier": "split-squat",
+    "harder": "dumbbell-walking-lunge",
+    "cues": [
+      "Step back with one foot",
+      "Lower until both knees bend about 90",
+      "Drive through the front heel to return"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=pAQiIP_wyK4",
+      "title": "FULL BODY BEGINNER WEEK 1 DAY 3",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 346
+    }
+  },
+  {
+    "id": "dumbbell-walking-lunge",
+    "name": "Dumbbell Walking Lunge",
+    "pattern": "lunge",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hamstrings",
+      "core"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 3,
+    "unilateral": true,
+    "compound": true,
+    "easier": "reverse-lunge",
+    "harder": "bulgarian-split-squat",
+    "cues": [
+      "Dumbbells at your sides",
+      "Take a long step and drop down",
+      "Push through to step into the next rep"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=I34ysEkPK7w",
+      "title": "Dumbbell Walking Lunge - How To",
+      "creator": "Bobby Maximus",
+      "creator_url": "https://www.youtube.com/@OfficialBobbyMaximus",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "bulgarian-split-squat",
+    "name": "Bulgarian Split Squat",
+    "pattern": "lunge",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hamstrings",
+      "core"
+    ],
+    "equipment": [
+      "dumbbell",
+      "bench"
+    ],
+    "level": 4,
+    "unilateral": true,
+    "compound": true,
+    "easier": "dumbbell-walking-lunge",
+    "harder": null,
+    "cues": [
+      "Back foot on the bench",
+      "Lean slightly forward and lower",
+      "Front foot does the work"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=hPlKPjohFS0",
+      "title": "The PERFECT Bulgarian Split Squat (Avoid These Errors!)",
+      "creator": "Squat University",
+      "creator_url": "https://www.youtube.com/@SquatUniversity",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "dumbbell-step-up",
+    "name": "Dumbbell Step-Up",
+    "pattern": "lunge",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "dumbbell",
+      "box"
+    ],
+    "level": 2,
+    "unilateral": true,
+    "compound": true,
+    "easier": "split-squat",
+    "harder": "bulgarian-split-squat",
+    "cues": [
+      "Whole foot on the box",
+      "Drive up through the top leg",
+      "Lower slowly, don't push off the bottom foot"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=2RKe6GHf6JQ",
+      "title": "FULL BODY BEGINNER WEEK 1 Day 1",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 431
+    }
+  },
+  {
+    "id": "lateral-lunge",
+    "name": "Lateral Lunge",
+    "pattern": "lunge",
+    "category": "strength",
+    "muscles_primary": [
+      "quads",
+      "glutes",
+      "adductors"
+    ],
+    "muscles_secondary": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": true,
+    "compound": true,
+    "easier": "split-squat",
+    "harder": null,
+    "cues": [
+      "Step wide to the side",
+      "Sit back into that hip, other leg straight",
+      "Push back to the middle"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=FgflNVdgNnM",
+      "title": "FULL BODY BEGINNER WEEK 2 DAY 3",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 228
+    }
+  },
+  {
+    "id": "wall-push-up",
+    "name": "Wall Push-Up",
+    "pattern": "push_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "chest",
+      "triceps"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "incline-push-up",
+    "cues": [
+      "Hands on the wall at chest height",
+      "Body straight from head to heels",
+      "Bring your chest to the wall and press away"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=pAQiIP_wyK4",
+      "title": "FULL BODY BEGINNER WEEK 1 DAY 3",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 519
+    }
+  },
+  {
+    "id": "incline-push-up",
+    "name": "Incline Push-Up",
+    "pattern": "push_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "chest",
+      "triceps"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight",
+      "bench"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": "wall-push-up",
+    "harder": "knee-push-up",
+    "cues": [
+      "Hands on a bench or box",
+      "Straight line head to heels",
+      "Lower your chest to the edge, press up"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=_Qjjp0c6Kfs",
+      "title": "15 BEST CHEST EXERCISES",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 54
+    }
+  },
+  {
+    "id": "knee-push-up",
+    "name": "Knee Push-Up",
+    "pattern": "push_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "chest",
+      "triceps"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": "incline-push-up",
+    "harder": "push-up",
+    "cues": [
+      "Knees down, hips in line",
+      "Hands just wider than shoulders",
+      "Lower chest to the floor, press up"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=lFR1GWy1Dcs",
+      "title": "The Knee Push Up | How To Perform Without Shoulder Pain",
+      "creator": "Dr. Carl Baird",
+      "creator_url": "https://www.youtube.com/@DrCarlBaird",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "push-up",
+    "name": "Push-Up",
+    "pattern": "push_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "chest",
+      "triceps"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "knee-push-up",
+    "harder": "decline-push-up",
+    "cues": [
+      "Hands under shoulders, body like a plank",
+      "Elbows at about 45 degrees",
+      "Chest to the floor, push it away"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=_Qjjp0c6Kfs",
+      "title": "15 BEST CHEST EXERCISES",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 60
+    }
+  },
+  {
+    "id": "decline-push-up",
+    "name": "Decline Push-Up",
+    "pattern": "push_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "upper chest",
+      "triceps"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight",
+      "bench"
+    ],
+    "level": 4,
+    "unilateral": false,
+    "compound": true,
+    "easier": "push-up",
+    "harder": null,
+    "cues": [
+      "Feet up on a bench",
+      "Keep your hips from sagging",
+      "Lower your face toward the floor, press up"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=_Qjjp0c6Kfs",
+      "title": "15 BEST CHEST EXERCISES",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 65
+    }
+  },
+  {
+    "id": "machine-chest-press",
+    "name": "Machine Chest Press",
+    "pattern": "push_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "chest",
+      "triceps"
+    ],
+    "muscles_secondary": [
+      "shoulders"
+    ],
+    "equipment": [
+      "machine"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "dumbbell-bench-press",
+    "cues": [
+      "Handles at chest height",
+      "Shoulder blades back on the pad",
+      "Press out, return slowly"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=n8TOta_pfr4",
+      "title": "How to Use a Chest Press Machine",
+      "creator": "LIVESTRONG",
+      "creator_url": "https://www.youtube.com/@livestrongcom",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "dumbbell-bench-press",
+    "name": "Dumbbell Bench Press",
+    "pattern": "push_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "chest",
+      "triceps"
+    ],
+    "muscles_secondary": [
+      "shoulders"
+    ],
+    "equipment": [
+      "dumbbell",
+      "bench"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": "machine-chest-press",
+    "harder": "barbell-bench-press",
+    "cues": [
+      "Feet flat, shoulder blades pinched",
+      "Lower dumbbells to chest level",
+      "Press up and slightly together"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=U2wKgoUAEMo",
+      "title": "Dumbbell Bench Press - Modern Woman's Guide to Strength Training",
+      "creator": "Girls Gone Strong | Women's Health & Fitness",
+      "creator_url": "https://www.youtube.com/@GirlsGoneStrong",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "barbell-bench-press",
+    "name": "Barbell Bench Press",
+    "pattern": "push_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "chest",
+      "triceps"
+    ],
+    "muscles_secondary": [
+      "shoulders"
+    ],
+    "equipment": [
+      "barbell",
+      "bench"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "dumbbell-bench-press",
+    "harder": null,
+    "cues": [
+      "Eyes under the bar, slight arch",
+      "Lower the bar to mid-chest",
+      "Press up and back over your shoulders"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=4MIASJQ7Wqg",
+      "title": "Real Strength",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "machine-shoulder-press",
+    "name": "Machine Shoulder Press",
+    "pattern": "push_vertical",
+    "category": "strength",
+    "muscles_primary": [
+      "shoulders"
+    ],
+    "muscles_secondary": [
+      "triceps"
+    ],
+    "equipment": [
+      "machine"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "seated-dumbbell-shoulder-press",
+    "cues": [
+      "Handles at shoulder height",
+      "Back flat on the pad",
+      "Press up, lower under control"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=BmVCfbZiNg4",
+      "title": "20 Best SHOULDER EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 1
+    }
+  },
+  {
+    "id": "seated-dumbbell-shoulder-press",
+    "name": "Seated Dumbbell Shoulder Press",
+    "pattern": "push_vertical",
+    "category": "strength",
+    "muscles_primary": [
+      "shoulders"
+    ],
+    "muscles_secondary": [
+      "triceps",
+      "upper chest"
+    ],
+    "equipment": [
+      "dumbbell",
+      "bench"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": "machine-shoulder-press",
+    "harder": "standing-dumbbell-shoulder-press",
+    "cues": [
+      "Sit tall, back on the pad",
+      "Dumbbells start at ear height",
+      "Press up until arms are straight"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=BmVCfbZiNg4",
+      "title": "20 Best SHOULDER EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 45
+    }
+  },
+  {
+    "id": "standing-dumbbell-shoulder-press",
+    "name": "Standing Dumbbell Shoulder Press",
+    "pattern": "push_vertical",
+    "category": "strength",
+    "muscles_primary": [
+      "shoulders"
+    ],
+    "muscles_secondary": [
+      "triceps",
+      "core"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "seated-dumbbell-shoulder-press",
+    "harder": "barbell-overhead-press",
+    "cues": [
+      "Stand tall, squeeze glutes",
+      "Press straight up overhead",
+      "Don't lean back"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=BmVCfbZiNg4",
+      "title": "20 Best SHOULDER EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 23
+    }
+  },
+  {
+    "id": "barbell-overhead-press",
+    "name": "Barbell Overhead Press",
+    "pattern": "push_vertical",
+    "category": "strength",
+    "muscles_primary": [
+      "shoulders"
+    ],
+    "muscles_secondary": [
+      "triceps",
+      "core",
+      "upper back"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "level": 4,
+    "unilateral": false,
+    "compound": true,
+    "easier": "standing-dumbbell-shoulder-press",
+    "harder": null,
+    "cues": [
+      "Bar on your front shoulders",
+      "Squeeze glutes, ribs down",
+      "Press up and push your head through"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=BmVCfbZiNg4",
+      "title": "20 Best SHOULDER EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 15
+    }
+  },
+  {
+    "id": "pike-push-up",
+    "name": "Pike Push-Up",
+    "pattern": "push_vertical",
+    "category": "strength",
+    "muscles_primary": [
+      "shoulders"
+    ],
+    "muscles_secondary": [
+      "triceps",
+      "upper chest"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "push-up",
+    "harder": null,
+    "cues": [
+      "Hips high like an upside-down V",
+      "Lower the top of your head toward the floor",
+      "Press back up"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=_Qjjp0c6Kfs",
+      "title": "15 BEST CHEST EXERCISES",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 83
+    }
+  },
+  {
+    "id": "band-row",
+    "name": "Band Row",
+    "pattern": "pull_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "upper back",
+      "lats"
+    ],
+    "muscles_secondary": [
+      "biceps",
+      "rear delts"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "suspension-row",
+    "cues": [
+      "Anchor the band at chest height",
+      "Pull elbows back past your ribs",
+      "Squeeze shoulder blades together"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=LSkyinhmA8k",
+      "title": "How To Do A Resistance Band Row",
+      "creator": "Get Healthy U - with Chris Freytag",
+      "creator_url": "https://www.youtube.com/@Chrisfreytagfitness",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "suspension-row",
+    "name": "Suspension Trainer Row",
+    "pattern": "pull_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "upper back",
+      "lats"
+    ],
+    "muscles_secondary": [
+      "biceps",
+      "core"
+    ],
+    "equipment": [
+      "suspension"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": "band-row",
+    "harder": "one-arm-dumbbell-row",
+    "cues": [
+      "Lean back with straight arms",
+      "Body stays straight like a plank",
+      "Pull your chest to your hands"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=XbQJyfu43Ag",
+      "title": "FULL BODY BEGINNER WEEK 2 DAY 2",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 446
+    }
+  },
+  {
+    "id": "seated-cable-row",
+    "name": "Seated Cable Row",
+    "pattern": "pull_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "upper back",
+      "lats"
+    ],
+    "muscles_secondary": [
+      "biceps",
+      "rear delts"
+    ],
+    "equipment": [
+      "cable"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": "band-row",
+    "harder": "one-arm-dumbbell-row",
+    "cues": [
+      "Sit tall, slight bend in knees",
+      "Pull the handle to your belly",
+      "Squeeze your back, return slowly"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=GrwS6KLHi5g",
+      "title": "18 BEST UPPER BACK EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 52
+    }
+  },
+  {
+    "id": "one-arm-dumbbell-row",
+    "name": "One-Arm Dumbbell Row",
+    "pattern": "pull_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "lats",
+      "upper back"
+    ],
+    "muscles_secondary": [
+      "biceps",
+      "rear delts"
+    ],
+    "equipment": [
+      "dumbbell",
+      "bench"
+    ],
+    "level": 3,
+    "unilateral": true,
+    "compound": true,
+    "easier": "suspension-row",
+    "harder": "barbell-bent-over-row",
+    "cues": [
+      "One hand and knee on the bench",
+      "Pull the dumbbell to your hip",
+      "Lower until your arm is long"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=GrwS6KLHi5g",
+      "title": "18 BEST UPPER BACK EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 58
+    }
+  },
+  {
+    "id": "barbell-bent-over-row",
+    "name": "Barbell Bent-Over Row",
+    "pattern": "pull_horizontal",
+    "category": "strength",
+    "muscles_primary": [
+      "upper back",
+      "lats"
+    ],
+    "muscles_secondary": [
+      "biceps",
+      "lower back",
+      "rear delts"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "level": 4,
+    "unilateral": false,
+    "compound": true,
+    "easier": "one-arm-dumbbell-row",
+    "harder": null,
+    "cues": [
+      "Hinge forward, flat back",
+      "Pull the bar to your lower ribs",
+      "Lower with control"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=bm0_q9bR_HA",
+      "title": "How to do a Barbell Bent Over Row Pronated",
+      "creator": "National Academy of Sports Medicine (NASM)",
+      "creator_url": "https://www.youtube.com/@NasmOrgPersonalTrainer",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "lat-pulldown",
+    "name": "Lat Pulldown",
+    "pattern": "pull_vertical",
+    "category": "strength",
+    "muscles_primary": [
+      "lats"
+    ],
+    "muscles_secondary": [
+      "biceps",
+      "upper back"
+    ],
+    "equipment": [
+      "machine",
+      "cable"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "band-assisted-pull-up",
+    "cues": [
+      "Grip a little wider than shoulders",
+      "Pull the bar to your upper chest",
+      "Let it rise slowly with straight arms"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=GrwS6KLHi5g",
+      "title": "18 BEST UPPER BACK EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 23
+    }
+  },
+  {
+    "id": "band-assisted-pull-up",
+    "name": "Band-Assisted Pull-Up",
+    "pattern": "pull_vertical",
+    "category": "strength",
+    "muscles_primary": [
+      "lats"
+    ],
+    "muscles_secondary": [
+      "biceps",
+      "upper back",
+      "core"
+    ],
+    "equipment": [
+      "band",
+      "pullup_bar"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": "lat-pulldown",
+    "harder": "chin-up",
+    "cues": [
+      "Loop the band on the bar, foot or knee in",
+      "Pull your chest toward the bar",
+      "Lower all the way down"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=B_VkNQS5YLs",
+      "title": "How to do a Band Assisted Pull-Up | Proper Form & Technique | NASM",
+      "creator": "National Academy of Sports Medicine (NASM)",
+      "creator_url": "https://www.youtube.com/@NasmOrgPersonalTrainer",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "chin-up",
+    "name": "Chin-Up",
+    "pattern": "pull_vertical",
+    "category": "strength",
+    "muscles_primary": [
+      "lats",
+      "biceps"
+    ],
+    "muscles_secondary": [
+      "upper back",
+      "core"
+    ],
+    "equipment": [
+      "pullup_bar"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "band-assisted-pull-up",
+    "harder": "pull-up",
+    "cues": [
+      "Palms facing you, shoulder width",
+      "Pull your chin over the bar",
+      "Lower to straight arms"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=GrwS6KLHi5g",
+      "title": "18 BEST UPPER BACK EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 7
+    }
+  },
+  {
+    "id": "pull-up",
+    "name": "Pull-Up",
+    "pattern": "pull_vertical",
+    "category": "strength",
+    "muscles_primary": [
+      "lats"
+    ],
+    "muscles_secondary": [
+      "biceps",
+      "upper back",
+      "core"
+    ],
+    "equipment": [
+      "pullup_bar"
+    ],
+    "level": 4,
+    "unilateral": false,
+    "compound": true,
+    "easier": "chin-up",
+    "harder": null,
+    "cues": [
+      "Palms away, a bit wider than shoulders",
+      "Pull elbows down to your ribs",
+      "Chin over the bar, lower slowly"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=GrwS6KLHi5g",
+      "title": "18 BEST UPPER BACK EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 1
+    }
+  },
+  {
+    "id": "dead-bug",
+    "name": "Dead Bug",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "abs"
+    ],
+    "muscles_secondary": [
+      "hip flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": "front-plank",
+    "cues": [
+      "Lie on your back, arms and knees up",
+      "Press your low back into the floor",
+      "Reach opposite arm and leg out slowly"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=FgflNVdgNnM",
+      "title": "FULL BODY BEGINNER WEEK 2 DAY 3",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 1192
+    }
+  },
+  {
+    "id": "front-plank",
+    "name": "Front Plank",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "abs"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "glutes"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": false,
+    "easier": "dead-bug",
+    "harder": "ab-wheel-rollout",
+    "cues": [
+      "Forearms under shoulders",
+      "Squeeze glutes, tuck ribs",
+      "Hold a straight line, breathe"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=2RKe6GHf6JQ",
+      "title": "FULL BODY BEGINNER WEEK 1 Day 1",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 588
+    }
+  },
+  {
+    "id": "ab-wheel-rollout",
+    "name": "Ab Wheel Rollout",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "abs"
+    ],
+    "muscles_secondary": [
+      "lats",
+      "shoulders"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 4,
+    "unilateral": false,
+    "compound": false,
+    "easier": "front-plank",
+    "harder": null,
+    "cues": [
+      "Start on knees, wheel under shoulders",
+      "Roll out while keeping your back flat",
+      "Pull back with your abs"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=rqiTPdK1c_I",
+      "title": "Ab Wheel- How to PROPERLY Use an Ab Wheel | MIND PUMP",
+      "creator": "Mind Pump TV",
+      "creator_url": "https://www.youtube.com/@MindPumpTV",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "bird-dog",
+    "name": "Bird Dog",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "abs",
+      "lower back"
+    ],
+    "muscles_secondary": [
+      "glutes",
+      "shoulders"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": "pallof-press",
+    "cues": [
+      "Hands and knees, flat back",
+      "Reach opposite arm and leg long",
+      "Don't let your hips tip"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=pAQiIP_wyK4",
+      "title": "FULL BODY BEGINNER WEEK 1 DAY 3",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 569
+    }
+  },
+  {
+    "id": "pallof-press",
+    "name": "Pallof Press",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "abs",
+      "obliques"
+    ],
+    "muscles_secondary": [
+      "shoulders"
+    ],
+    "equipment": [
+      "cable",
+      "band"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": false,
+    "easier": "bird-dog",
+    "harder": "cable-woodchop",
+    "cues": [
+      "Stand side-on to the anchor",
+      "Press the handle straight out",
+      "Don't let it pull you around"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=5_8d8vHgZvU",
+      "title": "Pallof Press - How To Do Pallof Presses + Variations",
+      "creator": "Girls Gone Strong | Women's Health & Fitness",
+      "creator_url": "https://www.youtube.com/@GirlsGoneStrong",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "cable-woodchop",
+    "name": "Cable Woodchop",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "obliques",
+      "abs"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "glutes"
+    ],
+    "equipment": [
+      "cable"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "pallof-press",
+    "harder": null,
+    "cues": [
+      "Handle high on one side",
+      "Rotate through hips and chest to pull down",
+      "Control it back up"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=ZDt4MCvjMAA",
+      "title": "HOW TO: Cable Wood Chop",
+      "creator": "Goodlife Health Clubs",
+      "creator_url": "https://www.youtube.com/@GoodlifeHealthClubsAustralia",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "crunch",
+    "name": "Crunch",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "abs"
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": "hanging-knee-raise",
+    "cues": [
+      "Knees bent, feet flat",
+      "Curl your ribs toward your hips",
+      "Lower slowly, keep chin off chest"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=Xn1Wxg-asXE",
+      "title": "FULL BODY BEGINNER WEEK 1 DAY 2",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 829
+    }
+  },
+  {
+    "id": "hanging-knee-raise",
+    "name": "Hanging Knee Raise",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "abs"
+    ],
+    "muscles_secondary": [
+      "hip flexors",
+      "forearms"
+    ],
+    "equipment": [
+      "pullup_bar"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": false,
+    "easier": "crunch",
+    "harder": "hanging-leg-raise",
+    "cues": [
+      "Hang with straight arms",
+      "Curl knees up toward your chest",
+      "Lower without swinging"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=s-X9rKpramA",
+      "title": "2 killer Abs legs raises try it #viral #video #trending #foryou r",
+      "creator": "coach kenny24",
+      "creator_url": "https://www.youtube.com/@coachkenny24",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "hanging-leg-raise",
+    "name": "Hanging Leg Raise",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "abs"
+    ],
+    "muscles_secondary": [
+      "hip flexors",
+      "forearms"
+    ],
+    "equipment": [
+      "pullup_bar"
+    ],
+    "level": 4,
+    "unilateral": false,
+    "compound": false,
+    "easier": "hanging-knee-raise",
+    "harder": null,
+    "cues": [
+      "Hang still, legs together",
+      "Lift straight legs to hip height or higher",
+      "Lower slowly, no swing"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=Pr1ieGZ5atk",
+      "title": "Hanging Leg Raise | HOW-TO",
+      "creator": "ATHLEAN-X™",
+      "creator_url": "https://www.youtube.com/@athleanx",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "side-plank",
+    "name": "Side Plank",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "obliques"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "glutes"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": true,
+    "compound": false,
+    "easier": "front-plank",
+    "harder": "hollow-body-hold",
+    "cues": [
+      "Elbow under shoulder",
+      "Lift hips into a straight line",
+      "Hold and breathe"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=XeN4pEZZJNI",
+      "title": "How To Do A Side Plank | The Right Way | Well+Good",
+      "creator": "Well+Good",
+      "creator_url": "https://www.youtube.com/@Wellandgood",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "hollow-body-hold",
+    "name": "Hollow Body Hold",
+    "pattern": "core",
+    "category": "foundation",
+    "muscles_primary": [
+      "abs"
+    ],
+    "muscles_secondary": [
+      "hip flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": false,
+    "easier": "dead-bug",
+    "harder": null,
+    "cues": [
+      "Low back pressed into the floor",
+      "Arms and legs reach long and low",
+      "Hold the banana shape"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=BQCdzRPE9Ao",
+      "title": "Hollow Body Holds",
+      "creator": "Men's Health",
+      "creator_url": "https://www.youtube.com/@menshealthmag",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "farmer-carry",
+    "name": "Farmer's Carry",
+    "pattern": "carry",
+    "category": "strength",
+    "muscles_primary": [
+      "forearms",
+      "traps",
+      "core"
+    ],
+    "muscles_secondary": [
+      "glutes",
+      "shoulders"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "suitcase-carry",
+    "cues": [
+      "Heavy weight in each hand",
+      "Stand tall, shoulders down",
+      "Walk with short, steady steps"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=NH7Xv-7NQNQ",
+      "title": "How To Perform Farmer Walks Exercise Tutorial",
+      "creator": "Buff Dudes Workouts",
+      "creator_url": "https://www.youtube.com/@BuffDudesWorkouts",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "suitcase-carry",
+    "name": "Suitcase Carry",
+    "pattern": "carry",
+    "category": "strength",
+    "muscles_primary": [
+      "obliques",
+      "forearms"
+    ],
+    "muscles_secondary": [
+      "traps",
+      "glutes"
+    ],
+    "equipment": [
+      "kettlebell"
+    ],
+    "level": 2,
+    "unilateral": true,
+    "compound": true,
+    "easier": "farmer-carry",
+    "harder": "overhead-carry",
+    "cues": [
+      "Weight in one hand only",
+      "Don't lean toward the weight",
+      "Walk tall and slow"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=CsSQtaE9SAQ",
+      "title": "How to Perform Kettlebell Suitcase Carries",
+      "creator": "CORE Strong Fitness",
+      "creator_url": "https://www.youtube.com/@COREStrongFitness",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "overhead-carry",
+    "name": "Overhead Kettlebell Carry",
+    "pattern": "carry",
+    "category": "strength",
+    "muscles_primary": [
+      "shoulders",
+      "core"
+    ],
+    "muscles_secondary": [
+      "traps",
+      "triceps"
+    ],
+    "equipment": [
+      "kettlebell"
+    ],
+    "level": 3,
+    "unilateral": true,
+    "compound": true,
+    "easier": "suitcase-carry",
+    "harder": null,
+    "cues": [
+      "Press the bell overhead and lock the elbow",
+      "Ribs down, bicep by ear",
+      "Walk slow and steady"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=54POVWkWjEs",
+      "title": "Kettlebell Overhead Carry",
+      "creator": "[P]rehab",
+      "creator_url": "https://www.youtube.com/@ThePrehabGuys",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "bear-crawl",
+    "name": "Bear Crawl",
+    "pattern": "carry",
+    "category": "metabolic",
+    "muscles_primary": [
+      "shoulders",
+      "core",
+      "quads"
+    ],
+    "muscles_secondary": [
+      "hip flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Hands and feet down, knees just off the floor",
+      "Move opposite hand and foot together",
+      "Keep your back flat"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=w4LRV1S7u_U",
+      "title": "Bear Crawl - How To",
+      "creator": "Bobby Maximus",
+      "creator_url": "https://www.youtube.com/@OfficialBobbyMaximus",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "pogo-hops",
+    "name": "Pogo Hops",
+    "pattern": "plyo_agility",
+    "category": "saq",
+    "muscles_primary": [
+      "calves"
+    ],
+    "muscles_secondary": [
+      "quads",
+      "ankles"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": "squat-jump",
+    "cues": [
+      "Stay on the balls of your feet",
+      "Small, quick bounces",
+      "Keep knees soft but stiff ankles"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=j0nl5dWuqN4",
+      "title": "Pogo Jumps Tutorial - Proper Form and Technique",
+      "creator": "Runna",
+      "creator_url": "https://www.youtube.com/@Runna",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "squat-jump",
+    "name": "Squat Jump",
+    "pattern": "plyo_agility",
+    "category": "saq",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "calves"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": "pogo-hops",
+    "harder": "box-jump",
+    "cues": [
+      "Drop into a quarter squat",
+      "Explode up as high as you can",
+      "Land soft and reset"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=YNlW8jY0icQ",
+      "title": "FULL BODY BEGINNER WEEK 3 DAY 3",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 197
+    }
+  },
+  {
+    "id": "box-jump",
+    "name": "Box Jump",
+    "pattern": "plyo_agility",
+    "category": "saq",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "calves",
+      "hamstrings"
+    ],
+    "equipment": [
+      "box"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "squat-jump",
+    "harder": "depth-jump",
+    "cues": [
+      "Swing arms and jump up",
+      "Land soft in a squat on the box",
+      "Step down, don't jump down"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=_dS7k5OcNC4",
+      "title": "FULL BODY BEGINNER WEEK 3 DAY 1",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 592
+    }
+  },
+  {
+    "id": "depth-jump",
+    "name": "Depth Jump",
+    "pattern": "plyo_agility",
+    "category": "saq",
+    "muscles_primary": [
+      "quads",
+      "glutes",
+      "calves"
+    ],
+    "muscles_secondary": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "box"
+    ],
+    "level": 5,
+    "unilateral": false,
+    "compound": true,
+    "easier": "box-jump",
+    "harder": null,
+    "cues": [
+      "Step off a low box",
+      "Touch the ground and jump right away",
+      "Spend as little time on the floor as you can"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=GeN0S3XCZnM",
+      "title": "Depth Jump | Olympic Weightlifting Exercise Library",
+      "creator": "Catalyst Athletics",
+      "creator_url": "https://www.youtube.com/@CatalystAthletics",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "skater-jump",
+    "name": "Skater Jump",
+    "pattern": "plyo_agility",
+    "category": "saq",
+    "muscles_primary": [
+      "glutes",
+      "quads"
+    ],
+    "muscles_secondary": [
+      "adductors",
+      "calves"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 3,
+    "unilateral": true,
+    "compound": true,
+    "easier": "lateral-lunge",
+    "harder": null,
+    "cues": [
+      "Bound sideways off one leg",
+      "Land soft on the other foot",
+      "Stick it, then go back"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=BGrTRCjTPFo",
+      "title": "HOW TO DO SKATER JUMPS",
+      "creator": "Personal Fitness by Clint Neale",
+      "creator_url": "https://www.youtube.com/@PersonalFitness11",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "agility-ladder-quick-feet",
+    "name": "Agility Ladder Quick Feet",
+    "pattern": "plyo_agility",
+    "category": "saq",
+    "muscles_primary": [
+      "calves"
+    ],
+    "muscles_secondary": [
+      "quads",
+      "hip flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Stay on the balls of your feet",
+      "Both feet in each box, fast",
+      "Arms pump with your legs"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=qDqB3rt02JQ",
+      "title": "10 Agility Ladder Exercises - TITLE Boxing - How to be Light on Your Feet",
+      "creator": "TITLE Boxing",
+      "creator_url": "https://www.youtube.com/@titleboxing",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "pro-agility-shuttle",
+    "name": "5-10-5 Pro Agility Shuttle",
+    "pattern": "plyo_agility",
+    "category": "saq",
+    "muscles_primary": [
+      "quads",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "calves",
+      "adductors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Start in a low stance",
+      "Sprint 5 yards, touch, sprint 10 back",
+      "Plant hard and stay low on turns"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=z-wV9O8y-a0",
+      "title": "Instructions for the Pro Agility Test (5-10-5)",
+      "creator": "SKLZ",
+      "creator_url": "https://www.youtube.com/@SKLZvidz",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "medicine-ball-slam",
+    "name": "Medicine Ball Slam",
+    "pattern": "plyo_agility",
+    "category": "saq",
+    "muscles_primary": [
+      "lats",
+      "abs"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "glutes"
+    ],
+    "equipment": [
+      "medicine_ball"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Lift the ball overhead on your toes",
+      "Slam it down as hard as you can",
+      "Squat to pick it up"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=QxYhFwMd1Ks",
+      "title": "How to Perform the Med Ball Slam",
+      "creator": "CORE Strong Fitness",
+      "creator_url": "https://www.youtube.com/@COREStrongFitness",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "medicine-ball-rotational-throw",
+    "name": "Medicine Ball Rotational Throw",
+    "pattern": "plyo_agility",
+    "category": "saq",
+    "muscles_primary": [
+      "obliques",
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "shoulders",
+      "abs"
+    ],
+    "equipment": [
+      "medicine_ball"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "medicine-ball-slam",
+    "harder": null,
+    "cues": [
+      "Stand side-on to a wall",
+      "Load your back hip",
+      "Rotate fast and throw the ball into the wall"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=DttZ5JU-b_U",
+      "title": "How to Perform Rotational Med Ball Throws",
+      "creator": "CORE Strong Fitness",
+      "creator_url": "https://www.youtube.com/@COREStrongFitness",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "mountain-climber",
+    "name": "Mountain Climber",
+    "pattern": "cardio",
+    "category": "metabolic",
+    "muscles_primary": [
+      "core",
+      "shoulders"
+    ],
+    "muscles_secondary": [
+      "hip flexors",
+      "quads"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": "burpee",
+    "cues": [
+      "Start in a high plank",
+      "Drive knees to chest one at a time",
+      "Keep hips low and move fast"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=cnyTQDSE884",
+      "title": "How to Do Mountain Climbers | The Right Way | Well+Good",
+      "creator": "Well+Good",
+      "creator_url": "https://www.youtube.com/@Wellandgood",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "burpee",
+    "name": "Burpee",
+    "pattern": "cardio",
+    "category": "metabolic",
+    "muscles_primary": [
+      "full body"
+    ],
+    "muscles_secondary": [
+      "chest",
+      "quads"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 3,
+    "unilateral": false,
+    "compound": true,
+    "easier": "mountain-climber",
+    "harder": null,
+    "cues": [
+      "Squat down, hands on the floor",
+      "Jump feet back, then forward",
+      "Stand and jump up"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=YNlW8jY0icQ",
+      "title": "FULL BODY BEGINNER WEEK 3 DAY 3",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 801
+    }
+  },
+  {
+    "id": "worlds-greatest-stretch",
+    "name": "World's Greatest Stretch",
+    "pattern": "warmup_mobility",
+    "category": "foundation",
+    "muscles_primary": [
+      "hips",
+      "thoracic spine"
+    ],
+    "muscles_secondary": [
+      "hamstrings",
+      "hip flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": true,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Step into a deep lunge",
+      "Elbow to the inside of your front foot",
+      "Rotate and reach to the sky"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=Xn1Wxg-asXE",
+      "title": "FULL BODY BEGINNER WEEK 1 DAY 2",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 59
+    }
+  },
+  {
+    "id": "cat-cow",
+    "name": "Cat-Cow",
+    "pattern": "warmup_mobility",
+    "category": "foundation",
+    "muscles_primary": [
+      "spine"
+    ],
+    "muscles_secondary": [
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Hands and knees",
+      "Round your back up like a cat",
+      "Drop your belly and look up"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=9JyvKCLcYoo",
+      "title": "WARM-UP ROUTINE #Dynamic Stretching",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 111
+    }
+  },
+  {
+    "id": "inchworm",
+    "name": "Inchworm",
+    "pattern": "warmup_mobility",
+    "category": "foundation",
+    "muscles_primary": [
+      "hamstrings",
+      "shoulders"
+    ],
+    "muscles_secondary": [
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": true,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Fold forward, hands to the floor",
+      "Walk hands out to a plank",
+      "Walk feet up to your hands"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=TPvAZNmzc2w",
+      "title": "How to Do an Inch Worm Exercise | Sleek/Strong With Rachel Cosgrove",
+      "creator": "LivestrongWoman",
+      "creator_url": "https://www.youtube.com/@livestrongwomen",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "band-pull-apart",
+    "name": "Band Pull-Apart",
+    "pattern": "warmup_mobility",
+    "category": "foundation",
+    "muscles_primary": [
+      "rear delts",
+      "upper back"
+    ],
+    "muscles_secondary": [
+      "rotator cuff"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": "face-pull",
+    "cues": [
+      "Hold the band at shoulder height",
+      "Pull it apart to your chest",
+      "Squeeze shoulder blades, return slow"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=BmVCfbZiNg4",
+      "title": "20 Best SHOULDER EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 175
+    }
+  },
+  {
+    "id": "hip-90-90",
+    "name": "90/90 Hip Switch",
+    "pattern": "warmup_mobility",
+    "category": "foundation",
+    "muscles_primary": [
+      "hips"
+    ],
+    "muscles_secondary": [
+      "glutes",
+      "adductors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Sit with both knees bent at 90",
+      "Rotate both knees to the other side",
+      "Stay tall as you switch"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=qq_Z7sAmVrA",
+      "title": "90/90 Hip Switch (Improve Hip Health & Mobility)",
+      "creator": "Simone Sports Performance",
+      "creator_url": "https://www.youtube.com/@SimoneSportsPerformance",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "half-kneeling-hip-flexor-stretch",
+    "name": "Half-Kneeling Hip Flexor Stretch",
+    "pattern": "stretch",
+    "category": "foundation",
+    "muscles_primary": [
+      "hip flexors"
+    ],
+    "muscles_secondary": [
+      "quads"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": true,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Kneel on one knee",
+      "Squeeze that side's glute",
+      "Shift forward slightly and hold"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=vIDzsqJiAIo",
+      "title": "Half Kneeling Hip Flexor Stretch",
+      "creator": "E3 Rehab Exercise Library",
+      "creator_url": "https://www.youtube.com/@e3rehabexerciselibrary",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "seated-hamstring-stretch",
+    "name": "Seated Hamstring Stretch",
+    "pattern": "stretch",
+    "category": "foundation",
+    "muscles_primary": [
+      "hamstrings"
+    ],
+    "muscles_secondary": [
+      "calves",
+      "lower back"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Sit tall, legs straight",
+      "Hinge forward from your hips",
+      "Reach toward your toes and hold"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=2RKe6GHf6JQ",
+      "title": "FULL BODY BEGINNER WEEK 1 Day 1",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 862
+    }
+  },
+  {
+    "id": "pigeon-stretch",
+    "name": "Pigeon Stretch",
+    "pattern": "stretch",
+    "category": "foundation",
+    "muscles_primary": [
+      "glutes",
+      "hips"
+    ],
+    "muscles_secondary": [
+      "hip flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 2,
+    "unilateral": true,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Front shin across, back leg long",
+      "Square your hips",
+      "Fold forward and breathe"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=1o7awuDGzag",
+      "title": "PIGEON STRETCH",
+      "creator": "Atomic Athlete",
+      "creator_url": "https://www.youtube.com/@atomic.athlete",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "standing-quad-stretch",
+    "name": "Standing Quad Stretch",
+    "pattern": "stretch",
+    "category": "foundation",
+    "muscles_primary": [
+      "quads"
+    ],
+    "muscles_secondary": [
+      "hip flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": true,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Hold a wall for balance",
+      "Pull your heel to your glute",
+      "Knees together, hips forward"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=pAQiIP_wyK4",
+      "title": "FULL BODY BEGINNER WEEK 1 DAY 3",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 796
+    }
+  },
+  {
+    "id": "doorway-chest-stretch",
+    "name": "Doorway Chest Stretch",
+    "pattern": "stretch",
+    "category": "foundation",
+    "muscles_primary": [
+      "chest"
+    ],
+    "muscles_secondary": [
+      "front delts"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Forearms on the door frame",
+      "Step through slowly",
+      "Hold the stretch across your chest"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=M850sCj9LHQ",
+      "title": "How to Do a Doorway Pec Stretch Exercise | 90 Degrees Abduction | MedBridge",
+      "creator": "Medbridge",
+      "creator_url": "https://www.youtube.com/@MedbridgeTeam",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "foam-roll-quads",
+    "name": "Foam Roll Quads",
+    "pattern": "foam_roll",
+    "category": "foundation",
+    "muscles_primary": [
+      "quads"
+    ],
+    "muscles_secondary": [
+      "hip flexors"
+    ],
+    "equipment": [
+      "foam_roller"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Lie face down, roller under thighs",
+      "Roll from hip to above the knee",
+      "Pause on tight spots"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=hVC8IXEv04Q",
+      "title": "Fix Tight Muscles",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 112
+    }
+  },
+  {
+    "id": "foam-roll-upper-back",
+    "name": "Foam Roll Upper Back",
+    "pattern": "foam_roll",
+    "category": "foundation",
+    "muscles_primary": [
+      "upper back",
+      "thoracic spine"
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      "foam_roller"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Roller under your upper back",
+      "Hands behind your head, hips up",
+      "Roll from mid-back to shoulders"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=hVC8IXEv04Q",
+      "title": "Fix Tight Muscles",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 61
+    }
+  },
+  {
+    "id": "foam-roll-glutes",
+    "name": "Foam Roll Glutes",
+    "pattern": "foam_roll",
+    "category": "foundation",
+    "muscles_primary": [
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hips"
+    ],
+    "equipment": [
+      "foam_roller"
+    ],
+    "level": 1,
+    "unilateral": true,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Sit on the roller",
+      "Cross one ankle over the other knee",
+      "Lean into that side and roll slowly"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=hVC8IXEv04Q",
+      "title": "Fix Tight Muscles",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 171
+    }
+  },
+  {
+    "id": "foam-roll-calves",
+    "name": "Foam Roll Calves",
+    "pattern": "foam_roll",
+    "category": "foundation",
+    "muscles_primary": [
+      "calves"
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      "foam_roller"
+    ],
+    "level": 1,
+    "unilateral": true,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Roller under your calves",
+      "Lift your hips",
+      "Roll ankle to knee, turn foot in and out"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=hVC8IXEv04Q",
+      "title": "Fix Tight Muscles",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 153
+    }
+  },
+  {
+    "id": "dumbbell-biceps-curl",
+    "name": "Dumbbell Biceps Curl",
+    "pattern": "isolation",
+    "category": "strength",
+    "muscles_primary": [
+      "biceps"
+    ],
+    "muscles_secondary": [
+      "forearms"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Elbows pinned at your sides",
+      "Curl up and squeeze",
+      "Lower all the way down slowly"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=icd9H2HsIzg",
+      "title": "The dumbbell curl is another classic bicep exercise. this exercise helps isolate your bicep muscles",
+      "creator": "Grandson",
+      "creator_url": "https://www.youtube.com/@a_k_da_don",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "cable-triceps-pushdown",
+    "name": "Cable Triceps Pushdown",
+    "pattern": "isolation",
+    "category": "strength",
+    "muscles_primary": [
+      "triceps"
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      "cable"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": "overhead-dumbbell-triceps-extension",
+    "cues": [
+      "Elbows tucked at your sides",
+      "Push down until arms are straight",
+      "Only your forearms move"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=LXkCrxn3caQ",
+      "title": "How To Do A Tricep Pushdown",
+      "creator": "PureGym",
+      "creator_url": "https://www.youtube.com/@PureGymVideo",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "overhead-dumbbell-triceps-extension",
+    "name": "Overhead Dumbbell Triceps Extension",
+    "pattern": "isolation",
+    "category": "strength",
+    "muscles_primary": [
+      "triceps"
+    ],
+    "muscles_secondary": [
+      "core"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": false,
+    "easier": "cable-triceps-pushdown",
+    "harder": null,
+    "cues": [
+      "Hold one dumbbell overhead with both hands",
+      "Lower it behind your head",
+      "Elbows point up, press back up"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=YM8iX9BJWjA",
+      "title": "Dumbbell Overhead Triceps Extension",
+      "creator": "Women's Strength Nation by Holly Perkins",
+      "creator_url": "https://www.youtube.com/@WomensStrengthNation",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "dumbbell-lateral-raise",
+    "name": "Dumbbell Lateral Raise",
+    "pattern": "isolation",
+    "category": "strength",
+    "muscles_primary": [
+      "side delts"
+    ],
+    "muscles_secondary": [
+      "traps"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Slight bend in your elbows",
+      "Raise arms out to shoulder height",
+      "Lower slowly, no swinging"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=BmVCfbZiNg4",
+      "title": "20 Best SHOULDER EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 124
+    }
+  },
+  {
+    "id": "face-pull",
+    "name": "Cable Face Pull",
+    "pattern": "isolation",
+    "category": "strength",
+    "muscles_primary": [
+      "rear delts",
+      "upper back"
+    ],
+    "muscles_secondary": [
+      "rotator cuff"
+    ],
+    "equipment": [
+      "cable"
+    ],
+    "level": 2,
+    "unilateral": false,
+    "compound": false,
+    "easier": "band-pull-apart",
+    "harder": null,
+    "cues": [
+      "Rope at face height",
+      "Pull toward your eyes, elbows high",
+      "Finish with hands beside your ears"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=BmVCfbZiNg4",
+      "title": "20 Best SHOULDER EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 169
+    }
+  },
+  {
+    "id": "standing-calf-raise",
+    "name": "Standing Calf Raise",
+    "pattern": "isolation",
+    "category": "strength",
+    "muscles_primary": [
+      "calves"
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      "bodyweight",
+      "dumbbell"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Balls of your feet on a step",
+      "Rise up as high as you can",
+      "Drop your heels for a full stretch"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=wxwY7GXxL4k",
+      "title": "Standing Dumbbell Calf Raises - Calf Exercise - Bodybuilding.com",
+      "creator": "Bodybuilding.com",
+      "creator_url": "https://www.youtube.com/@bodybuildingcom",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "seated-leg-curl",
+    "name": "Seated Leg Curl",
+    "pattern": "isolation",
+    "category": "strength",
+    "muscles_primary": [
+      "hamstrings"
+    ],
+    "muscles_secondary": [
+      "calves"
+    ],
+    "equipment": [
+      "machine"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Pad just above your heels",
+      "Curl your heels under you",
+      "Return slowly"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=0RpO-BlFpos",
+      "title": "12 BEST HAMSTRING EXERCISES ",
+      "creator": "ELITE FITNESS",
+      "creator_url": "https://www.youtube.com/@elitefitness_jr",
+      "source": "youtube",
+      "start": 53
+    }
+  },
+  {
+    "id": "leg-extension",
+    "name": "Leg Extension",
+    "pattern": "isolation",
+    "category": "strength",
+    "muscles_primary": [
+      "quads"
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      "machine"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Knee lined up with the machine pivot",
+      "Kick up until legs are straight",
+      "Lower under control"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=4ZDm5EbiFI8",
+      "title": "How To Do A Leg Extension",
+      "creator": "PureGym",
+      "creator_url": "https://www.youtube.com/@PureGymVideo",
+      "source": "youtube"
+    }
+  },
+  {
+    "id": "banded-lateral-walk",
+    "name": "Banded Lateral Walk",
+    "pattern": "isolation",
+    "category": "foundation",
+    "muscles_primary": [
+      "glutes"
+    ],
+    "muscles_secondary": [
+      "hips"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "level": 1,
+    "unilateral": false,
+    "compound": false,
+    "easier": null,
+    "harder": null,
+    "cues": [
+      "Band around knees or ankles",
+      "Half squat, chest up",
+      "Step sideways, keep tension in the band"
+    ],
+    "video": {
+      "url": "https://www.youtube.com/watch?v=M5uxEQH5BUM",
+      "title": "How to do Lateral Band Walking",
+      "creator": "National Academy of Sports Medicine (NASM)",
+      "creator_url": "https://www.youtube.com/@NasmOrgPersonalTrainer",
+      "source": "youtube"
+    }
+  }
+]
