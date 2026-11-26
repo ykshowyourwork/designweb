@@ -12,10 +12,14 @@
 // role "caller"; requireOwner still turns them away, so they only reach /api/call.
 //
 // Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, ADMIN_PASSWORD, ADMIN_EMAILS (optional).
-import { timingSafeEqual } from "node:crypto";
+import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import brand from "../brand.json" with { type: "json" };
 import { HttpError, checkAdmin, site } from "./_core.js";
 import { findCaller, saveCaller } from "./_callers.js";
+import { ctx, db } from "./_network.js";
+
+const INVITE_HOURS = 48;
+const sha = (t) => createHash("sha256").update(String(t)).digest("hex");
 
 const opts = (c = {}) => ({ fetchImpl: c.fetchImpl ?? fetch, env: c.env ?? process.env });
 
@@ -113,13 +117,16 @@ export async function sendReset(email, c, invite) {
   c = opts(c);
   const to = String(email ?? "").trim().toLowerCase();
   if (!invite && !(await whoIs(to, c))) return { ok: true };
-  const r = await gotrue("admin/generate_link", { method: "POST", body: JSON.stringify({ type: "recovery", email: to }) }, c);
-  const hash = r.data.hashed_token ?? r.data.properties?.hashed_token;
-  if (!r.ok || !hash) {
-    if (invite) throw new HttpError(502, "Couldn't make the invite link. Try again in a minute.");
-    return { ok: true };
+  let link;
+  if (invite) {
+    // Invites get our own link that lasts 48 hours (Supabase's reset codes max out at 24).
+    link = `${site()}/admin/reset?code=${encodeURIComponent(invite.token)}`;
+  } else {
+    const r = await gotrue("admin/generate_link", { method: "POST", body: JSON.stringify({ type: "recovery", email: to }) }, c);
+    const hash = r.data.hashed_token ?? r.data.properties?.hashed_token;
+    if (!r.ok || !hash) return { ok: true };
+    link = `${site()}/admin/reset?code=${encodeURIComponent(hash)}`;
   }
-  const link = `${site()}/admin/reset?code=${encodeURIComponent(hash)}`;
   const key = c.env.RESEND_API_KEY;
   if (!key) throw new HttpError(503, "Email isn't connected yet (RESEND_API_KEY).");
   const res = await c.fetchImpl("https://api.resend.com/emails", {
@@ -130,7 +137,7 @@ export async function sendReset(email, c, invite) {
       to: [to],
       subject: invite ? "You're on the DesiWeb call list" : "Set your DesiWeb password",
       text: invite
-        ? `Hi ${invite.name},\n\nJordan added you as a caller for DesiWeb. Tap this link to set your password:\n\n${link}\n\nIt works once, for about an hour. After that, sign in any time at ${site()}/admin/calls with this email and your password. If the link runs out, tap "Forgot password?" there.`
+        ? `Hi ${invite.name},\n\nJordan added you as a caller for DesiWeb. Tap this link to set your password:\n\n${link}\n\nIt works once, for 48 hours. After that, sign in any time at ${site()}/admin/calls with this email and your password. If the link runs out, tap "Forgot password?" there.`
         : `Tap this link to set your password for the DesiWeb dashboard:\n\n${link}\n\nIt works once, for about an hour. Didn't ask for this? Ignore this email.`,
     }),
   });
@@ -142,7 +149,17 @@ export async function sendReset(email, c, invite) {
 export async function setPassword(code, password, c) {
   c = opts(c);
   if (String(password ?? "").length < 8) throw new HttpError(400, "Use at least 8 characters.");
-  const v = await gotrue("verify", { method: "POST", body: JSON.stringify({ type: "recovery", token_hash: String(code ?? "") }) }, c);
+  let tokenHash = String(code ?? "");
+  if (tokenHash.startsWith("inv_")) {
+    // A caller invite: check our 48-hour code, then make a fresh one-time Supabase code and use it right away.
+    const k = (await db(ctx(c), "GET", `network_callers?invite_hash=eq.${sha(tokenHash)}&active=eq.true&select=id,email,invite_expires`))?.[0];
+    if (!k || !k.invite_expires || new Date(k.invite_expires) < new Date()) throw new HttpError(401, "That invite link was already used or is over 48 hours old. Ask Jordan to send it again.");
+    const r = await gotrue("admin/generate_link", { method: "POST", body: JSON.stringify({ type: "recovery", email: k.email }) }, c);
+    tokenHash = r.data.hashed_token ?? r.data.properties?.hashed_token;
+    if (!r.ok || !tokenHash) throw new HttpError(502, "Couldn't set that up. Try again in a minute.");
+    await db(ctx(c), "PATCH", `network_callers?id=eq.${k.id}`, { invite_hash: null, invite_expires: null });
+  }
+  const v = await gotrue("verify", { method: "POST", body: JSON.stringify({ type: "recovery", token_hash: tokenHash }) }, c);
   if (!v.ok || !v.data.access_token) throw new HttpError(401, "That link was already used or is over an hour old. Ask for a new one from the sign-in page.");
   const r = await gotrue("user", { method: "PUT", headers: { authorization: `Bearer ${v.data.access_token}` }, body: JSON.stringify({ password: String(password) }) }, c);
   const email = r.data.email ?? v.data.user?.email;
@@ -160,6 +177,8 @@ export async function inviteCaller({ name, email } = {}, c) {
   const made = await gotrue("admin/users", { method: "POST", body: JSON.stringify({ email: to, email_confirm: true }) }, c);
   // 422 = the account is already there (an earlier invite): fine, the new link resets it.
   if (!made.ok && made.status !== 422) throw new HttpError(502, "Couldn't make their sign-in. Try again in a minute.");
-  await sendReset(to, c, { name: k.name });
+  const token = `inv_${randomBytes(24).toString("hex")}`;
+  await db(ctx(c), "PATCH", `network_callers?id=eq.${k.id}`, { invite_hash: sha(token), invite_expires: new Date(Date.now() + INVITE_HOURS * 36e5).toISOString() });
+  await sendReset(to, c, { name: k.name, token });
   return k;
 }
