@@ -380,6 +380,22 @@ html.story #visit .ctas{display:none}
 html.story .dock{display:flex;position:fixed;z-index:40;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));gap:8px;padding:8px;border-radius:999px;background:rgba(23,13,31,.84);backdrop-filter:blur(16px);border:1px solid rgba(216,180,106,.25)}
 .dock a{flex:1;min-height:50px;border-radius:999px;display:grid;place-items:center;text-decoration:none;font-weight:700;font-size:15px;color:#fff;background:rgba(255,255,255,.1)}
 .dock a.main{flex:1.4;background:var(--gold);color:var(--night)}
+/* Story mode fixes (2026-11-25): every screen is a full-bleed photo and fits above the bottom bar */
+html.story .stage .frame{inset:0;border-radius:0;box-shadow:none}
+html.story .stage .fit{object-fit:cover}
+html.story .stage .fill,html.story .stage .sl{display:none}
+html.story .stage .layer::after{background:linear-gradient(180deg,rgba(23,13,31,.7) 0%,transparent 28%,transparent 62%,rgba(23,13,31,.85) 100%)}
+html.story .stage-head{top:96px;left:22px}
+html.story .stage .cap{bottom:126px;left:22px}
+html.story #services{color:#fff;justify-content:flex-end;background:linear-gradient(180deg,rgba(23,13,31,.55) 0%,rgba(23,13,31,.15) 22%,rgba(23,13,31,.94) 48%),url("/demo/cheers-entertainment/img/dance-lighting.jpg") center/cover}
+html.story #services .kicker{color:var(--gold)}
+html.story .pkg .ph,html.story .pkg.core .ph,html.story .pkg .price{display:none}
+html.story .pkg,html.story .pkg.core{background:rgba(23,13,31,.72);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);color:#fff}
+html.story .pkg li:nth-child(n+3){display:none}
+html.story #crew h2{font-size:2.3rem}
+html.story #crew .head{margin-bottom:12px}
+html.story .dj p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+html.story .owners{display:none}
 </style>
 </head>
 <body>
