@@ -2,7 +2,7 @@
 # Saves the FatSecret food-data keys into Vercel without showing them on screen or saving them anywhere else.
 # Run from Terminal:  bash "/Users/jt/Desktop/desiweb/website/scripts/set-fatsecret.sh"
 # Where to find them: https://platform.fatsecret.com/my-account/api-key, section "REST API OAuth 1.0 Credentials"
-#   Consumer Key    = the same as your Client ID (tap "Show Client ID")
+#   Consumer Key    = tap "Show Consumer Key" (NOT the Client ID)
 #   Consumer Secret = tap "Show Consumer Secret"
 cd "$(dirname "$0")/.." || exit 1
 
@@ -27,7 +27,7 @@ ask() {
 }
 
 echo "FatSecret keys for the fitness app. Typing is hidden."
-ask FATSECRET_CONSUMER_KEY    "Consumer Key (same as your Client ID)"
-ask FATSECRET_CONSUMER_SECRET "Consumer Secret (Show Consumer Secret)"
+ask FATSECRET_CONSUMER_KEY    "Consumer Key (tap Show Consumer Key, under OAuth 1.0)"
+ask FATSECRET_CONSUMER_SECRET "Consumer Secret (tap Show Consumer Secret, same section)"
 echo
 echo "Done. Tell Claude \"fatsecret keys are in\" and it will redeploy and test it."
