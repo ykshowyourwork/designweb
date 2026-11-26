@@ -553,7 +553,7 @@ function renderFood() {
       </section>
       <div class="grid2"><button class="btn primary" type="button" data-scan>Scan barcode</button><button class="btn" type="button" data-search>Search food</button></div>
       ${S.food.map((m) => `<section class="card"><div class="row between"><b>${m.meal}</b><span class="num small muted">${m.items.reduce((a, x) => a + x[1], 0)} kcal</span></div><div class="list" style="margin-top:4px">${m.items.map((x) => `<div class="item"><span class="grow"><span class="name" style="font-weight:700">${esc(x[0])}</span><br><span class="sub num">P ${x[2]} · C ${x[3]} · F ${x[4]}</span></span><span class="num small">${x[1]}</span></div>`).join("")}</div></section>`).join("")}
-      <p class="credit">Food data: Powered by fatsecret (connects when the API account is approved; these are example entries).</p>
+      <p class="credit">Example meals. Search and Scan use live food data. <a href="https://www.fatsecret.com" target="_blank" rel="noopener">Powered by fatsecret</a></p>
     </div>`;
 }
 
@@ -741,7 +741,7 @@ function sheet(html) {
   const end = () => { if (y0 === null) return; const fast = dy > 40 && dy / Math.max(1, Date.now() - t0) > 0.5; sh.style.transition = "transform .2s ease"; if (dy > 110 || fast) { sh.style.transform = "translateY(110%)"; setTimeout(closeSheet, 190); } else sh.style.transform = ""; y0 = null; };
   zone.addEventListener("pointerup", end); zone.addEventListener("pointercancel", end);
 }
-function closeSheet() { $("#layer").innerHTML = ""; }
+function closeSheet() { stopCam(); $("#layer").innerHTML = ""; }
 function exSheet(id) {
   const e = BY[id]; if (!e) return;
   const chain = []; let c = e; while (c.easier && BY[c.easier] && chain.length < 6) c = BY[c.easier]; while (c && chain.length < 7) { chain.push(c); c = c.harder ? BY[c.harder] : null; }
@@ -774,25 +774,40 @@ function saveSheet(id) {
 function playlistSheet(title, ids, sub) {
   sheet(`<h2 class="title sm">${esc(title)}</h2><p class="small muted" style="margin:4px 0 8px">${esc(sub)}</p><div class="list">${ids.map((id) => BY[id]).filter(Boolean).map(exItem).join("")}</div><button class="btn primary block" type="button" data-toast="Playlist started. Logged like any workout." style="margin-top:12px">Play as a workout</button>`);
 }
-function scanSheet() {
-  sheet(`<h2 class="title sm">Scan barcode</h2><p class="small muted" style="margin:4px 0 10px">Point the camera at the barcode. (Prototype: tap to simulate a scan.)</p>
-    <button class="scan" type="button" data-scanned style="width:100%;border:0"><span class="frame"><span class="laser"></span></span></button>
-    <p class="credit" style="margin-top:8px">Powered by fatsecret</p>`);
+// ---------- Food: FatSecret through desiweb.org/api/food (falls back to sample foods where there's no server) ----------
+const FOOD_API = /(^|\.)desiweb\.org$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) ? "/api/food" : null;
+let FOOD_LIVE = !!FOOD_API, LIVE_RESULTS = [], searchTimer = null, searchSeq = 0;
+const FS_CREDIT = `<p class="credit" style="margin-top:8px"><a href="https://www.fatsecret.com" target="_blank" rel="noopener">Powered by fatsecret</a></p>`;
+async function foodApi(params) {
+  const r = await fetch(`${FOOD_API}?${new URLSearchParams(params)}`);
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 503) { FOOD_LIVE = false; throw new Error("offline"); }
+  if (!r.ok) throw new Error(j.error || "Food lookup didn't work. Try again.");
+  return j;
 }
-function scannedSheet() { foodSheet(["Greek yogurt, vanilla, 5.3 oz", 120, 12, 14, 2], "Example scan result"); }
+const asRow = (name, s) => [name, s.kcal ?? 0, s.protein ?? 0, s.carbs ?? 0, s.fat ?? 0];
+
 let FOOD_PICK = null;
-function foodSheet(f, label = "Add food") {
-  FOOD_PICK = { f, servings: 1 };
-  const meals = ["Breakfast","Lunch","Dinner","Snack"], guess = new Date().getHours() < 11 ? 0 : new Date().getHours() < 15 ? 1 : new Date().getHours() < 20 ? 2 : 3;
+function foodSheet(f, label = "Add food", servings = null) {
+  FOOD_PICK = { f, servings: 1, name: f[0], options: servings, pick: 0 };
+  const meals = ["Breakfast","Lunch","Dinner","Snack"], h = new Date().getHours(), guess = h < 11 ? 0 : h < 15 ? 1 : h < 20 ? 2 : 3;
   sheet(`<div class="eyebrow">${esc(label)}</div><h2 class="title sm">${esc(f[0])}</h2>
+    ${servings && servings.length > 1 ? `<div class="field" style="margin-top:10px"><span>Serving size</span><div class="chips" data-pick="serving">${servings.slice(0, 6).map((s, i) => `<button type="button" class="chip ${i === 0 ? "on" : ""}" data-sv="${i}">${esc(s.serving)}</button>`).join("")}</div></div>` : servings?.[0] ? `<p class="small muted" style="margin-top:6px">Per ${esc(servings[0].serving)}</p>` : ""}
     <div class="grid3" id="food-macros" style="margin:12px 0"></div>
     <div class="field"><span>Servings</span><div class="row"><button class="btn" type="button" data-serv="-1" aria-label="Fewer servings">−</button><b class="num" id="serv" style="min-width:3ch;text-align:center;font-size:20px">1</b><button class="btn" type="button" data-serv="1" aria-label="More servings">+</button></div></div>
     <div class="field" style="margin-top:10px"><span>Add to</span><div class="chips" data-pick="meal">${meals.map((m, i) => `<button type="button" class="chip ${i === guess ? "on" : ""}">${m}</button>`).join("")}</div></div>
-    <button class="btn primary block" type="button" data-addfood style="margin-top:12px">Add to log</button>
-    <p class="credit" style="margin-top:8px">Powered by fatsecret</p>`);
+    <button class="btn primary block" type="button" data-addfood style="margin-top:12px">Add to log</button>${FS_CREDIT}`);
   drawFoodMacros();
 }
 function drawFoodMacros() { const { f, servings: s } = FOOD_PICK, r = (v) => Math.round(v * s); $("#serv").textContent = s % 1 ? s.toFixed(1) : s; $("#food-macros").innerHTML = `<div class="stat"><span class="eyebrow">kcal</span><span class="v num">${r(f[1])}</span></div><div class="stat"><span class="eyebrow">Protein</span><span class="v num">${r(f[2])} g</span></div><div class="stat"><span class="eyebrow">Carbs · Fat</span><span class="v num">${r(f[3])} · ${r(f[4])}</span></div>`; }
+async function openLiveFood(id, label) {
+  sheet(`<p class="small muted">Loading…</p>`);
+  try {
+    const d = await foodApi({ id });
+    const name = d.brand ? `${d.name} (${d.brand})` : d.name;
+    foodSheet(asRow(name, d.servings[0] || {}), label, d.servings);
+  } catch (e) { sheet(`<p class="alert">${esc(e.message === "offline" ? "Food data isn't connected yet." : e.message)}</p>${FS_CREDIT}`); }
+}
 const FOODS = [
   ["Chicken breast, grilled, 4 oz",187,35,0,4],["Chicken breast, raw, 4 oz",136,26,0,3],["Rotisserie chicken breast, 3 oz",140,25,0,4],["Chicken thigh, roasted, 3 oz",179,22,0,9],
   ["Ground beef 90% lean, cooked, 4 oz",245,30,0,13],["Salmon, baked, 4 oz",233,25,0,14],["Tuna, canned in water, 3 oz",99,22,0,1],["Shrimp, cooked, 3 oz",84,20,0,0],["Turkey breast, deli, 2 oz",60,12,2,1],
@@ -802,15 +817,75 @@ const FOODS = [
   ["Broccoli, 1 cup",31,3,6,0],["Spinach, raw, 2 cups",14,2,2,0],["Mixed salad greens, 2 cups",18,2,3,0],["Avocado, half",120,2,6,11],
   ["Peanut butter, 2 tbsp",190,8,7,16],["Almonds, 1 oz",164,6,6,14],["Olive oil, 1 tbsp",119,0,0,14],["Granola, 1/4 cup",140,3,20,5],["Protein bar",200,20,22,7],["Black beans, 1/2 cup",114,8,20,0],["Hummus, 2 tbsp",70,2,4,5]
 ];
-function foodResults(q) { q = q.trim().toLowerCase(); const words = q.split(/\s+/).filter(Boolean); const hits = FOODS.filter((f) => words.every((w) => f[0].toLowerCase().includes(w))); return hits; }
+function foodResults(q) { q = q.trim().toLowerCase(); const words = q.split(/\s+/).filter(Boolean); return FOODS.filter((f) => words.every((w) => f[0].toLowerCase().includes(w))); }
+function renderSampleResults(q) {
+  const hits = foodResults(q), box = $("#fs-results"); if (!box) return;
+  box.innerHTML = hits.length ? hits.slice(0, 12).map((f) => `<button class="item" type="button" data-food="${FOODS.indexOf(f)}"><span class="grow"><span class="name" style="font-weight:700">${esc(f[0])}</span><br><span class="sub num">P ${f[2]} · C ${f[3]} · F ${f[4]}</span></span><span class="num small">${f[1]}</span><span class="pill">Add</span></button>`).join("") : `<p class="small muted" style="padding:12px 0">No match for "${esc(q)}" in the sample list.</p>`;
+}
 function renderFoodResults() {
-  const q = $("#fs")?.value || "", hits = foodResults(q), box = $("#fs-results"); if (!box) return;
-  box.innerHTML = hits.length ? hits.slice(0, 12).map((f) => `<button class="item" type="button" data-food="${FOODS.indexOf(f)}"><span class="grow"><span class="name" style="font-weight:700">${esc(f[0])}</span><br><span class="sub num">P ${f[2]} · C ${f[3]} · F ${f[4]}</span></span><span class="num small">${f[1]}</span><span class="pill">Add</span></button>`).join("") : `<p class="small muted" style="padding:12px 0">No match for "${esc(q)}" in the sample list. With FatSecret connected, search covers over a million foods.</p>`;
+  const q = $("#fs")?.value || "", box = $("#fs-results"); if (!box) return;
+  if (!FOOD_LIVE) return renderSampleResults(q);
+  clearTimeout(searchTimer);
+  if (q.trim().length < 2) { box.innerHTML = `<p class="small muted" style="padding:12px 0">Type a food, a brand or a restaurant item.</p>`; return; }
+  box.innerHTML = `<p class="small muted" style="padding:12px 0">Searching…</p>`;
+  const seq = ++searchSeq;
+  searchTimer = setTimeout(async () => {
+    try {
+      const d = await foodApi({ q });
+      if (seq !== searchSeq) return;
+      LIVE_RESULTS = d.foods || [];
+      box.innerHTML = LIVE_RESULTS.length ? LIVE_RESULTS.map((f, i) => `<button class="item" type="button" data-lf="${i}"><span class="grow"><span class="name" style="font-weight:700">${esc(f.name)}${f.brand ? ` <span class="muted" style="font-weight:600">· ${esc(f.brand)}</span>` : ""}</span><br><span class="sub num">${f.serving ? `${esc(f.serving)} · ` : ""}P ${f.protein ?? "–"} · C ${f.carbs ?? "–"} · F ${f.fat ?? "–"}</span></span><span class="num small">${f.kcal ?? ""}</span><span class="pill">Add</span></button>`).join("") : `<p class="small muted" style="padding:12px 0">No foods found for "${esc(q)}".</p>`;
+    } catch (e) {
+      if (e.message === "offline") return renderSampleResults(q);
+      box.innerHTML = `<p class="small muted" style="padding:12px 0">${esc(e.message)}</p>`;
+    }
+  }, 300);
 }
 function searchSheet() {
-  sheet(`<h2 class="title sm">Search food</h2><label class="field" style="margin-top:10px"><span>Food name</span><input id="fs" type="search" placeholder="e.g. eggs, rice, salmon" autocomplete="off"></label><div class="list" id="fs-results" style="margin-top:8px"></div><p class="credit" style="margin-top:8px">Powered by fatsecret · sample foods until the API is connected</p>`);
+  sheet(`<h2 class="title sm">Search food</h2><label class="field" style="margin-top:10px"><span>Food name</span><input id="fs" type="search" placeholder="e.g. eggs, rice, Chobani" autocomplete="off"></label><div class="list" id="fs-results" style="margin-top:8px"></div>${FOOD_LIVE ? FS_CREDIT : `<p class="credit" style="margin-top:8px">Sample foods. Live search works in the app at desiweb.org/lab/fitness.</p>`}`);
   renderFoodResults(); setTimeout(() => $("#fs")?.focus(), 50);
 }
+
+// Barcode: phone camera (BarcodeDetector where the browser has it, ZXing otherwise) or type the numbers.
+let CAM = null;
+function stopCam() { try { CAM?.reader?.reset?.(); CAM?.stream?.getTracks().forEach((t) => t.stop()); clearInterval(CAM?.timer); } catch {} CAM = null; }
+function loadZXing() { return window.ZXing ? Promise.resolve() : new Promise((ok, no) => { const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js"; s.onload = ok; s.onerror = no; document.head.append(s); }); }
+async function lookupBarcode(code) {
+  stopCam();
+  sheet(`<p class="small muted">Looking up ${esc(code)}…</p>`);
+  try {
+    const d = await foodApi({ barcode: code });
+    if (!d.found) return sheet(`<h2 class="title sm">Not found</h2><p class="small muted" style="margin:6px 0 12px">Barcode ${esc(code)} isn't in the food database yet. Search for it by name instead.</p><button class="btn primary block" type="button" data-search>Search food</button>${FS_CREDIT}`);
+    const name = d.brand ? `${d.name} (${d.brand})` : d.name;
+    foodSheet(asRow(name, d.servings[0] || {}), "Scanned", d.servings);
+  } catch (e) { sheet(`<p class="alert">${esc(e.message === "offline" ? "Food data isn't connected yet." : e.message)}</p>${FS_CREDIT}`); }
+}
+async function scanSheet() {
+  if (!FOOD_LIVE) {
+    return sheet(`<h2 class="title sm">Scan barcode</h2><p class="small muted" style="margin:4px 0 10px">Sample mode: tap to simulate a scan. Real scanning works in the app at desiweb.org/lab/fitness.</p>
+      <button class="scan" type="button" data-scanned style="width:100%;border:0"><span class="frame"><span class="laser"></span></span></button>`);
+  }
+  sheet(`<h2 class="title sm">Scan barcode</h2><p class="small muted" style="margin:4px 0 10px">Point your camera at the barcode.</p>
+    <div class="scan" style="width:100%"><video id="cam" playsinline muted style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video><span class="frame" style="position:relative"><span class="laser"></span></span></div>
+    <p class="small muted" id="cam-msg" style="margin-top:8px"></p>
+    <div class="row" style="margin-top:8px"><label class="field" style="flex:1"><span>Or type the numbers</span><input id="bc" inputmode="numeric" placeholder="e.g. 0 12345 67890 5"></label><button class="btn primary" type="button" data-bc style="align-self:end">Look up</button></div>${FS_CREDIT}`);
+  const v = $("#cam"), msg = $("#cam-msg");
+  if (!navigator.mediaDevices?.getUserMedia) { msg.textContent = "This browser can't use the camera. Type the numbers instead."; return; }
+  try {
+    if ("BarcodeDetector" in window) {
+      const det = new BarcodeDetector({ formats: ["ean_13", "ean_8", "upc_a", "upc_e"] });
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+      CAM = { stream }; v.srcObject = stream; await v.play();
+      CAM.timer = setInterval(async () => { try { const r = await det.detect(v); if (r[0]?.rawValue) lookupBarcode(r[0].rawValue); } catch {} }, 350);
+    } else {
+      await loadZXing();
+      const reader = new ZXing.BrowserMultiFormatReader();
+      CAM = { reader };
+      reader.decodeFromVideoDevice(null, v, (res) => { if (res && CAM) lookupBarcode(res.getText()); });
+    }
+  } catch (e) { stopCam(); msg.textContent = "Camera didn't start (allow camera access, or type the numbers)."; }
+}
+function scannedSheet() { foodSheet(["Greek yogurt, vanilla, 5.3 oz", 120, 12, 14, 2], "Example scan result"); }
 function toast(t) { const d = document.createElement("div"); d.className = "toast"; d.setAttribute("role", "status"); d.textContent = t; document.body.append(d); setTimeout(() => d.remove(), 2200); }
 
 // ---------- Events ----------
@@ -838,8 +913,11 @@ document.addEventListener("click", (ev) => {
   if (d.scanned !== undefined) return scannedSheet();
   if (d.search !== undefined) return searchSheet();
   if (d.food) return foodSheet(FOODS[+d.food], "Add food");
+  if (d.lf) { const f = LIVE_RESULTS[+d.lf]; return openLiveFood(f.id, "Add food"); }
+  if (d.sv) { const o = FOOD_PICK.options[+d.sv]; FOOD_PICK.pick = +d.sv; FOOD_PICK.f = asRow(FOOD_PICK.name, o); b.parentElement.querySelectorAll(".chip").forEach((c) => c.classList.remove("on")); b.classList.add("on"); return drawFoodMacros(); }
+  if (d.bc !== undefined) { const code = ($("#bc")?.value || "").replace(/\D/g, ""); if (code.length < 8) return toast("Type all the numbers under the barcode."); return lookupBarcode(code); }
   if (d.serv) { const dir = +d.serv, cur = FOOD_PICK.servings, step = cur < 1 || (cur === 1 && dir < 0) ? 0.5 : 1; FOOD_PICK.servings = Math.max(0.5, cur + dir * step); return drawFoodMacros(); }
-  if (d.addfood !== undefined) { const m = $(".sheet [data-pick=meal] .on")?.textContent || "Snack"; const { f, servings: k } = FOOD_PICK; S.food ||= structuredClone(SAMPLE_MEALS); let meal = S.food.find((x) => x.meal === m); if (!meal) S.food.push((meal = { meal: m, items: [] })); meal.items.push([`${f[0]}${k !== 1 ? ` × ${k}` : ""}`, Math.round(f[1] * k), Math.round(f[2] * k), Math.round(f[3] * k), Math.round(f[4] * k)]); save(); closeSheet(); tab = "food"; render(); return toast(`Added to ${m}`); }
+  if (d.addfood !== undefined) { const m = $(".sheet [data-pick=meal] .on")?.textContent || "Snack"; const { f, servings: k } = FOOD_PICK; S.food ||= structuredClone(SAMPLE_MEALS); let meal = S.food.find((x) => x.meal === m); if (!meal) S.food.push((meal = { meal: m, items: [] })); meal.items.push([`${f[0]}${FOOD_PICK.options ? `, ${FOOD_PICK.options[FOOD_PICK.pick || 0]?.serving || ""}` : ""}${k !== 1 ? ` × ${k}` : ""}`, Math.round(f[1] * k), Math.round(f[2] * k), Math.round(f[3] * k), Math.round(f[4] * k)]); save(); closeSheet(); tab = "food"; render(); return toast(`Added to ${m}`); }
   if (b.closest("[data-pick]")) { b.parentElement.querySelectorAll(".chip").forEach((c) => c.classList.remove("on")); b.classList.add("on"); return; }
   // onboarding
   if (d.yn) { readOnbFields(); const [k, i, y] = d.yn.split(":"); onb[k][+i] = y === "1"; return renderOnboarding(); }
