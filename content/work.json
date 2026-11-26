@@ -1,5 +1,40 @@
 [
   {
+    "slug": "cheers-entertainment",
+    "name": "Cheers Entertainment",
+    "status": "Free mockup",
+    "url": "/demo/cheers-entertainment",
+    "image": "/work/cheers-entertainment.jpg",
+    "summary": "A free homepage we built for Cheers Entertainment, a wedding DJ and entertainment company in Van Nuys, CA, from its real photos and reviews.",
+    "industry": "Wedding Vendors",
+    "location": "Van Nuys, CA",
+    "launched": "Free mockup",
+    "services": [
+      "Website design",
+      "Story mode on phones",
+      "Google Maps setup"
+    ],
+    "client": "Cheers Entertainment is a wedding DJ and entertainment company in Van Nuys, CA with 54 Google reviews at 5.0 stars.",
+    "challenge": "Customers love it on Google, but its website didn't show that off or make it easy to book.",
+    "built": [
+      "Its real photos in a full-screen gallery that slides on its own",
+      "Story mode on phones: full-screen screens you swipe through",
+      "Call, directions and the main action on every screen",
+      "A look built from its own sign and colors, with \"The dance floor stays packed all night.\" up front"
+    ],
+    "result": "A free mockup we built to show the owner what's possible. Tap the preview to see it.",
+    "industries": [
+      "wedding-vendors"
+    ],
+    "mark": {
+      "text": "Cheers Entertainment",
+      "font": "Cormorant Garamond",
+      "weight": 700
+    },
+    "cover": "/demo/cheers-entertainment/img/first-dance.jpg",
+    "added": "2026-11-25"
+  },
+  {
     "slug": "magic-nails-spa-v2",
     "name": "Magic Nails & Spa",
     "status": "Free mockup",
